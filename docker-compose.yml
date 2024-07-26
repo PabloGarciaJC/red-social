@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  php_apache_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        user: testusr
+        uid: 1000
+    container_name: php-apache-pablogarciajc
+    ports:
+      - "8081:80"
+    volumes:
+      - "/home/pablogarciajc/www/red-social_pablogarciajc:/var/www/html"
+    command: apache2-foreground
+    networks:
+      - network_pablogarciajc
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-pablogarciajc
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: red-social_pablogarciajc
+      MYSQL_USER: pablogarciajcbd
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./mysql/sql:/docker-entrypoint-initdb.d
+      - persistent:/var/lib/mysql
+    networks:
+      - network_pablogarciajc
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-pablogarciajc
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: mysql
+    depends_on:
+      - mysql
+    networks:
+    - network_pablogarciajc
+
+networks:
+  network_pablogarciajc:
+
+volumes:
+  persistent:
