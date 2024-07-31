@@ -5,15 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        user: testusr
-        uid: 1000
     container_name: php-apache-pablogarciajc
     ports:
       - "8081:80"
     volumes:
-      - "/home/pablogarciajc/www/red-social_pablogarciajc:/var/www/html"
-    command: apache2-foreground
+      - .:/var/www/html
     networks:
       - network_pablogarciajc
 
@@ -21,23 +17,24 @@ services:
     image: mysql:latest
     container_name: mysql-pablogarciajc
     ports:
-      - "3307:3306"
+      - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: red-social_pablogarciajc
+      MYSQL_DATABASE: red_social_pablogarciajc
       MYSQL_USER: pablogarciajcbd
       MYSQL_PASSWORD: password
+      MYSQL_ROOT: root
+      MYSQL_ROOT_PASSWORD: password
     volumes:
       - ./mysql/sql:/docker-entrypoint-initdb.d
-      - persistent:/var/lib/mysql
+      - persistent:/var/lib/mysql:rw
     networks:
-      - network_pablogarciajc
+    - network_pablogarciajc
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin-pablogarciajc
     ports:
-      - "8082:80"
+      - 8082:80
     environment:
       PMA_HOST: mysql
     depends_on:

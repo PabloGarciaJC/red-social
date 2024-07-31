@@ -1,50 +1,60 @@
 FROM php:8.1.0-apache
+WORKDIR /var/www/html
 
-# Cambiar el DocumentRoot
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+# Habilitar mod_rewrite
+RUN a2enmod rewrite
 
-# Instalar dependencias del sistema
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
+# Instalar librerías y extensiones necesarias
+RUN apt-get update -y && apt-get install -y \
+    libicu-dev \
+    libmariadb-dev \
+    unzip zip \
+    zlib1g-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
     libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    libcurl4-openssl-dev \
-    zip \
-    unzip \
-    nano \
-    vim \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    git \
+    # Necesario para ejecutar Composer
+    libzip-dev
 
-# Instalar extensiones de PHP
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
-    && docker-php-ext-install curl \
-    && docker-php-ext-install dom
+# Copiar el contenido de la aplicación
+COPY . /var/www/html
 
-# Obtener la última versión de Composer
+# Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Crear el usuario del sistema para ejecutar Composer y comandos de Artisan
-ARG user=appuser
-ARG uid=1000
-RUN useradd -G www-data,root -u $uid -d /home/$user $user \
-    && mkdir -p /home/$user/.composer \
-    && chown -R $user:$user /home/$user
+# Instalar extensiones PHP
+RUN docker-php-ext-install gettext intl pdo_mysql gd
 
-# Ajustar permisos del directorio /var/www
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www
+# Configurar la extensión GD
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
 
-# Establecer el directorio de trabajo
-WORKDIR /var/www
+# Copiar y habilitar la configuración de Apache
+COPY my_apache_config.conf /etc/apache2/sites-available/my_apache_config.conf
+RUN a2ensite my_apache_config.conf
+RUN a2dissite 000-default.conf
 
-# Cambiar a usuario no root
-USER $user
+# Agregar ServerName a la configuración global de Apache
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Exponer el puerto 80
 EXPOSE 80
 
+# Instalar dependencias de Composer y ejecutar comandos Artisan
+RUN composer install --no-dev --optimize-autoloader \
+    && chown -R www-data:www-data /var/www/html \
+    && find /var/www/html/storage -type d -exec chmod 755 {} \; \
+    && find /var/www/html/storage -type f -exec chmod 644 {} \; \
+    && find /var/www/html/bootstrap/cache -type d -exec chmod 755 {} \; \
+    && find /var/www/html/bootstrap/cache -type f -exec chmod 644 {} \; \
+    && php artisan cache:clear \
+    && php artisan config:clear \
+    && php artisan config:cache \
+    && php artisan route:clear \
+    && php artisan view:clear
+
 # Comando por defecto
+ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["apache2-foreground"]
