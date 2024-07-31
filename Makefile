@@ -1,6 +1,15 @@
 # Variables para el comando docker-compose
 DOCKER_COMPOSE = docker-compose -f docker-compose.yml
 
+
+## Inicia el sistema desde cero
+.PHONY: init-app
+init-app: | up composer
+
+.PHONY: composer
+composer: ## Cambia la propiedad y ejecuta composer update
+	docker exec -it php-apache-pablogarciajc bash -c "chown -R www-data:www-data storage && chown -R www-data:www-data bootstrap/cache && composer update"
+
 # Objetivo para levantar los contenedores
 .PHONY: up
 up:
