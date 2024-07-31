@@ -7,15 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\file;
+use Illuminate\Support\Facades\File;
 
 class PublicationController extends Controller
 {
-      /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -26,7 +21,7 @@ class PublicationController extends Controller
         $comentarioPublicacion = $request->input('comentarioPublicacion');
         $imagenPublicacion = $request->file('imagenPublicacion');
 
-        // Instacio Objeto User
+        // Instancio Objeto User
         $publication = new Publication();
 
         // Seteo Objeto
@@ -35,11 +30,10 @@ class PublicationController extends Controller
 
         // Guardo Imagen en los Archivos, Seteo Objeto
         if ($imagenPublicacion) {
-
             // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Sube
             $imagenPathName = time() . $imagenPublicacion->getClientOriginalName();
 
-            //Guardo la Imagen en la carpeta del Proyecto
+            // Guardo la Imagen en la carpeta del Proyecto
             Storage::disk('publication')->put($imagenPathName, File::get($imagenPublicacion));
 
             // Seteo el Objeto con el Nombre Original del Usuario
@@ -65,7 +59,6 @@ class PublicationController extends Controller
         $conteoPublication = $publication->count();
 
         if ($conteoPublication > 0) {
-            
             $getPublicacion = $publication->first();
 
             $borraPublicacion = Publication::find($getPublicacion->id);
@@ -73,7 +66,6 @@ class PublicationController extends Controller
             $borraPublicacion->delete();
             
         } else {
-
             echo $conteoPublication;
         }
     }
@@ -83,5 +75,4 @@ class PublicationController extends Controller
         $getPublication = Publication::find($idPublication);
         return view('publication.detail', ['getPublication' => $getPublication]);
     }
- 
 }
