@@ -9,10 +9,10 @@ init-app: | up composer-update
 .PHONY: composer-update
 composer-update: ## Cambia la propiedad y ejecuta composer update
 	docker exec -it php-apache-pablogarciajc bash -c "\
-		composer update && \
+		composer update > /dev/null 2>&1 && \
 		chown -R www-data:www-data /var/www/html/storage && \
-		chown -R www-data:www-data /var/www/html/bootstrap/cache"
-	@echo "Instalacion de la app completado"
+		chown -R www-data:www-data /var/www/html/bootstrap/cache && \
+	@echo "Instalacion de la Red Social se ha completado con éxito"
 
 # Objetivo para levantar los contenedores
 .PHONY: up
