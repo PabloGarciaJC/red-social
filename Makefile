@@ -11,8 +11,8 @@ composer-update: ## Cambia la propiedad y ejecuta composer update
 	docker exec -it php-apache-pablogarciajc bash -c "\
 		composer update && \
 		chown -R www-data:www-data /var/www/html/storage && \
-		chown -R www-data:www-data /var/www/html/bootstrap/cache \
-	"
+		chown -R www-data:www-data /var/www/html/bootstrap/cache"
+	@echo "Instalacion de la app completado"
 
 # Objetivo para levantar los contenedores
 .PHONY: up
