@@ -7,7 +7,7 @@ CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 init-app: | up refresh-dependencies copy-env
 
 .PHONY: refresh-dependencies
-composer-update: ## Cambia la propiedad y ejecuta composer update
+refresh-dependencies: ## Cambia la propiedad y ejecuta composer update
 	docker exec -it php-apache-pablogarciajc bash -c "\
 		composer update > /dev/null 2>&1 && \
 		chown -R www-data:www-data /var/www/html/storage && \
