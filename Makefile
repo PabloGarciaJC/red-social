@@ -7,7 +7,7 @@ CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 init-app: | up refresh-dependencies copy-env
 
 .PHONY: refresh-dependencies
-refresh-dependencies: ## Cambia la propiedad y ejecuta composer update
+refresh-dependencies:
 	docker exec -it php-apache-pablogarciajc bash -c "\
 		composer update > /dev/null 2>&1 && \
 		chown -R www-data:www-data /var/www/html/storage && \
@@ -16,6 +16,10 @@ refresh-dependencies: ## Cambia la propiedad y ejecuta composer update
 .PHONY: copy-env
 copy-env: ## Copia .env.example a .env
 	cp .env.example .env
+
+.PHONY: content-apache
+content-apache:
+	docker exec -it php-apache-pablogarciajc bash
 
 # Objetivo para levantar los contenedores
 .PHONY: up
