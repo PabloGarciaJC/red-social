@@ -10,7 +10,7 @@ DOCKER_COMPOSE = docker-compose -f docker-compose.yml
 ## ---------------------------------------------------------
 
 .PHONY: init-app
-init-app: | copy-env up print-urls
+init-app: | copy-env set-permissions up print-urls
 
 .PHONY: copy-env
 copy-env:
@@ -18,8 +18,8 @@ copy-env:
 
 .PHONY: set-permissions
 set-permissions:
-	@chmod -R 777 ./config/.log
-	@chmod g+s ./config/.log
+	@chmod -R 777 storage
+	@chmod -R 777 bootstrap
 
 # .PHONY: refresh-dependencies
 # refresh-dependencies:
