@@ -15,7 +15,6 @@ init-app: | copy-env set-permissions create-symlink up print-urls
 copy-env:
 	@ [ ! -f .env ] && cp .env.example .env
 
-# .PHONY: set-permissions
 set-permissions:
 	@chmod -R 777 storage
 	@chmod -R 777 bootstrap
