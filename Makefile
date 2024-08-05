@@ -1,58 +1,75 @@
+## ---------------------------------------------------------
+## Comando base para docker-compose
+## ---------------------------------------------------------
+
+# DOCKER_COMPOSE = docker-compose -f ./.docker/docker-compose.yml
 DOCKER_COMPOSE = docker-compose -f docker-compose.yml
 
-CURRENT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+## ---------------------------------------------------------
+## Inicialización de la Aplicación
+## ---------------------------------------------------------
 
-## Inicia el sistema desde cero
 .PHONY: init-app
-init-app: | up refresh-dependencies copy-env
-
-.PHONY: refresh-dependencies
-refresh-dependencies:
-	docker exec -it php-apache-pablogarciajc bash -c "\
-		composer update > /dev/null 2>&1 && \
-		chown -R www-data:www-data /var/www/html/storage && \
-		chown -R www-data:www-data /var/www/html/bootstrap/cache"
+init-app: | copy-env up print-urls
 
 .PHONY: copy-env
-copy-env: ## Copia .env.example a .env
-	cp .env.example .env
+copy-env:
+	@ [ ! -f .env ] && cp .env.example .env
+
+.PHONY: set-permissions
+set-permissions:
+	@chmod -R 777 ./config/.log
+	@chmod g+s ./config/.log
+
+# .PHONY: refresh-dependencies
+# refresh-dependencies:
+# 	docker exec -it php-apache-pablogarciajc bash -c "\
+# 		composer update > /dev/null 2>&1 && \
+# 		chown -R www-data:www-data /var/www/html/storage && \
+# 		chown -R www-data:www-data /var/www/html/bootstrap/cache"
+
+.PHONY: create-symlink
+create-symlink:
+	@ [ -L .docker/.env ] || ln -s ../.env .docker/.env
+
+.PHONY: print-urls
+print-urls:
+	@echo "## Acceso a la Aplicación:   http://localhost:8081/"
+	@echo "## Acceso a PhpMyAdmin:      http://localhost:8082/"
+
+
+## ---------------------------------------------------------
+## Gestión de Contenedores
+## ---------------------------------------------------------
 
 .PHONY: content-apache
 content-apache:
 	docker exec -it php-apache-pablogarciajc bash
 
-# Objetivo para levantar los contenedores
 .PHONY: up
 up:
 	$(DOCKER_COMPOSE) up -d
 
-# Objetivo para bajar los contenedores
 .PHONY: down
 down:
 	$(DOCKER_COMPOSE) down
 
-# Objetivo para reiniciar los contenedores
 .PHONY: restart
 restart:
 	$(DOCKER_COMPOSE) restart
 
-# Objetivo para ver el estado de los contenedores
 .PHONY: ps
 ps:
 	$(DOCKER_COMPOSE) ps
 
-# Objetivo para ver los logs de los contenedores
 .PHONY: logs
 logs:
 	$(DOCKER_COMPOSE) logs
 
-# Objetivo para construir imágenes
 .PHONY: build
 build:
 	$(DOCKER_COMPOSE) build
 
-# Objetivo para detener los contenedores
 .PHONY: stop
 stop:
 	$(DOCKER_COMPOSE) stop
-
