@@ -9,7 +9,7 @@ DOCKER_COMPOSE = docker-compose -f ./.docker/docker-compose.yml
 ## ---------------------------------------------------------
 
 .PHONY: init-app
-init-app: | copy-env up print-urls
+init-app: | copy-env set-permissions up print-urls
 
 .PHONY: copy-env
 copy-env:
@@ -17,8 +17,8 @@ copy-env:
 
 # .PHONY: set-permissions
 set-permissions:
-	@chmod -R 777 ../storage
-	@chmod -R 777 ../bootstrap
+	@chmod -R 777 storage
+	@chmod -R 777 bootstrap
 
 .PHONY: create-symlink
 create-symlink:
