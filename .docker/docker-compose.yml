@@ -9,7 +9,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - .:/var/www/html
+      - ../.:/var/www/html
     networks:
       - network_pablogarciajc
 
@@ -25,7 +25,7 @@ services:
       MYSQL_ROOT: root
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      - ./mysql/sql:/docker-entrypoint-initdb.d
+      - ./database:/docker-entrypoint-initdb.d
       - persistent:/var/lib/mysql:rw
     networks:
     - network_pablogarciajc

@@ -2,24 +2,23 @@
 ## Comando base para docker-compose
 ## ---------------------------------------------------------
 
-# DOCKER_COMPOSE = docker-compose -f ./.docker/docker-compose.yml
-DOCKER_COMPOSE = docker-compose -f docker-compose.yml
+DOCKER_COMPOSE = docker-compose -f ./.docker/docker-compose.yml
 
 ## ---------------------------------------------------------
 ## Inicialización de la Aplicación
 ## ---------------------------------------------------------
 
 .PHONY: init-app
-init-app: | copy-env set-permissions up print-urls
+init-app: | copy-env up print-urls
 
 .PHONY: copy-env
 copy-env:
 	@ [ ! -f .env ] && cp .env.example .env
 
-.PHONY: set-permissions
+# .PHONY: set-permissions
 set-permissions:
-	@chmod -R 777 storage
-	@chmod -R 777 bootstrap
+	@chmod -R 777 ../storage
+	@chmod -R 777 ../bootstrap
 
 .PHONY: create-symlink
 create-symlink:
