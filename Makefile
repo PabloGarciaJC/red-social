@@ -21,13 +21,6 @@ set-permissions:
 	@chmod -R 777 storage
 	@chmod -R 777 bootstrap
 
-# .PHONY: refresh-dependencies
-# refresh-dependencies:
-# 	docker exec -it php-apache-pablogarciajc bash -c "\
-# 		composer update > /dev/null 2>&1 && \
-# 		chown -R www-data:www-data /var/www/html/storage && \
-# 		chown -R www-data:www-data /var/www/html/bootstrap/cache"
-
 .PHONY: create-symlink
 create-symlink:
 	@ [ -L .docker/.env ] || ln -s ../.env .docker/.env
