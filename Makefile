@@ -13,7 +13,7 @@ init-app: | copy-env set-permissions create-symlink up print-urls
 
 .PHONY: copy-env
 copy-env:
-	@ [ ! -f .env ] && cp .env.example .env
+	@ [ ! -f .env ] && cp .env.example .env || true
 
 set-permissions:
 	@chmod -R 777 storage
@@ -31,10 +31,6 @@ print-urls:
 ## ---------------------------------------------------------
 ## Gestión de Contenedores
 ## ---------------------------------------------------------
-
-.PHONY: content-apache
-content-apache:
-	docker exec -it php-apache-pablogarciajc bash
 
 .PHONY: up
 up:
@@ -63,3 +59,7 @@ build:
 .PHONY: stop
 stop:
 	$(DOCKER_COMPOSE) stop
+
+.PHONY: shell
+shell:
+	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_red_social  /bin/sh -c "cd /var/www/html/; exec bash -l"
