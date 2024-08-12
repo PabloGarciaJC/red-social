@@ -1,14 +1,12 @@
 
 # Aplicación Web - Red Social
 
-**Aplicación Web - Red Social** tiene como objetivo principal fortalecer mis habilidades y destrezas como profesional. Al priorizar la accesibilidad y la facilidad de uso para una amplia gama de usuarios, busco crear una experiencia en línea satisfactoria para ellos. Para lograr esto, me enfocaré en incluir funcionalidades y herramientas que fomenten la interacción y la comunicación entre los usuarios, así como en personalizar la experiencia para cada uno de ellos. Este proyecto será parte integral de mi portafolio y demostrará mi dedicación a la creación de productos intuitivos y accesibles para los usuarios.
+**Aplicación Web - Red Social** El objetivo de este proyecto propio, desarrollado con Laravel y diseñado como una red social, es priorizar la accesibilidad y la facilidad de uso para los usuarios. La plataforma se enfoca en brindar una experiencia amigable e intuitiva, permitiendo a los usuarios interactuar de manera sencilla y efectiva. Si estás interesado en trabajar juntos o tienes alguna pregunta, no dudes en contactarme. O si prefieres, envíame un mensaje a mi WhatsApp para una respuesta más rápida. Demo: https://red-social.pablogarciajc.com/
 
 </br>
 
 | ![RedSocial_1](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-red-social-img1.webp) | ![RedSocial_2](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-red-social-img2.webp) |
 |-----------|-----------|
-
-
 
 ## Funcionaliades
 
@@ -57,20 +55,13 @@ La aplicación cuenta con **diez módulos:**
 
 ## Tecnologías
 
-La aplicación web se desarrolla con Framework Laravel 8. [ver documentación](https://laravel.com/docs/8.x)
-
 **Front-end:**
 
-* Bootstrap v4.0.0: [plantilla](https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/) que mejora la apariencia y la experiencia del usuario.
-* JavaScript: lenguaje de programación que permite agregar funcionalidades dinámicas a la aplicación web.
-* JQuery: biblioteca de JavaScript que facilita la manipulación del DOM y la realización de solicitudes HTTP.
-* Axios: biblioteca de JavaScript que permite realizar solicitudes HTTP.
+* HTML | CSS | JavaScript | Axios | Jquery | Flexbox | Grid
 
 **Back-end:**
 
-* Se utiliza PHP 7.3.5 como lenguaje de programación.
-* Query Builder: es una herramienta de construcción de consultas que permite a los desarrolladores crear y ejecutar consultas SQL de manera fluida segura en la base de datos.
-* ORM: eloquent: sistema de mapeo de objetos relacionales que permite interactuar con una base de datos.
+* PHP | POO | MVC (Modelo Vista Controlador) | ORM - Eloquent
 
 **API:**
 
@@ -92,50 +83,13 @@ La aplicación web se desarrolla con Framework Laravel 8. [ver documentación](h
 
 **Requisitos:**
 
-* Descargar un servidor local, recomiendo [Wampserver64](https://www.wampserver.com/en/download-wampserver-64bits/)
+* Clonar Proyecto en GitHub.
+* Docker y Docker Compose.
+* Makefile (Opcional).
 
-**Instrucciones:**
-
-1. Descargar el proyecto de GitHub:
-
-    * Vaya al repositorio del proyecto en GitHub.
-    * Haga clic en el botón "Clone or download".
-    * Seleccione "Download ZIP" para descargar un archivo ZIP con el proyecto.
-
-2. Mover el proyecto a la carpeta de servidor WAMP:
-
-    * Abra la carpeta "www" dentro de la carpeta de instalación de WAMP en su equipo.
-    * Cree una carpeta en el escritorio llamada «portafolios».
-    * Descomprima el archivo ZIP descargado en la carpeta "www/portafolios", que previamente descargó de Github.
-    * Verifique que el nombre de la carpeta del proyecto sea «pablogarciajc_red_social».
-
-3. Iniciar WAMP:
-
-    * Haga clic en el icono de WAMP en la bandeja del sistema (es posible que deba hacer clic con el botón derecho del mouse para ver todas las opciones disponibles).
-    * Seleccione "Start All Services" para iniciar el servidor WAMP.
-
-4. Acceder a phpMyAdmin:
-
-    * Abra un navegador web y escriba "localhost/phpmyadmin" en la barra de direcciones.
-    * Ingrese su nombre de usuario y contraseña de phpMyAdmin.
-
-5. Importar la base de datos en phpMyAdmin:
-
-    * En la pestaña "Importar", haga clic en el botón "Examinar" y seleccione el archivo de la base de datos que desea importar en su equipo, el cual esta en  el archivo del proyecto llamado «database» que ha descargado de Github y tiene como nombre pablogarciajc_red_social.sql
-    * Asegúrese de que el formato de la base de datos sea compatible con phpMyAdmin y seleccione la correcta opción de formato (SQL).
-    * Haga clic en el botón "Ir" para iniciar la importación.
-
-6. Después de importar la base de datos en su proyecto, puede acceder a él mediante el siguiente proceso:
-
-    * Abra la terminal en su sistema.
-    * Diríjase a la carpeta raíz de su proyecto utilizando el comando "cd".
-    * El proyecto se encuentra en la carpeta "C:\wamp64\www\portafolios\pablogarciajc_red_social".
-    * Una vez que se encuentre en la carpeta raíz de su proyecto.
-    * Ejecute el siguiente comando para iniciar el servidor de desarrollo de Laravel: **php artisan serve**
-    * Este comando iniciará el servidor de desarrollo de Laravel en su sistema y le proporcionará una dirección URL para acceder a su proyecto. 
-    * Por ejemplo, podría ser "http://127.0.0.1:8000".
-    * Ahora debería poder acceder a su proyecto y ver la aplicación en funcionamiento.
-
+**Acceso a la Aplicación.**
+* Aplicación Web: http://localhost:8081/
+* PhpMyAdmin: http://localhost:8082/
 
 ## Contáctame para más información o preguntas
 
@@ -145,10 +99,5 @@ La aplicación web se desarrolla con Framework Laravel 8. [ver documentación](h
 | ![Facebook](https://pablogarciajc.com/wp-content/uploads/2024/04/facebook.png) | **[@pablogarciajc](https://www.facebook.com/PabloGarciaJC)** |
 | ![LinkedIn](https://pablogarciajc.com/wp-content/uploads/2024/04/linkedin.png) | **[@pablogarciajc](https://www.linkedin.com/in/pablogarciajc/)** |
 
-
 "El buen trabajo es la solución de hoy.
 Para construir el futuro del mañana"
-
-
-
-
