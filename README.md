@@ -1,7 +1,7 @@
 
 # Aplicación Web - Red Social
 
-**Aplicación Web - Red Social** El objetivo de este proyecto propio, desarrollado con Laravel y diseñado como una red social, es priorizar la accesibilidad y la facilidad de uso para los usuarios. La plataforma se enfoca en brindar una experiencia amigable e intuitiva, permitiendo a los usuarios interactuar de manera sencilla y efectiva. Si estás interesado en trabajar juntos o tienes alguna pregunta, no dudes en contactarme. O si prefieres, envíame un mensaje a mi [WhatsApp](https://api.whatsapp.com/send?phone=672354875) para una respuesta más rápida. Demo: https://red-social.pablogarciajc.com/
+**Aplicación Web - Red Social** El objetivo de este proyecto propio, desarrollado con Laravel y diseñado como una red social, es priorizar la accesibilidad y la facilidad de uso para los usuarios. La plataforma se enfoca en brindar una experiencia amigable e intuitiva, permitiendo a los usuarios interactuar de manera sencilla y efectiva. Si estás interesado en trabajar juntos o tienes alguna pregunta, no dudes en contactarme. O si prefieres, envíame un mensaje a mi [WhatsApp](https://api.whatsapp.com/send?phone=672354875) para una respuesta más rápida. Demo: [https://red-social.pablogarciajc.com/](https://red-social.pablogarciajc.com/)
 
 </br>
 
