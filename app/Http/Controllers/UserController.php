@@ -111,9 +111,9 @@ class UserController extends Controller
             $termArray['value'] = $query->alias;
             $termArray['id'] = $query->apellido;
             if ($query->fotoPerfil != '') {
-                $termArray['label'] = '<img src="http://127.0.0.1:8000/fotoPerfil/' . $query->fotoPerfil . '" width="60" class="pointer">&nbsp' .  $query->alias;
+                $termArray['label'] = '<img src="http://localhost:8081/fotoPerfil/' . $query->fotoPerfil . '" width="60" class="pointer">&nbsp' .  $query->alias;
             } else {
-                $termArray['label'] = '<img src="http://127.0.0.1:8000/assets/img/profile-img.jpg" width="60" class="pointer">&nbsp' .  $query->alias;
+                $termArray['label'] = '<img src="http://localhost:8081/assets/img/profile-img.jpg" width="60" class="pointer">&nbsp' .  $query->alias;
             }
 
             $data[] = $termArray;

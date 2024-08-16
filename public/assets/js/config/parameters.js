@@ -1,5 +1,6 @@
+var url = new URL(window.location.href);
+var baseUrl = url.origin + '/';
 
-const baseUrl = 'http://localhost/red-social_pablogarciajc/public/';
 
 
 

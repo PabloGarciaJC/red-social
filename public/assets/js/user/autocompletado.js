@@ -1,27 +1,38 @@
+$('#formBuscador').on('submit', function (event) {
+  event.preventDefault();
+});
 
 $("#search").autocomplete({
-  source: baseUrl + "search",
-  minLength: 1,
-  select: function (event, ui) {
-    // var url = "{{ route('usuarioBuscador.perfil', ['perfil' => 'temp']) }}";
-    var url = baseUrl + "usuario/" + 'temp/' + '0';
-    url = url.replace('temp', ui.item.value);
+  source: function(request, response) {
+    $.ajax({
+      url: baseUrl + "search",
+      method: "GET",
+      data: {
+        term: request.term  // El término de búsqueda enviado al backend
+      },
+      success: function(data) {
+        let results = JSON.parse(data);  // Parsear la respuesta JSON
+        response(results);  // Enviar los datos a jQuery UI para que los procese
+      },
+      error: function() {
+        console.log("Error al obtener resultados de búsqueda.");
+      }
+    });
+  },
+  minLength: 1, // Iniciar autocompletado después de 1 carácter
+  select: function(event, ui) {
+    let url = baseUrl + "usuario/" + ui.item.value + '/0';  // Redirigir al perfil seleccionado
     location.href = url;
-    // console.log(ui.item.value);
   }
-}).data('ui-autocomplete')._renderItem = function (ul, item) {
-
-  var inner_html = '<div><div class="label">' + item.label + ' ' + item.id + '</div></div>';
-  return $("<li class='ui-autocomplete-row' ></li>")
+}).data('ui-autocomplete')._renderItem = function(ul, item) {
+  let inner_html = '<div><div class="label">' + item.label + ' (' + item.id + ')</div></div>';
+  return $("<li class='ui-autocomplete-row'></li>")
     .data("item.autocomplete", item)
     .append(inner_html)
     .appendTo(ul);
-
-  // return $("<li class='ui-autocomplete-row'></li>")
-  //   .data("item.autocomplete", item)
-  //   .append(item.label)
-  //   .appendTo(ul);
 };
+
+
 
 
 
