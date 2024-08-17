@@ -52,7 +52,8 @@ class userLoginNotification
 
         $convertObjectArray = (object)$arrayListados;
         $arrayListadosJson = json_encode($convertObjectArray);
-        broadcast(new UserSessionChanged($arrayListadosJson));
+        // broadcast(new UserSessionChanged($arrayListadosJson));
+        broadcast(new UserSessionChanged($arrayListadosJson, "Pablo is login", 'success'));
         return response()->json($arrayListadosJson, 200, []);
     }
 }

@@ -38,7 +38,7 @@ class UserUpdated implements ShouldBroadcast
     {
         // Storage/logs => es donde se muestra los debug
         // \Log::debug("{$this->usuarios}");
-        \Log::debug("User Update {$this->user->nombre}");
+        // \Log::debug("User Update {$this->user->nombre}");
         return new Channel('users');
     }
 }

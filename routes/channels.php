@@ -23,3 +23,7 @@ Broadcast::channel('chat', function (User $user) {
   }
 });
 
+
+Broadcast::channel('notifications', function (User $user) {
+  return $user !== null;
+});

@@ -52,7 +52,9 @@ class userLogoutNotification
 
         $convertObjectArray = (object)$arrayListados;
         $arrayListadosJson = json_encode($convertObjectArray);
-        broadcast(new UserSessionChanged($arrayListadosJson));
+        // broadcast(new UserSessionChanged($arrayListadosJson));
+
+        broadcast(new UserSessionChanged($arrayListadosJson, "Pablo is offline", 'danger'));
         return response()->json($arrayListadosJson, 200, []);
     }
 }

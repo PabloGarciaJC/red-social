@@ -38,7 +38,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn()
     {
         // Storage/logs => es donde se muestra los debug
-        \Log::debug("{$this->user->nombre}: {$this->message}");
+        // \Log::debug("{$this->user->nombre}: {$this->message}");
         return new PresenceChannel('chat');
         // return new PresenceChannel('chat.'.$this->message->room_id);
     }

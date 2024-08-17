@@ -36,25 +36,26 @@
     @stack('styles')
 </head>
 
+<style>
+    .tes__text {
+        z-index: 999;
+        text-align: center;
+    }
+</style>
+
 <body>
     @guest
-
         @yield('content')
     @else
         <main class="py-4">
-
             @include('includes.home.nav')
             @include('includes.home.sidebar')
-
             {{-- Contenido Dinamico --}}
             @yield('dynamic-content')
-
         </main>
-
+        <div id="notification" class="alert mx-3 tes__text invisible">Test es una prueba</div>
         @include('includes.home.footer')
-
     @endguest
-
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
@@ -73,9 +74,6 @@
     <script src="{{ asset('assets/js/likes/like.js') }}"></script>
     <script src="{{ asset('assets/js/likes/dislike.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-
-
-
     @stack('scripts')
 </body>
 
