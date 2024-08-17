@@ -37,6 +37,6 @@ class UserSessionChanged implements ShouldBroadcast
     {
         // Storage/logs => es donde se muestra los debug
         \Log::debug("{$this->usuarios}");
-        return new Channel('notificationss');
+        return new Channel('notifications');
     }
 }

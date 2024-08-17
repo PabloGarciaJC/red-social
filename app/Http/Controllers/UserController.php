@@ -27,19 +27,7 @@ class UserController extends Controller
 
     public function actualizar(Request $request)
     {
-        // Validaciones
-        // $validacion = $this->validate($request, [
-        //     'fotoPerfil' => 'mimes:png,jpg|max:100',
-        //     'nombre'  => 'required',
-        //     'apellido' => 'required',
-        //     'empresa' => 'required',
-        //     'cargo' => 'required',
-        //     'pais' => 'required',
-        //     'direccion' => 'required',
-        //     'movil' => 'required',
-        //     'sobreMi' => 'required',
-        // ]);
-
+ 
         //Instacio Objeto
         $user = Auth::user();
 
