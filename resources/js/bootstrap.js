@@ -1,39 +1,33 @@
-// Importar lodash y asignar al objeto global
-import _ from 'lodash';
-window._ = _;
+// Cargar lodash en el objeto global
+window._ = require('lodash');
 
 // Intentar cargar y configurar las bibliotecas
 try {
-    // Importar Popper.js y jQuery
-    import('@popperjs/core').then(PopperModule => {
-        window.Popper = PopperModule.default;
-        
-        import('jquery').then($Module => {
-            window.$ = window.jQuery = $Module.default;
+    // Cargar Popper.js y jQuery
+    window.Popper = require('@popperjs/core');
+    window.$ = window.jQuery = require('jquery');
 
-            // Importar Bootstrap después de jQuery
-            import('bootstrap').catch(e => console.error('Error al cargar Bootstrap: ', e));
-        }).catch(e => console.error('Error al cargar jQuery: ', e));
-    }).catch(e => console.error('Error al cargar Popper.js: ', e));
+    // Cargar Bootstrap después de jQuery
+    require('bootstrap');
 } catch (e) {
     console.error('Error al cargar una de las dependencias: ', e);
 }
 
 /**
  * Cargar la biblioteca axios para realizar solicitudes HTTP
+ * al back-end de Laravel. Esta biblioteca maneja automáticamente el envío del
+ * token CSRF como un encabezado basado en el valor de la cookie "XSRF".
  */
-import axios from 'axios';
-window.axios = axios;
+window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
  * Echo expone una API expresiva para suscribirse a canales y escuchar
- * eventos que son transmitidos por Laravel.
+ * eventos que son transmitidos por Laravel. Echo y la transmisión de eventos
+ * permiten a tu equipo construir fácilmente aplicaciones web en tiempo real robustas.
  */
 import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-
-window.Pusher = Pusher;
+window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -42,7 +36,7 @@ window.Echo = new Echo({
     encrypted: true // Asegúrate de que 'encrypted' esté escrito correctamente
 });
 
-// Escuchar el canal 'notifications' para el evento 'UserSessionChanged'
+
 window.Echo.channel('notifications')
     .listen('UserSessionChanged', (e) => {
         console.log(e.type);
