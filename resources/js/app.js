@@ -1,6 +1,43 @@
 require('./bootstrap');
 
+window.Echo.channel('notifications')
+    .listen('UserSessionChanged', (e) => {
 
+          // Parsear la cadena JSON de usuarios
+          let usuarios = JSON.parse(e.usuarios);
+
+          if (usuarios) {
+            Object.keys(usuarios).forEach(key => {
+                const user = usuarios[key];
+                const devUsuarios = document.getElementById('usuarioStatus' + user.id);
+                if (devUsuarios) {
+                    if (user.conectado == 1) {
+                        devUsuarios.innerText = 'Conectado';
+                        devUsuarios.style.color = 'green';
+                    } else {
+                        devUsuarios.innerText = 'Desconectado';
+                        devUsuarios.style.color = 'red';
+                    }
+                }
+            });
+        }
+          
+      
+      // if(e){
+      //   e.usuarios.usuarios.original.forEach((user, index) => {
+      //     const devUsuarios = document.getElementById('usuarioStatus' + user.id);
+      //     if(devUsuarios){
+      //       if (user.conectado == 1) {
+      //         devUsuarios.innerText = 'Conectado';
+      //         devUsuarios.style.color = 'green';
+      //       } else {
+      //         devUsuarios.innerText = 'Desconectado';
+      //         devUsuarios.style.color = 'red';
+      //       }
+      //     }
+      //   });
+      // }
+    });
 
 // Importa el archivo CSS de Bootstrap
 // import 'bootstrap/dist/css/bootstrap.min.css';

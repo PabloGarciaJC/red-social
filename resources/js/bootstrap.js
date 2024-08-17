@@ -36,10 +36,3 @@ window.Echo = new Echo({
     encrypted: true // Asegúrate de que 'encrypted' esté escrito correctamente
 });
 
-
-window.Echo.channel('notifications')
-    .listen('UserSessionChanged', (e) => {
-        console.log(e.type);
-        console.log(e.usuarios);
-        console.log(e.messaje);
-    });

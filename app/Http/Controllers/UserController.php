@@ -83,17 +83,15 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $term = $request->get('term');
-        // Pruebo lo que me llega en el controlador
-        // http://127.0.0.1:8000/search?term=prueba2 
-        // Estando Aqui puedo Probar Consultas
-
+    
         $querys = User::where('nombre', 'LIKE', '%' . $term . '%')
             ->orWhere('alias', 'LIKE', "%$term%")
             ->orWhere('email', 'LIKE', "%$term%")
-            ->get()->except(Auth::id());
-
+            ->where('id', '!=', Auth::id())  // Excluye el usuario autenticado
+            ->get();
+    
         $data = [];
-
+    
         foreach ($querys as $query) {
             $termArray = [];
             $termArray['value'] = $query->alias;
@@ -103,11 +101,12 @@ class UserController extends Controller
             } else {
                 $termArray['label'] = '<img src="http://localhost:8081/assets/img/profile-img.jpg" width="60" class="pointer">&nbsp' .  $query->alias;
             }
-
+    
             $data[] = $termArray;
-        };
-        echo json_encode($data);
+        }
+        return response()->json($data);  // Usa response()->json para devolver una respuesta JSON
     }
+    
 
     public function buscadorPerfil($alias, $idNotificacion)
     {

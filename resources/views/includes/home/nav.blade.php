@@ -8,14 +8,28 @@
         </a>
     </div>
 
+    <style>
+        .search-bar{
+
+            position: relative
+
+        }
+        .list-unstyled {
+            position: absolute;
+            background: #fff;
+            width: 100%;
+        }
+    </style>
+
     <div class="search-bar">
         <form class="search-form d-flex align-items-center" id='formBuscador' method="POST" action="#">
             <input type="text" name="search" id="search" placeholder="Buscar en PabloSocial"
                 title="Enter search keyword">
             <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </form>
+        <ul id="search-results" class="list-unstyled mt-3"></ul>
     </div>
-
+    
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
 

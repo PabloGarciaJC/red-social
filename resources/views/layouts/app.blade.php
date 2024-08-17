@@ -36,13 +36,6 @@
     @stack('styles')
 </head>
 
-<style>
-    .tes__text {
-        z-index: 999;
-        text-align: center;
-    }
-</style>
-
 <body>
     @guest
         @yield('content')
@@ -53,7 +46,6 @@
             {{-- Contenido Dinamico --}}
             @yield('dynamic-content')
         </main>
-        <div id="notification" class="alert mx-3 tes__text invisible">Test es una prueba</div>
         @include('includes.home.footer')
     @endguest
 
