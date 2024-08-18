@@ -87,7 +87,7 @@ class UserController extends Controller
         $querys = User::where('nombre', 'LIKE', '%' . $term . '%')
             ->orWhere('alias', 'LIKE', "%$term%")
             ->orWhere('email', 'LIKE', "%$term%")
-            ->where('id', '!=', Auth::id())  // Excluye el usuario autenticado
+            ->where('id', '!=', Auth::id())
             ->get();
     
         $data = [];
@@ -97,14 +97,14 @@ class UserController extends Controller
             $termArray['value'] = $query->alias;
             $termArray['id'] = $query->apellido;
             if ($query->fotoPerfil != '') {
-                $termArray['label'] = '<img src="http://localhost:8081/fotoPerfil/' . $query->fotoPerfil . '" width="60" class="pointer">&nbsp' .  $query->alias;
+                $termArray['label'] = '<img src="' . url('fotoPerfil/' . $query->fotoPerfil) . '" width="60" class="pointer">&nbsp' .  $query->alias;
             } else {
-                $termArray['label'] = '<img src="http://localhost:8081/assets/img/profile-img.jpg" width="60" class="pointer">&nbsp' .  $query->alias;
+                $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' .  $query->alias;
             }
     
             $data[] = $termArray;
         }
-        return response()->json($data);  // Usa response()->json para devolver una respuesta JSON
+        return response()->json($data);
     }
     
 

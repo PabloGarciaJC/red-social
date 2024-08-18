@@ -2,23 +2,18 @@
 
 namespace App\Notifications;
 
-use App\Models\Follower;
 use Illuminate\Bus\Queueable;
-// use Illuminate\Contracts\Broadcasting\ShouldBroadcast; /* Clase para Trasmitir en Vivo */
-// use Illuminate\Notifications\Messages\BroadcastMessage; /* Objeto para Trasmitir en Vivo */
-use App\Events\AgregarAmigosNotificacion;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class AgregarAmigoNotification extends Notification 
+class AgregarAmigoNotification extends Notification
 {
     use Queueable;
 
-    // protected $followers;
     public $objetoFollowerRecibir;
     public $objetoUserLoginEnviar;
-    
+
     /**
      * Create a new notification instance.
      *
@@ -38,7 +33,7 @@ class AgregarAmigoNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -55,13 +50,12 @@ class AgregarAmigoNotification extends Notification
             ->line('Thank you for using our application!');
     }
 
-    // /**
-    //  * Get the array representation of the notification.
-    //  *
-    //  * @param  mixed  $notifiable
-    //  * @return array
-    //  */
-
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function toArray($notifiable)
     {
         return [
@@ -70,9 +64,24 @@ class AgregarAmigoNotification extends Notification
             'alias' => $this->objetoUserLoginEnviar->alias,
             'fotoPerfil' => $this->objetoUserLoginEnviar->fotoPerfil,
             'created_at' => $this->objetoUserLoginEnviar->created_at,
-            'mensaje' => 'Te Envio una Solicitud de Amistad',
+            'mensaje' => 'Te envió una solicitud de amistad',
         ];
-
     }
 
+    /**
+     * Get the broadcastable representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\BroadcastMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'idFollowerRecibir' => $this->objetoFollowerRecibir->id,
+            'idUserLoginEnviar' => $this->objetoUserLoginEnviar->id,
+            'alias' => $this->objetoUserLoginEnviar->alias,
+            'fotoPerfil' => $this->objetoUserLoginEnviar->fotoPerfil,
+            'mensaje' => 'Te envió una solicitud de amistad',
+        ]);
+    }
 }

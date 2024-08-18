@@ -41,9 +41,7 @@ class UserSessionChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // Storage/logs => es donde se muestra los debug
-        // \Log::debug("{$this->usuarios}");
-        \Log::debug("{$this->messaje}");
+        // \Log::debug("{$this->messaje}");
         return new Channel('notifications');
     }
 }

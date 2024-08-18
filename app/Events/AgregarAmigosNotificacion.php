@@ -4,8 +4,6 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -15,7 +13,6 @@ class AgregarAmigosNotificacion implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $objetoFollower;
-    // public $camposFollower;
 
     /**
      * Create a new event instance.
@@ -25,7 +22,6 @@ class AgregarAmigosNotificacion implements ShouldBroadcast
     public function __construct($objetoFollower)
     {
         $this->objetoFollower = $objetoFollower;
-        // $this->camposFollower = $camposFollower;
     }
 
     /**
@@ -36,5 +32,18 @@ class AgregarAmigosNotificacion implements ShouldBroadcast
     public function broadcastOn()
     {
         return new Channel('agregarAmigos');
+    }
+
+    /**
+     * Get the broadcastable representation of the event.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'idFollower' => $this->objetoFollower->id,
+            'alias' => $this->objetoFollower->alias,
+        ];
     }
 }
