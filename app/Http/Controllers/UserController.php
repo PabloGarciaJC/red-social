@@ -83,15 +83,18 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $term = $request->get('term');
-    
-        $querys = User::where('nombre', 'LIKE', '%' . $term . '%')
-            ->orWhere('alias', 'LIKE', "%$term%")
-            ->orWhere('email', 'LIKE', "%$term%")
-            ->where('id', '!=', Auth::id())
+        
+        $querys = User::where(function ($query) use ($term) {
+                $query->where('nombre', 'LIKE', '%' . $term . '%')
+                      ->orWhere('alias', 'LIKE', "%$term%")
+                      ->orWhere('email', 'LIKE', "%$term%");
+            })
+            ->where('id', '!=', Auth::id()) // Asegura que el usuario logueado no se incluya
+            ->distinct() // Elimina duplicados en los resultados
             ->get();
-    
+        
         $data = [];
-    
+        
         foreach ($querys as $query) {
             $termArray = [];
             $termArray['value'] = $query->alias;
@@ -101,23 +104,15 @@ class UserController extends Controller
             } else {
                 $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' .  $query->alias;
             }
-    
+        
             $data[] = $termArray;
         }
         return response()->json($data);
     }
     
-
-    public function buscadorPerfil($alias, $idNotificacion)
+    public function detallesPerfil($alias)
     {
         $showUser = User::where('alias', '=', $alias)->get();
-
-        foreach ($showUser as $showUserReceived) {
-
-            $friendRequestSend = Follower::where('user_id', '=', Auth::user()->id)->where('seguido', '=', $showUserReceived->id)->where('aprobada', '=', 1)->count();
-            $friendRequestReceived = Follower::where('user_id', '=', $showUserReceived->id)->where('seguido', '=', Auth::user()->id)->where('aprobada', '=', 1)->count();
-        }
-
-        return view('user.detail', ['usuario' => $showUser, 'friendRequestSend' => $friendRequestSend, 'friendRequestReceived' => $friendRequestReceived, 'idNotificacion' => $idNotificacion]);
+        return view('user.detail', ['usuario' => $showUser]);
     }
 }

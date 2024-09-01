@@ -4,84 +4,93 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class AgregarAmigoNotification extends Notification
 {
-    use Queueable;
+    use Queueable; // Permite que la notificación sea manejada en la cola si se configura así
 
-    public $objetoFollowerRecibir;
-    public $objetoUserLoginEnviar;
+    // Propiedades que almacenan los datos necesarios para la notificación
+    protected $userLogin;
+    protected $addFriend;
+    protected $messaje;
 
     /**
-     * Create a new notification instance.
+     * Crear una nueva instancia de notificación.
      *
+     * @param  mixed  $userLogin  El usuario que está enviando la solicitud de amistad
+     * @param  string  $mensaje  El mensaje de la notificación
      * @return void
      */
-    public function __construct($objetoFollowerRecibir, $objetoUserLoginEnviar)
+    public function __construct($userLogin, $addFriend, $messaje)
     {
-        $this->objetoFollowerRecibir = $objetoFollowerRecibir;
-        $this->objetoUserLoginEnviar = $objetoUserLoginEnviar;
+        $this->userLogin = $userLogin;
+        $this->addFriend = $addFriend;
+        $this->messaje = $messaje;
     }
 
     /**
-     * Get the notification's delivery channels.
+     * Determinar los canales de notificación que deberían ser utilizados.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed  $notifiable  El modelo que recibe la notificación
      * @return array
      */
     public function via($notifiable)
     {
+        // Define los canales a través de los cuales se enviará la notificación
+        // 'database' almacena la notificación en la base de datos
+        // 'broadcast' emite la notificación en tiempo real
         return ['database', 'broadcast'];
     }
 
     /**
-     * Get the mail representation of the notification.
+     * Obtener la representación de la notificación como un mensaje de correo.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed  $notifiable  El modelo que recibe la notificación
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
+        // Crea un mensaje de correo que será enviado al usuario
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->action('Ver solicitud', url('/')) // Acción para ver la solicitud
+            ->line('Gracias por usar nuestra aplicación!'); // Línea de agradecimiento
     }
 
     /**
-     * Get the array representation of the notification.
+     * Obtener el arreglo de datos que deberían ser almacenados en la base de datos.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed  $notifiable  El modelo que recibe la notificación
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
+
+        // Devuelve un arreglo con los datos que se almacenarán en la base de datos
         return [
-            'idFollowerRecibir' => $this->objetoFollowerRecibir->id,
-            'idUserLoginEnviar' => $this->objetoUserLoginEnviar->id,
-            'alias' => $this->objetoUserLoginEnviar->alias,
-            'fotoPerfil' => $this->objetoUserLoginEnviar->fotoPerfil,
-            'created_at' => $this->objetoUserLoginEnviar->created_at,
-            'mensaje' => 'Te envió una solicitud de amistad',
+            'user_id' => $this->userLogin->id,
+            'alias' => $this->userLogin->alias,
+            'fotoPerfil' => $this->userLogin->fotoPerfil,
+            'addFriend' => $this->addFriend,
+            'messaje' => $this->messaje
         ];
     }
 
     /**
-     * Get the broadcastable representation of the notification.
+     * Convertir la notificación a un arreglo para almacenamiento en la base de datos.
      *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\BroadcastMessage
+     * @param  mixed  $notifiable  El modelo que recibe la notificación
+     * @return array
      */
-    public function toBroadcast($notifiable)
+    public function toArray($notifiable)
     {
-        return new BroadcastMessage([
-            'idFollowerRecibir' => $this->objetoFollowerRecibir->id,
-            'idUserLoginEnviar' => $this->objetoUserLoginEnviar->id,
-            'alias' => $this->objetoUserLoginEnviar->alias,
-            'fotoPerfil' => $this->objetoUserLoginEnviar->fotoPerfil,
-            'mensaje' => 'Te envió una solicitud de amistad',
-        ]);
+        // Devuelve un arreglo con los datos necesarios para la notificación en la base de datos
+        return [
+            'user_id' => $this->userLogin->id,
+            'alias' => $this->userLogin->alias,
+            'fotoPerfil' => $this->userLogin->fotoPerfil,
+            'addFriend' => $this->addFriend,
+            'messaje' => $this->messaje
+        ];
     }
 }

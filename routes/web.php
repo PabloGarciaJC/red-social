@@ -23,12 +23,14 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/perfil', 'UserController@perfil')->name('perfil');
 Route::post('/actualizar', 'UserController@actualizar')->name('actualizar');
 Route::get('/fotoPerfil/{filename}', 'UserController@getImage')->name('foto.perfil');
-Route::get('/usuario/{perfil}/{idNotificacion?}', 'UserController@buscadorPerfil')->name('usuarioBuscador.perfil');
+Route::get('/usuario/{perfil}/', 'UserController@detallesPerfil')->name('detalles.perfil');
 Route::get('/search', 'UserController@search')->name('search');
 
 // FOLLOWERS
-Route::get('/agregarContacto', 'FollowersController@agregarContacto')->name('agregarContacto');
+Route::post('/enviar-solicitud', 'FollowersController@enviarSolicitud')->name('enviarSolicitud');
 Route::get('/cancelarContacto', 'FollowersController@cancelarContacto')->name('cancelarContacto');
+Route::get('/aceptarContacto', 'FollowersController@aceptarContacto')->name('aceptarContacto');
+
 
 // COMMENTS
 Route::post('/comentarioSave', 'CommentController@save')->name('comentarioSave');
@@ -41,8 +43,12 @@ Route::get('/publicationDelete/{publicationId}', 'PublicationController@delete')
 Route::get('/detalle/{publicationId}', 'PublicationController@detail')->name('publicationDetail');
 
 // LIKE
+// Route::get('/like/{publicationId}', 'LikeController@like')->name('likeSave');
+// Route::get('/dislike/{publicationId}', 'LikeController@dislike')->name('likeSave');
+
 Route::get('/like/{publicationId}', 'LikeController@like')->name('likeSave');
-Route::get('/dislike/{publicationId}', 'LikeController@dislike')->name('likeSave');
+Route::get('/dislike/{publicationId}', 'LikeController@dislike')->name('dislikeSave');
+
 
 // CHAT
 Route::post('chat/message', 'ChatController@messageReceived')->name('chat.mesaage');

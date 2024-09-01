@@ -2,26 +2,32 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class AgregarAmigosNotificacion implements ShouldBroadcast
+class  BroadcastNotification implements ShouldBroadcast
+
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $objetoFollower;
+    // public $objetoFollowerRecibir;
+    public $userEmisor;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($objetoFollower)
+
+    public function __construct($userEmisor)
     {
-        $this->objetoFollower = $objetoFollower;
+        $this->userEmisor = $userEmisor;
     }
 
     /**
@@ -31,19 +37,14 @@ class AgregarAmigosNotificacion implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('agregarAmigos');
+        // \Log::debug("{$this->objetoFollowerRecibir}");
+        // \Log::debug("{$this->userEmisor}");
+        return new Channel('broadcastNotification-channel');
     }
 
-    /**
-     * Get the broadcastable representation of the event.
-     *
-     * @return array
-     */
-    public function broadcastWith()
+
+    public function broadcastAs()
     {
-        return [
-            'idFollower' => $this->objetoFollower->id,
-            'alias' => $this->objetoFollower->alias,
-        ];
+        return new Channel('broadcastNotification-event');
     }
 }
