@@ -34,7 +34,7 @@ class userLoginNotification
         $usuario->conectado = 1;
         $usuario->save();
         $arrayListados = array();
-        $allFollowers = Follower::where('user_id', $event->user->id)->where('aprobada', '=', 1)->get();
+        $allFollowers = Follower::where('user_id', $event->user->id)->where('estatus', '=', 1)->get();
         foreach ($allFollowers as $followers) {
             $user = $followers->user;
             array_push($arrayListados, $user);

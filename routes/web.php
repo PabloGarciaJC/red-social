@@ -28,9 +28,8 @@ Route::get('/search', 'UserController@search')->name('search');
 
 // FOLLOWERS
 Route::post('/enviar-solicitud', 'FollowersController@enviarSolicitud')->name('enviarSolicitud');
-Route::get('/cancelarContacto', 'FollowersController@cancelarContacto')->name('cancelarContacto');
+Route::post('/cancelarContacto', 'FollowersController@cancelarContacto')->name('cancelarContacto');
 Route::get('/aceptarContacto', 'FollowersController@aceptarContacto')->name('aceptarContacto');
-
 
 // COMMENTS
 Route::post('/comentarioSave', 'CommentController@save')->name('comentarioSave');

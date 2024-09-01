@@ -26,7 +26,7 @@ $('#search').on('input', function () {
           data.forEach(function (element) {
             // Crear un enlace para cada usuario
             var listItem = $('<a>')
-              .attr('href', baseUrl + "usuario/" + element.value)
+              .attr('href', baseUrl + "usuario/" + element.value + "?" + "addFriend=" + element.estatus)
               .addClass('list-group-item');
             // Construir el contenido del enlace
             var content = '';

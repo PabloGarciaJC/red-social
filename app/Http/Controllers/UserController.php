@@ -83,32 +83,43 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $term = $request->get('term');
-        
-        $querys = User::where(function ($query) use ($term) {
-                $query->where('nombre', 'LIKE', '%' . $term . '%')
-                      ->orWhere('alias', 'LIKE', "%$term%")
-                      ->orWhere('email', 'LIKE', "%$term%");
+        $currentUserId = Auth::id();
+    
+        // Realizar la consulta usando el constructor de consultas
+        $query = DB::table('users')
+            ->leftJoin('followers', 'users.id', '=', 'followers.seguido')
+            ->where(function ($query) use ($term) {
+                $query->where('users.nombre', 'LIKE', '%' . $term . '%')
+                      ->orWhere('users.alias', 'LIKE', "%$term%")
+                      ->orWhere('users.email', 'LIKE', "%$term%");
             })
-            ->where('id', '!=', Auth::id()) // Asegura que el usuario logueado no se incluya
+            ->where('users.id', '!=', $currentUserId) // Excluir el usuario logueado
             ->distinct() // Elimina duplicados en los resultados
+            ->select('users.*', 'followers.estatus')
             ->get();
-        
+    
         $data = [];
         
-        foreach ($querys as $query) {
+        foreach ($query as $user) {
             $termArray = [];
-            $termArray['value'] = $query->alias;
-            $termArray['id'] = $query->apellido;
-            if ($query->fotoPerfil != '') {
-                $termArray['label'] = '<img src="' . url('fotoPerfil/' . $query->fotoPerfil) . '" width="60" class="pointer">&nbsp' .  $query->alias;
+            $termArray['value'] = $user->alias;
+            $termArray['id'] = $user->apellido;
+            $termArray['estatus'] =  !empty($user->estatus) ? $user->estatus : 0;
+            // Manejar la imagen de perfil
+            if ($user->fotoPerfil != '') {
+                $termArray['label'] = '<img src="' . url('fotoPerfil/' . $user->fotoPerfil) . '" width="60" class="pointer">&nbsp' . $user->alias;
             } else {
-                $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' .  $query->alias;
+                $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' . $user->alias;
             }
         
             $data[] = $termArray;
         }
+        
         return response()->json($data);
     }
+    
+    
+    
     
     public function detallesPerfil($alias)
     {

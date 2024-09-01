@@ -44,7 +44,7 @@ class FollowersController extends Controller
         // Show Users for Auth
         $allFollower = Follower::select('followers.*')
             ->Where('seguido', '=', $request)
-            ->where('aprobada', '=', 1)
+            ->where('estatus', '=', 1)
             ->get();
 
         foreach ($allFollower as $followers) {
@@ -56,7 +56,7 @@ class FollowersController extends Controller
         // Show Users for Followers
         $allSeguidos = Follower::select('followers.*')
             ->Where('user_id', '=', $request)
-            ->where('aprobada', '=', 1)
+            ->where('estatus', '=', 1)
             ->get();
 
         foreach ($allSeguidos as $seguidos) {

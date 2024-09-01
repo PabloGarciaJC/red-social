@@ -19,49 +19,44 @@
                             @endforeach
                             <div class="container">
                                 <div class="row justify-content-md-center">
-                
                                     <div class="col-md-auto">
                                         @php
                                         $solicitudEnviada = '';  
-                                    @endphp
+                                        @endphp
                                     
-                                    @switch(request()->query('solicitud-enviada'))
-                                        @case('1')
-                                            @php
-                                                $actionUrl = route('aceptarContacto');
-                                                $solicitudEnviada = 1;
-                                            @endphp
-                                            @break
-                                        @case('0')
-                                        @default
-                                            @php
-                                                $actionUrl = route('enviarSolicitud');
-                                            @endphp
-                                            @break
-                                    @endswitch
+                                        @switch(request()->query('addFriend'))
+                                            @case('1')
+                                                @php
+                                                    $actionUrl = route('cancelarContacto');
+                                                    $solicitudEnviada = 1;
+                                                @endphp
+                                                @break
+                                            @case('0')
+                                            @default
+                                                @php
+                                                    $actionUrl = route('enviarSolicitud');
+                                                @endphp
+                                                @break
+                                        @endswitch
                                     
-                                    <form action="{{ $actionUrl }}" method="POST">
-                                        @csrf
-                                        @foreach ($usuario as $userReceptor)
-                                            <input type="hidden" id="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
-                                        @endforeach
-                                        @if ($solicitudEnviada != 1)
-                                            <button type="submit" class="btn btn-success">
-                                                Agregar Contacto
-                                            </button>
-                                        @endif
-                                        @if ($solicitudEnviada == 1)
-                                            <input type="hidden" name="accion" value="cancelar">
-                                            <button type="submit" class="btn btn-danger">
-                                                Cancelar Solicitud
-                                            </button>
-                                        @endif
-                                    </form>
-                                    
-                                    
-
+                                        <form action="{{ $actionUrl }}" method="POST">
+                                            @csrf
+                                            @foreach ($usuario as $userReceptor)
+                                                <input type="hidden" id="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
+                                            @endforeach
+                                            @if ($solicitudEnviada != 1)
+                                                <button type="submit" class="btn btn-success">
+                                                    Agregar Contacto
+                                                </button>
+                                            @endif
+                                            @if ($solicitudEnviada == 1)
+                                                <input type="hidden" name="accion" value="cancelar">
+                                                <button type="submit" class="btn btn-danger">
+                                                    Cancelar Solicitud
+                                                </button>
+                                            @endif
+                                        </form>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -75,28 +70,29 @@
                                 <li class="nav-item">
                                     <button class="nav-link {{ session('message') || $errors->any() ? '' : 'active' }}"
                                         data-bs-toggle="tab" data-bs-target="#perfil">
-                                        Perfil</button>
+                                        Perfil
+                                    </button>
                                 </li>
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#chat">
-                                        Chat</button>
+                                        Chat
+                                    </button>
                                 </li>
                             </ul>
 
                             <div class="tab-content pt-2">
-
                                 {{-- Mensaje de Notificacion --}}
                                 {{-- <div id="mensajeNotification"></div> --}}
 
                                 @if (session('success'))
                                     <div class="alert alert-success text-center" role="alert">
-                                    {{ session('success') }}
+                                        {{ session('success') }}
                                     </div>
                                 @endif
 
                                 @if (session('error'))
                                     <div class="alert alert-danger text-center" role="alert">
-                                    {{ session('error') }}
+                                        {{ session('error') }}
                                     </div>
                                 @endif
 
@@ -112,13 +108,13 @@
                                     @endforeach
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label ">Nombre</div>
+                                        <div class="col-lg-3 col-md-4 label">Nombre</div>
                                         @foreach ($usuario as $user)
                                             <div class="col-lg-9 col-md-8">{{ $user->nombre }}</div>
                                         @endforeach
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label ">Apellido</div>
+                                        <div class="col-lg-3 col-md-4 label">Apellido</div>
                                         @foreach ($usuario as $user)
                                             <div class="col-lg-9 col-md-8">{{ $user->apellido }}</div>
                                         @endforeach
@@ -160,7 +156,6 @@
                                         @endforeach
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -168,5 +163,4 @@
             </div>
         </section>
     </main>
-    @endpush
 @endsection
