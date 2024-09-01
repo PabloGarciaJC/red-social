@@ -21,14 +21,14 @@
                                 <div class="row justify-content-md-center">
                                     <div class="col-md-auto">
                                         @php
-                                        $solicitudEnviada = '';  
+                                        $status = '';  
                                         @endphp
                                     
-                                        @switch(request()->query('addFriend'))
-                                            @case('1')
+                                        @switch(request()->query('estado'))
+                                            @case('pendiente')
                                                 @php
                                                     $actionUrl = route('cancelarContacto');
-                                                    $solicitudEnviada = 1;
+                                                    $status = 'pendiente';
                                                 @endphp
                                                 @break
                                             @case('0')
@@ -44,12 +44,11 @@
                                             @foreach ($usuario as $userReceptor)
                                                 <input type="hidden" id="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
                                             @endforeach
-                                            @if ($solicitudEnviada != 1)
+                                            @if ($status != 'pendiente')
                                                 <button type="submit" class="btn btn-success">
                                                     Agregar Contacto
                                                 </button>
-                                            @endif
-                                            @if ($solicitudEnviada == 1)
+                                            @else
                                                 <input type="hidden" name="accion" value="cancelar">
                                                 <button type="submit" class="btn btn-danger">
                                                     Cancelar Solicitud

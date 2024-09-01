@@ -19,7 +19,7 @@ class CreateFollowersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('notification_id')->nullable();
             $table->integer('seguido');
-            $table->string('estado')->default('pendiente');
+            $table->string('status')->default('pendiente');
             $table->boolean('estatus')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

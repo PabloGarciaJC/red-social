@@ -88,33 +88,30 @@ class UserController extends Controller
         // Realizar la consulta usando el constructor de consultas
         $query = DB::table('users')
             ->leftJoin('followers', 'users.id', '=', 'followers.seguido')
-            ->where(function ($query) use ($term) {
-                $query->where('users.nombre', 'LIKE', '%' . $term . '%')
-                      ->orWhere('users.alias', 'LIKE', "%$term%")
-                      ->orWhere('users.email', 'LIKE', "%$term%");
-            })
+            ->where('users.alias', 'LIKE', "%$term%") // Buscar solo por alias
             ->where('users.id', '!=', $currentUserId) // Excluir el usuario logueado
             ->distinct() // Elimina duplicados en los resultados
-            ->select('users.*', 'followers.estatus')
+            ->select('users.*', 'followers.estado')
             ->get();
     
         $data = [];
-        
+    
         foreach ($query as $user) {
             $termArray = [];
             $termArray['value'] = $user->alias;
-            $termArray['id'] = $user->apellido;
-            $termArray['estatus'] =  !empty($user->estatus) ? $user->estatus : 0;
+            $termArray['id'] = $user->apellido; // Verifica si este campo es necesario
+            $termArray['estado'] = !empty($user->estado) ? $user->estado : 'desconocido';
+            
             // Manejar la imagen de perfil
             if ($user->fotoPerfil != '') {
                 $termArray['label'] = '<img src="' . url('fotoPerfil/' . $user->fotoPerfil) . '" width="60" class="pointer">&nbsp' . $user->alias;
             } else {
                 $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' . $user->alias;
             }
-        
+    
             $data[] = $termArray;
         }
-        
+    
         return response()->json($data);
     }
     

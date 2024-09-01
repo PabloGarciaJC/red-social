@@ -4,14 +4,15 @@ $('#formBuscador').on('submit', function (event) {
 
 // Manejar el evento 'input' en el campo de búsqueda
 $('#search').on('input', function () {
+
   // Obtener el valor actual del campo
-  var searchText = $(this).val();
+  var searchText = $(this).val().trim(); // Limpiar espacios al principio y al final
 
   // Limpiar los resultados anteriores
   $('#search-results').empty();
 
   // Verificar que el término de búsqueda no esté vacío
-  if (searchText.trim() !== "") {
+  if (searchText.length >= 4) {
     $.ajax({
       url: baseUrl + "search",
       method: "GET",
@@ -22,22 +23,39 @@ $('#search').on('input', function () {
       success: function (data) {
         // Asegúrate de que 'data' tiene la estructura esperada
         if (Array.isArray(data)) {
+          var seenUsers = {};  // Objeto para rastrear usuarios ya agregados
+          var resultsFound = false; // Variable para verificar si se encontraron resultados
+
           // Iterar sobre los resultados y agregarlos a la lista
           data.forEach(function (element) {
-            // Crear un enlace para cada usuario
-            var listItem = $('<a>')
-              .attr('href', baseUrl + "usuario/" + element.value + "?" + "addFriend=" + element.estatus)
-              .addClass('list-group-item');
-            // Construir el contenido del enlace
-            var content = '';
-            if (element.label) {
-              content += element.label;
-            }
-            listItem.html(content);
+            // Verifica si el usuario ya ha sido agregado
+            if (!seenUsers[element.value]) {
+              seenUsers[element.value] = true;  // Marca el usuario como visto
 
-            // Añadir el enlace al contenedor de resultados
-            $('#search-results').append(listItem);
+              // Crear un enlace para cada usuario
+              var listItem = $('<a>')
+                .attr('href', baseUrl + "usuario/" + element.value + "?" + "estado=" + element.estado)
+                .addClass('list-group-item');
+
+              // Construir el contenido del enlace
+              var content = '';
+              if (element.label) {
+                content += element.label;
+              }
+              listItem.html(content);
+
+              // Añadir el enlace al contenedor de resultados
+              $('#search-results').append(listItem);
+
+              // Indicar que se encontraron resultados
+              resultsFound = true;
+            }
           });
+
+          // Si no se encontraron resultados, mostrar un mensaje
+          if (!resultsFound) {
+            $('#search-results').html('<p>No se encontraron resultados.</p>');
+          }
         } else {
           console.log("La respuesta no es un array.");
         }
@@ -51,20 +69,3 @@ $('#search').on('input', function () {
     console.log("El campo de búsqueda está vacío.");
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
