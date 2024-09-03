@@ -27,9 +27,13 @@ Route::get('/usuario/{perfil}/', 'UserController@detallesPerfil')->name('detalle
 Route::get('/search', 'UserController@search')->name('search');
 
 // FOLLOWERS
-Route::post('/enviar-solicitud', 'FollowersController@enviarSolicitud')->name('enviarSolicitud');
-Route::post('/cancelarContacto', 'FollowersController@cancelarContacto')->name('cancelarContacto');
-Route::get('/aceptarContacto', 'FollowersController@aceptarContacto')->name('aceptarContacto');
+Route::post('/enviar', 'FollowersController@enviar')->name('enviar');
+Route::post('/cancelar', 'FollowersController@cancelar')->name('cancelar');
+Route::post('/confirmar', 'FollowersController@enviar')->name('confirmar');
+Route::post('/denegar', 'FollowersController@cancelar')->name('denegar');
+
+
+// Route::get('/aceptarContacto', 'FollowersController@aceptarContacto')->name('aceptarContacto');
 
 // COMMENTS
 Route::post('/comentarioSave', 'CommentController@save')->name('comentarioSave');

@@ -27,14 +27,14 @@
                                         @switch(request()->query('estado'))
                                             @case('pendiente')
                                                 @php
-                                                    $actionUrl = route('cancelarContacto');
+                                                    $actionUrl = route('cancelar');
                                                     $status = 'pendiente';
                                                 @endphp
                                                 @break
                                             @case('0')
                                             @default
                                                 @php
-                                                    $actionUrl = route('enviarSolicitud');
+                                                    $actionUrl = route('enviar');
                                                 @endphp
                                                 @break
                                         @endswitch
@@ -82,13 +82,11 @@
                             <div class="tab-content pt-2">
                                 {{-- Mensaje de Notificacion --}}
                                 {{-- <div id="mensajeNotification"></div> --}}
-
                                 @if (session('success'))
                                     <div class="alert alert-success text-center" role="alert">
                                         {{ session('success') }}
                                     </div>
                                 @endif
-
                                 @if (session('error'))
                                     <div class="alert alert-danger text-center" role="alert">
                                         {{ session('error') }}

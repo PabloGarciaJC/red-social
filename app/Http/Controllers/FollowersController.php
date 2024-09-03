@@ -28,7 +28,7 @@ class FollowersController extends Controller
         $this->middleware('auth');
     }
 
-    public function enviarSolicitud(Request $request)
+    public function enviar(Request $request)
     {
         // Busca al usuario receptor
         $userReceptor = User::find($request->input('userReceptor'));
@@ -66,7 +66,7 @@ class FollowersController extends Controller
         ])->with('success', $messaje);
     }
 
-    public function cancelarContacto(Request $request)
+    public function cancelar(Request $request)
     {
         // Busca al usuario receptor
         $userReceptor = User::find($request->input('userReceptor'));
@@ -106,4 +106,15 @@ class FollowersController extends Controller
             'estado' => 'desconocido'
         ])->with('error', $messaje);
     }
+
+    public function confirmar(Request $request)
+    {
+
+    }
+
+    public function denegar(Request $request)
+    {
+
+    }
+    
 }
