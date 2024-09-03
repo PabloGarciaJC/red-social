@@ -35,7 +35,7 @@ class userLogoutNotification
         $usuario->conectado = 0;
         $usuario->save();
         $arrayListados = array();
-        $allSeguidos = Follower::where('user_id', $event->user->id)->where('estatus', '=', 1)->get();
+        $allSeguidos = Follower::where('user_id', $event->user->id)->where('estado', '=', 1)->get();
         foreach ($allSeguidos as $followers) {
             $user = $followers->user;
             array_push($arrayListados, $user);

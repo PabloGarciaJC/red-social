@@ -12,7 +12,7 @@ class AgregarAmigoNotification extends Notification
 
     // Propiedades que almacenan los datos necesarios para la notificación
     protected $userLogin;
-    protected $estatus;
+    protected $estado;
     protected $messaje;
 
     /**
@@ -22,10 +22,10 @@ class AgregarAmigoNotification extends Notification
      * @param  string  $mensaje  El mensaje de la notificación
      * @return void
      */
-    public function __construct($userLogin, $estatus, $messaje)
+    public function __construct($userLogin, $estado, $messaje)
     {
         $this->userLogin = $userLogin;
-        $this->estatus = $estatus;
+        $this->estado = $estado;
         $this->messaje = $messaje;
     }
 
@@ -71,7 +71,7 @@ class AgregarAmigoNotification extends Notification
             'user_id' => $this->userLogin->id,
             'alias' => $this->userLogin->alias,
             'fotoPerfil' => $this->userLogin->fotoPerfil,
-            'estatus' => $this->estatus,
+            'estado' => $this->estado,
             'messaje' => $this->messaje
         ];
     }
@@ -89,7 +89,7 @@ class AgregarAmigoNotification extends Notification
             'user_id' => $this->userLogin->id,
             'alias' => $this->userLogin->alias,
             'fotoPerfil' => $this->userLogin->fotoPerfil,
-            'estatus' => $this->estatus,
+            'estado' => $this->estado,
             'messaje' => $this->messaje
         ];
     }

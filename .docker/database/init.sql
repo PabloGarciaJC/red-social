@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql
--- Tiempo de generación: 01-09-2024 a las 21:26:18
+-- Tiempo de generación: 03-09-2024 a las 18:50:13
 -- Versión del servidor: 9.0.1
 -- Versión de PHP: 8.2.8
 
@@ -51,15 +51,6 @@ CREATE TABLE `followers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `followers`
---
-
-INSERT INTO `followers` (`id`, `user_id`, `seguido`, `estado`, `created_at`, `updated_at`) VALUES
-(26, 110, 111, 'pendiente', '2024-09-01 20:39:58', '2024-09-01 20:40:59'),
-(27, 110, 112, 'desconocido', '2024-09-01 20:41:13', '2024-09-01 21:25:19'),
-(28, 110, 114, 'pendiente', '2024-09-01 20:41:35', '2024-09-01 20:41:35');
 
 -- --------------------------------------------------------
 
@@ -119,14 +110,6 @@ CREATE TABLE `notifications` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `notifications`
---
-
-INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
-('28fc248e-e5b9-4da2-befb-027775ad9f7f', 'App\\Notifications\\AgregarAmigoNotification', 'App\\Models\\User', 114, '{\"user_id\":110,\"alias\":\"user1\",\"fotoPerfil\":\"1725217917img-user.png\",\"estatus\":\"0\",\"messaje\":\"Has enviado una solicitud de amistad\"}', NULL, '2024-09-01 20:41:35', '2024-09-01 20:41:35'),
-('f64ba0aa-2d77-4670-88e8-8e9263c1babe', 'App\\Notifications\\AgregarAmigoNotification', 'App\\Models\\User', 111, '{\"user_id\":110,\"alias\":\"user1\",\"fotoPerfil\":\"1725217917img-user.png\",\"estatus\":\"0\",\"messaje\":\"Has enviado una solicitud de amistad\"}', NULL, '2024-09-01 20:40:59', '2024-09-01 20:40:59');
 
 -- --------------------------------------------------------
 
@@ -204,7 +187,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `alias`, `nombre`, `apellido`, `pais`, `direccion`, `empresa`, `cargo`, `movil`, `email`, `fotoPerfil`, `password`, `sobreMi`, `conectado`, `remember_token`, `created_at`, `updated_at`) VALUES
-(110, 'user1', 'user1', 'Pablo Garcia', 'España', 'Malaga', 'empresa1', 'Developer', '555 555 555', 'user1@user.com', '1725217917img-user.png', '$2y$10$zHpiolT3RVT9TUewFNSH3.GTY8XIBNRr38gONxJBzobWPXqi7oAJW', 'Lorem ipsum dolor sit amet consectetur adipiscing elit dictum, vivamus tristique justo nostra natoque inceptos. Curae penatibus phasellus tempor hac natoque curabitur leo, justo vivamus sed sodales lobortis magnis ante, ullamcorper rhoncus laoreet a quisque faucibus. Quisque urna gravida luctus vivamus nam magnis etiam, laoreet feugiat euismod tempor maecenas venenatis leo fringilla, penatibus taciti sociosqu a inceptos nibh.', 1, NULL, '2024-09-01 18:40:32', '2024-09-01 19:26:24'),
+(110, 'user1', 'user1', 'Pablo Garcia', 'España', 'Malaga', 'empresa1', 'Developer', '555 555 555', 'user1@user.com', '1725217917img-user.png', '$2y$10$zHpiolT3RVT9TUewFNSH3.GTY8XIBNRr38gONxJBzobWPXqi7oAJW', 'Lorem ipsum dolor sit amet consectetur adipiscing elit dictum, vivamus tristique justo nostra natoque inceptos. Curae penatibus phasellus tempor hac natoque curabitur leo, justo vivamus sed sodales lobortis magnis ante, ullamcorper rhoncus laoreet a quisque faucibus. Quisque urna gravida luctus vivamus nam magnis etiam, laoreet feugiat euismod tempor maecenas venenatis leo fringilla, penatibus taciti sociosqu a inceptos nibh.', 0, NULL, '2024-09-01 18:40:32', '2024-09-03 18:44:27'),
 (111, 'user2', 'user2', 'apellido2', 'España', 'Malaga', 'empresa2', 'developer2', '555 555 555', 'user2@user.com', '1725218453img-user.png', '$2y$10$yV4bfuX1TFzE7v6OAtC9i.mVhy0dsZxIIbyOo3vj7aDTjy1BHaQAG', 'Lorem ipsum dolor sit amet consectetur adipiscing elit cum nunc vehicula, lobortis sociis consequat diam dis porttitor tincidunt natoque nascetur, facilisis molestie vulputate ad venenatis quam nulla nullam tristique. Vel blandit neque feugiat fames aptent non, et ornare nisl porttitor laoreet, dui libero a natoque ac. Feugiat taciti molestie imperdiet mi aliquam fermentum nibh, natoque aliquet est interdum ridiculus dis velit ac, fames purus porttitor auctor in vitae.', 0, NULL, '2024-09-01 18:43:08', '2024-09-01 19:24:41'),
 (112, 'user3', 'user3', 'apellido3', 'España', 'Malaga', 'empresa3', 'cargo3', '555 555 555', 'user3@user.com', '1725218700img-user.png', '$2y$10$X/fCuCvm8QNR9fSCtWuXLuPtrHntbge.6X5p9bG43CAyh2UFYZmZO', 'Lorem ipsum dolor sit amet consectetur adipiscing elit, vestibulum porta augue habitant volutpat auctor odio, vel nisi nostra scelerisque vitae nibh. Quis et dictumst mi sed mus malesuada, aliquam torquent odio imperdiet risus convallis, posuere nunc sem eleifend nisi. Taciti tortor potenti dictum nullam accumsan venenatis, porta aliquet nulla suscipit ligula senectus fermentum, justo odio sociosqu scelerisque nisi.', 0, NULL, '2024-09-01 18:45:00', '2024-09-01 19:25:04'),
 (113, 'user4', 'user4', 'apellido4', 'España', 'Malaga', 'empresa4', 'developer4', '555 555 555', 'user4@user.com', '1725218726img-user.png', '$2y$10$bTlrYZCshMpdY9Uxn4XQkemMv2nYN8UTBp3j8HCKhX629.d/j83tu', 'Lorem ipsum dolor sit amet consectetur adipiscing elit laoreet, ullamcorper mus ad non primis ante porttitor tincidunt, aenean augue volutpat nisl nostra netus curabitur. Feugiat bibendum vivamus aenean accumsan venenatis potenti dignissim justo metus, ac sodales sem pharetra maecenas nisi ultricies. Bibendum semper tempus scelerisque ultrices praesent magna fermentum himenaeos torquent, parturient netus vestibulum aliquet non consequat nisl nibh interdum, justo facilisis taciti sodales dapibus fringilla hendrerit vulputate.', 0, NULL, '2024-09-01 18:46:29', '2024-09-01 19:25:29'),
