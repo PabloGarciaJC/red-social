@@ -33,7 +33,7 @@
                       </li>
                       @foreach (auth()->user()->notifications as $notification)
                           <a
-                              href="{{ route('detalles.perfil', ['perfil' => $notification->data['alias'], 'addFriend' => $notification->data['addFriend']]) }}">
+                              href="{{ route('detalles.perfil', ['perfil' => $notification->data['alias'], 'estado' => $notification->data['estado']]) }}">
                               <span class="notification-item nt-item__group">
                                   <img src=" {{ route('foto.perfil', ['filename' => $notification->data['fotoPerfil']]) }} "
                                       class="nt-item__img" />

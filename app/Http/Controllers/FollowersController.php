@@ -39,30 +39,29 @@ class FollowersController extends Controller
             ->first();
 
         $messaje = 'Has enviado una solicitud de amistad';
+        $estado = 'enviado';
 
         if ($follower) {
-            
             // Si existe, actualiza el campo 'estado'
-            $follower->estado = 'pendiente';
-            
+            $follower->estado = $estado;
         } else {
             // Si no existe, crea un nuevo registro
             $follower = new Follower();
             $follower->user_id = Auth::user()->id;
             $follower->seguido = $userReceptor->id;
-            $follower->estado = 'pendiente';
+            $follower->estado = $estado;
         }
 
         // Guarda los cambios en la base de datos
         $follower->save();
 
         // se crea notificaciones
-        $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), '0',  $messaje));
+        $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), 'solocitud-enviada',  $messaje));
 
         // Redirigir al controlador
         return redirect()->route('detalles.perfil', [
             'perfil' => $userReceptor->alias,
-            'estado' => 'pendiente'
+            'estado' => $estado
         ])->with('success', $messaje);
     }
 
@@ -74,15 +73,16 @@ class FollowersController extends Controller
         // Busca si ya existe un registro de Follower con los mismos user_id y seguido
         $follower = Follower::where('user_id', Auth::user()->id)
             ->where('seguido', $userReceptor->id)
-            ->where('estado', 'pendiente')
+            ->where('estado', 'enviado')
             ->first();
 
         $messaje = 'Se ha cancelado la solicitud de amistad';
+        $estado = 'desconocido';
 
         if ($follower) {
 
             // Si no existe, crea un nuevo registro
-            $follower->estado = 'desconocido';
+            $follower->estado = $estado;
 
             // Busca la notificación que corresponde a la solicitud de amistad cancelada
             $notification = DB::table('notifications')
@@ -103,18 +103,81 @@ class FollowersController extends Controller
         // Redirigir al controlador
         return redirect()->route('detalles.perfil', [
             'perfil' => $userReceptor->alias,
-            'estado' => 'desconocido'
+            'estado' => $estado
         ])->with('error', $messaje);
     }
 
     public function confirmar(Request $request)
     {
+        // Busca al usuario receptor
+        $userReceptor = User::find($request->input('userReceptor'));
 
+        // Busca si ya existe un registro de Follower con los mismos user_id y seguido
+        $follower = Follower::where('user_id', $userReceptor->id)
+            ->where('seguido', Auth::user()->id)
+            ->where('estado', 'enviado')
+            ->first();
+
+        $messaje = 'Has aceptado la solicitud de amistad';
+        $messajeNotification = 'Acepto solicitud de amistad';
+        $estado = 'confirmado';
+
+        if ($follower) {
+            $follower->estado = $estado;
+        }
+
+        // Guarda los cambios en la base de datos
+        $follower->save();
+
+        // se crea notificaciones
+        $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $follower->estado,  $messajeNotification));
+
+        // Redirigir al controlador
+        return redirect()->route('detalles.perfil', [
+            'perfil' => $userReceptor->alias,
+            'estado' => $estado
+        ])->with('success', $messaje);
     }
 
     public function denegar(Request $request)
     {
+        // Busca al usuario receptor
+        $userReceptor = User::find($request->input('userReceptor'));
 
+        // Busca si ya existe un registro de Follower con los mismos user_id y seguido
+        $follower = Follower::where('user_id', $userReceptor->id)
+            ->where('seguido', Auth::user()->id)
+            ->where('estado', 'confirmado')
+            ->first();
+
+        $messaje = 'Se ha cancelado la solicitud de amistad';
+        $estado = 'desconocido';
+
+        if ($follower) {
+
+            // Si no existe, crea un nuevo registro
+            $follower->estado = $estado;
+
+            // Busca la notificación que corresponde a la solicitud de amistad cancelada
+            $notification = DB::table('notifications')
+                ->where('type', 'App\Notifications\AgregarAmigoNotification')
+                ->where('notifiable_id', Auth::user()->id)
+                ->where('data', 'LIKE', '%"user_id":' . $userReceptor->id . '%')
+                ->first();
+
+            if ($notification) {
+                // Elimina la notificación
+                DB::table('notifications')->where('id', $notification->id)->delete();
+            }
+        }
+
+        // Guarda los cambios en la base de datos
+        $follower->save();
+
+        // Redirigir al controlador
+        return redirect()->route('detalles.perfil', [
+            'perfil' => $userReceptor->alias,
+            'estado' => $estado
+        ])->with('error', $messaje);
     }
-    
 }

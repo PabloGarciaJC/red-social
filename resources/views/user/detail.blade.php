@@ -21,20 +21,35 @@
                                 <div class="row justify-content-md-center">
                                     <div class="col-md-auto">
                                         @php
-                                        $status = '';  
+                                        $estado = '';
+                                        $gestionBtns = '';  
+                                        $alertMessage = '';
                                         @endphp
                                     
                                         @switch(request()->query('estado'))
-                                            @case('pendiente')
+                                            @case('enviado')
                                                 @php
                                                     $actionUrl = route('cancelar');
-                                                    $status = 'pendiente';
+                                                    $gestionBtns = false; 
+                                                    // $alertMessage = '<div class="alert alert-warning text-center" role="alert">Ya ha enviado una notificación a este usuario.</div>';
                                                 @endphp
                                                 @break
-                                            @case('0')
+                                            @case('solocitud-enviada')
+                                                @php
+                                                    $actionUrl = route('confirmar');
+                                                    $gestionBtns = true; 
+                                                @endphp
+                                            @break
+                                            @case('confirmado')
+                                            @php
+                                                $actionUrl = route('denegar');
+                                                $gestionBtns = false; 
+                                            @endphp
+                                        @break
                                             @default
                                                 @php
                                                     $actionUrl = route('enviar');
+                                                    $gestionBtns = true; 
                                                 @endphp
                                                 @break
                                         @endswitch
@@ -44,9 +59,10 @@
                                             @foreach ($usuario as $userReceptor)
                                                 <input type="hidden" id="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
                                             @endforeach
-                                            @if ($status != 'pendiente')
+
+                                            @if ($gestionBtns)
                                                 <button type="submit" class="btn btn-success">
-                                                    Agregar Contacto
+                                                    {{ request()->query('estado')  == 'solocitud-enviada' ? 'Aceptar solicitud' : 'Agregar Amigos'}}
                                                 </button>
                                             @else
                                                 <input type="hidden" name="accion" value="cancelar">
@@ -54,6 +70,7 @@
                                                     Cancelar Solicitud
                                                 </button>
                                             @endif
+
                                         </form>
                                     </div>
                                 </div>
@@ -82,20 +99,25 @@
                             <div class="tab-content pt-2">
                                 {{-- Mensaje de Notificacion --}}
                                 {{-- <div id="mensajeNotification"></div> --}}
-                                @if (session('success'))
-                                    <div class="alert alert-success text-center" role="alert">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="alert alert-danger text-center" role="alert">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
 
                                 {{-- Perfil --}}
                                 <div class="tab-pane fade show {{ session('message') || $errors->any() ? '' : 'active' }} profile-overview"
                                     id="perfil">
+
+                                    {{-- Mensaje de Notificacion de estados --}}
+                                    {!! $alertMessage !!}
+                                
+                                    @if (session('success'))
+                                        <div class="alert alert-success text-center" role="alert">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+                                    @if (session('error'))
+                                        <div class="alert alert-danger text-center" role="alert">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+
                                     <h5 class="card-title">Sobre Mi</h5>
                                     <p class="small">{{ Auth::user()->sobreMi }}</p>
                                     <h5 class="card-title">Detalles de mi Perfil</h5>

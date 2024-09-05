@@ -27,13 +27,10 @@ Route::get('/usuario/{perfil}/', 'UserController@detallesPerfil')->name('detalle
 Route::get('/search', 'UserController@search')->name('search');
 
 // FOLLOWERS
-Route::post('/enviar', 'FollowersController@enviar')->name('enviar');
-Route::post('/cancelar', 'FollowersController@cancelar')->name('cancelar');
-Route::post('/confirmar', 'FollowersController@enviar')->name('confirmar');
-Route::post('/denegar', 'FollowersController@cancelar')->name('denegar');
-
-
-// Route::get('/aceptarContacto', 'FollowersController@aceptarContacto')->name('aceptarContacto');
+Route::post('/followers/enviar', 'FollowersController@enviar')->name('enviar');
+Route::post('/followers/cancelar', 'FollowersController@cancelar')->name('cancelar');
+Route::post('/followers/confirmar/', 'FollowersController@confirmar')->name('confirmar');
+Route::post('/followers/denegar', 'FollowersController@denegar')->name('denegar');
 
 // COMMENTS
 Route::post('/comentarioSave', 'CommentController@save')->name('comentarioSave');
@@ -46,12 +43,8 @@ Route::get('/publicationDelete/{publicationId}', 'PublicationController@delete')
 Route::get('/detalle/{publicationId}', 'PublicationController@detail')->name('publicationDetail');
 
 // LIKE
-// Route::get('/like/{publicationId}', 'LikeController@like')->name('likeSave');
-// Route::get('/dislike/{publicationId}', 'LikeController@dislike')->name('likeSave');
-
 Route::get('/like/{publicationId}', 'LikeController@like')->name('likeSave');
 Route::get('/dislike/{publicationId}', 'LikeController@dislike')->name('dislikeSave');
-
 
 // CHAT
 Route::post('chat/message', 'ChatController@messageReceived')->name('chat.mesaage');

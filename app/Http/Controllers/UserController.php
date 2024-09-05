@@ -85,13 +85,25 @@ class UserController extends Controller
         $term = $request->get('term');
         $currentUserId = Auth::id();
     
-        // Realizar la consulta usando el constructor de consultas
-        $query = DB::table('users')
-            ->leftJoin('followers', 'users.id', '=', 'followers.seguido')
-            ->where('users.alias', 'LIKE', "%$term%") // Buscar solo por alias
-            ->where('users.id', '!=', $currentUserId) // Excluir el usuario logueado
-            ->distinct() // Elimina duplicados en los resultados
-            ->select('users.*', 'followers.estado')
+        $query = DB::table('users as u')
+            ->leftJoin('followers as f1', function ($join) use ($currentUserId) {
+                $join->on('u.id', '=', 'f1.seguido')
+                     ->where('f1.user_id', '=', $currentUserId);
+            })
+            ->leftJoin('followers as f2', function ($join) use ($currentUserId) {
+                $join->on('u.id', '=', 'f2.user_id')
+                     ->where('f2.seguido', '=', $currentUserId);
+            })
+            ->select(
+                'u.id',
+                'u.alias',
+                'u.nombre',
+                'u.apellido',
+                'u.fotoPerfil',
+                DB::raw('COALESCE(f1.estado, f2.estado, \'desconocido\') AS estado')
+            )
+            ->where('u.nombre', 'LIKE', '%' . $term . '%')
+            ->where('u.id', '<>', $currentUserId)
             ->get();
     
         $data = [];
@@ -99,11 +111,11 @@ class UserController extends Controller
         foreach ($query as $user) {
             $termArray = [];
             $termArray['value'] = $user->alias;
-            $termArray['id'] = $user->apellido; // Verifica si este campo es necesario
+            $termArray['id'] = $user->apellido;
             $termArray['estado'] = !empty($user->estado) ? $user->estado : 'desconocido';
             
-            // Manejar la imagen de perfil
-            if ($user->fotoPerfil != '') {
+            // Maneja la imagen de perfil
+            if (!empty($user->fotoPerfil)) {
                 $termArray['label'] = '<img src="' . url('fotoPerfil/' . $user->fotoPerfil) . '" width="60" class="pointer">&nbsp' . $user->alias;
             } else {
                 $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' . $user->alias;
@@ -112,11 +124,9 @@ class UserController extends Controller
             $data[] = $termArray;
         }
     
+        // Devuelve la respuesta JSON
         return response()->json($data);
     }
-    
-    
-    
     
     public function detallesPerfil($alias)
     {
