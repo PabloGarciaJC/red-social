@@ -24,6 +24,7 @@
                                         $estado = '';
                                         $gestionBtns = '';  
                                         $alertMessage = '';
+                                        $actionUrlDenegada = '';
                                         @endphp
                                     
                                         @switch(request()->query('estado'))
@@ -37,6 +38,7 @@
                                             @case('solocitud-enviada')
                                                 @php
                                                     $actionUrl = route('confirmar');
+                                                    $actionUrlDenegada = route('denegar');
                                                     $gestionBtns = true; 
                                                 @endphp
                                             @break
@@ -70,8 +72,20 @@
                                                     Cancelar Solicitud
                                                 </button>
                                             @endif
-
                                         </form>
+
+                                        @if ($actionUrlDenegada)
+                                            <form action="{{ $actionUrlDenegada }}" method="POST">
+                                                @csrf
+                                                @foreach ($usuario as $userReceptor)
+                                                    <input type="hidden" id="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
+                                                @endforeach
+                                                <input type="hidden" name="accion" value="cancelar">
+                                                <button type="submit" class="btn btn-danger">
+                                                    Cancelar Solicitud
+                                                </button>
+                                            </form>
+                                         @endif
                                     </div>
                                 </div>
                             </div>

@@ -5,8 +5,8 @@ $('#formBuscador').on('submit', function (event) {
 // Manejar el evento 'input' en el campo de búsqueda
 $('#search').on('input', function () {
 
-  // Obtener el valor actual del campo
-  var searchText = $(this).val().trim(); // Limpiar espacios al principio y al final
+  // Obtener el valor actual del campo y Limpiar espacios al principio y al final
+  var searchText = $(this).val().trim(); 
 
   // Limpiar los resultados anteriores
   $('#search-results').empty();
@@ -21,10 +21,10 @@ $('#search').on('input', function () {
       },
       dataType: "json",  // Esto maneja la conversión automáticamente
       success: function (data) {
-        // Asegúrate de que 'data' tiene la estructura esperada
+      
         if (Array.isArray(data)) {
-          var seenUsers = {};  // Objeto para rastrear usuarios ya agregados
-          var resultsFound = false; // Variable para verificar si se encontraron resultados
+          var seenUsers = {}; 
+          var resultsFound = false; 
 
           // Iterar sobre los resultados y agregarlos a la lista
           data.forEach(function (element) {
