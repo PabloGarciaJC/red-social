@@ -40,18 +40,17 @@ class FollowersController extends Controller
      */
     public function show($userId)
     {
-        // Realiza la consulta para obtener todos los usuarios seguidos por $userId con estado 'confirmado'
         $followedUsers = DB::table('users')
             ->join('followers', 'users.id', '=', 'followers.seguido')
             ->where('followers.user_id', $userId) // Filtro por el ID del usuario que sigue
             ->where('followers.estado', 'confirmado') // Filtro por el estado
-            ->select('users.*') // Selecciona todas las columnas de la tabla 'users'
+            ->select('users.*', 'followers.estado') // Selecciona todas las columnas de la tabla 'users' y el campo 'estado' de la tabla 'followers'
             ->get();
-    
+
         // Retorna los usuarios seguidos como una respuesta JSON
         return response()->json($followedUsers, 200);
     }
-    
+
 
     /**
      * Update the specified resource in storage.

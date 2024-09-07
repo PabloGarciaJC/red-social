@@ -12,7 +12,7 @@ class initAppInitializer {
                     ? '<span class="show-contact__online">conectado</span>' 
                     : '<span class="show-contact__off-online">desconectado</span>';
     
-                html += `<a href="${baseUrl}usuario/${user.nombre}" class="show-contact__link"> 
+                html += `<a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}" class="show-contact__link"> 
                             <img src="${baseUrl}fotoPerfil/${user.fotoPerfil}" alt="${user.nombre}" />
                             <div class="show-contact__info"> 
                                 <span class="show-contact__user-name">${user.nombre}</span>
