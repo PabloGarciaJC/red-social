@@ -32,7 +32,6 @@
                                                 @php
                                                     $actionUrl = route('cancelar');
                                                     $gestionBtns = false; 
-                                                    // $alertMessage = '<div class="alert alert-warning text-center" role="alert">Ya ha enviado una notificación a este usuario.</div>';
                                                 @endphp
                                                 @break
                                             @case('solocitud-enviada')

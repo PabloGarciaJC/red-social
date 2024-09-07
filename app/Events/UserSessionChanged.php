@@ -33,7 +33,6 @@ class UserSessionChanged implements ShouldBroadcast
         $this->type = $type;
     }
 
-
     /**
      * Get the channels the event should broadcast on.
      *
@@ -42,8 +41,6 @@ class UserSessionChanged implements ShouldBroadcast
     public function broadcastOn()
     {
         // \Log::debug("{$this->usuarios}");
-        // \Log::debug("{$this->messaje}");
-        // \Log::debug("{$this->type}");
         return new Channel('notifications');
     }
 }

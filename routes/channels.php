@@ -36,6 +36,3 @@ Broadcast::channel('user.{userId}', function (User $user, $userId) {
     return (int) $user->id === (int) $userId;
 });
 
-// Broadcast::channel('broadcastNotification-channel', function (User $user) {
-//     return $user !== null;
-//   });

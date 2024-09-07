@@ -1338,3 +1338,13 @@ h6 {
   border-radius: 10%;
   margin-bottom: 20px;
 }
+
+/*--------------------------------------------------------------
+# Mostrar Contactos Followers
+--------------------------------------------------------------*/
+.show-contacts {display: flex; flex-direction: column;gap: 10px;}
+.show-contact__link {display: flex;gap: 15px;}
+.show-contact__info {display: flex; flex-direction: column;}
+.show-contact__user-name {color: black;font-weight: 600;}
+.show-contact__online {color:#06ac53}
+.show-contact__off-online {color: #e61b1b}

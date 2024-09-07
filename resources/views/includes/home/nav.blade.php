@@ -47,7 +47,6 @@
                               <hr class="dropdown-divider">
                           </li>
                       @endforeach
-
                       <li class="dropdown-footer">
                           <a href="{{ route('markAsRead') }}">
                               Marcar todo como leído

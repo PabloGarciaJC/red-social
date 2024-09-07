@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Follower;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class FollowersController extends Controller
@@ -37,35 +38,20 @@ class FollowersController extends Controller
      * @param  \App\Models\Follower  $follower
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show($userId)
     {
-        $arrayListados = array();
-
-        // Show Users for Auth
-        $allFollower = Follower::select('followers.*')
-            ->Where('seguido', '=', $request)
-            ->where('estado', '=', 1)
+        // Realiza la consulta para obtener todos los usuarios seguidos por $userId con estado 'confirmado'
+        $followedUsers = DB::table('users')
+            ->join('followers', 'users.id', '=', 'followers.seguido')
+            ->where('followers.user_id', $userId) // Filtro por el ID del usuario que sigue
+            ->where('followers.estado', 'confirmado') // Filtro por el estado
+            ->select('users.*') // Selecciona todas las columnas de la tabla 'users'
             ->get();
-
-        foreach ($allFollower as $followers) {
-            $user = $followers->user;
-            array_push($arrayListados, $user);
-        }
-
-
-        // Show Users for Followers
-        $allSeguidos = Follower::select('followers.*')
-            ->Where('user_id', '=', $request)
-            ->where('estado', '=', 1)
-            ->get();
-
-        foreach ($allSeguidos as $seguidos) {
-            $user = User::find($seguidos->seguido);
-            array_push($arrayListados, $user);
-        }
-
-        return response()->json($arrayListados, 200, []);
+    
+        // Retorna los usuarios seguidos como una respuesta JSON
+        return response()->json($followedUsers, 200);
     }
+    
 
     /**
      * Update the specified resource in storage.

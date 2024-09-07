@@ -2,6 +2,8 @@ require('./bootstrap');
 
 window.Echo.channel('notifications')
     .listen('UserSessionChanged', (e) => {
+        console.log(e);
+
         let usuarios = JSON.parse(e.usuarios);
         if (usuarios) {
             Object.keys(usuarios).forEach(key => {

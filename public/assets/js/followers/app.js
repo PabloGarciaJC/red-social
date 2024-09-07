@@ -1,19 +1,39 @@
-class ProjectInitializer {
+class initAppInitializer {
 
-    // processFriendAction() {
+    apiFollowers() {
+        window.axios.get(`/api/followers/${userLogin}`)
+        .then((response) => {
+            let showContacts = $("#showContacts");
+            let users = response.data;
+            let html = '';
+            // Crear un nuevo enlace para cada usuario
+            users.forEach((user) => {
+                let status = (user.conectado == 1) 
+                    ? '<span class="show-contact__online">conectado</span>' 
+                    : '<span class="show-contact__off-online">desconectado</span>';
+    
+                html += `<a href="${baseUrl}usuario/${user.nombre}" class="show-contact__link"> 
+                            <img src="${baseUrl}fotoPerfil/${user.fotoPerfil}" alt="${user.nombre}" />
+                            <div class="show-contact__info"> 
+                                <span class="show-contact__user-name">${user.nombre}</span>
+                                ${status}
+                            </div>
+                        </a>`;
+            });
+    
+            // Agregar el HTML completo al contenedor una sola vez
+            showContacts.html(html);
+        });
 
+    }
 
-    // }
-
-    startProject() {
-
-        // this.processFriendAction();
- 
+    startinitApp() {
+        this.apiFollowers();
     }
 }
 
 // Instanciamos la clase
-const project = new ProjectInitializer();
+const initApp = new initAppInitializer();
 
 // Iniciamos el proyecto
-project.startProject();
+initApp.startinitApp();
