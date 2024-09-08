@@ -399,8 +399,6 @@ h6 {
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
   background-color: #fff;
   padding-left: 20px;
-  /* Toggle Sidebar Button */
-  /* Search Bar */
 }
 
 .header .toggle-sidebar-btn {
@@ -469,6 +467,11 @@ h6 {
 .header .search-form button i {
   color: #012970;
 }
+
+.header .search-bar { position: relative}
+.header .list-unstyled { position: absolute; background: #fff; width: 100%;}
+.header .nt-item__img {width: 60px; border-radius: 10px; padding: 0px; margin-right: 10px; margin-top: -10px}
+.header .nt-item__description { display: flex; flex-direction: column; font-size: 14px;}
 
 /*--------------------------------------------------------------
 # Header Nav
@@ -1014,6 +1017,8 @@ h6 {
 /*--------------------------------------------------------------
 # Profie Page
 --------------------------------------------------------------*/
+.profile-card {gap: 5px;}
+
 .profile .profile-card img {
   max-width: 120px;
 }
@@ -1064,6 +1069,8 @@ h6 {
 .profile .profile-edit img {
   max-width: 120px;
 }
+
+.profile .col-md-auto {display: flex; flex-direction: column; gap: 10px}
 
 /*--------------------------------------------------------------
 # F.A.Q Page
@@ -1270,9 +1277,7 @@ h6 {
 }
 
 .dislike {
-
   color: red;
-
 }
 
 /* Autocompletado */
@@ -1333,3 +1338,36 @@ h6 {
   border-radius: 10%;
   margin-bottom: 20px;
 }
+
+/*--------------------------------------------------------------
+# Mostrar Contactos Followers
+--------------------------------------------------------------*/
+.show-contacts {display: flex; flex-direction: column;gap: 10px;}
+.show-contact__link {display: flex;gap: 15px;}
+.show-contact__info {display: flex; flex-direction: column;}
+.show-contact__user-name {color: black;font-weight: 600;}
+.show-contact__online {color:#06ac53}
+.show-contact__off-online {color: #e61b1b}
+
+/*--------------------------------------------------------------
+# Estructura del chat
+--------------------------------------------------------------*/
+.chat-container { display: flex; flex-direction: column; height: 500px; max-width: 100%; border: 1px solid #ddd; border-radius: 5px; background-color: #f8f9fa; overflow: hidden; }
+.chat-container__box { flex: 1; overflow-y: auto; }
+.chat-container__message { margin-bottom: 10px; display: flex; align-items: flex-start; }
+.chat-container__message--received { justify-content: flex-start; }
+.chat-container__message--sent { justify-content: flex-end; }
+.chat-container__message-content { max-width: 60%; padding: 10px; border-radius: 10px; background-color: #e1ffc7; border: 1px solid #c3e3d8; }
+.chat-container__message--sent .chat-container__message-content { background-color: #d1f0ff; border-color: #a2c2e6; }
+.chat-container__input { display: flex; align-items: center; border-top: 1px solid #ddd; padding: 10px; background-color: #ffffff; }
+.chat-container__input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; font-size: 16px; }
+.chat-container__input button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; margin-left: 5px; }
+.chat-container__input button:hover { background-color: #0056b3; }
+.chat-container__emoji-picker { position: absolute; bottom: 80px; right: 27px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
+  grid-template-columns: repeat(6, 1fr) }
+.chat-container__emoji { cursor: pointer; font-size: 24px; margin: 5px; }
+.chat-container__modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;z-index: 996; }
+.chat-container__modal-content { background: #fff; padding: 20px; border-radius: 5px; width: 300px; text-align: center; position: relative; }
+.chat-container__modal .chat-container__close { position: absolute; top: 10px; right: 10px; font-size: 20px; cursor: pointer; }
+/* Responsive Design */
+@media (max-width: 768px) { .chat-container { height: 400px; } .chat-container__message-content { max-width: 80%; } .chat-container__input input { font-size: 14px; } .chat-container__input button { font-size: 14px; } }

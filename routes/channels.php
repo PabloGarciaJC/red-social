@@ -17,9 +17,22 @@ use App\Models\User;
 //     return (int) $user->id === (int) $id;
 // });
 
-Broadcast::channel('chat', function (User $user) {
-  if ($user != null) {
-    return ['id' => $user->id, 'name' => $user->nombre];
-  }
+use Illuminate\Support\Facades\Broadcast;
+
+/*
+|--------------------------------------------------------------------------
+| Broadcast Channels
+|--------------------------------------------------------------------------
+|
+| Here you may register all of the event broadcasting channels that your
+| application supports. The given channel authorization callbacks are
+| used to check if an authenticated user can listen to the channel.
+|
+*/
+
+// Canal privado para el receptor de la notificación
+Broadcast::channel('user.{userId}', function (User $user, $userId) {
+    // Verifica que el usuario autenticado sea el receptor especificado
+    return (int) $user->id === (int) $userId;
 });
 

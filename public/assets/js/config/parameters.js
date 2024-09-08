@@ -1,5 +1,7 @@
-var url = new URL(window.location.href);
-var baseUrl = url.origin + '/';
+let url = new URL(window.location.href);
+let baseUrl = url.origin + '/';
+let userLogin = $('#user-data').data('user-id');
+
 
 
 
