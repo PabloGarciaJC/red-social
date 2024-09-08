@@ -110,16 +110,10 @@
                             </ul>
 
                             <div class="tab-content pt-2">
-                                {{-- Mensaje de Notificacion --}}
-                                {{-- <div id="mensajeNotification"></div> --}}
-
                                 {{-- Perfil --}}
-                                <div class="tab-pane fade show {{ session('message') || $errors->any() ? '' : 'active' }} profile-overview"
-                                    id="perfil">
-
+                                <div class="tab-pane fade show {{ session('message') || $errors->any() ? '' : 'active' }} profile-overview" id="perfil">
                                     {{-- Mensaje de Notificacion de estados --}}
                                     {!! $alertMessage !!}
-                                
                                     @if (session('success'))
                                         <div class="alert alert-success text-center" role="alert">
                                             {{ session('success') }}
@@ -130,15 +124,12 @@
                                             {{ session('error') }}
                                         </div>
                                     @endif
-
                                     <h5 class="card-title">Sobre Mi</h5>
                                     <p class="small">{{ Auth::user()->sobreMi }}</p>
                                     <h5 class="card-title">Detalles de mi Perfil</h5>
-
                                     @foreach ($usuario as $user)
                                         <input type="hidden" id="user-receptor" value="{{ $user->id }}">
                                     @endforeach
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Nombre</div>
                                         @foreach ($usuario as $user)
@@ -186,6 +177,77 @@
                                         @foreach ($usuario as $user)
                                             <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
                                         @endforeach
+                                    </div>
+                                </div>
+
+                                {{-- Chat --}}
+                                <div class="tab-pane fade {{ request()->query('estado') == 'enviado' ? 'show active' : '' }}" id="chat">
+                                    <h5 class="card-title">Chat</h5>
+                                    <!-- Contenedor del Chat -->
+                                    <div class="chat-container">
+                                        <div class="chat-container__box">
+                                            <!-- Mensajes del chat -->
+                                            <div class="chat-container__message chat-container__message--received">
+                                                <div class="chat-container__message-content">
+                                                    <p>Hello! How are you?</p>
+                                                </div>
+                                            </div>
+                                            <div class="chat-container__message chat-container__message--sent">
+                                                <div class="chat-container__message-content">
+                                                    <p>I'm good, thanks! How about you?</p>
+                                                </div>
+                                            </div>
+                                            <!-- Mensajes adicionales aquí -->
+                                        </div>
+                                        <!-- Área de entrada de texto -->
+                                        <div class="chat-container__input">
+                                            <input type="text" id="messageInput" placeholder="Type a message...">
+                                            <button type="button" id="sendMessage">Send</button>
+                                            <button type="button" id="emojiButton">😊</button>
+                                            <button type="button" id="videoCallButton">Video Call</button>
+                                        </div>
+                                        <!-- Cuadro de emojis -->
+                                        <div id="emojiPicker" class="chat-container__emoji-picker" style="display: none;">
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😊')">😊</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😂')">😂</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😍')">😍</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😉')">😉</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😭')">😭</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😎')">😎</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😡')">😡</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🥺')">🥺</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😜')">😜</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🤔')">🤔</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('👍')">👍</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🙏')">🙏</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('❤️')">❤️</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🎉')">🎉</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🔥')">🔥</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🤯')">🤯</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🤩')">🤩</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😇')">😇</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🥳')">🥳</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🤪')">🤪</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('👀')">👀</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😏')">😏</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('💀')">💀</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('👻')">👻</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🤤')">🤤</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('😴')">😴</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('👑')">👑</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('💩')">💩</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🦄')">🦄</span>
+                                            <span class="chat-container__emoji" onclick="insertEmoji('🐶')">🐶</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Ventana emergente de videollamada -->
+                                    <div id="videoCallModal" class="chat-container__modal" style="display: none;">
+                                        <div class="chat-container__modal-content">
+                                            <span class="chat-container__close" onclick="closeVideoCall()">×</span>
+                                            <h2>Video Call</h2>
+                                            <p>Video call with [User]</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
