@@ -12,6 +12,9 @@ use App\Events\AgregarAmigosNotificacion;
 use App\Notifications\AgregarAmigoNotification;
 use App\Notifications\SolicitudAceptadaNotification;
 use App\Notifications\SolicitudCanceladaNotification;
+use App\Events\BroadcastNotification;
+use Illuminate\Support\Facades\Redirect;
+
 
 class FollowersController extends Controller
 {
@@ -25,217 +28,187 @@ class FollowersController extends Controller
         $this->middleware('auth');
     }
 
-    public function agregarContacto(Request $request)
+    public function enviar(Request $request)
     {
-        $usuarioLogin = $request->get('usuarioLogin');
-        $usuarioSeguido = $request->get('usuarioSeguido');
-        $friendRequestSend = $request->get('friendRequestSend');
-        $friendRequestReceived = $request->get('friendRequestReceived');
-        $idNotificacion = $request->get('idNotificacion');
+        // Busca al usuario receptor
+        $userReceptor = User::find($request->input('userReceptor'));
 
-        // Obtengo Objetos
-        $objetoUserLoginEnviar = User::find($usuarioLogin);
-        $objetoFollowerRecibir = User::find($usuarioSeguido);
+        // Busca si ya existe un registro de Follower con los mismos user_id y seguido
+        $follower = Follower::where('user_id', Auth::user()->id)
+            ->where('seguido', $userReceptor->id)
+            ->first();
 
-        $follower = new Follower();
+        $messajeNotification = 'Te envio una solicitud de amistad';
+        $messaje = 'Has enviado solicitud de amistad';
+        $estado = 'enviado';
 
-        if ($friendRequestSend == 0) {
-
-            if ($idNotificacion === '0') {
-
-                $registerFollowerSend = $follower->where('user_id', '=', $objetoUserLoginEnviar->id)->where('seguido', '=', $objetoFollowerRecibir->id)->where('aprobada', '=', 0);
-
-                if ($registerFollowerSend->count() == 0) {
-
-                    $objetoFollowerRecibir->notify(new AgregarAmigoNotification($objetoFollowerRecibir, $objetoUserLoginEnviar));
-
-                    if ($friendRequestReceived == 1) {
-
-                        echo 'friendAfterReceived';
-                    } else {
-
-                        $saveFollowerReceived = $follower->where('user_id', '=', $objetoFollowerRecibir->id)->where('seguido', '=', $objetoUserLoginEnviar->id)->where('aprobada', '=', 0);
-
-
-                        if ($saveFollowerReceived->count() == 1) {
-
-                            foreach ($saveFollowerReceived->get() as $showFollorwer) {
-
-                                $follower = $follower->find($showFollorwer->id);
-                                $follower->user_id = $objetoFollowerRecibir->id;
-                                $follower->seguido = $objetoUserLoginEnviar->id;
-                                $follower->aprobada = 1;
-                                $follower->save();
-
-                                echo 'saveFollowerReceived';
-                            }
-                        } else {
-
-                            $follower->user_id = $objetoUserLoginEnviar->id;
-                            $follower->seguido = $objetoFollowerRecibir->id;
-                            $follower->aprobada = 0;
-                            $follower->save();
-
-                            echo 'send';
-                        }
-                    }
-                } else {
-
-                    echo 'existSend';
-                }
-            } else {
-
-                $sendAfterReceived = $follower->where('user_id', '=', $objetoFollowerRecibir->id)->where('seguido', '=', $objetoUserLoginEnviar->id);
-
-                if ($sendAfterReceived->count() == 0) {
-
-                    $saveReceivedAfterReceived = $follower->where('user_id', '=', $objetoUserLoginEnviar->id)->where('seguido', '=', $objetoFollowerRecibir->id);
-
-                    if ($saveReceivedAfterReceived->count() == 0) {
-
-                        $follower->user_id = $objetoFollowerRecibir->id;;
-                        $follower->seguido = $objetoUserLoginEnviar->id;
-                        $follower->aprobada = 0;
-
-                        $objetoFollowerRecibir->notify(new AgregarAmigoNotification($objetoFollowerRecibir, $objetoUserLoginEnviar));
-
-                        $follower->save();
-
-                        echo 'sendAfterReceived';
-                    } else {
-
-                        foreach ($saveReceivedAfterReceived->get() as $registerFollower) {
-                            $follower = $follower->find($registerFollower->id);
-                            $follower->aprobada = 1;
-                            $follower->save();
-                        }
-
-                        $objetoFollowerRecibir->notify(new SolicitudAceptadaNotification($objetoUserLoginEnviar, $objetoFollowerRecibir));
-
-                        echo 'saveReceivedAfterReceived';
-                    }
-                } else {
-
-                    $objetoFollowerRecibir->notify(new SolicitudAceptadaNotification($objetoUserLoginEnviar, $objetoFollowerRecibir));
-                    foreach ($sendAfterReceived->get() as $follower) {
-                        $follower = $follower->find($follower->id);
-                        $follower->aprobada = 1;
-                        $follower->save();
-                    }
-                    echo 'saveAfterReceivedFriends';
-                }
-            }
+        if ($follower) {
+            // Si existe, actualiza el campo 'estado'
+            $follower->estado = $estado;
         } else {
-            echo 'approvedFriends';
+            // Si no existe, crea un nuevo registro
+            $follower = new Follower();
+            $follower->user_id = Auth::user()->id;
+            $follower->seguido = $userReceptor->id;
+            $follower->estado = $estado;
         }
+
+        // Guarda los cambios en la base de datos
+        $follower->save();
+
+        // se crea notificaciones
+        $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $estado, $messajeNotification));
+
+        // Emitir la notificación a través de Pusher
+        event(new BroadcastNotification(Auth::user(), $estado, $messajeNotification));
+
+        // Redirigir al controlador
+        return redirect()->route('detalles.perfil', [
+            'perfil' => $userReceptor->alias,
+            'estado' => $estado,
+            'notificacion' => 1
+        ])->with('success', $messaje);
     }
 
-    public function cancelarContacto(Request $request)
+    public function cancelar(Request $request)
     {
-        $usuarioLogin = $request->get('usuarioLogin');
-        $usuarioSeguido = $request->get('usuarioSeguido');
-        $idNotificacion = $request->get('idNotificacion');
-        $friendRequestSend = $request->get('friendRequestSend');
-        $friendRequestReceived = $request->get('friendRequestReceived');
+        // Busca al usuario receptor
+        $userReceptor = User::find($request->input('userReceptor'));
 
-        // Obtengo Objetos
-        $objetoUserLoginEnviar = User::find($usuarioLogin);
-        $objetoFollowerRecibir = User::find($usuarioSeguido);
+        // Busca si ya existe un registro de Follower con los mismos user_id y seguido
+        $follower = Follower::where('user_id', Auth::user()->id)
+            ->where('seguido', $userReceptor->id)
+            ->where('estado', 'enviado')
+            ->first();
 
-        $follower = new Follower();
+        $messaje = 'Se ha cancelado la solicitud de amistad';
+        $estado = 'desconocido';
 
-        $registerFollowerSend = $follower->where('user_id', '=', $objetoUserLoginEnviar->id)->where('seguido', '=', $objetoFollowerRecibir->id);
+        if ($follower) {
 
-        if ($registerFollowerSend->count() == 0) {
+            // Si no existe, crea un nuevo registro
+            $follower->estado = $estado;
 
-            $followerSend = $follower->where('user_id', '=', $objetoFollowerRecibir->id)->where('seguido', '=', $objetoUserLoginEnviar->id);
+            // Busca la notificación que corresponde a la solicitud de amistad cancelada
+            $notification = DB::table('notifications')
+                ->where('type', 'App\Notifications\AgregarAmigoNotification')
+                ->where('notifiable_id', $userReceptor->id)
+                ->where('data', 'LIKE', '%"user_id":' . Auth::user()->id . '%')
+                ->first();
 
-            if ($followerSend->count() == 1) {
-
-                foreach ($followerSend->get() as $followerDelete) {
-
-                    $follower = $follower->find($followerDelete->id);
-                    $follower->delete();
-                    echo 'deleteFollower';
-                }
-
-            } else {
-
-                echo 'noNeedToDelete';
-            }
-        } else {
-
-            if ($idNotificacion === '0') {
-
-                //  Obtengo las Notificaciones del Usuario
-                $notifications = $objetoFollowerRecibir->notifications;
-
-                //  Borro las Notificaciones que vienen en Json y Comparo con los informacion que tengo.
-                // foreach ($notifications as $clave => $value) {
-                //     if ($value['data']['alias'] == $objetoUserLoginEnviar->alias && $value['data']['idFollowerRecibir'] == $objetoFollowerRecibir->id) {
-                //         DB::table('notifications')->whereId($value['id'])->delete();
-                //     }
-
-                // Borro Registro de Follower
-                $registerFollowerSend = $follower->where('user_id', '=', $objetoUserLoginEnviar->id)->where('seguido', '=', $objetoFollowerRecibir->id);
-
-                if ($registerFollowerSend->count() == 0) {
-
-                    $registerFollowerDelete = $follower->where('user_id', '=', $objetoFollowerRecibir->id)->where('seguido', '=', $objetoUserLoginEnviar->id);
-
-                    foreach ($registerFollowerDelete->get() as $followerDelete) {
-
-                        $follower = $follower->find($followerDelete->id);
-                        $follower->delete();
-                        echo 'followerReceived';
-                    }
-
-                } else {
-
-                    foreach ($registerFollowerSend->get() as $follower) {
-                        $borrarDeleteFollower = $follower->find($follower->id);
-                        $borrarDeleteFollower->delete();
-                    }
-
-                    echo 'sendCancelar';
-                }
-            } else {
-
-                $sendAfterReceived = $follower->where('user_id', '=', $objetoFollowerRecibir->id)->where('seguido', '=', $objetoUserLoginEnviar->id);
-
-                if ($sendAfterReceived->count() == 1) {
-
-                    foreach ($sendAfterReceived->get() as $follower) {
-                        $borrarDeleteFollower = $follower->find($follower->id);
-                        $borrarDeleteFollower->delete();
-                    }
-
-                    $objetoFollowerRecibir->notify(new SolicitudCanceladaNotification($objetoUserLoginEnviar, $objetoFollowerRecibir));
-
-                    echo 'cancelAfterReceived';
-
-                } else {
-
-                    $showFollower = $follower->where('user_id', '=', $objetoUserLoginEnviar->id)->where('seguido', '=', $objetoFollowerRecibir->id);
-
-                    if ($showFollower->count() == 1) {
-
-                        foreach ($showFollower->get() as $showRegister) {
-
-                            $borrarDeleteFollower = $follower->find($showRegister->id);
-                            $borrarDeleteFollower->delete();
-                        }
-
-                        echo 'deleteReceivedAfterReceived';
-
-                        $objetoFollowerRecibir->notify(new SolicitudCanceladaNotification($objetoUserLoginEnviar, $objetoFollowerRecibir));
-                        
-                    } else {
-
-                        echo 'existAfterReceived';
-                    }
-                }
+            if ($notification) {
+                // Elimina la notificación
+                DB::table('notifications')->where('id', $notification->id)->delete();
             }
         }
+
+        // Guarda los cambios en la base de datos
+        $follower->save();
+
+        // Redirigir al controlador
+        return redirect()->route('detalles.perfil', [
+            'perfil' => $userReceptor->alias,
+            'estado' => $estado
+        ])->with('error', $messaje);
+    }
+
+    public function confirmar(Request $request)
+    {
+        // Busca al usuario receptor
+        $userReceptor = User::find($request->input('userReceptor'));
+
+        // Busca si ya existe un registro de Follower con los mismos user_id y seguido
+        $follower = Follower::where('user_id', $userReceptor->id)
+            ->where('seguido', Auth::user()->id)
+            ->where('estado', 'enviado')
+            ->first();
+
+        $messajeNotification = 'Acepto solicitud de amistad';
+        $messaje = 'Has aceptado solicitud de amistad';
+        $estado = 'confirmado';
+
+        // Busca la notificación que corresponde a la solicitud de amistad cancelada
+        $notification = DB::table('notifications')
+            ->where('type', 'App\Notifications\AgregarAmigoNotification')
+            ->where('notifiable_id', Auth::user()->id)
+            ->where('data', 'LIKE', '%"user_id":' . $userReceptor->id . '%')
+            ->first();
+
+        if ($notification) {
+            // Elimina la notificación
+            DB::table('notifications')->where('id', $notification->id)->delete();
+        }
+
+        if ($follower) {
+            $follower->estado = $estado;
+        }
+
+        // Guarda los cambios en la base de datos
+        $follower->save();
+
+        // se crea notificaciones
+        $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $follower->estado,  $messajeNotification));
+
+        // Emitir la notificación a través de Pusher
+        event(new BroadcastNotification(Auth::user(), $follower->estado, $messajeNotification));
+
+        // Redirigir al controlador
+        return redirect()->route('detalles.perfil', [
+            'perfil' => $userReceptor->alias,
+            'estado' => $estado
+        ])->with('success', $messaje);
+    }
+
+    public function denegar(Request $request)
+    {
+        // Busca al usuario receptor
+        $userReceptor = User::find($request->input('userReceptor'));
+
+        // Busca si ya existe un registro de Follower con los mismos user_id y seguido (para ambas direcciones)
+        $follower = Follower::where(function ($query) use ($userReceptor) {
+            $query->where('user_id', Auth::user()->id)
+                ->where('seguido', $userReceptor->id);
+        })
+            ->orWhere(function ($query) use ($userReceptor) {
+                $query->where('user_id', $userReceptor->id)
+                    ->where('seguido', Auth::user()->id);
+            })
+            ->where('estado', 'confirmado')
+            ->first();
+
+        $mensaje = 'Ha cancelado la solicitud de amistad';
+        $estado = 'desconocido';
+
+        // Busca la notificación que corresponde a la solicitud de amistad cancelada
+        $notification = DB::table('notifications')
+            ->where('type', 'App\Notifications\AgregarAmigoNotification')
+            ->where('notifiable_id', Auth::user()->id)
+            ->where('data', 'LIKE', '%"user_id":' . $userReceptor->id . '%')
+            ->first();
+
+        if ($notification) {
+            // Elimina la notificación
+            DB::table('notifications')->where('id', $notification->id)->delete();
+        }
+
+        if ($follower) {
+            // Cambia el estado a 'desconocido'
+            $follower->estado = $estado;
+
+            // Guarda los cambios en la base de datos
+            $follower->save();
+
+            // se crea notificaciones
+            $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $follower->estado,  $mensaje));
+
+            // Emitir la notificación a través de Pusher
+            event(new BroadcastNotification(Auth::user(), $follower->estado, $mensaje));
+        }
+
+        // Redirigir al controlador
+        return redirect()->route('detalles.perfil', [
+            'perfil' => $userReceptor->alias,
+            'estado' => $estado
+        ])->with('error', $mensaje);
     }
 }

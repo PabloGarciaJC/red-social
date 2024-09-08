@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Follower;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class FollowersController extends Controller
@@ -37,34 +38,30 @@ class FollowersController extends Controller
      * @param  \App\Models\Follower  $follower
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show($userId)
     {
-        $arrayListados = array();
+        $queryChange = [];
 
-        // Show Users for Auth
-        $allFollower = Follower::select('followers.*')
-            ->Where('seguido', '=', $request)
-            ->where('aprobada', '=', 1)
+        $usersEmisor = DB::table('users')
+            ->join('followers', 'users.id', '=', 'followers.seguido')
+            ->where('followers.user_id', $userId)
+            ->where('followers.estado', 'confirmado')
+            ->select('users.*', 'followers.estado')
             ->get();
 
-        foreach ($allFollower as $followers) {
-            $user = $followers->user;
-            array_push($arrayListados, $user);
-        }
+        $queryChange['usersEmisor'] = $usersEmisor;
 
-
-        // Show Users for Followers
-        $allSeguidos = Follower::select('followers.*')
-            ->Where('user_id', '=', $request)
-            ->where('aprobada', '=', 1)
+        $userReceptor = DB::table('users')
+            ->join('followers', 'users.id', '=', 'followers.user_id')
+            ->where('followers.seguido', $userId)
+            ->where('followers.estado', 'confirmado')
+            ->select('users.*', 'followers.estado')
             ->get();
 
-        foreach ($allSeguidos as $seguidos) {
-            $user = User::find($seguidos->seguido);
-            array_push($arrayListados, $user);
-        }
+        $queryChange['userReceptor'] = $userReceptor;
 
-        return response()->json($arrayListados, 200, []);
+        // Retorna los usuarios seguidos y los seguidores como una respuesta JSON
+        return response()->json($queryChange, 200);
     }
 
     /**

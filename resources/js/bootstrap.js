@@ -1,32 +1,38 @@
+// Cargar lodash en el objeto global
 window._ = require('lodash');
 
+// Intentar cargar y configurar las bibliotecas
 try {
+    // Cargar Popper.js y jQuery
+    window.Popper = require('@popperjs/core');
+    window.$ = window.jQuery = require('jquery');
+
+    // Cargar Bootstrap después de jQuery
     require('bootstrap');
-} catch (e) {}
+} catch (e) {
+    console.error('Error al cargar una de las dependencias: ', e);
+}
 
 /**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
+ * Cargar la biblioteca axios para realizar solicitudes HTTP
+ * al back-end de Laravel. Esta biblioteca maneja automáticamente el envío del
+ * token CSRF como un encabezado basado en el valor de la cookie "XSRF".
  */
-
 window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
+ * Echo expone una API expresiva para suscribirse a canales y escuchar
+ * eventos que son transmitidos por Laravel. Echo y la transmisión de eventos
+ * permiten a tu equipo construir fácilmente aplicaciones web en tiempo real robustas.
  */
-
 import Echo from 'laravel-echo';
-
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: true
+    encrypted: true // Asegúrate de que 'encrypted' esté escrito correctamente
 });
+

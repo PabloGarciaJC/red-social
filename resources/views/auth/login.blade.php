@@ -76,9 +76,8 @@
                                 </div>
                             </div>
 
-                            <div class="credits">
-                                Desarrollado por <strong>PabloGarciaJC</strong></a>
-                            </div>
+                            <div class="credits">Desarrollado por <strong>PabloGarciaJC</strong></div>
+                            
                         </div>
                     </div>
                 </div>

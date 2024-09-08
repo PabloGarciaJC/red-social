@@ -1,115 +1,53 @@
 require('./bootstrap');
 
-console.log('es una prueba');
-
-// Importa el archivo CSS de Bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-// Importa el archivo JavaScript de Bootstrap (que incluye Popper.js)
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-
-
-// Echo.channel('notificationss')
-//   .listen('UserSessionChanged', (e) => {
-
-//     const usuariosEvent = JSON.parse(e.usuarios);
-
-//     Object.values(usuariosEvent).forEach((userListerner, index) => {
-  
-  
-
-//     const devUsuarios = document.getElementById('usuarioStatus' + userListerner.id);
-
-//     if (devUsuarios) {
-//       if (userListerner.conectado == 1) {
-//         devUsuarios.innerText = 'Conectado';
-//         devUsuarios.style.color = 'green';
-//       } else {
-//         devUsuarios.innerText = 'Desconectado';
-//         devUsuarios.style.color = 'red';
-//       }
-//     }
-
-//     });
-
-//   });
-  
-  
-  // try {
-  //   ee = JSON.parse(e.usuarios);
-  //   ee.arrayListados.forEach((usuario, index) => {
-  //     console.log(`El usuario en la posición ${index} es ${usuario.nombre}`);
-  //   });
-  // } catch (error) {
-  //   console.error('Error al parsear la cadena JSON:', error);
-  // }
-  
-// Echo.channel('notifications')
-// .listen('UserSessionChanged', (e) => {
-
-//   let dataUser = e.data;
-
-//   dataUser.forEach((follo, index) => {
-
-
-//     console.log(follo.id);
-
-//   });
-//   e.usuarios.usuarios.original.forEach((user, index) => {
-//     const devUsuarios = document.getElementById('usuarioStatus' + user.id);
-//     if (user.conectado == 1) {
-//       devUsuarios.innerText = 'Conectado';
-//       devUsuarios.style.color = 'green';
-//     } else {
-//       devUsuarios.innerText = 'Desconectado';
-//       devUsuarios.style.color = 'red';
-//     }
-//   });
-// });
-
-Echo.channel('agregarAmigos')
-  .listen('AgregarAmigosNotificacion', (e) => {
-
-    console.log(e);
-    e.usuario.forEach((user, index) => {
-      console.log(user.created_at);
+window.Echo.channel('notifications')
+    .listen('UserSessionChanged', (e) => {
+        let userAlias = e.user[0].alias;
+        let isOnline = e.user[0].conectado === 1;
+        let statusClass = isOnline ? 'show-contact__online' : 'show-contact__off-online';
+        let statusText = isOnline ? 'Conectado' : 'Desconectado';
+        $('#showContacts .show-contact__user-name').each(function () {
+            if ($(this).text() === userAlias) {
+                $(this).closest('.show-contact__link')
+                    .find('.show-contact__online, .show-contact__off-online')
+                    .removeClass('show-contact__online show-contact__off-online')
+                    .addClass(statusClass)
+                    .text(statusText);
+            }
+        });
     });
 
-    var notificacionesAmistad = document.getElementById('notificacionesAmistad');
+    window.Echo.channel('broadcastNotification-channel')
+    .listen('.broadcastNotification-event', (e) => {
+  
+        // Evitar que el emisor vea su propia notificación
+        if (userLogin == e.userEmisor.id) {
+            return;
+        }
 
-    var li = document.createElement("li");
-    li.className = "notification-item";
+        // Actualizar número de notificaciones
+        let notificationCount = $('#notification-count');
+        let totalNotifications = $('#total-notifications');
 
-    var imagenNotificacion = document.createElement('i');
-    imagenNotificacion.className = "bi bi-check-circle text-success";
-    li.appendChild(imagenNotificacion);
+        // Incrementar el conteo
+        let currentCount = parseInt(notificationCount.text());
+        notificationCount.text(currentCount + 1);
+        totalNotifications.text(currentCount + 1);
 
-    var divNotificaciones = document.createElement("div");
+        // Crear nueva notificación
+        let newNotification = `<a href="${baseUrl}usuario/${e.userEmisor.alias}?estado=${e.estado}">
+                                    <span class="notification-item nt-item__group">
+                                        <img src="${baseUrl}fotoPerfil/${e.userEmisor.fotoPerfil}" class="nt-item__img" />
+                                        <div class="nt-item__description">
+                                            <span>${e.userEmisor.alias}</span>
+                                            <span>${e.messajeNotification}</span>
+                                        </div>
+                                    </span>
+                                </a>
+                                <li><hr class="dropdown-divider"></li>`;
 
-    var h4Alias = document.createElement("h4");
-    h4Alias.innerText = "This is a AliasA";
-    divNotificaciones.appendChild(h4Alias);
-
-    var parrafoNotificacion = document.createElement("p");
-    parrafoNotificacion.innerText = "This is a paragraph Creacion";
-    divNotificaciones.appendChild(parrafoNotificacion);
-
-    var parrrafoMensaje = document.createElement("p");
-    parrrafoMensaje.innerText = "This is a paragraph Mensaje";
-    divNotificaciones.appendChild(parrrafoMensaje);
-
-    li.appendChild(divNotificaciones);
-
-    notificacionesAmistad.appendChild(li);
-
-    var liHr = document.createElement("li");
-    var hr = document.createElement("hr");
-    hr.className = "dropdown-divider";
-    liHr.appendChild(hr);
-
-    notificacionesAmistad.appendChild(liHr);
-
-  });
-
+        // Insertar nueva notificación al principio de la lista
+        $('#notifications-list').prepend(newNotification);
+    });
 
 

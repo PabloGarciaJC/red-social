@@ -83,42 +83,65 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $term = $request->get('term');
-        // Pruebo lo que me llega en el controlador
-        // http://127.0.0.1:8000/search?term=prueba2 
-        // Estando Aqui puedo Probar Consultas
-
-        $querys = User::where('nombre', 'LIKE', '%' . $term . '%')
-            ->orWhere('alias', 'LIKE', "%$term%")
-            ->orWhere('email', 'LIKE', "%$term%")
-            ->get()->except(Auth::id());
-
+        $currentUserId = Auth::id();
+        
+        $query = DB::table('users as u')
+            ->leftJoin('followers as f1', function ($join) use ($currentUserId) {
+                $join->on('u.id', '=', 'f1.seguido')
+                     ->where('f1.user_id', '=', $currentUserId);
+            })
+            ->leftJoin('followers as f2', function ($join) use ($currentUserId) {
+                $join->on('u.id', '=', 'f2.user_id')
+                     ->where('f2.seguido', '=', $currentUserId);
+            })
+            ->leftJoin('notifications as n', function ($join) use ($currentUserId) {
+                $join->on('u.id', '=', 'n.notifiable_id')
+                     ->where('n.notifiable_type', '=', 'App\\Models\\User')
+                     ->where('n.type', '=', 'App\\Notifications\\AgregarAmigoNotification')
+                     ->where('n.data->user_id', '=', $currentUserId)
+                     ->whereNull('n.read_at'); // Solo notificaciones no leídas
+            })
+            ->select(
+                'u.id',
+                'u.alias',
+                'u.nombre',
+                'u.apellido',
+                'u.fotoPerfil',
+                DB::raw('COALESCE(f1.estado, f2.estado, \'desconocido\') AS estado'),
+                DB::raw('IF(n.id IS NOT NULL, 1, 0) as tieneNotificacion') // Indicador de si tiene notificación
+            )
+            ->where('u.nombre', 'LIKE', '%' . $term . '%')
+            ->where('u.id', '<>', $currentUserId)
+            ->get();
+    
         $data = [];
-
-        foreach ($querys as $query) {
+        
+        foreach ($query as $user) {
             $termArray = [];
-            $termArray['value'] = $query->alias;
-            $termArray['id'] = $query->apellido;
-            if ($query->fotoPerfil != '') {
-                $termArray['label'] = '<img src="http://localhost:8081/fotoPerfil/' . $query->fotoPerfil . '" width="60" class="pointer">&nbsp' .  $query->alias;
+            $termArray['value'] = $user->alias;
+            $termArray['id'] = $user->apellido;
+            $termArray['estado'] = !empty($user->estado) ? $user->estado : 'desconocido';
+            $termArray['tieneNotificacion'] = $termArray['estado'] == 'desconocido' ? 0 : $user->tieneNotificacion;; // Si tiene notificación (1 o 0)
+            
+            // Maneja la imagen de perfil
+            if (!empty($user->fotoPerfil)) {
+                $termArray['label'] = '<img src="' . url('fotoPerfil/' . $user->fotoPerfil) . '" width="60" class="pointer">&nbsp' . $user->alias;
             } else {
-                $termArray['label'] = '<img src="http://localhost:8081/assets/img/profile-img.jpg" width="60" class="pointer">&nbsp' .  $query->alias;
+                $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' . $user->alias;
             }
-
+    
+            // Añadir los datos al arreglo de resultados
             $data[] = $termArray;
-        };
-        echo json_encode($data);
+        }
+    
+        // Devuelve la respuesta JSON
+        return response()->json($data);
     }
-
-    public function buscadorPerfil($alias, $idNotificacion)
+    
+    
+    public function detallesPerfil($alias)
     {
         $showUser = User::where('alias', '=', $alias)->get();
-
-        foreach ($showUser as $showUserReceived) {
-
-            $friendRequestSend = Follower::where('user_id', '=', Auth::user()->id)->where('seguido', '=', $showUserReceived->id)->where('aprobada', '=', 1)->count();
-            $friendRequestReceived = Follower::where('user_id', '=', $showUserReceived->id)->where('seguido', '=', Auth::user()->id)->where('aprobada', '=', 1)->count();
-        }
-
-        return view('user.detail', ['usuario' => $showUser, 'friendRequestSend' => $friendRequestSend, 'friendRequestReceived' => $friendRequestReceived, 'idNotificacion' => $idNotificacion]);
+        return view('user.detail', ['usuario' => $showUser]);
     }
 }
