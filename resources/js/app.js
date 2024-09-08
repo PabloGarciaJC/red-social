@@ -20,44 +20,31 @@ window.Echo.channel('notifications')
 window.Echo.channel('broadcastNotification-channel')
     .listen('.broadcastNotification-event', (e) => {
 
-        // console.log(e);
+        // Actualizar número de notificaciones
+        let notificationCount = $('#notification-count');
+        let totalNotifications = $('#total-notifications');
 
-        // let userRecibir = '112';
-        // if (userRecibir != e.objetoUserLoginEnviar.id) {
+        // Incrementar el conteo
+        let currentCount = parseInt(notificationCount.text());
+        notificationCount.text(currentCount + 1);
+        totalNotifications.text(currentCount + 1);
 
-        //     $('.badge.bg-primary.badge-number').html('1');
-        //     $('.count-notification').html('1');
-        //     console.log('pintalo');
+        // Crear nueva notificación
+        let newNotification = `<a href="${baseUrl}usuario/${e.userEmisor.alias}?estado=${e.estado}">
+                                    <span class="notification-item nt-item__group">
+                                        <img src="${baseUrl}fotoPerfil/${e.userEmisor.fotoPerfil}" class="nt-item__img" />
+                                        <div class="nt-item__description">
+                                            <span>${e.userEmisor.alias}</span>
+                                            <span>${e.messajeNotification}</span>
+                                        </div>
+                                    </span>
+                                </a>
+                                <li><hr class="dropdown-divider"></li>`;
+                                
+       
 
-        // } else {
-        //     console.log('no lo pintes');
-        // }
-
-
-
-        // $('.badge.bg-primary.badge-number').html('1');
-        // $('.count-notification').html('1');
-
-        // // Construir el nuevo elemento de notificación // Falta  idFollower y idNotificacion
-        // let newNotification = `                                                                                                
-        //         <a href="http://localhost:8081/usuario/${e.objetoUserLoginEnviar.alias}/solicitudAmistad=0&idFollower=${e.objetoUserLoginEnviar.id}">
-        //             <li class="notification-item">
-        //                 <img src="${baseUrl}fotoPerfil/${e.objetoUserLoginEnviar.fotoPerfil}" 
-        //                      width="60"
-        //                      style="border-radius: 10px; padding: 0px; margin-right: 10px; margin-top: -10px"
-        //                      alt="">
-        //                 <div>
-        //                     <h4>${e.objetoUserLoginEnviar.alias}</h4>
-        //                     <p>${e.massaje}</p>
-        //                 </div>
-        //             </li>
-        //         </a>
-        //         <li><hr class="dropdown-divider"></li>
-        //     `;
-
-        // // Agregar la nueva notificación al inicio de la lista
-        // $('#notificacionesAmistad').prepend(newNotification);
-
+        // Insertar nueva notificación al principio de la lista
+        $('#notifications-list').prepend(newNotification);
     });
 
 

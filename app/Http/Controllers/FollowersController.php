@@ -60,8 +60,8 @@ class FollowersController extends Controller
         $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $estado, $messajeNotification));
 
         // Emitir la notificación a través de Pusher
-        event(new BroadcastNotification(Auth::user()));
-    
+        event(new BroadcastNotification(Auth::user(), $estado, $messajeNotification));
+
         // Redirigir al controlador
         return redirect()->route('detalles.perfil', [
             'perfil' => $userReceptor->alias,
@@ -149,6 +149,9 @@ class FollowersController extends Controller
         // se crea notificaciones
         $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $follower->estado,  $messajeNotification));
 
+        // Emitir la notificación a través de Pusher
+        event(new BroadcastNotification(Auth::user(), $follower->estado, $messajeNotification));
+
         // Redirigir al controlador
         return redirect()->route('detalles.perfil', [
             'perfil' => $userReceptor->alias,
@@ -197,6 +200,9 @@ class FollowersController extends Controller
 
             // se crea notificaciones
             $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $follower->estado,  $mensaje));
+
+            // Emitir la notificación a través de Pusher
+            event(new BroadcastNotification(Auth::user(), $follower->estado, $mensaje));
         }
 
         // Redirigir al controlador

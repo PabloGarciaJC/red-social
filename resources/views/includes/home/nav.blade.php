@@ -17,47 +17,40 @@
       <nav class="header-nav ms-auto">
           <ul class="d-flex align-items-center">
               {{-- Notificaciones --}}
-              <li class="nav-item dropdown">
-                  <a href="#" class="nav-link nav-icon" data-bs-toggle="dropdown">
-                      <i class="bi bi-bell"></i>
-                      <span class="badge bg-primary badge-number">
-                          {{ count(auth()->user()->unReadNotifications) }}
-                      </span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
-                      id="notificacionesAmistad">
-                      <li class="dropdown-header">
-                          Tú tienes
-                          <span class="count-notification">{{ count(auth()->user()->unReadNotifications) }}</span>
-                          Notificaciones
-                      </li>
-                      @foreach (auth()->user()->notifications as $notification)
-                          <a
-                              href="{{ route('detalles.perfil', ['perfil' => $notification->data['alias'], 'estado' => $notification->data['estado']]) }}">
-                              <span class="notification-item nt-item__group">
-                                  <img src=" {{ route('foto.perfil', ['filename' => $notification->data['fotoPerfil']]) }} "
-                                      class="nt-item__img" />
-                                  <div class="nt-item__description">
-                                      <span>{{ $notification->data['alias'] }}</span>
-                                      <span>{{ $notification->data['messaje'] }}</span>
-                                  </div>
-                              </span>
-                          </a>
-                          <li>
-                              <hr class="dropdown-divider">
-                          </li>
-                      @endforeach
-                      <li class="dropdown-footer">
-                          <a href="{{ route('markAsRead') }}">
-                              Marcar todo como leído
-                          </a>
-                          <br>
-                          <a href="{{ route('borrarNotificacion', ['id' => auth()->id()]) }}">
-                              Borrar todas las notificaciones
-                          </a>
-                      </li>
-                  </ul>
-              </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link nav-icon" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number" id="notification-count">
+                            {{ count(auth()->user()->unReadNotifications) }}
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" id="notificacionesAmistad">
+                        <li class="dropdown-header">
+                            Tú tienes <span id="total-notifications">{{ count(auth()->user()->unReadNotifications) }}</span> Notificaciones
+                        </li>
+                
+                        <!-- Aquí se insertarán dinámicamente las notificaciones -->
+                        <div id="notifications-list">
+                            @foreach (auth()->user()->notifications as $notification)
+                            <a href="{{ route('detalles.perfil', ['perfil' => $notification->data['alias'], 'estado' => $notification->data['estado']]) }}">
+                                <span class="notification-item nt-item__group">
+                                    <img src="{{ route('foto.perfil', ['filename' => $notification->data['fotoPerfil']]) }}" class="nt-item__img" />
+                                    <div class="nt-item__description">
+                                        <span>{{ $notification->data['alias'] }}</span>
+                                        <span>{{ $notification->data['messaje'] }}</span>
+                                    </div>
+                                </span>
+                            </a>
+                            <li><hr class="dropdown-divider"></li>
+                            @endforeach
+                        </div>
+                
+                        <li class="dropdown-footer">
+                            <a href="{{ route('markAsRead') }}">Marcar todo como leído</a><br>
+                            <a href="{{ route('borrarNotificacion', ['id' => auth()->id()]) }}">Borrar todas las notificaciones</a>
+                        </li>
+                    </ul>
+                </li>
               {{-- Perfil --}}
               <li class="nav-item dropdown pe-3">
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"

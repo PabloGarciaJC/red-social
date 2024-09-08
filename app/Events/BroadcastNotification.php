@@ -18,6 +18,8 @@ class  BroadcastNotification implements ShouldBroadcast
 
     // public $objetoFollowerRecibir;
     public $userEmisor;
+    public $estado;
+    public $messajeNotification;
 
     /**
      * Create a new event instance.
@@ -25,9 +27,11 @@ class  BroadcastNotification implements ShouldBroadcast
      * @return void
      */
 
-    public function __construct($userEmisor)
+    public function __construct($userEmisor, $estado, $messajeNotification)
     {
         $this->userEmisor = $userEmisor;
+        $this->estado = $estado;
+        $this->messajeNotification = $messajeNotification;
     }
 
     /**
