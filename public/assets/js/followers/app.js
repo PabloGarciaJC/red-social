@@ -48,23 +48,21 @@ class initAppInitializer {
             });
     }
 
-    startinitApp() {
-        this.apiFollowers();
+    chat() {
 
-
-        const $messageInput = $('#messageInput');
-        const $sendMessageButton = $('#sendMessage');
-        const $emojiButton = $('#emojiButton');
-        const $emojiPicker = $('#emojiPicker');
-        const $videoCallButton = $('#videoCallButton');
-        const $videoCallModal = $('#videoCallModal');
-        const $closeModalButton = $('.chat-container__close');
+        let $messageInput = $('#messageInput');
+        let $sendMessageButton = $('#sendMessage');
+        let $emojiButton = $('#emojiButton');
+        let $emojiPicker = $('#emojiPicker');
+        let $videoCallButton = $('#videoCallButton');
+        let $videoCallModal = $('#videoCallModal');
+        let $closeModalButton = $('.chat-container__close');
 
         // Función para enviar un mensaje
         function sendMessage() {
-            const messageText = $messageInput.val().trim();
+            let messageText = $messageInput.val().trim();
             if (messageText) {
-                const $messageElement = $('<div>', { class: 'chat-container__message chat-container__message--sent' })
+                let $messageElement = $('<div>', { class: 'chat-container__message chat-container__message--sent' })
                     .append($('<div>', { class: 'chat-container__message-content' })
                         .append($('<p>').text(messageText)));
                 $('.chat-container__box').append($messageElement);
@@ -120,10 +118,15 @@ class initAppInitializer {
         $closeModalButton.on('click', closeVideoCall);
 
     }
+
+    startinitApp() {
+        this.apiFollowers();
+        this.chat();
+    }
 }
 
 // Instanciamos la clase
-const initApp = new initAppInitializer();
+let initApp = new initAppInitializer();
 
 // Iniciamos el proyecto
 initApp.startinitApp();
