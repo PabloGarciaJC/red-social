@@ -40,16 +40,30 @@ class FollowersController extends Controller
      */
     public function show($userId)
     {
-        $followedUsers = DB::table('users')
+        $queryChange = [];
+
+        $UsersEmisor = DB::table('users')
             ->join('followers', 'users.id', '=', 'followers.seguido')
-            ->where('followers.user_id', $userId) // Filtro por el ID del usuario que sigue
-            ->where('followers.estado', 'confirmado') // Filtro por el estado
-            ->select('users.*', 'followers.estado') // Selecciona todas las columnas de la tabla 'users' y el campo 'estado' de la tabla 'followers'
+            ->where('followers.user_id', $userId)
+            ->where('followers.estado', 'confirmado')
+            ->select('users.*', 'followers.estado')
             ->get();
 
-        // Retorna los usuarios seguidos como una respuesta JSON
-        return response()->json($followedUsers, 200);
+        $queryChange['UsersEmisor'] = $UsersEmisor;
+
+        $UserReceptor = DB::table('users')
+            ->join('followers', 'users.id', '=', 'followers.user_id')
+            ->where('followers.seguido', $userId)
+            ->where('followers.estado', 'confirmado')
+            ->select('users.*', 'followers.estado')
+            ->get();
+
+        $queryChange['UserReceptor'] = $UserReceptor;
+
+        // Retorna los usuarios seguidos y los seguidores como una respuesta JSON
+        return response()->json($queryChange, 200);
     }
+
 
 
     /**

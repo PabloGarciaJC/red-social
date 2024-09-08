@@ -56,7 +56,7 @@ class FollowersController extends Controller
         $follower->save();
 
         // se crea notificaciones
-        $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), 'solocitud-enviada',  $messaje));
+        $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $estado,  $messaje));
 
         // Redirigir al controlador
         return redirect()->route('detalles.perfil', [
@@ -166,20 +166,8 @@ class FollowersController extends Controller
             // Guarda los cambios en la base de datos
             $follower->save();
 
-            // Busca la notificación que corresponde a la solicitud de amistad cancelada
-            $notification = DB::table('notifications')
-                ->where('type', 'App\Notifications\AgregarAmigoNotification')
-                ->where('notifiable_id', Auth::user()->id)
-                ->where('data', 'LIKE', '%"user_id":' . $userReceptor->id . '%')
-                ->first();
-
             // se crea notificaciones
             $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $follower->estado,  $mensaje));
-
-            if ($notification) {
-                // Elimina la notificación
-                DB::table('notifications')->where('id', $notification->id)->delete();
-            }
         }
 
         // Redirigir al controlador
