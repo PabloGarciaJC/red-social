@@ -26,20 +26,20 @@
                                         $alertMessage = '';
                                         $actionUrlDenegada = '';
                                         @endphp
-                                    
                                         @switch(request()->query('estado'))
                                             @case('enviado')
                                                 @php
-                                                    $actionUrl = route('cancelar');
-                                                    $gestionBtns = false; 
+                                                    $notificacion = request()->query('notificacion');
+                                                    if ($notificacion == '1') {
+                                                        $actionUrl = route('cancelar');
+                                                        $gestionBtns = false;
+                                                    } else {
+                                                        $actionUrl = route('confirmar');
+                                                        $actionUrlDenegada = route('denegar');
+                                                        $gestionBtns = true;
+                                                    }
                                                 @endphp
                                                 @break
-                                            @case('solocitud-enviada')
-                                                @php
-                                                    $actionUrl = route('confirmar');
-                                                    $actionUrlDenegada = route('denegar');
-                                                    $gestionBtns = true; 
-                                                @endphp
                                             @break
                                             @case('confirmado')
                                             @php

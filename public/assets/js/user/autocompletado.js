@@ -21,6 +21,8 @@ $('#search').on('input', function () {
       },
       dataType: "json",  // Esto maneja la conversión automáticamente
       success: function (data) {
+
+        console.log(data);
       
         if (Array.isArray(data)) {
           var seenUsers = {}; 
@@ -34,7 +36,7 @@ $('#search').on('input', function () {
 
               // Crear un enlace para cada usuario
               var listItem = $('<a>')
-                .attr('href', baseUrl + "usuario/" + element.value + "?" + "estado=" + element.estado)
+                .attr('href', baseUrl + "usuario/" + element.value + "?" + "estado=" + element.estado + "&notificacion=" + element.tieneNotificacion)
                 .addClass('list-group-item');
 
               // Construir el contenido del enlace

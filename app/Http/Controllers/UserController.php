@@ -84,7 +84,7 @@ class UserController extends Controller
     {
         $term = $request->get('term');
         $currentUserId = Auth::id();
-    
+        
         $query = DB::table('users as u')
             ->leftJoin('followers as f1', function ($join) use ($currentUserId) {
                 $join->on('u.id', '=', 'f1.seguido')
@@ -94,25 +94,34 @@ class UserController extends Controller
                 $join->on('u.id', '=', 'f2.user_id')
                      ->where('f2.seguido', '=', $currentUserId);
             })
+            ->leftJoin('notifications as n', function ($join) use ($currentUserId) {
+                $join->on('u.id', '=', 'n.notifiable_id')
+                     ->where('n.notifiable_type', '=', 'App\\Models\\User')
+                     ->where('n.type', '=', 'App\\Notifications\\AgregarAmigoNotification')
+                     ->where('n.data->user_id', '=', $currentUserId)
+                     ->whereNull('n.read_at'); // Solo notificaciones no leídas
+            })
             ->select(
                 'u.id',
                 'u.alias',
                 'u.nombre',
                 'u.apellido',
                 'u.fotoPerfil',
-                DB::raw('COALESCE(f1.estado, f2.estado, \'desconocido\') AS estado')
+                DB::raw('COALESCE(f1.estado, f2.estado, \'desconocido\') AS estado'),
+                DB::raw('IF(n.id IS NOT NULL, 1, 0) as tieneNotificacion') // Indicador de si tiene notificación
             )
             ->where('u.nombre', 'LIKE', '%' . $term . '%')
             ->where('u.id', '<>', $currentUserId)
             ->get();
     
         $data = [];
-    
+        
         foreach ($query as $user) {
             $termArray = [];
             $termArray['value'] = $user->alias;
             $termArray['id'] = $user->apellido;
             $termArray['estado'] = !empty($user->estado) ? $user->estado : 'desconocido';
+            $termArray['tieneNotificacion'] = $termArray['estado'] == 'desconocido' ? 0 : $user->tieneNotificacion;; // Si tiene notificación (1 o 0)
             
             // Maneja la imagen de perfil
             if (!empty($user->fotoPerfil)) {
@@ -121,12 +130,14 @@ class UserController extends Controller
                 $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' . $user->alias;
             }
     
+            // Añadir los datos al arreglo de resultados
             $data[] = $termArray;
         }
     
         // Devuelve la respuesta JSON
         return response()->json($data);
     }
+    
     
     public function detallesPerfil($alias)
     {
