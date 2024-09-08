@@ -6,7 +6,7 @@ $('#formBuscador').on('submit', function (event) {
 $('#search').on('input', function () {
 
   // Obtener el valor actual del campo y Limpiar espacios al principio y al final
-  var searchText = $(this).val().trim(); 
+  let searchText = $(this).val().trim(); 
 
   // Limpiar los resultados anteriores
   $('#search-results').empty();
@@ -21,12 +21,11 @@ $('#search').on('input', function () {
       },
       dataType: "json",  // Esto maneja la conversión automáticamente
       success: function (data) {
-
-        console.log(data);
       
         if (Array.isArray(data)) {
-          var seenUsers = {}; 
-          var resultsFound = false; 
+          
+          let seenUsers = {}; 
+          let resultsFound = false; 
 
           // Iterar sobre los resultados y agregarlos a la lista
           data.forEach(function (element) {
@@ -35,12 +34,12 @@ $('#search').on('input', function () {
               seenUsers[element.value] = true;  // Marca el usuario como visto
 
               // Crear un enlace para cada usuario
-              var listItem = $('<a>')
+              let listItem = $('<a>')
                 .attr('href', baseUrl + "usuario/" + element.value + "?" + "estado=" + element.estado + "&notificacion=" + element.tieneNotificacion)
                 .addClass('list-group-item');
 
               // Construir el contenido del enlace
-              var content = '';
+              let content = '';
               if (element.label) {
                 content += element.label;
               }

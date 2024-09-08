@@ -108,7 +108,6 @@
                                     </button>
                                 </li>
                             </ul>
-
                             <div class="tab-content pt-2">
                                 {{-- Perfil --}}
                                 <div class="tab-pane fade show {{ session('message') || $errors->any() ? '' : 'active' }} profile-overview" id="perfil">
@@ -197,7 +196,6 @@
                                                     <p>I'm good, thanks! How about you?</p>
                                                 </div>
                                             </div>
-                                            <!-- Mensajes adicionales aquí -->
                                         </div>
                                         <!-- Área de entrada de texto -->
                                         <div class="chat-container__input">
@@ -240,7 +238,6 @@
                                             <span class="chat-container__emoji" onclick="insertEmoji('🐶')">🐶</span>
                                         </div>
                                     </div>
-
                                     <!-- Ventana emergente de videollamada -->
                                     <div id="videoCallModal" class="chat-container__modal" style="display: none;">
                                         <div class="chat-container__modal-content">

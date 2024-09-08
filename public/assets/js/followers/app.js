@@ -9,8 +9,8 @@ class initAppInitializer {
                 let htmlEmisor = '';
                 let htmlReceptor = '';
 
-                // Iterar sobre UsersEmisor (usuarios que el usuario sigue)
-                data.UsersEmisor.forEach((user) => {
+                // Iterar sobre usersEmisor (usuarios que el usuario sigue)
+                data.usersEmisor.forEach((user) => {
                     let status = (user.conectado == 1)
                         ? '<span class="show-contact__online">conectado</span>'
                         : '<span class="show-contact__off-online">desconectado</span>';
@@ -24,8 +24,8 @@ class initAppInitializer {
                                 </a>`;
                 });
 
-                // Iterar sobre UserReceptor (seguidores del usuario)
-                data.UserReceptor.forEach((user) => {
+                // Iterar sobre userReceptor (seguidores del usuario)
+                data.userReceptor.forEach((user) => {
                     let status = (user.conectado == 1)
                         ? '<span class="show-contact__online">conectado</span>'
                         : '<span class="show-contact__off-online">desconectado</span>';
@@ -118,7 +118,7 @@ class initAppInitializer {
         $closeModalButton.on('click', closeVideoCall);
 
     }
-
+    // Contendor de Funcionalidades
     startinitApp() {
         this.apiFollowers();
         this.chat();

@@ -59,6 +59,9 @@ class FollowersController extends Controller
         // se crea notificaciones
         $userReceptor->notify(new AgregarAmigoNotification(Auth::user(), $estado, $messajeNotification));
 
+        // Emitir la notificación a través de Pusher
+        event(new BroadcastNotification(Auth::user()));
+    
         // Redirigir al controlador
         return redirect()->route('detalles.perfil', [
             'perfil' => $userReceptor->alias,

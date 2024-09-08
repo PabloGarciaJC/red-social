@@ -42,29 +42,27 @@ class FollowersController extends Controller
     {
         $queryChange = [];
 
-        $UsersEmisor = DB::table('users')
+        $usersEmisor = DB::table('users')
             ->join('followers', 'users.id', '=', 'followers.seguido')
             ->where('followers.user_id', $userId)
             ->where('followers.estado', 'confirmado')
             ->select('users.*', 'followers.estado')
             ->get();
 
-        $queryChange['UsersEmisor'] = $UsersEmisor;
+        $queryChange['usersEmisor'] = $usersEmisor;
 
-        $UserReceptor = DB::table('users')
+        $userReceptor = DB::table('users')
             ->join('followers', 'users.id', '=', 'followers.user_id')
             ->where('followers.seguido', $userId)
             ->where('followers.estado', 'confirmado')
             ->select('users.*', 'followers.estado')
             ->get();
 
-        $queryChange['UserReceptor'] = $UserReceptor;
+        $queryChange['userReceptor'] = $userReceptor;
 
         // Retorna los usuarios seguidos y los seguidores como una respuesta JSON
         return response()->json($queryChange, 200);
     }
-
-
 
     /**
      * Update the specified resource in storage.

@@ -37,11 +37,9 @@ class  BroadcastNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // \Log::debug("{$this->objetoFollowerRecibir}");
         // \Log::debug("{$this->userEmisor}");
         return new Channel('broadcastNotification-channel');
     }
-
 
     public function broadcastAs()
     {

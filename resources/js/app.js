@@ -2,30 +2,25 @@ require('./bootstrap');
 
 window.Echo.channel('notifications')
     .listen('UserSessionChanged', (e) => {
-        console.log(e);
-
-        let usuarios = JSON.parse(e.usuarios);
-        if (usuarios) {
-            Object.keys(usuarios).forEach(key => {
-                const user = usuarios[key];
-                const devUsuarios = document.getElementById('usuarioStatus' + user.id);
-                if (devUsuarios) {
-                    if (user.conectado == 1) {
-                        devUsuarios.innerText = 'Conectado';
-                        devUsuarios.style.color = 'green';
-                    } else {
-                        devUsuarios.innerText = 'Desconectado';
-                        devUsuarios.style.color = 'red';
-                    }
-                }
-            });
-        }
+        let userAlias = e.user[0].alias;
+        let isOnline = e.user[0].conectado === 1;
+        let statusClass = isOnline ? 'show-contact__online' : 'show-contact__off-online';
+        let statusText = isOnline ? 'Conectado' : 'Desconectado';
+        $('#showContacts .show-contact__user-name').each(function () {
+            if ($(this).text() === userAlias) {
+                $(this).closest('.show-contact__link')
+                    .find('.show-contact__online, .show-contact__off-online')
+                    .removeClass('show-contact__online show-contact__off-online')
+                    .addClass(statusClass)
+                    .text(statusText);
+            }
+        });
     });
 
 window.Echo.channel('broadcastNotification-channel')
     .listen('.broadcastNotification-event', (e) => {
 
-        console.log(e);
+        // console.log(e);
 
         // let userRecibir = '112';
         // if (userRecibir != e.objetoUserLoginEnviar.id) {
