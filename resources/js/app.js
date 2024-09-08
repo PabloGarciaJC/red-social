@@ -17,8 +17,13 @@ window.Echo.channel('notifications')
         });
     });
 
-window.Echo.channel('broadcastNotification-channel')
+    window.Echo.channel('broadcastNotification-channel')
     .listen('.broadcastNotification-event', (e) => {
+  
+        // Evitar que el emisor vea su propia notificación
+        if (userLogin == e.userEmisor.id) {
+            return;
+        }
 
         // Actualizar número de notificaciones
         let notificationCount = $('#notification-count');
@@ -40,8 +45,6 @@ window.Echo.channel('broadcastNotification-channel')
                                     </span>
                                 </a>
                                 <li><hr class="dropdown-divider"></li>`;
-                                
-       
 
         // Insertar nueva notificación al principio de la lista
         $('#notifications-list').prepend(newNotification);
