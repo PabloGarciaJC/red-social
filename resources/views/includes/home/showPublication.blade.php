@@ -6,12 +6,12 @@
                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                        <h6>Opciones</h6>
+                        <span>Opciones</span>
                     </li>
                     {{-- <li><a class="dropdown-item" href="#">Editar</a></li> --}}
-                    <li><a class="dropdown-item" id="eliminarPublication"
-                            onclick="deletePublication({{ $mostrarPublication->id }})"
-                            href="javascript:void(0);">Eliminar</a></li>
+                    <li>
+                        <a class="dropdown-item" id="eliminarPublication" onclick="deletePublication({{ $mostrarPublication->id }})" href="javascript:void(0);">Eliminar</a>
+                    </li>  
                 </ul>
             </div>
             {{-- Cuerpo --}}
@@ -76,26 +76,21 @@
                         </div>
                         <br>
                     </form>
-
                     @foreach ($mostrarPublication->comment as $coments)
                         <div class="row row-cols-auto">
                             <div class="col news">
                                 <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}">
                             </div>
                             <div class="col">
-                                <h4><a href="#">{{ $coments->user->alias }}</a></h4>
+                                <a href="#">{{ $coments->user->alias }}</a>
                                 <p>{{ $coments->contenido }}</p>
-
                                 @if ($coments->imagen != '')
-                                    <img
-                                        src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}"class="margenImagenComment">
+                                    <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}"class="margenImagenComment">
                                 @endif
                             </div>
                         </div>
                     @endforeach
-
                 </div>
-
             </div>
         </div>
     </div>
