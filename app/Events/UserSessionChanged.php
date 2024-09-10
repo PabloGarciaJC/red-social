@@ -37,6 +37,6 @@ class UserSessionChanged implements ShouldBroadcast
     public function broadcastOn()
     {
         // \Log::debug("{$this->user}");
-        return new Channel('notifications');
+        return new Channel('broadcastUserSessionChanged-channel');
     }
 }

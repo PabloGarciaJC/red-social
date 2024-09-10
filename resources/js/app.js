@@ -1,25 +1,41 @@
 require('./bootstrap');
 
-window.Echo.channel('notifications')
+window.Echo.channel('broadcastUserSessionChanged-channel')
     .listen('UserSessionChanged', (e) => {
-        let userAlias = e.user[0].alias;
-        let isOnline = e.user[0].conectado === 1;
-        let statusClass = isOnline ? 'show-contact__online' : 'show-contact__off-online';
-        let statusText = isOnline ? 'Conectado' : 'Desconectado';
-        $('#showContacts .show-contact__user-name').each(function () {
-            if ($(this).text() === userAlias) {
-                $(this).closest('.show-contact__link')
-                    .find('.show-contact__online, .show-contact__off-online')
-                    .removeClass('show-contact__online show-contact__off-online')
-                    .addClass(statusClass)
-                    .text(statusText);
-            }
-        });
+
+        // Parsear el JSON contenido en e.user
+        let user = JSON.parse(e.user);
+
+        // Función para actualizar el estado de un usuario
+        function actualizarEstadoConexion(alias, conectado, selector) {
+            const estadoClase = conectado === 1 ? 'show-contact__online' : 'show-contact__off-online';
+            const estadoTexto = conectado === 1 ? 'Conectado' : 'desconectado';
+
+            $(selector + ' .show-contact__user-name').each(function () {
+                if ($(this).text() === alias) {
+                    $(this).closest('.show-contact__link')
+                        .find('.show-contact__off-online, .show-contact__online')
+                        .removeClass()
+                        .addClass(estadoClase)
+                        .text(estadoTexto);
+                }
+            });
+        }
+
+        // Actualizar estado de userReceptor si existe
+        if (user && user.userReceptor) {
+            actualizarEstadoConexion(user.userReceptor.alias, user.userReceptor.conectado, '#showFollowers');
+        }
+
+        // Actualizar estado de userEmisor si existe
+        if (user && user.userEmisor) {
+            actualizarEstadoConexion(user.userEmisor.alias, user.userEmisor.conectado, '#showContacts');
+        }
     });
 
-    window.Echo.channel('broadcastNotification-channel')
+window.Echo.channel('broadcastNotification-channel')
     .listen('.broadcastNotification-event', (e) => {
-  
+
         // Evitar que el emisor vea su propia notificación
         if (userLogin == e.userEmisor.id) {
             return;
