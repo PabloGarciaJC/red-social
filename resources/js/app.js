@@ -2,24 +2,26 @@ require('./bootstrap');
 
 window.Echo.channel('notifications')
     .listen('UserSessionChanged', (e) => {
-        let userAlias = e.user[0].alias;
-        let isOnline = e.user[0].conectado === 1;
-        let statusClass = isOnline ? 'show-contact__online' : 'show-contact__off-online';
-        let statusText = isOnline ? 'Conectado' : 'Desconectado';
-        $('#showContacts .show-contact__user-name').each(function () {
-            if ($(this).text() === userAlias) {
-                $(this).closest('.show-contact__link')
-                    .find('.show-contact__online, .show-contact__off-online')
-                    .removeClass('show-contact__online show-contact__off-online')
-                    .addClass(statusClass)
-                    .text(statusText);
-            }
-        });
+        
+        if (e.user[0].conectado == 1) {
+            $('#showContacts .show-contact__user-name').each(function () {
+                if ($(this).text() === e.user[0].alias) {
+                    $(this).closest('.show-contact__link').find('.show-contact__off-online').removeClass().addClass('show-contact__online').text('Conectado');
+                }
+            });
+        } else {
+            $('#showContacts .show-contact__user-name').each(function () {
+                if ($(this).text() === e.user[0].alias) {
+                    $(this).closest('.show-contact__link').find('.show-contact__online').removeClass().addClass('show-contact__off-online').text('desconectado');
+                }
+            });
+        }
     });
 
-    window.Echo.channel('broadcastNotification-channel')
+
+window.Echo.channel('broadcastNotification-channel')
     .listen('.broadcastNotification-event', (e) => {
-  
+
         // Evitar que el emisor vea su propia notificación
         if (userLogin == e.userEmisor.id) {
             return;
