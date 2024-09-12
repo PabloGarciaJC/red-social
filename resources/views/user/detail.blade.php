@@ -178,9 +178,8 @@
                                         @endforeach
                                     </div>
                                 </div>
-
                                 {{-- Chat --}}
-                                <div class="tab-pane fade {{ request()->query('estado') == 'enviado' ? 'show active' : '' }}" id="chat">
+                                <div class="tab-pane fade" id="chat">
                                     <h5 class="card-title">Chat</h5>
                                     <!-- Contenedor del Chat -->
                                     <div class="chat-container">
