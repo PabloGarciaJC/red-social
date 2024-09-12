@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -47,7 +43,9 @@ Route::get('/like/{publicationId}', 'LikeController@like')->name('likeSave');
 Route::get('/dislike/{publicationId}', 'LikeController@dislike')->name('dislikeSave');
 
 // CHAT
-Route::post('chat/message', 'ChatController@messageReceived')->name('chat.mesaage');
+Route::post('/chats', 'ChatController@sendMessage')->name('chat.sendMessage');
+Route::get('/chats/{userId1}/{userId2}', 'ChatController@getMessages')->name('chat.getMessages');
+
 
 // NOTIFICACIONES
 Route::get('markAsRead', function () {

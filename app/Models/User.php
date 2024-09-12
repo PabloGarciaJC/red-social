@@ -13,20 +13,28 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Los atributos que son asignables en masa.
      *
      * @var array<int, string>
      */
     protected $fillable = [
         'alias',
         'nombre',
+        'apellido',
+        'pais',
+        'direccion',
+        'empresa',
+        'cargo',
+        'movil',
         'email',
         'fotoPerfil',
         'password',
+        'sobreMi',
+        'conectado',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Los atributos que deben ser ocultos para la serialización.
      *
      * @var array<int, string>
      */
@@ -36,7 +44,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * Los atributos que deben ser convertidos a tipos nativos.
      *
      * @var array<string, string>
      */
@@ -44,10 +52,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-     // Relación One To Many 
-     public function followers()
+    /**
+     * Relación uno a muchos con los seguidores.
+     */
+    public function followers()
     {
         return $this->hasMany(Follower::class, 'user_id');
     }
 
+    /**
+     * Relación uno a muchos con los mensajes enviados.
+     */
+    public function sentMessages()
+    {
+        return $this->hasMany(Chat::class, 'emisor_id');
+    }
+
+    /**
+     * Relación uno a muchos con los mensajes recibidos.
+     */
+    public function receivedMessages()
+    {
+        return $this->hasMany(Chat::class, 'receptor_id');
+    }
 }
