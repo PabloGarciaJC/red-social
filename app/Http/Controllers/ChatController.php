@@ -42,17 +42,18 @@ class ChatController extends Controller
         if (!User::find($userId1) || !User::find($userId2)) {
             return response()->json(['error' => 'Invalid users'], 400);
         }
-    
+
         // Obtener los mensajes entre los dos usuarios
         $messages = Chat::where(function ($query) use ($userId1, $userId2) {
             $query->where('emisor_id', $userId1)
-                  ->where('receptor_id', $userId2);
+                ->where('receptor_id', $userId2);
         })->orWhere(function ($query) use ($userId1, $userId2) {
             $query->where('emisor_id', $userId2)
-                  ->where('receptor_id', $userId1);
+                ->where('receptor_id', $userId1);
         })->get();
-    
-        return response()->json($messages);
+
+        // return response()->json($messages);
+        // Devolver la vista con los mensajes
+        return view('chat.windows', ['messages' => $messages]);
     }
-    
 }
