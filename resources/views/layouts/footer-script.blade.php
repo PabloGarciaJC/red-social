@@ -11,6 +11,7 @@
         <script src="{{ asset('assets/js/likes/like.js') }}"></script>
         <script src="{{ asset('assets/js/likes/dislike.js') }}"></script>
         <script src="{{ asset('assets/js/followers/app.js') }}"></script>
+        <script src="{{ asset('assets/js/chat/app.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         @stack('scripts')
     </body>

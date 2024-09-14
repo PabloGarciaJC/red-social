@@ -8,7 +8,7 @@
             <div class="chat-container__message chat-container__message--received">
                 <div class="chat-container__message-content">
                 Hello! How are you? 
-                    @isset($messages)
+                    {{-- @isset($messages)
                             @foreach($messages as $message)
                                 <div class="message">
                                     @if ($message->emisor)
@@ -21,7 +21,7 @@
                             @endforeach
                         @else
                         <a href="{{ route('chat.getMessages', ['userId1' => 110, 'userId2' => 111]) }}">Ir a los mensajes</a>
-                    @endisset
+                    @endisset --}}
                 </div>
             </div>
             <div class="chat-container__message chat-container__message--sent">
@@ -38,43 +38,44 @@
             <button type="button" id="videoCallButton">Video Call</button>
         </div>
          <!-- Cuadro de emojis -->
-        <div id="emojiPicker" class="chat-container__emoji-picker" style="display: none;">
-            <span class="chat-container__emoji" onclick="insertEmoji('😊')">😊</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😂')">😂</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😍')">😍</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😉')">😉</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😭')">😭</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😎')">😎</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😡')">😡</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🥺')">🥺</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😜')">😜</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🤔')">🤔</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('👍')">👍</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🙏')">🙏</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('❤️')">❤️</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🎉')">🎉</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🔥')">🔥</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🤯')">🤯</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🤩')">🤩</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😇')">😇</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🥳')">🥳</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🤪')">🤪</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('👀')">👀</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😏')">😏</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('💀')">💀</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('👻')">👻</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🤤')">🤤</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('😴')">😴</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('👑')">👑</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('💩')">💩</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🦄')">🦄</span>
-            <span class="chat-container__emoji" onclick="insertEmoji('🐶')">🐶</span>
+         <div id="emojiPicker" class="chat-container__emoji-picker" style="display: none;">
+            <span class="chat-container__emoji">😊</span>
+            <span class="chat-container__emoji">😂</span>
+            <span class="chat-container__emoji">😍</span>
+            <span class="chat-container__emoji">😉</span>
+            <span class="chat-container__emoji">😭</span>
+            <span class="chat-container__emoji">😎</span>
+            <span class="chat-container__emoji">😡</span>
+            <span class="chat-container__emoji">🥺</span>
+            <span class="chat-container__emoji">😜</span>
+            <span class="chat-container__emoji">🤔</span>
+            <span class="chat-container__emoji">👍</span>
+            <span class="chat-container__emoji">🙏</span>
+            <span class="chat-container__emoji">❤️</span>
+            <span class="chat-container__emoji">🎉</span>
+            <span class="chat-container__emoji">🔥</span>
+            <span class="chat-container__emoji">🤯</span>
+            <span class="chat-container__emoji">🤩</span>
+            <span class="chat-container__emoji">😇</span>
+            <span class="chat-container__emoji">🥳</span>
+            <span class="chat-container__emoji">🤪</span>
+            <span class="chat-container__emoji">👀</span>
+            <span class="chat-container__emoji">😏</span>
+            <span class="chat-container__emoji">💀</span>
+            <span class="chat-container__emoji">👻</span>
+            <span class="chat-container__emoji">🤤</span>
+            <span class="chat-container__emoji">😴</span>
+            <span class="chat-container__emoji">👑</span>
+            <span class="chat-container__emoji">💩</span>
+            <span class="chat-container__emoji">🦄</span>
+            <span class="chat-container__emoji">🐶</span>
         </div>
+        
     </div>
     <!-- Ventana emergente de videollamada -->
     <div id="videoCallModal" class="chat-container__modal" style="display: none;">
         <div class="chat-container__modal-content">
-            <span class="chat-container__close" onclick="closeVideoCall()">×</span>
+            <span class="chat-container__close">×</span>
             <h2>Video Call</h2>
             <p>Video call with [User]</p>
         </div>

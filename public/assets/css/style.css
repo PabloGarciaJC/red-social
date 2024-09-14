@@ -1266,17 +1266,15 @@ h6 {
   color: #012970;
 }
 
-
 /* like */
 .like {
-
   color: green;
-  background-image: url("http://localhost/red-social_pablogarciajc/public/assets/img/heart-red.png");
-
+  /* background-image: url("../img/heart-red.png"); */
 }
 
 .dislike {
   color: red;
+  /* background-image: url("../img/heart-black.png"); */
 }
 
 /* Autocompletado */
