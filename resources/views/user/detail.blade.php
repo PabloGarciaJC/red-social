@@ -102,11 +102,13 @@
                                         Perfil
                                     </button>
                                 </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#chat">
-                                        Chat
-                                    </button>
-                                </li>
+                                @if (request()->query('estado') == 'confirmado')
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#chat">
+                                            Chat
+                                        </button>
+                                    </li>
+                                 @endif
                             </ul>
                             <div class="tab-content pt-2">
                                 {{-- Perfil --}}
@@ -187,12 +189,12 @@
                                             <!-- Mensajes del chat -->
                                             <div class="chat-container__message chat-container__message--received">
                                                 <div class="chat-container__message-content">
-                                                    <p>Hello! How are you?</p>
+                                                   Hello! How are you?
                                                 </div>
                                             </div>
                                             <div class="chat-container__message chat-container__message--sent">
                                                 <div class="chat-container__message-content">
-                                                    <p>I'm good, thanks! How about you?</p>
+                                                   I'm good, thanks! How about you?
                                                 </div>
                                             </div>
                                         </div>
