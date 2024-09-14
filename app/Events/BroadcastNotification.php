@@ -42,6 +42,8 @@ class  BroadcastNotification implements ShouldBroadcast
     public function broadcastOn()
     {
         // \Log::debug("{$this->userEmisor}");
+        // \Log::debug("{$this->estado}");
+        // \Log::debug("{$this->messajeNotification}");
         return new Channel('broadcastNotification-channel');
     }
 

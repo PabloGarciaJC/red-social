@@ -1370,3 +1370,9 @@ h6 {
 .chat-container__modal .chat-container__close { position: absolute; top: 10px; right: 10px; font-size: 20px; cursor: pointer; }
 /* Responsive Design */
 @media (max-width: 768px) { .chat-container { height: 400px; } .chat-container__message-content { max-width: 80%; } .chat-container__input input { font-size: 14px; } .chat-container__input button { font-size: 14px; } }
+
+/*--------------------------------------------------------------
+# Autor
+--------------------------------------------------------------*/
+.credits__autor {display: flex;justify-content: center;color: #012970; gap: 5px;}
+.credits__autor:hover {color:#012970}

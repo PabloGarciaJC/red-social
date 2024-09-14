@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('dynamic-content')
+@section('core-content')
     <main id="main" class="main">
         <div class="pagetitle">
             <h1>Perfil</h1>
@@ -11,8 +11,7 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                             @if (Auth::user()->fotoPerfil)
-                                <img src="{{ route('foto.perfil', ['filename' => Auth::user()->fotoPerfil]) }}" alt="Profile"
-                                    class="rounded-circle">
+                                <img src="{{ route('foto.perfil', ['filename' => Auth::user()->fotoPerfil]) }}" alt="Profile" class="rounded-circle">
                             @else
                                 <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                             @endif
@@ -21,65 +20,48 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-xl-8">
                     <div class="card">
                         <div class="card-body pt-3">
-
                             {{-- Menu de Navegacion --}}
                             <ul class="nav nav-tabs nav-tabs-bordered">
                                 <li class="nav-item">
-                                    <button class="nav-link {{ session('message') || $errors->any() ? '' : 'active' }}"
-                                        data-bs-toggle="tab" data-bs-target="#perfil">
-                                        Perfil</button>
+                                    <button class="nav-link {{ session('message') || $errors->any() ? '' : 'active' }}" data-bs-toggle="tab" data-bs-target="#perfil"> Perfil</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link {{ session('message') || $errors->any() ? 'active' : '' }}"
-                                        data-bs-toggle="tab" data-bs-target="#perfil-edit">Editar
-                                        Perfil</button>
+                                     <button class="nav-link {{ session('message') || $errors->any() ? 'active' : '' }}" data-bs-toggle="tab" data-bs-target="#perfil-edit">Editar Perfil</button>
                                 </li>
                             </ul>
-
                             <div class="tab-content pt-2">
-
                                 {{-- Perfil --}}
-                                <div class="tab-pane fade show {{ session('message') || $errors->any() ? '' : 'active' }} profile-overview"
-                                    id="perfil">
+                                <div class="tab-pane fade show {{ session('message') || $errors->any() ? '' : 'active' }} profile-overview" id="perfil">
                                     <h5 class="card-title">Sobre Mi</h5>
                                     <p class="small">{{ Auth::user()->sobreMi }}</p>
-
                                     <h5 class="card-title">Detalles de mi Perfil</h5>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Alias</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->alias }}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Nombre</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->nombre }}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Apellido</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->apellido }}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Empresa</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->empresa }}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Cargo</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->cargo }}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Pais</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->pais }}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Dirección</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->direccion }}</div>
@@ -89,30 +71,22 @@
                                         <div class="col-lg-3 col-md-4 label">Móvil</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->movil }}</div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Email</div>
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->email }}</div>
                                     </div>
-
                                 </div>
 
                                 {{-- Editar Perfil --}}
-                                <div class="tab-pane fade show {{ session('message') || $errors->any() ? 'active' : '' }} profile-overview"
-                                    id="perfil-edit">
-
+                                <div class="tab-pane fade show {{ session('message') || $errors->any() ? 'active' : '' }} profile-overview" id="perfil-edit">
                                     @if (session('message'))
                                         <br>
                                         <div class="alert alert-success" role="alert" style="text-align: center">
                                             {{ session('message') }}
                                         </div>
                                     @endif
-
-                                    <form action="{{ action('UserController@actualizar') }}" method="POST"
-                                        enctype="multipart/form-data">
-
+                                    <form action="{{ action('UserController@actualizar') }}" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-
                                         <div class="row mb-3">
                                             <label for="fotoPerfil" class="col-md-4 col-lg-3 col-form-label">Foto del
                                                 Perfil</label>
@@ -132,7 +106,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="nombre" class="col-md-4 col-lg-3 col-form-label">Alias</label>
                                             <div class="col-md-8 col-lg-9">
@@ -140,7 +113,6 @@
                                                     value="{{ Auth::user()->alias }}" disabled>
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="nombre" class="col-md-4 col-lg-3 col-form-label">Nombre</label>
                                             <div class="col-md-8 col-lg-9">
@@ -151,7 +123,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="apellido"
                                                 class="col-md-4 col-lg-3 col-form-label">Apellido</label>
@@ -163,7 +134,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="empresa" class="col-md-4 col-lg-3 col-form-label">Empresa</label>
                                             <div class="col-md-8 col-lg-9">
@@ -174,7 +144,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="cargo" class="col-md-4 col-lg-3 col-form-label">Cargo</label>
                                             <div class="col-md-8 col-lg-9">
@@ -185,7 +154,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="pais" class="col-md-4 col-lg-3 col-form-label">Pais</label>
                                             <div class="col-md-8 col-lg-9">
@@ -196,7 +164,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="direccion"
                                                 class="col-md-4 col-lg-3 col-form-label">Dirección</label>
@@ -208,7 +175,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="movil" class="col-md-4 col-lg-3 col-form-label">Móvil</label>
                                             <div class="col-md-8 col-lg-9">
@@ -219,7 +185,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                             <div class="col-md-8 col-lg-9">
@@ -227,7 +192,6 @@
                                                     value="{{ Auth::user()->email }}" disabled>
                                             </div>
                                         </div>
-
                                         <div class="row mb-3">
                                             <label for="sobreMi" class="col-md-4 col-lg-3 col-form-label">Sobre
                                                 Mi</label>
@@ -238,13 +202,11 @@
                                                 @endif
                                             </div>
                                         </div>
-
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                         </div>
                                     </form>
                                 </div>
-
                             </div>
                         </div>
                     </div>

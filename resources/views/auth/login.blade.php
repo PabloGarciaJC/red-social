@@ -56,10 +56,9 @@
                                                 {{ __('¿Olvidaste tu contraseña?') }}
                                             </a>
                                         </div>
-                        
                                         <div class="col-12">
                                             <p class="small mb-0">¿No tienes cuenta? <a href="{{ route('register') }}">Crea una cuenta</a></p>
-                                            <div class="pt-2 credits text-center">Desarrollado por <strong>PabloGarciaJC</strong></div>     
+                                            <a href="https://pablogarciajc.com/" class="pt-2 credits__autor">Desarrollado por <strong>PabloGarciaJC</strong></a>     
                                         </div>
                                     </form>
                                 </div>

@@ -118,6 +118,7 @@ class initAppInitializer {
         $closeModalButton.on('click', closeVideoCall);
 
     }
+    
     // Contendor de Funcionalidades
     startinitApp() {
         this.apiFollowers();

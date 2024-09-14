@@ -6,12 +6,6 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                        <div class="d-flex justify-content-center py-4">
-                            <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                <img src="{{ url('assets/img/logo.webp') }}" alt="logo">
-                                <span class="d-none d-lg-block">PabloGarciaJC</span>
-                            </a>
-                        </div>
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="pt-4 pb-2">
@@ -81,14 +75,15 @@
                                             {{ __('Register') }}
                                         </button>
                                     </div>
+                                    <div class="col-12">
+                                        <a href="https://pablogarciajc.com/" class="pt-2 credits__autor">Desarrollado por <strong>PabloGarciaJC</strong></a>     
+                                    </div>
                                 </form>
                             </div>
                         </div>         
                     </div>
                 </div>
             </div>
-
         </section>
-
     </div>
 @endsection
