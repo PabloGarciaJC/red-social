@@ -23,7 +23,7 @@ class initAppChatClass {
                 // Crear el elemento del mensaje en el chat
                 let $messageElement = $('<div>', { class: 'chat-container__message chat-container__message--sent' })
                         .append($('<div>', { class: 'chat-container__message-content' })
-                        .append($('<p>').text(messageText)));
+                        .text(messageText));
 
                 // Insertar el mensaje en la caja de chat
                 $('.chat-container__box').append($messageElement);
