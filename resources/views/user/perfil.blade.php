@@ -76,7 +76,6 @@
                                         <div class="col-lg-9 col-md-8">{{ Auth::user()->email }}</div>
                                     </div>
                                 </div>
-
                                 {{-- Editar Perfil --}}
                                 <div class="tab-pane fade show {{ session('message') || $errors->any() ? 'active' : '' }} profile-overview" id="perfil-edit">
                                     @if (session('message'))

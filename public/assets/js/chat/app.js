@@ -11,30 +11,45 @@ class initAppChatClass {
 
         // Función para enviar un mensaje
         function sendMessage() {
+            let $userReceptor = $('#user-receptor');
+
+            if ($userReceptor.length === 0) {
+                console.error("El elemento con ID 'user-receptor' no existe en el DOM.");
+                return;
+            }
+
             let messageText = $messageInput.val().trim();
             if (messageText) {
                 // Crear el elemento del mensaje en el chat
                 let $messageElement = $('<div>', { class: 'chat-container__message chat-container__message--sent' })
-                    .append($('<div>', { class: 'chat-container__message-content' })
+                        .append($('<div>', { class: 'chat-container__message-content' })
                         .append($('<p>').text(messageText)));
 
                 // Insertar el mensaje en la caja de chat
                 $('.chat-container__box').append($messageElement);
 
-                console.log(messageText);
-                // Enviar el mensaje al servidor mediante AJAX
-                // $.ajax({
-                //     url: '/ruta-del-servidor', 
-                //     type: 'POST',
-                //     data: JSON.stringify({ message: messageText }), 
-                //     contentType: 'application/json', 
-                //     success: function (response) {
-                //         console.log('Mensaje enviado correctamente');
-                //     },
-                //     error: function (error) {
-                //         console.error('Error al enviar el mensaje:', error);
-                //     }
-                // });
+                $.ajax({
+                    url: `${baseUrl}chats/send`,
+                    method: 'GET',
+                    data: {
+                        emisor_id: userLogin,
+                        receptor_id: $userReceptor.val(),
+                        message: messageText
+                    },
+                    success: function (response) {
+                        console.log('Respuesta del servidor:', response);
+                        $('#messageInput').val('');
+                        loadMessages();  // Recargar los mensajes si tienes una función para eso
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error al enviar el mensaje:", {
+                            xhr: xhr,
+                            status: status,
+                            error: error,
+                            responseText: xhr.responseText
+                        });
+                    }
+                });
 
                 // Limpiar el campo de entrada
                 $messageInput.val('');
@@ -82,7 +97,6 @@ class initAppChatClass {
         // Evento para abrir el modal de videollamada
         $videoCallButton.on('click', openVideoCall);
 
-
         // Función para cerrar el modal de videollamada
         $('.chat-container__close').on('click', function () {
             $videoCallModal.hide();
@@ -96,11 +110,50 @@ class initAppChatClass {
         });
     }
 
-    // Contendor de Funcionalidades
+    loadMessages() {
+        let $userReceptor = $('#user-receptor');
+
+        if ($userReceptor.length === 0) {
+            console.error("El elemento con ID 'user-receptor' no existe en el DOM.");
+            return;
+        }
+
+        let receptorId = $userReceptor.val();
+
+        $.ajax({
+            url: `${baseUrl}chats/${userLogin}/${receptorId}`,
+            method: 'GET',
+            success: function (response) {
+                // Limpiar el contenedor del chat antes de agregar nuevos mensajes
+                $('.chat-container__box').empty();
+
+                // Recorrer los mensajes obtenidos
+                response.forEach(function (message) {
+                    let messageClass = message.emisor_id == userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
+                    let messageHtml = `
+                    <div class="chat-container__message ${messageClass}">
+                        <div class="chat-container__message-content">
+                            ${message.message}
+                        </div>                        
+                    </div>
+                `;
+                    $('.chat-container__box').append(messageHtml);
+                });
+            },
+            error: function (err) {
+                console.error("Error al cargar los mensajes:", err);
+            }
+        });
+    }
+
+    // Contenedor de Funcionalidades
     startinitChat() {
 
+        // Iniciar la funcionalidad del chat
         this.chat();
 
+        // Cargar mensajes automáticamente cuando se carga la página
+        this.loadMessages();
     }
 }
 

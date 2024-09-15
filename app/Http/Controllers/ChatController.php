@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
 {
@@ -14,20 +16,20 @@ class ChatController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function sendMessage(Request $request)
-    {
-        // Validar la solicitud
-        $validated = $request->validate([
-            'emisor_id' => 'required|exists:users,id',
-            'receptor_id' => 'required|exists:users,id',
-            'message' => 'required|string',
-        ]);
+    // public function sendMessage(Request $request)
+    // {
+    //     // Validar la solicitud
+    //     $validated = $request->validate([
+    //         'emisor_id' => 'required|exists:users,id',
+    //         'receptor_id' => 'required|exists:users,id',
+    //         'message' => 'required|string',
+    //     ]);
 
-        // Crear el nuevo mensaje
-        $chat = Chat::create($validated);
+    //     // Crear el nuevo mensaje
+    //     $chat = Chat::create($validated);
 
-        return response()->json($chat, 201);
-    }
+    //     return response()->json($chat, 201);
+    // }
 
     /**
      * Obtener los mensajes entre dos usuarios.
@@ -38,22 +40,59 @@ class ChatController extends Controller
      */
     public function getMessages($userId1, $userId2)
     {
-        // Validar los usuarios
-        if (!User::find($userId1) || !User::find($userId2)) {
-            return response()->json(['error' => 'Invalid users'], 400);
-        }
+        // Obtener los mensajes enviados entre userId1 y userId2 (en ambas direcciones)
+        $messages = DB::table('chats')
+            ->where(function ($query) use ($userId1, $userId2) {
+                $query->where('emisor_id', $userId1)
+                    ->where('receptor_id', $userId2);
+            })
+            ->orWhere(function ($query) use ($userId1, $userId2) {
+                $query->where('emisor_id', $userId2)
+                    ->where('receptor_id', $userId1);
+            })
+            ->orderBy('created_at', 'asc') // Ordenar por fecha de creación ascendente para mostrar la conversación cronológicamente
+            ->get();
 
-        // Obtener los mensajes entre los dos usuarios
-        $messages = Chat::where(function ($query) use ($userId1, $userId2) {
-            $query->where('emisor_id', $userId1)
-                ->where('receptor_id', $userId2);
-        })->orWhere(function ($query) use ($userId1, $userId2) {
-            $query->where('emisor_id', $userId2)
-                ->where('receptor_id', $userId1);
-        })->get();
-
-        // return response()->json($messages);
-        // Devolver la vista con los mensajes
-        return view('chat.windows', ['messages' => $messages]);
+        // Retornar los mensajes como respuesta JSON
+        return response()->json($messages, 200);
     }
+
+    // Función para enviar un mensaje
+    public function sendMessage(Request $request)
+    {
+  
+        // Validar los datos entrantes
+        $validator = Validator::make($request->all(), [
+            'emisor_id' => 'required|integer|exists:users,id', // Asegúrate de que el emisor existe en la tabla users
+            'receptor_id' => 'required|integer|exists:users,id', // Lo mismo para el receptor
+            'message' => 'required|string|max:1000', // El mensaje es requerido y tiene un límite de 1000 caracteres
+        ]);
+    
+        // Si la validación falla, devolver un error
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+    
+        try {
+            // Crear un nuevo mensaje
+            $chat = new Chat();
+            $chat->emisor_id = $request->input('emisor_id');
+            $chat->receptor_id = $request->input('receptor_id');
+            $chat->message = $request->input('message');
+            $chat->created_at = now();
+            $chat->updated_at = now();
+            $chat->save();
+    
+            // Devolver una respuesta de éxito
+            return response()->json([
+                'success' => true,
+                'message' => 'Mensaje enviado con éxito',
+                'data' => $chat
+            ], 201);
+        } catch (\Exception $e) {
+            // En caso de error, devolver una respuesta de error
+            return response()->json(['error' => 'Error al enviar el mensaje'], 500);
+        }
+    }
+    
 }

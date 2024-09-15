@@ -7,26 +7,12 @@
             <!-- Mensajes del chat -->
             <div class="chat-container__message chat-container__message--received">
                 <div class="chat-container__message-content">
-                Hello! How are you? 
-                    {{-- @isset($messages)
-                            @foreach($messages as $message)
-                                <div class="message">
-                                    @if ($message->emisor)
-                                        <p><strong>{{ $message->emisor->name }}:</strong> {{ $message->message }}</p>
-                                    @else
-                                        <p><strong>Unknown User:</strong> {{ $message->message }}</p>
-                                    @endif
-                                    <span>{{ $message->created_at }}</span>
-                                </div>
-                            @endforeach
-                        @else
-                        <a href="{{ route('chat.getMessages', ['userId1' => 110, 'userId2' => 111]) }}">Ir a los mensajes</a>
-                    @endisset --}}
+                {{-- Hello! How are you?  --}}
                 </div>
             </div>
             <div class="chat-container__message chat-container__message--sent">
                 <div class="chat-container__message-content">
-                I'm good, thanks! How about you?
+                {{-- I'm good, thanks! How about you? --}}
                 </div>
             </div>
         </div>

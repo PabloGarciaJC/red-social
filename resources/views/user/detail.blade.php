@@ -107,7 +107,7 @@
                                  @endif
                             </ul>
                             <div class="tab-content pt-2">
-                                {{-- Perfil --}}
+                                {{-- Perfil Info --}}
                                 @include('user.info')
                                 {{-- Chat --}}
                                 @include('chat.windows')

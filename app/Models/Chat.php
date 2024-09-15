@@ -22,8 +22,13 @@ class Chat extends Model
      * @var array
      */
     protected $fillable = [
-        'emisor_id', 'receptor_id', 'message'
+        'emisor_id',
+        'receptor_id',
+        'message'
     ];
+
+    // Si no utilizas timestamps automáticos en tu base de datos, puedes especificar esto
+    public $timestamps = true;
 
     /**
      * Obtiene el usuario que envió el mensaje.
