@@ -28,9 +28,6 @@ class InitAppChatClass {
                     success: () => {
                         this.messageInput.val('');
                         this.scrollToBottom();
-                    },
-                    error: (xhr, status, error) => {
-                        console.error("Error al enviar el mensaje:", { xhr, status, error, responseText: xhr.responseText });
                     }
                 });
             }
@@ -83,8 +80,7 @@ class InitAppChatClass {
                     $('.chat-container__box').append(messageHtml);
                 });
                 this.scrollToBottom();
-            },
-            error: (err) => console.error("Error al cargar los mensajes:", err)
+            }
         });
     }
 
