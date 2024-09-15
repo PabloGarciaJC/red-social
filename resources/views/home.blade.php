@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('dynamic-content')
+@section('core-content')
     <main id="main" class="main">
         <section class="section dashboard">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        @include('includes.home.createPublication')
-                        @include('includes.home.showPublication')
+                        @include('publication.create')
+                        @include('publication.show')
                     </div>
                 </div>
-                @include('includes.contacts')
+                @include('home.contacts')
             </div>
         </section>
     </main>

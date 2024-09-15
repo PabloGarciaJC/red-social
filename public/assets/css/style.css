@@ -381,8 +381,7 @@ h6 {
 }
 
 .logo img {
-  max-height: 26px;
-  margin-right: 6px;
+  max-height: 44px;
 }
 
 .logo span {
@@ -1267,17 +1266,15 @@ h6 {
   color: #012970;
 }
 
-
 /* like */
 .like {
-
   color: green;
-  background-image: url("http://localhost/red-social_pablogarciajc/public/assets/img/heart-red.png");
-
+  /* background-image: url("../img/heart-red.png"); */
 }
 
 .dislike {
   color: red;
+  /* background-image: url("../img/heart-black.png"); */
 }
 
 /* Autocompletado */
@@ -1353,17 +1350,17 @@ h6 {
 # Estructura del chat
 --------------------------------------------------------------*/
 .chat-container { display: flex; flex-direction: column; height: 500px; max-width: 100%; border: 1px solid #ddd; border-radius: 5px; background-color: #f8f9fa; overflow: hidden; }
-.chat-container__box { flex: 1; overflow-y: auto; }
+.chat-container__box { flex: 1; overflow-y: auto; padding: 15px; }
 .chat-container__message { margin-bottom: 10px; display: flex; align-items: flex-start; }
 .chat-container__message--received { justify-content: flex-start; }
 .chat-container__message--sent { justify-content: flex-end; }
 .chat-container__message-content { max-width: 60%; padding: 10px; border-radius: 10px; background-color: #e1ffc7; border: 1px solid #c3e3d8; }
 .chat-container__message--sent .chat-container__message-content { background-color: #d1f0ff; border-color: #a2c2e6; }
 .chat-container__input { display: flex; align-items: center; border-top: 1px solid #ddd; padding: 10px; background-color: #ffffff; }
-.chat-container__input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; font-size: 16px; }
+.chat-container__input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; font-size: 16px; margin-left: 10px; }
 .chat-container__input button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; margin-left: 5px; }
 .chat-container__input button:hover { background-color: #0056b3; }
-.chat-container__emoji-picker { position: absolute; bottom: 80px; right: 27px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
+.chat-container__emoji-picker { position: absolute; bottom: 82px; left: 35px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
   grid-template-columns: repeat(6, 1fr) }
 .chat-container__emoji { cursor: pointer; font-size: 24px; margin: 5px; }
 .chat-container__modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;z-index: 996; }
@@ -1371,3 +1368,19 @@ h6 {
 .chat-container__modal .chat-container__close { position: absolute; top: 10px; right: 10px; font-size: 20px; cursor: pointer; }
 /* Responsive Design */
 @media (max-width: 768px) { .chat-container { height: 400px; } .chat-container__message-content { max-width: 80%; } .chat-container__input input { font-size: 14px; } .chat-container__input button { font-size: 14px; } }
+
+/*--------------------------------------------------------------
+# Autor
+--------------------------------------------------------------*/
+.credits__autor {display: flex;justify-content: center;color: #012970; gap: 5px;}
+.credits__autor:hover {color:#012970}
+
+/*--------------------------------------------------------------
+# Juegos
+--------------------------------------------------------------*/
+.memory-game__board {display: grid; grid-template-columns: repeat(4, 100px); gap: 10px;}
+.memory-game__card {width: 100px;height: 100px; background-color: #ccc; display: flex;align-items: center;justify-content: center; font-size: 24px; cursor: pointer; position: relative;}
+.memory-game__card--flipped {background-color: #fff;}
+.memory-game__card img { width: 80%; height: auto; display: none;}
+.memory-game__card--flipped img { display: block;}
+.memory-game__card--matched {background-color: #a5d6a7; cursor: default;}

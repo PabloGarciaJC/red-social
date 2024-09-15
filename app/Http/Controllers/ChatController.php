@@ -2,33 +2,98 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\Events\MessageSent;
 use Illuminate\Http\Request;
+use App\Models\Chat;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Events\BroadcastChat;
 
 class ChatController extends Controller
 {
     /**
-     * Create a new controller instance.
+     * Enviar un nuevo mensaje.
      *
-     * @return void
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    // public function sendMessage(Request $request)
+    // {
+    //     // Validar la solicitud
+    //     $validated = $request->validate([
+    //         'emisor_id' => 'required|exists:users,id',
+    //         'receptor_id' => 'required|exists:users,id',
+    //         'message' => 'required|string',
+    //     ]);
+
+    //     // Crear el nuevo mensaje
+    //     $chat = Chat::create($validated);
+
+    //     return response()->json($chat, 201);
+    // }
+
+    /**
+     * Obtener los mensajes entre dos usuarios.
+     *
+     * @param int $userId1
+     * @param int $userId2
+     * @return \Illuminate\Http\Response
+     */
+    public function getMessages($userId1, $userId2)
     {
-        $this->middleware('auth');
+        // Obtener los mensajes enviados entre userId1 y userId2 (en ambas direcciones)
+        $messages = DB::table('chats')
+            ->where(function ($query) use ($userId1, $userId2) {
+                $query->where('emisor_id', $userId1)
+                    ->where('receptor_id', $userId2);
+            })
+            ->orWhere(function ($query) use ($userId1, $userId2) {
+                $query->where('emisor_id', $userId2)
+                    ->where('receptor_id', $userId1);
+            })
+            ->orderBy('created_at', 'asc') // Ordenar por fecha de creación ascendente para mostrar la conversación cronológicamente
+            ->get();
+
+        // Retornar los mensajes como respuesta JSON
+        return response()->json($messages, 200);
     }
 
-
-    public function messageReceived(Request $request)
+    // Función para enviar un mensaje
+    public function sendMessage(Request $request)
     {
-        $rules = [
-            'message' => 'required',
-        ];
 
-        $request->validate($rules);
+        // Validar los datos entrantes
+        $validator = Validator::make($request->all(), [
+            'emisor_id' => 'required|integer|exists:users,id', // Asegúrate de que el emisor existe en la tabla users
+            'receptor_id' => 'required|integer|exists:users,id', // Lo mismo para el receptor
+            'message' => 'required|string|max:1000', // El mensaje es requerido y tiene un límite de 1000 caracteres
+        ]);
 
-        broadcast(new MessageSent($request->user(), $request->message));
+        // Si la validación falla, devolver un error
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
 
-        return response()->json('message broadcast');
+
+        try {
+            // Crear un nuevo mensaje
+            $chat = new Chat();
+            $chat->emisor_id = $request->input('emisor_id');
+            $chat->receptor_id = $request->input('receptor_id');
+            $chat->message = $request->input('message');
+            $chat->created_at = now();
+            $chat->updated_at = now();
+            $chat->save();
+
+            // Emitir la notificación a través de Pusher
+            broadcast(new BroadcastChat($chat));
+
+            // Devolver una respuesta de éxito
+            return response()->json(['data' => $chat], 201);
+            
+        } catch (\Exception $e) {
+            // En caso de error, devolver una respuesta de error
+            return response()->json(['error' => 'Error al enviar el mensaje'], 500);
+        }
     }
 }
