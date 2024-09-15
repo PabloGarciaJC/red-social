@@ -1,6 +1,5 @@
 class InitAppChatClass {
     constructor() {
-
         this.messageInput = $('#messageInput');
         this.sendMessageButton = $('#sendMessage');
         this.emojiButton = $('#emojiButton');
@@ -28,32 +27,40 @@ class InitAppChatClass {
                     success: () => {
                         this.messageInput.val('');
                         this.scrollToBottom();
+                    },
+                    error: (xhr, status, error) => {
+                        console.error('Error sending message:', error);
                     }
                 });
             }
         };
 
-        this.sendMessageButton.on('click', sendMessage);
-        this.messageInput.on('keypress', (event) => {
+        // Event handling for sendMessage button
+        this.sendMessageButton.on('click touchstart', sendMessage);
+
+        // Event handling for Enter key press in message input
+        this.messageInput.on('keypress touchstart', (event) => {
             if (event.key === 'Enter') {
                 sendMessage();
                 event.preventDefault();
             }
         });
 
+        // Event handling for emoji picker
         const insertEmoji = (emoji) => {
             this.messageInput.val(this.messageInput.val() + emoji);
             this.emojiPicker.hide();
         };
 
-        this.emojiButton.on('click', () => this.emojiPicker.toggle());
-        this.emojiPicker.on('click', '.chat-container__emoji', function () {
+        this.emojiButton.on('click touchstart', () => this.emojiPicker.toggle());
+        this.emojiPicker.on('click touchstart', '.chat-container__emoji', function () {
             insertEmoji($(this).text());
         });
 
-        this.videoCallButton.on('click', () => this.videoCallModal.show());
-        $('.chat-container__close').on('click', () => this.videoCallModal.hide());
-        this.videoCallModal.on('click', (event) => {
+        // Event handling for video call modal
+        this.videoCallButton.on('click touchstart', () => this.videoCallModal.show());
+        $('.chat-container__close').on('click touchstart', () => this.videoCallModal.hide());
+        this.videoCallModal.on('click touchstart', (event) => {
             if ($(event.target).is('#videoCallModal')) this.videoCallModal.hide();
         });
     }
@@ -80,6 +87,9 @@ class InitAppChatClass {
                     $('.chat-container__box').append(messageHtml);
                 });
                 this.scrollToBottom();
+            },
+            error: (xhr, status, error) => {
+                console.error('Error loading messages:', error);
             }
         });
     }

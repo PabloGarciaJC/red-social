@@ -11,27 +11,7 @@ use App\Events\BroadcastChat;
 
 class ChatController extends Controller
 {
-    /**
-     * Enviar un nuevo mensaje.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    // public function sendMessage(Request $request)
-    // {
-    //     // Validar la solicitud
-    //     $validated = $request->validate([
-    //         'emisor_id' => 'required|exists:users,id',
-    //         'receptor_id' => 'required|exists:users,id',
-    //         'message' => 'required|string',
-    //     ]);
-
-    //     // Crear el nuevo mensaje
-    //     $chat = Chat::create($validated);
-
-    //     return response()->json($chat, 201);
-    // }
-
+  
     /**
      * Obtener los mensajes entre dos usuarios.
      *
@@ -64,16 +44,15 @@ class ChatController extends Controller
 
         // Validar los datos entrantes
         $validator = Validator::make($request->all(), [
-            'emisor_id' => 'required|integer|exists:users,id', // Asegúrate de que el emisor existe en la tabla users
-            'receptor_id' => 'required|integer|exists:users,id', // Lo mismo para el receptor
-            'message' => 'required|string|max:1000', // El mensaje es requerido y tiene un límite de 1000 caracteres
+            'emisor_id' => 'required|integer|exists:users,id',
+            'receptor_id' => 'required|integer|exists:users,id',
+            'message' => 'required|string|max:1000',
         ]);
 
         // Si la validación falla, devolver un error
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
-
 
         try {
             // Crear un nuevo mensaje
