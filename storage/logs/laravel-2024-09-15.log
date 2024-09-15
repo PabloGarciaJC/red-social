@@ -109,3 +109,37 @@
 [2024-09-15 11:57:12] local.DEBUG: {"id":179,"emisor_id":110,"receptor_id":112,"message":"llorando","created_at":"2024-09-15T11:57:12.000000Z","updated_at":"2024-09-15T11:57:12.000000Z"}  
 [2024-09-15 11:57:23] local.DEBUG: {"id":180,"emisor_id":112,"receptor_id":110,"message":"azucarrr","created_at":"2024-09-15T11:57:23.000000Z","updated_at":"2024-09-15T11:57:23.000000Z"}  
 [2024-09-15 11:57:32] local.DEBUG: {"id":181,"emisor_id":112,"receptor_id":110,"message":"sii claro","created_at":"2024-09-15T11:57:32.000000Z","updated_at":"2024-09-15T11:57:32.000000Z"}  
+[2024-09-15 11:59:04] local.DEBUG: {"id":182,"emisor_id":110,"receptor_id":112,"message":"hola pablo como estas?","created_at":"2024-09-15T11:59:04.000000Z","updated_at":"2024-09-15T11:59:04.000000Z"}  
+[2024-09-15 11:59:15] local.DEBUG: {"id":183,"emisor_id":110,"receptor_id":112,"message":"\ud83d\ude1c","created_at":"2024-09-15T11:59:15.000000Z","updated_at":"2024-09-15T11:59:15.000000Z"}  
+[2024-09-15 11:59:22] local.DEBUG: {"id":184,"emisor_id":110,"receptor_id":112,"message":"\ud83d\udc40","created_at":"2024-09-15T11:59:22.000000Z","updated_at":"2024-09-15T11:59:22.000000Z"}  
+[2024-09-15 11:59:33] local.DEBUG: {"id":185,"emisor_id":112,"receptor_id":110,"message":"biien y tu","created_at":"2024-09-15T11:59:33.000000Z","updated_at":"2024-09-15T11:59:33.000000Z"}  
+[2024-09-15 12:01:10] local.DEBUG: {"id":186,"emisor_id":110,"receptor_id":112,"message":"hola user 2","created_at":"2024-09-15T12:01:10.000000Z","updated_at":"2024-09-15T12:01:10.000000Z"}  
+[2024-09-15 12:01:25] local.DEBUG: {"id":187,"emisor_id":112,"receptor_id":110,"message":"como estas user 1","created_at":"2024-09-15T12:01:25.000000Z","updated_at":"2024-09-15T12:01:25.000000Z"}  
+[2024-09-15 12:01:29] local.DEBUG: {"id":188,"emisor_id":112,"receptor_id":110,"message":"\ud83d\ude1c","created_at":"2024-09-15T12:01:29.000000Z","updated_at":"2024-09-15T12:01:29.000000Z"}  
+[2024-09-15 12:01:40] local.DEBUG: {"id":189,"emisor_id":110,"receptor_id":112,"message":"todo bajo control.. \ud83d\ude4f","created_at":"2024-09-15T12:01:40.000000Z","updated_at":"2024-09-15T12:01:40.000000Z"}  
+[2024-09-15 12:15:01] local.DEBUG: {"id":190,"emisor_id":110,"receptor_id":112,"message":"hola","created_at":"2024-09-15T12:15:01.000000Z","updated_at":"2024-09-15T12:15:01.000000Z"}  
+[2024-09-15 12:15:05] local.DEBUG: {"id":191,"emisor_id":110,"receptor_id":112,"message":"sss","created_at":"2024-09-15T12:15:05.000000Z","updated_at":"2024-09-15T12:15:05.000000Z"}  
+[2024-09-15 12:15:10] local.DEBUG: {"id":192,"emisor_id":110,"receptor_id":112,"message":"ddd","created_at":"2024-09-15T12:15:10.000000Z","updated_at":"2024-09-15T12:15:10.000000Z"}  
+[2024-09-15 12:15:21] local.DEBUG: {"id":193,"emisor_id":110,"receptor_id":112,"message":"hola pablo","created_at":"2024-09-15T12:15:21.000000Z","updated_at":"2024-09-15T12:15:21.000000Z"}  
+[2024-09-15 12:15:35] local.DEBUG: {"id":194,"emisor_id":110,"receptor_id":112,"message":"miau miua","created_at":"2024-09-15T12:15:35.000000Z","updated_at":"2024-09-15T12:15:35.000000Z"}  
+[2024-09-15 12:15:56] local.DEBUG: {"id":195,"emisor_id":112,"receptor_id":110,"message":"guao guao","created_at":"2024-09-15T12:15:56.000000Z","updated_at":"2024-09-15T12:15:56.000000Z"}  
+[2024-09-15 12:16:01] local.DEBUG: {"id":196,"emisor_id":112,"receptor_id":110,"message":"que as pablo","created_at":"2024-09-15T12:16:01.000000Z","updated_at":"2024-09-15T12:16:01.000000Z"}  
+[2024-09-15 12:16:06] local.DEBUG: {"id":197,"emisor_id":112,"receptor_id":110,"message":"que mas perro","created_at":"2024-09-15T12:16:06.000000Z","updated_at":"2024-09-15T12:16:06.000000Z"}  
+[2024-09-15 12:16:10] local.DEBUG: {"id":198,"emisor_id":112,"receptor_id":110,"message":"\ud83d\ude0f","created_at":"2024-09-15T12:16:10.000000Z","updated_at":"2024-09-15T12:16:10.000000Z"}  
+[2024-09-15 12:16:19] local.DEBUG: {"id":199,"emisor_id":110,"receptor_id":112,"message":"todo depinga weon","created_at":"2024-09-15T12:16:18.000000Z","updated_at":"2024-09-15T12:16:18.000000Z"}  
+[2024-09-15 12:20:20] local.DEBUG: {"id":200,"emisor_id":110,"receptor_id":112,"message":"ho\u00f1\u00f1a","created_at":"2024-09-15T12:20:20.000000Z","updated_at":"2024-09-15T12:20:20.000000Z"}  
+[2024-09-15 12:20:33] local.DEBUG: {"id":201,"emisor_id":112,"receptor_id":110,"message":"ssss","created_at":"2024-09-15T12:20:33.000000Z","updated_at":"2024-09-15T12:20:33.000000Z"}  
+[2024-09-15 12:20:37] local.DEBUG: {"id":202,"emisor_id":112,"receptor_id":110,"message":"\ud83d\udc40","created_at":"2024-09-15T12:20:37.000000Z","updated_at":"2024-09-15T12:20:37.000000Z"}  
+[2024-09-15 12:25:58] local.DEBUG: {"id":203,"emisor_id":110,"receptor_id":112,"message":"qqq","created_at":"2024-09-15T12:25:58.000000Z","updated_at":"2024-09-15T12:25:58.000000Z"}  
+[2024-09-15 12:26:01] local.DEBUG: {"id":204,"emisor_id":110,"receptor_id":112,"message":"\ud83d\udc40","created_at":"2024-09-15T12:26:01.000000Z","updated_at":"2024-09-15T12:26:01.000000Z"}  
+[2024-09-15 12:26:13] local.DEBUG: {"id":205,"emisor_id":112,"receptor_id":110,"message":"ddd","created_at":"2024-09-15T12:26:13.000000Z","updated_at":"2024-09-15T12:26:13.000000Z"}  
+[2024-09-15 12:26:17] local.DEBUG: {"id":206,"emisor_id":112,"receptor_id":110,"message":"\ud83e\udd2f","created_at":"2024-09-15T12:26:17.000000Z","updated_at":"2024-09-15T12:26:17.000000Z"}  
+[2024-09-15 12:27:46] local.DEBUG: {"id":207,"emisor_id":110,"receptor_id":111,"message":"que paso user 2","created_at":"2024-09-15T12:27:46.000000Z","updated_at":"2024-09-15T12:27:46.000000Z"}  
+[2024-09-15 12:27:52] local.DEBUG: {"id":208,"emisor_id":110,"receptor_id":111,"message":"como esta la vaina weon","created_at":"2024-09-15T12:27:52.000000Z","updated_at":"2024-09-15T12:27:52.000000Z"}  
+[2024-09-15 12:28:19] local.DEBUG: {"id":209,"emisor_id":111,"receptor_id":110,"message":"todo depinga weon","created_at":"2024-09-15T12:28:19.000000Z","updated_at":"2024-09-15T12:28:19.000000Z"}  
+[2024-09-15 12:28:28] local.DEBUG: {"id":210,"emisor_id":110,"receptor_id":111,"message":"que bueno mareco","created_at":"2024-09-15T12:28:28.000000Z","updated_at":"2024-09-15T12:28:28.000000Z"}  
+[2024-09-15 12:28:33] local.DEBUG: {"id":211,"emisor_id":111,"receptor_id":110,"message":"jajajaja","created_at":"2024-09-15T12:28:33.000000Z","updated_at":"2024-09-15T12:28:33.000000Z"}  
+[2024-09-15 12:28:36] local.DEBUG: {"id":212,"emisor_id":111,"receptor_id":110,"message":"\ud83e\udd2a","created_at":"2024-09-15T12:28:36.000000Z","updated_at":"2024-09-15T12:28:36.000000Z"}  
+[2024-09-15 12:32:53] local.DEBUG: {"id":213,"emisor_id":110,"receptor_id":111,"message":"perrrro","created_at":"2024-09-15T12:32:53.000000Z","updated_at":"2024-09-15T12:32:53.000000Z"}  
+[2024-09-15 12:32:56] local.DEBUG: {"id":214,"emisor_id":110,"receptor_id":111,"message":"\u2764\ufe0f","created_at":"2024-09-15T12:32:56.000000Z","updated_at":"2024-09-15T12:32:56.000000Z"}  
+[2024-09-15 12:33:04] local.DEBUG: {"id":215,"emisor_id":111,"receptor_id":110,"message":"aaaaa","created_at":"2024-09-15T12:33:04.000000Z","updated_at":"2024-09-15T12:33:04.000000Z"}  
