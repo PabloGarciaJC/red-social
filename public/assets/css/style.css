@@ -1357,10 +1357,10 @@ h6 {
 .chat-container__message-content { max-width: 60%; padding: 10px; border-radius: 10px; background-color: #e1ffc7; border: 1px solid #c3e3d8; }
 .chat-container__message--sent .chat-container__message-content { background-color: #d1f0ff; border-color: #a2c2e6; }
 .chat-container__input { display: flex; align-items: center; border-top: 1px solid #ddd; padding: 10px; background-color: #ffffff; }
-.chat-container__input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; font-size: 16px; }
+.chat-container__input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; font-size: 16px; margin-left: 10px; }
 .chat-container__input button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; margin-left: 5px; }
 .chat-container__input button:hover { background-color: #0056b3; }
-.chat-container__emoji-picker { position: absolute; bottom: 80px; right: 27px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
+.chat-container__emoji-picker { position: absolute; bottom: 82px; left: 35px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
   grid-template-columns: repeat(6, 1fr) }
 .chat-container__emoji { cursor: pointer; font-size: 24px; margin: 5px; }
 .chat-container__modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;z-index: 996; }
@@ -1375,6 +1375,12 @@ h6 {
 .credits__autor {display: flex;justify-content: center;color: #012970; gap: 5px;}
 .credits__autor:hover {color:#012970}
 
-
-
-
+/*--------------------------------------------------------------
+# Juegos
+--------------------------------------------------------------*/
+.memory-game__board {display: grid; grid-template-columns: repeat(4, 100px); gap: 10px;}
+.memory-game__card {width: 100px;height: 100px; background-color: #ccc; display: flex;align-items: center;justify-content: center; font-size: 24px; cursor: pointer; position: relative;}
+.memory-game__card--flipped {background-color: #fff;}
+.memory-game__card img { width: 80%; height: auto; display: none;}
+.memory-game__card--flipped img { display: block;}
+.memory-game__card--matched {background-color: #a5d6a7; cursor: default;}

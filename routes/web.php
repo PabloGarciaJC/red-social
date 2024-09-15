@@ -47,6 +47,9 @@ Route::post('/chats', 'ChatController@sendMessage')->name('chat.sendMessage');
 Route::get('/chats/{userId1}/{userId2}', 'ChatController@getMessages')->name('chat.getMessages');
 Route::get('/chats/send', 'ChatController@sendMessage')->name('chat.sendMessage');
 
+// JUEGOS
+Route::get('/game', 'GameController@show')->name('game.show');
+Route::get('/game/guess', 'GameController@guess')->name('game.guess');
 
 // NOTIFICACIONES
 Route::get('markAsRead', function () {

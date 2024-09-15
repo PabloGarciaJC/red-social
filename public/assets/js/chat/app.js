@@ -1,5 +1,6 @@
 class InitAppChatClass {
     constructor() {
+
         this.messageInput = $('#messageInput');
         this.sendMessageButton = $('#sendMessage');
         this.emojiButton = $('#emojiButton');
@@ -89,7 +90,7 @@ class InitAppChatClass {
 
     startInitChat() {
         this.chat();
-        this.loadMessages();
+        this.loadMessages();      
     }
 }
 

@@ -1,3 +1,4 @@
+
 require('./bootstrap');
 
 window.Echo.channel('broadcastUserSessionChanged-channel')
@@ -93,6 +94,7 @@ window.Echo.channel('broadcastChat-channel')
         // Desplazar al último mensaje
         $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
     });
+
 
 
 

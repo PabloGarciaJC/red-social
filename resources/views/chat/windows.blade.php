@@ -18,10 +18,9 @@
         </div>
         <!-- Área de entrada de texto -->
         <div class="chat-container__input">
+            <button type="button" id="emojiButton">😊</button>
             <input type="text" id="messageInput" placeholder="Type a message...">
             <button type="button" id="sendMessage">Send</button>
-            <button type="button" id="emojiButton">😊</button>
-            <button type="button" id="videoCallButton">Video Call</button>
         </div>
          <!-- Cuadro de emojis -->
          <div id="emojiPicker" class="chat-container__emoji-picker" style="display: none;">
@@ -55,16 +54,7 @@
             <span class="chat-container__emoji">💩</span>
             <span class="chat-container__emoji">🦄</span>
             <span class="chat-container__emoji">🐶</span>
-        </div>
-        
-    </div>
-    <!-- Ventana emergente de videollamada -->
-    <div id="videoCallModal" class="chat-container__modal" style="display: none;">
-        <div class="chat-container__modal-content">
-            <span class="chat-container__close">×</span>
-            <h2>Video Call</h2>
-            <p>Video call with [User]</p>
-        </div>
+        </div>     
     </div>
 </div>
 
