@@ -1,5 +1,6 @@
 class initAppChatClass {
 
+    // Método para manejar el chat
     chat() {
 
         let $messageInput = $('#messageInput');
@@ -10,24 +11,16 @@ class initAppChatClass {
         let $videoCallModal = $('#videoCallModal');
 
         // Función para enviar un mensaje
-        function sendMessage() {
+        const sendMessage = () => {
             let $userReceptor = $('#user-receptor');
+            let messageText = $messageInput.val().trim();
 
             if ($userReceptor.length === 0) {
                 console.error("El elemento con ID 'user-receptor' no existe en el DOM.");
                 return;
             }
 
-            let messageText = $messageInput.val().trim();
             if (messageText) {
-                // Crear el elemento del mensaje en el chat
-                let $messageElement = $('<div>', { class: 'chat-container__message chat-container__message--sent' })
-                        .append($('<div>', { class: 'chat-container__message-content' })
-                        .text(messageText));
-
-                // Insertar el mensaje en la caja de chat
-                $('.chat-container__box').append($messageElement);
-
                 $.ajax({
                     url: `${baseUrl}chats/send`,
                     method: 'GET',
@@ -36,10 +29,8 @@ class initAppChatClass {
                         receptor_id: $userReceptor.val(),
                         message: messageText
                     },
-                    success: function (response) {
-                        console.log('Respuesta del servidor:', response);
+                    success: (response) => {
                         $('#messageInput').val('');
-                        loadMessages();  // Recargar los mensajes si tienes una función para eso
                     },
                     error: function (xhr, status, error) {
                         console.error("Error al enviar el mensaje:", {
@@ -57,23 +48,7 @@ class initAppChatClass {
                 // Desplazar al último mensaje
                 $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
             }
-        }
-
-        // Función para insertar emoji
-        function insertEmoji(emoji) {
-            $messageInput.val($messageInput.val() + emoji);
-            $emojiPicker.hide(); // Ocultar el selector de emojis
-        }
-
-        // Función para mostrar el selector de emojis
-        function toggleEmojiPicker() {
-            $emojiPicker.toggle(); // Alternar visibilidad
-        }
-
-        // Función para mostrar el modal de videollamada
-        function openVideoCall() {
-            $videoCallModal.show();
-        }
+        };
 
         // Evento para enviar el mensaje al hacer clic en el botón
         $sendMessageButton.on('click', sendMessage);
@@ -86,19 +61,32 @@ class initAppChatClass {
             }
         });
 
+        // Función para insertar emoji
+        const insertEmoji = (emoji) => {
+            $messageInput.val($messageInput.val() + emoji);
+            $emojiPicker.hide(); // Ocultar el selector de emojis
+        };
+
         // Evento para mostrar/ocultar el selector de emojis
-        $emojiButton.on('click', toggleEmojiPicker);
+        $emojiButton.on('click', () => {
+            $emojiPicker.toggle(); // Alternar visibilidad
+        });
 
         // Eventos para insertar emojis
         $emojiPicker.on('click', '.chat-container__emoji', function () {
             insertEmoji($(this).text());
         });
 
+        // Función para mostrar el modal de videollamada
+        const openVideoCall = () => {
+            $videoCallModal.show();
+        };
+
         // Evento para abrir el modal de videollamada
         $videoCallButton.on('click', openVideoCall);
 
         // Función para cerrar el modal de videollamada
-        $('.chat-container__close').on('click', function () {
+        $('.chat-container__close').on('click', () => {
             $videoCallModal.hide();
         });
 
@@ -110,15 +98,15 @@ class initAppChatClass {
         });
     }
 
+    // Método para cargar mensajes
     loadMessages() {
         let $userReceptor = $('#user-receptor');
+        let receptorId = $userReceptor.val();
 
         if ($userReceptor.length === 0) {
             console.error("El elemento con ID 'user-receptor' no existe en el DOM.");
             return;
         }
-
-        let receptorId = $userReceptor.val();
 
         $.ajax({
             url: `${baseUrl}chats/${userLogin}/${receptorId}`,
@@ -131,12 +119,12 @@ class initAppChatClass {
                 response.forEach(function (message) {
                     let messageClass = message.emisor_id == userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
                     let messageHtml = `
-                    <div class="chat-container__message ${messageClass}">
-                        <div class="chat-container__message-content">
-                            ${message.message}
-                        </div>                        
-                    </div>
-                `;
+                        <div class="chat-container__message ${messageClass}">
+                            <div class="chat-container__message-content">
+                                ${message.message}
+                            </div>                        
+                        </div>
+                    `;
                     $('.chat-container__box').append(messageHtml);
                 });
             },
@@ -146,7 +134,7 @@ class initAppChatClass {
         });
     }
 
-    // Contenedor de Funcionalidades
+    // Método principal para iniciar el chat
     startinitChat() {
 
         // Iniciar la funcionalidad del chat

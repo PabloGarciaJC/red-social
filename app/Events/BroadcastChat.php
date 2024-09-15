@@ -2,24 +2,24 @@
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\Chat;
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
 
-class  BroadcastNotification implements ShouldBroadcast
+
+class  BroadcastChat implements ShouldBroadcast
 
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     // public $objetoFollowerRecibir;
-    public $userEmisor;
-    public $estado;
-    public $messajeNotification;
+    public $chat;
 
     /**
      * Create a new event instance.
@@ -27,12 +27,10 @@ class  BroadcastNotification implements ShouldBroadcast
      * @return void
      */
 
-    public function __construct($userEmisor, $estado, $messajeNotification)
-    {
-        $this->userEmisor = $userEmisor;
-        $this->estado = $estado;
-        $this->messajeNotification = $messajeNotification;
-    }
+     public function __construct($chat)
+     {
+         $this->chat = $chat;
+     }
 
     /**
      * Get the channels the event should broadcast on.
@@ -41,12 +39,12 @@ class  BroadcastNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // \Log::debug("{$this->userEmisor}");
-        return new Channel('broadcastNotification-channel');
+        return new Channel('broadcastChat-channel');
     }
 
     public function broadcastAs()
     {
-        return new Channel('broadcastNotification-event');
+          \Log::debug("{$this->chat}");
+        return new Channel('broadcastChat-event');
     }
 }
