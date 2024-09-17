@@ -65,7 +65,7 @@ class PublicationController extends Controller
             return response()->json(['message' => 'success'], 200);
         } else {
             // Si no se encuentra la publicación, respondemos con un error
-            return response()->json(['message' => 'Publication not found'], 404);
+            return response()->json(['message' => 'Publication not found'], 200);
         }
     }
     

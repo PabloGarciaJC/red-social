@@ -9,26 +9,24 @@ class InitAppPublicationClass {
     this.token = $('meta[name="csrf-token"]').attr('content');
   }
 
-  deslizarInput() {
+  showComments() {
     this.btnComments.on('click', (e) => {
       e.preventDefault();
       $(e.currentTarget).closest('.justify-content-end').find('.wrapper-comments').slideToggle();
     })
   }
 
-  formCollapseComments() {
+  collapseComments() {
     this.formCollapse.on('click', (e) => {
       $(e.currentTarget).closest('.justify-content-end').find('.wrapper-comments').slideUp();
     })
   }
 
-  formCommments() {
+  save() {
     this.formComments.on('submit', (e) => {
       e.preventDefault();
-
       let form = $(e.currentTarget);
-      let formData = new FormData(form[0]);
-      
+      let formData = new FormData(form[0]);  
       $.ajax({
         url: form.attr('action'),
         method: "POST",
@@ -40,8 +38,8 @@ class InitAppPublicationClass {
         contentType: false,
         success: function (response) {
           if (response.success) {
-            addCommentToList(response.data);
-            updateCommentCount();
+            addCommentToList(response.data, form);
+            updateCommentCount(form);
             // Vaciar los campos del formulario después de enviar
             form[0].reset();
           }
@@ -49,9 +47,8 @@ class InitAppPublicationClass {
       });
     });
 
-    function addCommentToList(comment) {
+    function addCommentToList(comment, form) {
       let contenidoHtml = comment.contenido ? `<p>${comment.contenido}</p>` : '<p>No hay contenido</p>';
-
       let commentHtml = `
         <div class="row row-cols-auto mb-2">
             <div class="col news">
@@ -70,11 +67,12 @@ class InitAppPublicationClass {
         </div>
       `;
 
-      $('.wrapper-comments form').before(commentHtml);
+      form.before(commentHtml)
     }
 
-    function updateCommentCount() {
-      let commentButton = $('#commentButton');
+    function updateCommentCount(formElement) {
+
+      let commentButton = formElement.closest('.wrapper-comments').prev('.btn__comments');
 
       if (commentButton.length === 0) {
         console.error('El botón de comentarios no se encuentra en el DOM.');
@@ -113,7 +111,7 @@ class InitAppPublicationClass {
     });
   }
 
-  deletePublication() {
+  delete() {
     this.eliminarPublication.on('click', function (e) {
       e.preventDefault();
       $.ajax({
@@ -122,11 +120,18 @@ class InitAppPublicationClass {
         success: (response) => {
           if (response.message == 'success') {
             $(this).closest('.col-12.mb-3').remove();
+            Swal.fire({
+              icon: 'success',
+              title: 'Publicación eliminada',
+              text: 'La publicación ha sido eliminada exitosamente',
+              showConfirmButton: false,
+              timer: 1800
+            })
+            
           } else {
             Swal.fire({
               icon: 'error',
-              title: 'Oops...',
-              text: 'No puedes borrar esta publicación.',
+              title: 'Solo el autor de la publicación puede borrarla'
             })
           }
         },
@@ -139,11 +144,11 @@ class InitAppPublicationClass {
 
   // Funcionalidades
   startIniPublication() {
-    this.deslizarInput();
-    this.formCommments();
-    this.formCollapseComments();
+    this.showComments();
+    this.save();
+    this.collapseComments();
     this.emojis();
-    this.deletePublication();
+    this.delete();
   }
 
 }
