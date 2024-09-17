@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql
--- Tiempo de generación: 12-09-2024 a las 02:34:33
+-- Tiempo de generación: 17-09-2024 a las 01:13:35
 -- Versión del servidor: 9.0.1
 -- Versión de PHP: 8.2.8
 
@@ -36,24 +36,6 @@ CREATE TABLE `chats` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Volcado de datos para la tabla `chats`
---
-
-INSERT INTO `chats` (`id`, `emisor_id`, `receptor_id`, `message`, `created_at`, `updated_at`) VALUES
-(1, 110, 111, '¡Hola, Usuario 2!', '2024-09-12 02:01:19', '2024-09-12 02:01:19'),
-(2, 111, 110, 'Hola, Usuario 1. ¿Cómo estás?', '2024-09-12 02:01:19', '2024-09-12 02:01:19'),
-(3, 110, 111, 'Estoy bien, gracias. ¿Y tú?', '2024-09-12 02:01:19', '2024-09-12 02:01:19'),
-(4, 110, 111, '¡Hola, Usuario 2!', '2024-09-12 02:01:19', '2024-09-12 02:01:19'),
-(5, 111, 110, 'Hola, Usuario 1. ¿Cómo estás?', '2024-09-12 02:02:19', '2024-09-12 02:02:19'),
-(6, 110, 111, 'Estoy bien, gracias. ¿Y tú?', '2024-09-12 02:03:19', '2024-09-12 02:03:19'),
-(7, 110, 112, '¡Hola, Usuario 3!', '2024-09-12 02:04:19', '2024-09-12 02:04:19'),
-(8, 112, 110, 'Hola, Usuario 1. Todo bien, ¿y tú?', '2024-09-12 02:05:19', '2024-09-12 02:05:19'),
-(9, 110, 113, '¡Hola, Usuario 4!', '2024-09-12 02:06:19', '2024-09-12 02:06:19'),
-(10, 113, 110, 'Hola, Usuario 1. ¿Qué tal?', '2024-09-12 02:07:19', '2024-09-12 02:07:19'),
-(11, 110, 114, '¡Hola, Usuario 5!', '2024-09-12 02:08:19', '2024-09-12 02:08:19'),
-(12, 114, 110, 'Hola, Usuario 1. ¿Todo bien?', '2024-09-12 02:09:19', '2024-09-12 02:09:19');
-
 -- --------------------------------------------------------
 
 --
@@ -70,13 +52,6 @@ CREATE TABLE `comments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `comments`
---
-
-INSERT INTO `comments` (`id`, `user_id`, `publication_id`, `imagen`, `contenido`, `created_at`, `updated_at`) VALUES
-(16, 110, 22, NULL, 'ddd', '2024-09-10 16:35:21', '2024-09-10 16:35:21');
-
 -- --------------------------------------------------------
 
 --
@@ -92,13 +67,6 @@ CREATE TABLE `followers` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `followers`
---
-
-INSERT INTO `followers` (`id`, `user_id`, `seguido`, `estado`, `created_at`, `updated_at`) VALUES
-(153, 110, 111, 'desconocido', '2024-09-12 00:46:39', '2024-09-12 01:33:37');
-
 -- --------------------------------------------------------
 
 --
@@ -112,13 +80,6 @@ CREATE TABLE `likes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `likes`
---
-
-INSERT INTO `likes` (`id`, `user_id`, `publication_id`, `created_at`, `updated_at`) VALUES
-(4, 110, 23, '2024-09-11 16:35:42', '2024-09-11 16:35:42');
 
 -- --------------------------------------------------------
 
@@ -165,13 +126,6 @@ CREATE TABLE `notifications` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `notifications`
---
-
-INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
-('b13c1930-4b3b-4c3d-8cf3-ebca4a730137', 'App\\Notifications\\AgregarAmigoNotification', 'App\\Models\\User', 111, '{\"user_id\":110,\"alias\":\"user1\",\"fotoPerfil\":\"1725217917img-user.png\",\"estado\":\"enviado\",\"messaje\":\"Te envio una solicitud de amistad\"}', NULL, '2024-09-12 01:33:33', '2024-09-12 01:33:33');
-
 -- --------------------------------------------------------
 
 --
@@ -217,14 +171,6 @@ CREATE TABLE `publications` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `publications`
---
-
-INSERT INTO `publications` (`id`, `user_id`, `imagen`, `contenido`, `created_at`, `updated_at`) VALUES
-(22, 110, '1725832892Capture001.png', NULL, '2024-09-08 22:01:32', '2024-09-08 22:01:32'),
-(23, 110, '1725986155TOPGRO Ordenador Portatil, Core i7-13620H.jpg', 'Otra prueba', '2024-09-10 16:35:55', '2024-09-10 16:35:55');
-
 -- --------------------------------------------------------
 
 --
@@ -256,10 +202,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `alias`, `nombre`, `apellido`, `pais`, `direccion`, `empresa`, `cargo`, `movil`, `email`, `fotoPerfil`, `password`, `sobreMi`, `conectado`, `remember_token`, `created_at`, `updated_at`) VALUES
-(110, 'user1', 'user1', 'Pablo Garcia', 'España', 'Malaga', 'empresa1', 'Developer', '555 555 555', 'user1@user.com', '1725217917img-user.png', '$2y$10$zHpiolT3RVT9TUewFNSH3.GTY8XIBNRr38gONxJBzobWPXqi7oAJW', 'Lorem ipsum dolor sit amet consectetur adipiscing elit dictum, vivamus tristique justo nostra natoque inceptos. Curae penatibus phasellus tempor hac natoque curabitur leo, justo vivamus sed sodales lobortis magnis ante, ullamcorper rhoncus laoreet a quisque faucibus. Quisque urna gravida luctus vivamus nam magnis etiam, laoreet feugiat euismod tempor maecenas venenatis leo fringilla, penatibus taciti sociosqu a inceptos nibh.', 1, NULL, '2024-09-01 18:40:32', '2024-09-12 00:50:31'),
-(111, 'user2', 'user2', 'apellido2', 'España', 'Malaga', 'empresa2', 'developer2', '555 555 555', 'user2@user.com', '1725218453img-user.png', '$2y$10$yV4bfuX1TFzE7v6OAtC9i.mVhy0dsZxIIbyOo3vj7aDTjy1BHaQAG', 'Lorem ipsum dolor sit amet consectetur adipiscing elit cum nunc vehicula, lobortis sociis consequat diam dis porttitor tincidunt natoque nascetur, facilisis molestie vulputate ad venenatis quam nulla nullam tristique. Vel blandit neque feugiat fames aptent non, et ornare nisl porttitor laoreet, dui libero a natoque ac. Feugiat taciti molestie imperdiet mi aliquam fermentum nibh, natoque aliquet est interdum ridiculus dis velit ac, fames purus porttitor auctor in vitae.', 1, NULL, '2024-09-01 18:43:08', '2024-09-11 16:35:23'),
-(112, 'user3', 'user3', 'apellido3', 'España', 'Malaga', 'empresa3', 'cargo3', '555 555 555', 'user3@user.com', '1725218700img-user.png', '$2y$10$X/fCuCvm8QNR9fSCtWuXLuPtrHntbge.6X5p9bG43CAyh2UFYZmZO', 'Lorem ipsum dolor sit amet consectetur adipiscing elit, vestibulum porta augue habitant volutpat auctor odio, vel nisi nostra scelerisque vitae nibh. Quis et dictumst mi sed mus malesuada, aliquam torquent odio imperdiet risus convallis, posuere nunc sem eleifend nisi. Taciti tortor potenti dictum nullam accumsan venenatis, porta aliquet nulla suscipit ligula senectus fermentum, justo odio sociosqu scelerisque nisi.', 0, NULL, '2024-09-01 18:45:00', '2024-09-10 23:22:15'),
-(113, 'user4', 'user4', 'apellido4', 'España', 'Malaga', 'empresa4', 'developer4', '555 555 555', 'user4@user.com', '1725218726img-user.png', '$2y$10$bTlrYZCshMpdY9Uxn4XQkemMv2nYN8UTBp3j8HCKhX629.d/j83tu', 'Lorem ipsum dolor sit amet consectetur adipiscing elit laoreet, ullamcorper mus ad non primis ante porttitor tincidunt, aenean augue volutpat nisl nostra netus curabitur. Feugiat bibendum vivamus aenean accumsan venenatis potenti dignissim justo metus, ac sodales sem pharetra maecenas nisi ultricies. Bibendum semper tempus scelerisque ultrices praesent magna fermentum himenaeos torquent, parturient netus vestibulum aliquet non consequat nisl nibh interdum, justo facilisis taciti sodales dapibus fringilla hendrerit vulputate.', 0, NULL, '2024-09-01 18:46:29', '2024-09-08 17:47:55'),
+(110, 'user1', 'user1', 'Pablo Garcia', 'España', 'Malaga', 'empresa1', 'Developer', '555 555 555', 'user1@user.com', '1725217917img-user.png', '$2y$10$zHpiolT3RVT9TUewFNSH3.GTY8XIBNRr38gONxJBzobWPXqi7oAJW', 'Lorem ipsum dolor sit amet consectetur adipiscing elit dictum, vivamus tristique justo nostra natoque inceptos. Curae penatibus phasellus tempor hac natoque curabitur leo, justo vivamus sed sodales lobortis magnis ante, ullamcorper rhoncus laoreet a quisque faucibus. Quisque urna gravida luctus vivamus nam magnis etiam, laoreet feugiat euismod tempor maecenas venenatis leo fringilla, penatibus taciti sociosqu a inceptos nibh.', 1, NULL, '2024-09-01 18:40:32', '2024-09-15 17:36:05'),
+(111, 'user2', 'user2', 'apellido2', 'España', 'Malaga', 'empresa2', 'developer2', '555 555 555', 'user2@user.com', '1725218453img-user.png', '$2y$10$yV4bfuX1TFzE7v6OAtC9i.mVhy0dsZxIIbyOo3vj7aDTjy1BHaQAG', 'Lorem ipsum dolor sit amet consectetur adipiscing elit cum nunc vehicula, lobortis sociis consequat diam dis porttitor tincidunt natoque nascetur, facilisis molestie vulputate ad venenatis quam nulla nullam tristique. Vel blandit neque feugiat fames aptent non, et ornare nisl porttitor laoreet, dui libero a natoque ac. Feugiat taciti molestie imperdiet mi aliquam fermentum nibh, natoque aliquet est interdum ridiculus dis velit ac, fames purus porttitor auctor in vitae.', 0, NULL, '2024-09-01 18:43:08', '2024-09-15 16:48:02'),
+(112, 'user3', 'user3', 'apellido3', 'España', 'Malaga', 'empresa3', 'cargo3', '555 555 555', 'user3@user.com', '1725218700img-user.png', '$2y$10$X/fCuCvm8QNR9fSCtWuXLuPtrHntbge.6X5p9bG43CAyh2UFYZmZO', 'Lorem ipsum dolor sit amet consectetur adipiscing elit, vestibulum porta augue habitant volutpat auctor odio, vel nisi nostra scelerisque vitae nibh. Quis et dictumst mi sed mus malesuada, aliquam torquent odio imperdiet risus convallis, posuere nunc sem eleifend nisi. Taciti tortor potenti dictum nullam accumsan venenatis, porta aliquet nulla suscipit ligula senectus fermentum, justo odio sociosqu scelerisque nisi.', 0, NULL, '2024-09-01 18:45:00', '2024-09-15 12:28:03'),
+(113, 'user4', 'user4', 'apellido4', 'España', 'Malaga', 'empresa4', 'developer4', '555 555 555', 'user4@user.com', '1725218726img-user.png', '$2y$10$bTlrYZCshMpdY9Uxn4XQkemMv2nYN8UTBp3j8HCKhX629.d/j83tu', 'Lorem ipsum dolor sit amet consectetur adipiscing elit laoreet, ullamcorper mus ad non primis ante porttitor tincidunt, aenean augue volutpat nisl nostra netus curabitur. Feugiat bibendum vivamus aenean accumsan venenatis potenti dignissim justo metus, ac sodales sem pharetra maecenas nisi ultricies. Bibendum semper tempus scelerisque ultrices praesent magna fermentum himenaeos torquent, parturient netus vestibulum aliquet non consequat nisl nibh interdum, justo facilisis taciti sodales dapibus fringilla hendrerit vulputate.', 1, NULL, '2024-09-01 18:46:29', '2024-09-15 14:17:12'),
 (114, 'user5', 'user5', 'apellido5', 'España', 'Malaga', 'empresa5', 'developer5', '555 555 555', 'user5@user.com', '1725218746img-user.png', '$2y$10$8sr8gAfipkjEJj9/XI6Y3unne2.HBWOlF3jwWoNswP85APxPIR9Si', 'Lorem ipsum dolor sit amet consectetur adipiscing elit mi enim nullam parturient dui ad, varius scelerisque integer aptent justo id montes per habitasse ultrices iaculis. Nulla morbi gravida pretium augue duis netus velit orci varius nullam fusce pellentesque praesent vel, venenatis phasellus lectus dignissim platea vitae faucibus aliquam sodales libero diam condimentum. Convallis suspendisse aptent varius felis nisl potenti semper leo, mi magnis ornare aliquet urna ante condimentum, dis eleifend integer erat sollicitudin facilisi cubilia.', 0, NULL, '2024-09-01 18:47:42', '2024-09-08 14:04:19');
 
 --
@@ -279,8 +225,7 @@ ALTER TABLE `chats`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `comments_publication_id_foreign` (`publication_id`),
-  ADD KEY `comments_user_id_foreign` (`user_id`);
+  ADD KEY `fk_comments_publication` (`publication_id`);
 
 --
 -- Indices de la tabla `followers`
@@ -346,25 +291,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
 
 --
 -- AUTO_INCREMENT de la tabla `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
 -- AUTO_INCREMENT de la tabla `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -382,7 +327,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `publications`
 --
 ALTER TABLE `publications`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -405,8 +350,7 @@ ALTER TABLE `chats`
 -- Filtros para la tabla `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_publication_id_foreign` FOREIGN KEY (`publication_id`) REFERENCES `publications` (`id`),
-  ADD CONSTRAINT `comments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_comments_publication` FOREIGN KEY (`publication_id`) REFERENCES `publications` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `followers`

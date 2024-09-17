@@ -31,7 +31,7 @@ class ChatController extends Controller
                 $query->where('emisor_id', $userId2)
                     ->where('receptor_id', $userId1);
             })
-            ->orderBy('created_at', 'asc') // Ordenar por fecha de creación ascendente para mostrar la conversación cronológicamente
+            ->orderBy('created_at', 'asc')
             ->get();
 
         // Retornar los mensajes como respuesta JSON
