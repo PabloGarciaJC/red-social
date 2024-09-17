@@ -24,35 +24,51 @@ class CommentController extends Controller
 
   public function save(Request $request)
   {
-    $comentarioPublicacion = $request->input('comentPublication');
-    $idPublicacionForm = $request->input('idPublication');
-    $imagenPublicacion = $request->file('imagenPublication');
+    $comentarioPublicacion = $request->input('comentario');
+    $idPublicacionForm = $request->input('id');
+    $imagenPublicacion = $request->file('imagen');
 
-    // Instacio Objeto User
+    // Instanciar el objeto Comment
     $comments = new Comment();
 
-    // Seteo Objeto
+    // Configurar el objeto Comment
     $comments->user_id = Auth::user()->id;
     $comments->contenido = $comentarioPublicacion;
     $comments->publication_id = $idPublicacionForm;
 
-    // Guardo Imagen en los Archivos, Seteo Objeto
+    // Guardar la imagen si se ha subido
     if ($imagenPublicacion) {
+      // Generar un nombre único para la imagen
+      $imagenPathName = time() . '-' . $imagenPublicacion->getClientOriginalName();
 
-      // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Sube
-      $imagenPathName = time() . $imagenPublicacion->getClientOriginalName();
+      // Guardar la imagen en la carpeta de almacenamiento
+      $imagenPublicacion->storeAs('comments', $imagenPathName);
 
-      //Guardo la Imagen en la carpeta del Proyecto
-      Storage::disk('comments')->put($imagenPathName, File::get($imagenPublicacion));
-
-      // Seteo el Objeto con el Nombre Original del Usuario
+      // Configurar el nombre de la imagen en el objeto Comment
       $comments->imagen = $imagenPathName;
     }
 
-    // Guardo
-    $save = $comments->save();
+    // Guardar el comentario
+    $comments->save();
 
-    return redirect()->route('publicationDetail', ['publicationId' => $idPublicacionForm]);
+    // Preparar la respuesta JSON
+    $response = [
+      'success' => true,
+      'data' => [
+        'id' => $comments->id,
+        'contenido' => $comments->contenido,
+        'imagen' => $comments->imagen,
+        'user' => [
+          'id' => $comments->user_id,
+          'name' => Auth::user()->alias, // Asume que quieres incluir el nombre del usuario
+          'fotoPerfil' => Auth::user()->fotoPerfil
+
+        ],
+        'created_at' => $comments->created_at->toDateTimeString()
+      ]
+    ];
+
+    return response()->json($response, 200);
   }
 
   public function getImage($filename)

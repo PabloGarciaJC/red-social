@@ -53,23 +53,22 @@ class PublicationController extends Controller
 
     public function delete($idPublicacion)
     {
-        $publication = Publication::where('user_id', '=', Auth::user()->id)
-                                    ->where('id', '=', $idPublicacion);
-
-        $conteoPublication = $publication->count();
-
-        if ($conteoPublication > 0) {
-            $getPublicacion = $publication->first();
-
-            $borraPublicacion = Publication::find($getPublicacion->id);
-
-            $borraPublicacion->delete();
-            
+        $publication = Publication::where('user_id', Auth::user()->id)
+            ->where('id', $idPublicacion)
+            ->first();  // Obtenemos la primera coincidencia directamente
+    
+        if ($publication) {
+            // Eliminar la publicación (esto también eliminará los comentarios asociados por la restricción ON DELETE CASCADE)
+            $publication->delete();
+    
+            // Respondemos con un mensaje de éxito
+            return response()->json(['message' => 'success'], 200);
         } else {
-            echo $conteoPublication;
+            // Si no se encuentra la publicación, respondemos con un error
+            return response()->json(['message' => 'Publication not found'], 404);
         }
     }
-
+    
     public function detail($idPublication)
     {
         $getPublication = Publication::find($idPublication);

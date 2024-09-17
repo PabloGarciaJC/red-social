@@ -1384,3 +1384,11 @@ h6 {
 .memory-game__card img { width: 80%; height: auto; display: none;}
 .memory-game__card--flipped img { display: block;}
 .memory-game__card--matched {background-color: #a5d6a7; cursor: default;}
+
+
+/* Estilo para ocultar el campo de texto cuando tiene el foco */
+.form-control:focus { 
+
+  box-shadow: unset;
+
+}
