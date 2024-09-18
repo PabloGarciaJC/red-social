@@ -1,6 +1,5 @@
 class InitAppChatClass {
     constructor() {
-
         this.messageInput = $('#messageInput');
         this.sendMessageButton = $('#sendMessage');
         this.emojiButton = $('#emojiButton');
