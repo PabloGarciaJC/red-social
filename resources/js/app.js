@@ -95,6 +95,13 @@ window.Echo.channel('broadcastChat-channel')
         $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
     });
 
+    window.Echo.channel('broadcastPublication-channel')
+    .listen('.broadcastPublication-event', (e) => {
+        console.log(e);
+    });
+
+
+
 
 
 

@@ -13,8 +13,6 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-
 // USUARIO
 Route::get('/perfil', 'UserController@perfil')->name('perfil');
 Route::post('/actualizar', 'UserController@actualizar')->name('actualizar');
@@ -33,6 +31,7 @@ Route::post('/comentarioSave', 'CommentController@save')->name('comentarioSave')
 Route::get('/comentarioImagen/{filename}', 'CommentController@getImage')->name('comentarioImagen');
 
 // PUBLICATION
+Route::get('/', 'PublicationController@index')->name('home');
 Route::post('/publicationSave', 'PublicationController@save')->name('publicationSave');
 Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
 Route::get('/publicationDelete/{publicationId}', 'PublicationController@delete')->name('publicationDelete');

@@ -85,8 +85,9 @@
                       <li>
                           <form action="{{ route('logout') }}" method="POST">
                               {{ csrf_field() }}
-                              <button type="submit" class="dropdown-item d-flex align-items-center"><i
-                                      class="bi bi-box-arrow-right"></i>Cerrar Sesión</button>
+                              <button type="submit" class="dropdown-item d-flex align-items-center">
+                                <i class="bi bi-box-arrow-right"></i>Cerrar Sesión
+                            </button>
                           </form>
                       </li>
                   </ul>

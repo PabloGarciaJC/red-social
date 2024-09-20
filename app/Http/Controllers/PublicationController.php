@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Events\BroadcastPublication;
 
 class PublicationController extends Controller
 {
@@ -16,12 +17,18 @@ class PublicationController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request)
+    {
+        $publications = Publication::orderBy('id', 'desc')->get();
+        return view('home', ['publications' => $publications]);
+    }
+
     public function save(Request $request)
     {
         $comentarioPublicacion = $request->input('comentarioPublicacion');
         $imagenPublicacion = $request->file('imagenPublicacion');
 
-        // Instancio Objeto User
+        // Instancio Objeto Publication
         $publication = new Publication();
 
         // Seteo Objeto
@@ -41,8 +48,24 @@ class PublicationController extends Controller
         }
 
         $publication->save();
+        
+        // Cargar la relación del usuario y los comentarios asociados
+        $publication = Publication::with('user', 'comment')->find($publication->id);
 
-        return redirect()->route('home');
+        // Emitir la notificación a través de Pusher
+        event(new BroadcastPublication($publication));
+
+          // Devolver la publicación junto con la información del usuario y comentarios en formato JSON
+        //   return response()->json([
+        //     'publication' => $publication,
+        //     'user' => $publication->user,
+        //     'comments' => $publication->comment,
+        // ]);
+
+         // Devolver una respuesta de éxito
+         return response()->json(['publication' => $publication], 201);
+
+        // return redirect()->route('home');
     }
 
     public function getImage($filename)

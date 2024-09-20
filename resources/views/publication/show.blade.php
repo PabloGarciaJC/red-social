@@ -54,7 +54,7 @@
                             {{ $userLike ? 'Dislike' : 'Like' }}
                         </div>
                     </div>
-                    <div class="col col-lg-2 btn__comments" id="commentButton">Comentarios ({{ count($mostrarPublication->comment) }})</div>
+                    <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                     <div id="{{ $mostrarPublication->id }}" class="wrapper-comments" style="display: none;">
                         @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
                             <div class="row row-cols-auto mb-2">
