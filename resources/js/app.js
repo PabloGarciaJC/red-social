@@ -36,6 +36,7 @@ window.Echo = new Echo({
     encrypted: true
 });
 
+window.Swal = require('sweetalert2');
 require('bootstrap/dist/js/bootstrap.bundle.min.js')
 require('./broadcast/userSessionChanged');
 require('./broadcast/notification');
