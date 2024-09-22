@@ -1,6 +1,8 @@
 @foreach ($publications as $mostrarPublication)
+
     <div class="col-12 mb-3">
         <div class="card info-card sales-card">
+
             <!-- Filtro -->
             <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown">
