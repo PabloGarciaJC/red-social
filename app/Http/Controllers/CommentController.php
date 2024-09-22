@@ -8,10 +8,10 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Events\BroadcastComment;
 
 class CommentController extends Controller
 {
-
   /**
    * Create a new controller instance.
    *
@@ -57,6 +57,7 @@ class CommentController extends Controller
       'data' => [
         'id' => $comments->id,
         'contenido' => $comments->contenido,
+        'publication_id' => $comments->publication_id,
         'imagen' => $comments->imagen,
         'user' => [
           'id' => $comments->user_id,
@@ -67,8 +68,10 @@ class CommentController extends Controller
         'created_at' => $comments->created_at->toDateTimeString()
       ]
     ];
+// Emitir la notificación a través de Pusher
+    event(new BroadcastComment(response()->json($response)));
 
-    return response()->json($response, 200);
+    return response()->json($response);
   }
 
   public function getImage($filename)

@@ -11,9 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 
-
-class  BroadcastPublication implements ShouldBroadcast
-
+class BroadcastPublication implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

@@ -3,8 +3,8 @@ class InitAppPublicationClass {
   showComments() {
     $(document).on('click', '.btn__comments', (e) => {
       e.preventDefault();
-      let $currentTarget = $(e.currentTarget);
-      let $wrapperComments = $currentTarget.closest('.justify-content-end').find('.wrapper-comments');
+      const $currentTarget = $(e.currentTarget);
+      const $wrapperComments = $currentTarget.closest('.justify-content-end').find('.wrapper-comments');
       // Evita múltiples animaciones
       if ($wrapperComments.is(':animated')) return;
       // `slideToggle` para la animación de deslizamiento
@@ -34,62 +34,19 @@ class InitAppPublicationClass {
         contentType: false,
         success: function (response) {
           if (response.success) {
-            addCommentToList(response.data, form);
-            updateCommentCount(form);
-            // Vaciar los campos del formulario después de enviar
             form[0].reset();
           }
         }
       });
     });
-
-    function addCommentToList(comment, form) {
-      let contenidoHtml = comment.contenido ? `<p>${comment.contenido}</p>` : '<p>No hay contenido</p>';
-      let commentHtml = `
-        <div class="row row-cols-auto mb-2">
-            <div class="col news">
-                <img src="${baseUrl}fotoPerfil/${comment.user.fotoPerfil}" 
-                    alt="${comment.user.alias}'s profile picture" 
-                    class="rounded-circle" width="40" height="40"/>
-            </div>
-            <div class="col">
-                <a href="${baseUrl}usuario/${comment.user.alias}?estado=confirmado">${comment.user.name}</a>
-                <p>${contenidoHtml}</p>
-                ${comment.imagen ? `<img src="${baseUrl}comentarioImagen/${comment.imagen}" 
-                                    alt="Comment Image" 
-                                    class="img-fluid" 
-                                    style="max-width: 100%; height: auto;">` : ''}
-            </div>
-        </div>
-      `;
-
-      form.before(commentHtml)
-    }
-
-    function updateCommentCount(formElement) {
-      let commentButton = formElement.closest('.wrapper-comments').prev('.btn__comments');
-      if (commentButton.length === 0) {
-        console.error('El botón de comentarios no se encuentra en el DOM.');
-        return;
-      }
-      let buttonText = commentButton.text().trim();
-      let match = buttonText.match(/\d+/);
-      if (!match) {
-        console.error('El texto del botón no contiene un número válido.');
-        return;
-      }
-      let currentCount = parseInt(match[0]);
-      let newCount = currentCount + 1;
-      commentButton.text(`Comentarios (${newCount})`);
-    }
   }
 
   emojis() {
     // Guarda la referencia a 'this' para usarla en el evento click
-    let self = this;
+    const self = this;
     // Mostrar y ocultar el selector de emojis de manera contextual para cada publicación
     $('.form__comments').each(function () {
-      let form = $(this);
+      const form = $(this);
       // Mostrar/ocultar emojis solo dentro del formulario actual
       form.find('#emojiToggle').on('click', function () {
         form.find('.emoji-picker').toggle();
@@ -133,7 +90,7 @@ class InitAppPublicationClass {
   }
 
   create() {
-    let self = this;
+    const self = this;
     $('.form-publication__create').on('submit', (e) => {
       e.preventDefault();
 
@@ -166,19 +123,18 @@ class InitAppPublicationClass {
   }
 
   modal() {
-    let $imageFileInput = $('#imageFile');
-    let $imagePreview = $('#imagePreview');
-    let $commentTextarea = $('#commentTextarea');
+    const $imageFileInput = $('#imageFile');
+    const $imagePreview = $('#imagePreview');
+    const $commentTextarea = $('#commentTextarea');
 
     $imageFileInput.on('change', function (event) {
-      let file = event.target.files[0];
+      const file = event.target.files[0];
       if (file) {
-        let reader = new FileReader();
+        const reader = new FileReader();
 
         reader.onload = function (e) {
           $imagePreview.attr('src', e.target.result);
-          // Muestra la imagen
-          $imagePreview.show();
+          $imagePreview.show(); // Muestra la imagen
         };
 
         reader.readAsDataURL(file);
@@ -208,8 +164,8 @@ class InitAppPublicationClass {
     });
 
     $('.modal__emoji-picker__emoji').on('click', function () {
-      let emoji = $(this).text();
-      let currentValue = $commentTextarea.val();
+      const emoji = $(this).text();
+      const currentValue = $commentTextarea.val();
       $commentTextarea.val(currentValue + emoji); // Inserta el emoji en el textarea
       $('.modal__emoji-picker').hide(); // Opcional: Oculta el selector de emojis después de seleccionar
     });

@@ -12,7 +12,6 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserSessionChanged implements ShouldBroadcast
-
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

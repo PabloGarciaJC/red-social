@@ -62,7 +62,7 @@ class PublicationController extends Controller
         //     'comments' => $publication->comment,
         // ]);
 
-         // Devolver una respuesta de éxito
+
          return response()->json(['publication' => $publication], 201);
 
         // return redirect()->route('home');

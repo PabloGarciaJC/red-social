@@ -42,6 +42,7 @@ require('./broadcast/userSessionChanged');
 require('./broadcast/notification');
 require('./broadcast/chat');
 require('./broadcast/publication');
+require('./broadcast/comments');
 
 
 

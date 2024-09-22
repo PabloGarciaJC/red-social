@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
-                    <div id="{{ $mostrarPublication->id }}" class="wrapper-comments" style="display: none;">
+                    <div class="wrapper-comments" style="display: none;">
                         @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
                             <div class="row row-cols-auto mb-2">
                                 <div class="col news">
@@ -78,7 +78,7 @@
                             </div>
                         @endforeach
 
-                        <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments">
+                        <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
                             <meta name="csrf-token" content="{{ csrf_token() }}">
                             <input type="hidden" name="id" value="{{ $mostrarPublication->id }}">
                             <div class="input-group">
