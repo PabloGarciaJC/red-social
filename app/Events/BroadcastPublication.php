@@ -17,16 +17,17 @@ class BroadcastPublication implements ShouldBroadcast
 
     // public $objetoFollowerRecibir;
     public $publication;
-
+    public $status;
     /**
      * Create a new event instance.
      *
      * @return void
      */
 
-     public function __construct($publication)
+     public function __construct($publication, $status)
      {
          $this->publication = $publication;
+         $this->status = $status;
      }
 
     /**
@@ -41,7 +42,7 @@ class BroadcastPublication implements ShouldBroadcast
 
     public function broadcastAs()
     {
-          \Log::debug("{$this->publication}");
+        //   \Log::debug("{$this->publication}");
         return new Channel('broadcastPublication-event');
     }
 }

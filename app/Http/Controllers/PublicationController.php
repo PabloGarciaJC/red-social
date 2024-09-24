@@ -53,7 +53,7 @@ class PublicationController extends Controller
         $publication = Publication::with('user', 'comment')->find($publication->id);
 
         // Emitir la notificación a través de Pusher
-        event(new BroadcastPublication($publication));
+        event(new BroadcastPublication($publication, 'success'));
         
         return response()->json(['publication' => $publication], 201);
     }
@@ -71,6 +71,10 @@ class PublicationController extends Controller
             ->first();  // Obtenemos la primera coincidencia directamente
     
         if ($publication) {
+
+            // Emitir la notificación a través de Pusher
+            event(new BroadcastPublication($idPublicacion, 'delete'));
+
             // Eliminar la publicación (esto también eliminará los comentarios asociados por la restricción ON DELETE CASCADE)
             $publication->delete();
     

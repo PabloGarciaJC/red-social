@@ -74,7 +74,6 @@ class PublicationClass {
         method: 'GET',
         success: (response) => {
           if (response.message == 'success') {
-            // $(this).closest('.col-12.mb-3').remove();
             Swal.fire({
               icon: 'success',
               title: 'Publicación eliminada',
