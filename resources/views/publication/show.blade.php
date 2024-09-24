@@ -1,6 +1,8 @@
 @foreach ($publications as $mostrarPublication)
+
     <div class="col-12 mb-3">
         <div class="card info-card sales-card">
+
             <!-- Filtro -->
             <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown">
@@ -54,8 +56,8 @@
                             {{ $userLike ? 'Dislike' : 'Like' }}
                         </div>
                     </div>
-                    <div class="col col-lg-2 btn__comments" id="commentButton">Comentarios ({{ count($mostrarPublication->comment) }})</div>
-                    <div id="{{ $mostrarPublication->id }}" class="wrapper-comments" style="display: none;">
+                    <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
+                    <div class="wrapper-comments" style="display: none;">
                         @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
                             <div class="row row-cols-auto mb-2">
                                 <div class="col news">
@@ -75,21 +77,17 @@
                                 </div>
                             </div>
                         @endforeach
-
-                        <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments">
+                        <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
                             <meta name="csrf-token" content="{{ csrf_token() }}">
-                            <input type="hidden" name="id" value="{{ $mostrarPublication->id }}">
                             <div class="input-group">
                                 <div class="file-select">
-                                    <input type="file" name="imagen" id="imagenPublicacion{{ $mostrarPublication->id }}" aria-label="Archivo">
+                                    <input type="file" name="imagen" aria-label="Archivo">
                                 </div>
-                            <!-- Botón para mostrar/ocultar el selector de emojis -->
-                            <button type="button" id="emojiToggle" class="btn btn-secondary">😄 Emojis</button>
+                                <button type="button" id="emojiToggle" class="btn btn-secondary">😄 Emojis</button>
                                 <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                                 <button class="btn btn-primary" type="submit">Enviar</button>
                             </div>
                             <div class="text-center form__collapse">contraer Formulario</div>
-                            <!-- Cuadro de emojis visible inicialmente -->
                             <div class="emoji-picker" style="display: none; margin-top: 10px;">
                                 <span class="chat-container__emoji">😊</span>
                                 <span class="chat-container__emoji">😂</span>

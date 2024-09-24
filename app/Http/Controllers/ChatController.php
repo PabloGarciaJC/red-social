@@ -41,7 +41,6 @@ class ChatController extends Controller
     // Función para enviar un mensaje
     public function sendMessage(Request $request)
     {
-
         // Validar los datos entrantes
         $validator = Validator::make($request->all(), [
             'emisor_id' => 'required|integer|exists:users,id',

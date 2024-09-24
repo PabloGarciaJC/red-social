@@ -2,7 +2,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
           <a href="{{ route('home') }}" class="logo d-flex align-items-center">
-              <img src="{{ asset('assets/img/logo.webp') }}" alt="">
+              <img src="{{ asset('images/logo.webp') }}" alt="">
               <span class="d-none d-lg-block">PabloGarciaJC</span>
           </a>
       </div>
@@ -85,8 +85,9 @@
                       <li>
                           <form action="{{ route('logout') }}" method="POST">
                               {{ csrf_field() }}
-                              <button type="submit" class="dropdown-item d-flex align-items-center"><i
-                                      class="bi bi-box-arrow-right"></i>Cerrar Sesión</button>
+                              <button type="submit" class="dropdown-item d-flex align-items-center">
+                                <i class="bi bi-box-arrow-right"></i>Cerrar Sesión
+                            </button>
                           </form>
                       </li>
                   </ul>

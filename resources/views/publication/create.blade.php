@@ -4,44 +4,78 @@
             <br>
             <input id="userLogin" type="hidden" value="{{ Auth::user()->id }}"></input>
             <div class="d-flex align-items-center">
-                <input type="text" class="form-control" data-bs-toggle="modal"
-                    style="cursor:pointer; text-align: center;" data-bs-target="#exampleModal"
-                    placeholder="¿Qué estás Pensando, {{ Auth::user()->alias }}.?">
+                <div class="button button--modal-open" id="openModal">
+                    ¿Qué estás Pensando, {{ Auth::user()->alias }}.?
+                </div>
             </div>
             <hr>
         </div>
     </div>
 </div>
 
-<!-- Modal - Crear Publicacion  -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<!-- Modal - Crear Publicación -->
+<div class="modal" id="exampleModal">
+    <div class="modal__content">
+        <div class="modal__header">
+            <h5>Crear Publicación</h5>
+            <button class="modal__close" id="closeModal">×</button>
+        </div>
+        <div class="modal__body">
+            <form action="{{ action('PublicationController@save') }}" method="POST" enctype="multipart/form-data" class="form-publication__create">
+                <!-- CSRF Token -->
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="commentTextarea">Escribe tu Comentario</label>
+                    <textarea class="form-control" id="commentTextarea" name="comentarioPublicacion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imageFile" class="modal__image-upload">
+                        <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
+                        <input type="file" class="form-control-file" id="imageFile" name="imagenPublicacion">
+                    </label>
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Crear Publicación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <form action="{{ action('PublicationController@save') }}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Escribe tu Comentario</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="comentarioPublicacion"></textarea>
+                    <button type="button" class="modal__button--emoji-toggle" id="emojiToggle">😊</button>
+                    <div class="modal__emoji-picker" style="display: none; margin-top: 10px;">
+                        <span class="modal__emoji-picker__emoji">😊</span>
+                        <span class="modal__emoji-picker__emoji">😂</span>
+                        <span class="modal__emoji-picker__emoji">😍</span>
+                        <span class="modal__emoji-picker__emoji">😉</span>
+                        <span class="modal__emoji-picker__emoji">😭</span>
+                        <span class="modal__emoji-picker__emoji">😎</span>
+                        <span class="modal__emoji-picker__emoji">😡</span>
+                        <span class="modal__emoji-picker__emoji">🥺</span>
+                        <span class="modal__emoji-picker__emoji">😜</span>
+                        <span class="modal__emoji-picker__emoji">🤔</span>
+                        <span class="modal__emoji-picker__emoji">👍</span>
+                        <span class="modal__emoji-picker__emoji">🙏</span>
+                        <span class="modal__emoji-picker__emoji">❤️</span>
+                        <span class="modal__emoji-picker__emoji">🎉</span>
+                        <span class="modal__emoji-picker__emoji">🔥</span>
+                        <span class="modal__emoji-picker__emoji">🤯</span>
+                        <span class="modal__emoji-picker__emoji">🤩</span>
+                        <span class="modal__emoji-picker__emoji">😇</span>
+                        <span class="modal__emoji-picker__emoji">🥳</span>
+                        <span class="modal__emoji-picker__emoji">🤪</span>
+                        <span class="modal__emoji-picker__emoji">👀</span>
+                        <span class="modal__emoji-picker__emoji">😏</span>
+                        <span class="modal__emoji-picker__emoji">💀</span>
+                        <span class="modal__emoji-picker__emoji">👻</span>
+                        <span class="modal__emoji-picker__emoji">🤤</span>
+                        <span class="modal__emoji-picker__emoji">😴</span>
+                        <span class="modal__emoji-picker__emoji">👑</span>
+                        <span class="modal__emoji-picker__emoji">💩</span>
+                        <span class="modal__emoji-picker__emoji">🦄</span>
+                        <span class="modal__emoji-picker__emoji">🐶</span>
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <label for="exampleFormControlFile1">Subir Imagen</label><br>
-                        <input type="file" class="form-control-file" id="exampleFormControlFile1"
-                            name="imagenPublicacion">
+                    <div class="modal__image-preview">
+                        <img id="imagePreview" src="" alt="Vista previa de la imagen" style="display: none;">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Aceptar</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal__footer">
+                    <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
+                    <button type="submit" class="button">Aceptar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -12,9 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 
-
-class  BroadcastChat implements ShouldBroadcast
-
+class BroadcastChat implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -44,7 +42,7 @@ class  BroadcastChat implements ShouldBroadcast
 
     public function broadcastAs()
     {
-          \Log::debug("{$this->chat}");
+        //   \Log::debug("{$this->chat}");
         return new Channel('broadcastChat-event');
     }
 }

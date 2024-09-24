@@ -23,7 +23,6 @@ class LikeController extends Controller
 
     public function like($idPublicacion)
     {
-
         $like = Like::where('user_id', Auth::user()->id)
             ->where('publication_id', $idPublicacion);
 

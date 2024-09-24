@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Events\BroadcastPublication;
 
 class PublicationController extends Controller
 {
@@ -16,12 +17,18 @@ class PublicationController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request)
+    {
+        $publications = Publication::orderBy('id', 'desc')->get();
+        return view('home', ['publications' => $publications]);
+    }
+
     public function save(Request $request)
     {
         $comentarioPublicacion = $request->input('comentarioPublicacion');
         $imagenPublicacion = $request->file('imagenPublicacion');
 
-        // Instancio Objeto User
+        // Instancio Objeto Publication
         $publication = new Publication();
 
         // Seteo Objeto
@@ -41,8 +48,14 @@ class PublicationController extends Controller
         }
 
         $publication->save();
+        
+        // Cargar la relación del usuario y los comentarios asociados
+        $publication = Publication::with('user', 'comment')->find($publication->id);
 
-        return redirect()->route('home');
+        // Emitir la notificación a través de Pusher
+        event(new BroadcastPublication($publication, 'success'));
+        
+        return response()->json(['publication' => $publication], 201);
     }
 
     public function getImage($filename)
@@ -58,6 +71,10 @@ class PublicationController extends Controller
             ->first();  // Obtenemos la primera coincidencia directamente
     
         if ($publication) {
+
+            // Emitir la notificación a través de Pusher
+            event(new BroadcastPublication($idPublicacion, 'delete'));
+
             // Eliminar la publicación (esto también eliminará los comentarios asociados por la restricción ON DELETE CASCADE)
             $publication->delete();
     
