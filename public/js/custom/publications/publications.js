@@ -25,7 +25,6 @@ class PublicationClass {
       let form = $(this);
       let formData = new FormData(form[0]);
       formData.append('post_id', form.data('post-id'));
-
       // Enviar los datos por AJAX
       $.ajax({
         url: form.attr('action'),
