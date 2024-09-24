@@ -77,21 +77,17 @@
                                 </div>
                             </div>
                         @endforeach
-
                         <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
                             <meta name="csrf-token" content="{{ csrf_token() }}">
-                            <input type="hidden" name="id" value="{{ $mostrarPublication->id }}">
                             <div class="input-group">
                                 <div class="file-select">
-                                    <input type="file" name="imagen" id="imagenPublicacion{{ $mostrarPublication->id }}" aria-label="Archivo">
+                                    <input type="file" name="imagen" aria-label="Archivo">
                                 </div>
-                            <!-- Botón para mostrar/ocultar el selector de emojis -->
-                            <button type="button" id="emojiToggle" class="btn btn-secondary">😄 Emojis</button>
+                                <button type="button" id="emojiToggle" class="btn btn-secondary">😄 Emojis</button>
                                 <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                                 <button class="btn btn-primary" type="submit">Enviar</button>
                             </div>
                             <div class="text-center form__collapse">contraer Formulario</div>
-                            <!-- Cuadro de emojis visible inicialmente -->
                             <div class="emoji-picker" style="display: none; margin-top: 10px;">
                                 <span class="chat-container__emoji">😊</span>
                                 <span class="chat-container__emoji">😂</span>

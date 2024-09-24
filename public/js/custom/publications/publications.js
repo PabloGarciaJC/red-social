@@ -19,10 +19,16 @@ class PublicationClass {
   }
 
   save() {
-    $('.form__comments').on('submit', (e) => {
-      e.preventDefault();
-      let form = $(e.currentTarget);
-      let formData = new FormData(form[0]);
+    $('.form__comments').on('submit', function (e) {
+      e.preventDefault(); // Evita el envío predeterminado del formulario
+
+      let form = $(this); // Obtiene el formulario actual
+      let formData = new FormData(form[0]); // Crea un objeto FormData a partir del formulario
+
+      // Obtener el valor de data-post-id y agregarlo al FormData
+      formData.append('post_id', form.data('post-id'));
+
+      // Enviar los datos por AJAX
       $.ajax({
         url: form.attr('action'),
         method: "POST",
@@ -33,12 +39,19 @@ class PublicationClass {
         processData: false,
         contentType: false,
         success: function (response) {
-          if (response.success) {
-            form[0].reset();
-          }
+          console.log('Respuesta del servidor:', response);
+          // Opcional: Manejar la respuesta del servidor aquí
+          // if (response.success) {
+          //         //     form[0].reset();
+          //         // }
+        },
+        error: function (xhr, status, error) {
+          console.error('Error:', error); // Mostrar errores en la consola
         }
       });
     });
+
+
   }
 
   emojis() {
@@ -68,7 +81,7 @@ class PublicationClass {
         method: 'GET',
         success: (response) => {
           if (response.message == 'success') {
-            $(this).closest('.col-12.mb-3').remove();
+            // $(this).closest('.col-12.mb-3').remove();
             Swal.fire({
               icon: 'success',
               title: 'Publicación eliminada',
