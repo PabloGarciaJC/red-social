@@ -18,6 +18,7 @@ class BroadcastComment implements ShouldBroadcast
 
     // public $objetoFollowerRecibir;
     public $comment;
+    public $status;
 
     /**
      * Create a new event instance.
@@ -25,9 +26,10 @@ class BroadcastComment implements ShouldBroadcast
      * @return void
      */
 
-     public function __construct($comment)
+     public function __construct($comment, $status)
      {
          $this->comment = $comment;
+         $this->status = $status;
      }
 
     /**
@@ -43,6 +45,7 @@ class BroadcastComment implements ShouldBroadcast
     public function broadcastAs()
     {
           \Log::debug("{$this->comment}");
+          \Log::debug("{$this->status}");
         return new Channel('broadcastComment-event');
     }
 }

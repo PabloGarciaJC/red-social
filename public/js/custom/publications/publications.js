@@ -20,12 +20,9 @@ class PublicationClass {
 
   save() {
     $('.form__comments').on('submit', function (e) {
-      e.preventDefault(); // Evita el envío predeterminado del formulario
-
-      let form = $(this); // Obtiene el formulario actual
-      let formData = new FormData(form[0]); // Crea un objeto FormData a partir del formulario
-
-      // Obtener el valor de data-post-id y agregarlo al FormData
+      e.preventDefault();
+      let form = $(this);
+      let formData = new FormData(form[0]);
       formData.append('post_id', form.data('post-id'));
 
       // Enviar los datos por AJAX
