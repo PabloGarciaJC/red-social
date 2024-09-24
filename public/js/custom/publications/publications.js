@@ -19,6 +19,7 @@ class PublicationClass {
   }
 
   save() {
+    $(document).off('click', '.form__comments');
     $('.form__comments').on('submit', function (e) {
       e.preventDefault();
       let form = $(this);
