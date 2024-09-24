@@ -39,19 +39,15 @@ class PublicationClass {
         processData: false,
         contentType: false,
         success: function (response) {
-          console.log('Respuesta del servidor:', response);
-          // Opcional: Manejar la respuesta del servidor aquí
-          // if (response.success) {
-          //         //     form[0].reset();
-          //         // }
+          if (response.success) {
+            form[0].reset();
+          }
         },
         error: function (xhr, status, error) {
-          console.error('Error:', error); // Mostrar errores en la consola
+          console.error('Error:', error);
         }
       });
     });
-
-
   }
 
   emojis() {

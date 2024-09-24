@@ -76,7 +76,7 @@ class CommentController extends Controller
       ];
   
       // Emitir la notificación a través de Pusher
-      event(new BroadcastComment($response));
+      // event(new BroadcastComment($response));
   
       return response()->json($response);
   }
