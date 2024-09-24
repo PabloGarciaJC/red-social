@@ -37,7 +37,6 @@ window.Echo = new Echo({
 });
 
 window.Swal = require('sweetalert2');
-console.log(Swal); 
 require('bootstrap/dist/js/bootstrap.bundle.min.js')
 require('./broadcast/userSessionChanged');
 require('./broadcast/notification');
