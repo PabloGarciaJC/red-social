@@ -18,4 +18,15 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        $publications = Publication::orderBy('id', 'desc')->get();
+        return view('home', ['publications' => $publications]);
+    }
 }
