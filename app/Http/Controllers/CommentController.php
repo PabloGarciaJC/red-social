@@ -68,7 +68,8 @@ class CommentController extends Controller
         'created_at' => $comments->created_at->toDateTimeString()
       ]
     ];
-// Emitir la notificación a través de Pusher
+    
+  // Emitir la notificación a través de Pusher
     event(new BroadcastComment(response()->json($response)));
 
     return response()->json($response);

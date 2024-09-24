@@ -54,18 +54,8 @@ class PublicationController extends Controller
 
         // Emitir la notificación a través de Pusher
         event(new BroadcastPublication($publication));
-
-          // Devolver la publicación junto con la información del usuario y comentarios en formato JSON
-        //   return response()->json([
-        //     'publication' => $publication,
-        //     'user' => $publication->user,
-        //     'comments' => $publication->comment,
-        // ]);
-
-
-         return response()->json(['publication' => $publication], 201);
-
-        // return redirect()->route('home');
+        
+        return response()->json(['publication' => $publication], 201);
     }
 
     public function getImage($filename)
