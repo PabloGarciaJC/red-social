@@ -1,7 +1,7 @@
 // ---------------------------------------------------------
 // Archivo Prueba
 // ---------------------------------------------------------
-class PruebaClass {
+class UserClass {
 
     // Métodos de manipulación de datos
     searchAutocompletado() {
@@ -89,12 +89,12 @@ class PruebaClass {
     }
 
     // Método para inicializar la clase
-    init() {
+    startUserClass() {
         this.searchAutocompletado();
         this.vistaPreliminar();
     }
 }
 
 // Para usar la clase, crear una nueva instancia e inicializarla
-let prueba = new PruebaClass();
-prueba.init();
+let initUser = new UserClass();
+initUser.startUserClass();

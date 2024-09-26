@@ -47,9 +47,7 @@
                 <div class="row justify-content-end">
                     <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
                     <div class="col col-lg-2">
-                        <div class="{{ $userLike ? 'dislike' : 'like' }}" 
-                             id="btn-{{ $userLike ? 'dislike' : 'like' }}{{ $mostrarPublication->id }}"
-                             onclick="{{ $userLike ? 'dislike' : 'like' }}({{ $mostrarPublication->id }})">
+                        <div class="btn-like-dislike {{ $userLike ? 'dislike' : 'like' }}" id-data-like-dislike="btn-{{ $userLike ? 'dislike' : 'like' }}-{{ $mostrarPublication->id }}">
                             {{ $userLike ? 'Dislike' : 'Like' }}
                         </div>
                     </div>
@@ -58,7 +56,7 @@
                         @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
                             <div class="row row-cols-auto mb-2">
                                 <div class="col news">
-                                    <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" alt="{{ $coments->user->alias }}'s profile picture" class="rounded-circle" width="40" height="40"/> 
+                                    <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="40" height="40"/> 
                                 </div>
                                 <div class="col">
                                     <a href="#">{{ $coments->user->alias }}</a>

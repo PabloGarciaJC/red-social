@@ -1,78 +1,45 @@
+class LikeClass {
+  constructor() {
+    this.btnLike = $(".btn-like-dislike");
+  }
 
-function like(idPublication) {
-
-  let likePublication = document.getElementById('btn-like' + idPublication);
-  likePublication.classList.remove('like');
-  likePublication.innerHTML = 'Dislike';
-  likePublication.classList.add('dislike');
-  likePublication.setAttribute('id', 'btn-dislike' + idPublication);
-  likePublication.setAttribute('onclick','dislike('+ idPublication +');');
-  let urlAjax = baseUrl + 'like/' + idPublication;
-  ajaxPeticionLike(urlAjax);
-
-}
-  
-function ajaxPeticionLike(urlAjax){
-
-  $.ajax({
-    type: "GET",
-    url: urlAjax,
-    success: function (response) {
-   
-      if(response.like){
-        console.log('Has dado like a la publicacion');
-      }else{
-        console.log('Error al dar like');
+  // Método para inicializar la clase
+  startLikeClass() {
+    this.btnLike.on("click", function (e) {
+      let target = $(e.currentTarget);
+      let likePublication = target.attr("id-data-like-dislike");
+      let publicationId = likePublication.split("-").pop();
+      if (target.hasClass('like')) {
+        target.removeClass("like");
+        target.html("Dislike");
+        target.addClass("dislike");
+        let newIdValue = "btn-dislike-" + publicationId;
+        target.attr("id-data-like-dislike", newIdValue);
+        $.ajax({
+          type: "GET",
+          url: baseUrl + "like/" + publicationId,
+          success: function (response) {
+           // Se envio correctamente
+          },
+        });
+      } else {
+        target.removeClass("dislike");
+        target.html("like");
+        target.addClass("like");
+        let newIdValue = "btn-like-" + publicationId;
+        target.attr("id-data-like-like", newIdValue);
+        $.ajax({
+          type: "GET",
+          url: baseUrl + "dislike/" + publicationId,
+          success: function (response) {
+          // Se envio correctamente
+          },
+        });
       }
-
-    }
-  })
-
+    });
+  }
 }
 
-
-
-
-
-
-
-
-
-
-  
-
-    // let like = document.getElementById('btn-like');
-
-    // like.addEventListener('click', (event) => {
-
-      // like.classList.remove('like');
-      // like.innerHTML = 'Deslike';
-      // like.classList.add('dislike');
-
-
-      // let urlLikeAjax = baseUrl + 'publicationDelete/' + idPublicacion;
-
-  
-
-      // $.$.ajax({
-      //   type: "method",
-      //   url: "url",
-      //   data: "data",
-      //   dataType: "dataType",
-      //   success: function (response) {
-          
-      //   }
-      // });
-
-
-    // })
-
-
-
-
-  
-
-
-
-
-
+// Instanciamos la clase
+let initLike = new LikeClass();
+initLike.startLikeClass();
