@@ -89,21 +89,22 @@
                                         <div class="row mb-3">
                                             <label for="fotoPerfil" class="col-md-4 col-lg-3 col-form-label">Foto del
                                                 Perfil</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                @if (Auth::user()->fotoPerfil)
-                                                    <img src="{{ route('foto.perfil', ['filename' => Auth::user()->fotoPerfil]) }}"
-                                                        id="previe" alt="fotoPerfil">
-                                                @else
-                                                    <img src="assets/img/profile-img.jpg" id="previe" alt="fotoPerfil">
-                                                @endif
-                                                <div class="pt-2">
-                                                    <input type="file" name="fotoPerfil" id="fotoPerfil"
-                                                        onchange="vista_preliminar(event)">
-                                                </div>
-                                                @if ($errors->has('fotoPerfil'))
-                                                    <strong style="color: red">{{ $errors->first('fotoPerfil') }}</strong>
-                                                @endif
-                                            </div>
+                                                <div class="col-md-8 col-lg-9">
+    @if (Auth::user()->fotoPerfil)
+        <img src="{{ route('foto.perfil', ['filename' => Auth::user()->fotoPerfil]) }}"
+             id="previe" alt="fotoPerfil">
+    @else
+        <img src="assets/img/profile-img.jpg" id="previe" alt="fotoPerfil">
+    @endif
+
+    <!-- Carga de imagen -->
+    <label for="imageFilea" class="modal__image-upload">
+        <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
+        <input type="file" class="form-control-file" id="imageFilea" name="fotoPerfil">
+    </label>
+</div>
+
+
                                         </div>
                                         <div class="row mb-3">
                                             <label for="nombre" class="col-md-4 col-lg-3 col-form-label">Alias</label>

@@ -34,7 +34,6 @@
                         </div>
                     </div>
                 </div>
-                
                 @if ($mostrarPublication->imagen == '')
                     <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
                 @else
@@ -44,9 +43,7 @@
                          style="max-width: 100%; height: auto;">
                     <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
                 @endif
-                
                 <hr>
-                
                 <div class="row justify-content-end">
                     <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
                     <div class="col col-lg-2">
@@ -61,9 +58,7 @@
                         @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
                             <div class="row row-cols-auto mb-2">
                                 <div class="col news">
-                                    <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" 
-                                        alt="{{ $coments->user->alias }}'s profile picture" 
-                                        class="rounded-circle" width="40" height="40"/>
+                                    <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" alt="{{ $coments->user->alias }}'s profile picture" class="rounded-circle" width="40" height="40"/> 
                                 </div>
                                 <div class="col">
                                     <a href="#">{{ $coments->user->alias }}</a>
