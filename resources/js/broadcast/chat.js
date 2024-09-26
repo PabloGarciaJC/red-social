@@ -20,4 +20,3 @@ window.Echo.channel('broadcastChat-channel')
             chatBox.scrollTop(chatBox[0].scrollHeight);
         }
     });
-;

@@ -582,9 +582,10 @@ class ComposerStaticInit9f0736e356c0530644aba35be9a027c1
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Events\\BroadcastChat' => __DIR__ . '/../..' . '/app/Events/BroadcastChat.php',
+        'App\\Events\\BroadcastComment' => __DIR__ . '/../..' . '/app/Events/BroadcastComment.php',
         'App\\Events\\BroadcastNotification' => __DIR__ . '/../..' . '/app/Events/BroadcastNotification.php',
         'App\\Events\\BroadcastPublication' => __DIR__ . '/../..' . '/app/Events/BroadcastPublication.php',
-        'App\\Events\\UserSessionChanged' => __DIR__ . '/../..' . '/app/Events/UserSessionChanged.php',
+        'App\\Events\\BroadcastUserSessionChanged' => __DIR__ . '/../..' . '/app/Events/BroadcastUserSessionChanged.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Api\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UserController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',

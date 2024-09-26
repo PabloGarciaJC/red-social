@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserSessionChanged implements ShouldBroadcast
+class BroadcastUserSessionChanged implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -36,6 +36,6 @@ class UserSessionChanged implements ShouldBroadcast
     public function broadcastOn()
     {
         // \Log::debug("{$this->user}");
-        return new Channel('broadcastUserSessionChanged-channel');
+        return new Channel('BroadcastUserSessionChanged-channel');
     }
 }

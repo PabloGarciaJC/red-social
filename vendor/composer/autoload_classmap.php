@@ -8,9 +8,10 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Events\\BroadcastChat' => $baseDir . '/app/Events/BroadcastChat.php',
+    'App\\Events\\BroadcastComment' => $baseDir . '/app/Events/BroadcastComment.php',
     'App\\Events\\BroadcastNotification' => $baseDir . '/app/Events/BroadcastNotification.php',
     'App\\Events\\BroadcastPublication' => $baseDir . '/app/Events/BroadcastPublication.php',
-    'App\\Events\\UserSessionChanged' => $baseDir . '/app/Events/UserSessionChanged.php',
+    'App\\Events\\BroadcastUserSessionChanged' => $baseDir . '/app/Events/BroadcastUserSessionChanged.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Api\\UserController' => $baseDir . '/app/Http/Controllers/Api/UserController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
