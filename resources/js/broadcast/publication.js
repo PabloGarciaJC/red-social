@@ -111,9 +111,9 @@ window.Echo.channel('broadcastPublication-channel')
                 $('#exampleModal').after(cardHtml);
 
                 // Llamada a los métodos desde la instancia
-                window.initPublication.showComments();
-                window.initPublication.save();
-                window.initPublication.collapseComments();
-                window.initPublication.emojis();
+                window.initComment.showComments();
+                window.initComment.collapseComments();
+                window.initComment.save();
+                window.initComment.emojis();
         }
     });
