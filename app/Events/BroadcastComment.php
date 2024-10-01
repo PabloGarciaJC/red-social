@@ -44,8 +44,8 @@ class BroadcastComment implements ShouldBroadcast
 
     public function broadcastAs()
     {
-          \Log::debug("{$this->comment}");
-          \Log::debug("{$this->status}");
+        //   \Log::debug("{$this->comment}");
+        //   \Log::debug("{$this->status}");
         return new Channel('broadcastComment-event');
     }
 }

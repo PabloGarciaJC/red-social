@@ -43,6 +43,7 @@ require('./broadcast/notification');
 require('./broadcast/chat');
 require('./broadcast/publication');
 require('./broadcast/comments');
+require('./broadcast/likes');
 
 
 

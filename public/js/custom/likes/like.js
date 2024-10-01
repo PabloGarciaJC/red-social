@@ -1,41 +1,63 @@
 class LikeClass {
   constructor() {
-    this.btnLike = $(".btn-like-dislike");
+    this.cardBody = $(".card-body"); // Un contenedor que siempre está presente
   }
 
   // Método para inicializar la clase
   startLikeClass() {
-    this.btnLike.on("click", function (e) {
-      let target = $(e.currentTarget);
-      let likePublication = target.attr("id-data-like-dislike");
-      let publicationId = likePublication.split("-").pop();
-      if (target.hasClass('like')) {
-        target.removeClass("like");
-        target.html("Dislike");
-        target.addClass("dislike");
-        let newIdValue = "btn-dislike-" + publicationId;
-        target.attr("id-data-like-dislike", newIdValue);
-        $.ajax({
-          type: "GET",
-          url: baseUrl + "like/" + publicationId,
-          success: function (response) {
-           // Se envio correctamente
-          },
-        });
-      } else {
-        target.removeClass("dislike");
-        target.html("like");
-        target.addClass("like");
-        let newIdValue = "btn-like-" + publicationId;
-        target.attr("id-data-like-like", newIdValue);
-        $.ajax({
-          type: "GET",
-          url: baseUrl + "dislike/" + publicationId,
-          success: function (response) {
-          // Se envio correctamente
-          },
-        });
-      }
+    this.handleLike();
+    this.handleDislike();
+  }
+
+  // Método para manejar el botón like usando delegación de eventos
+  handleLike() {
+    this.cardBody.on("click", ".btn-like", (e) => {
+      let form = $(e.target).closest('.card-body').find('form.form__comments');
+      let postId = form.data('post-id');
+
+      $.ajax({
+        type: "GET",
+        url: `${baseUrl}like/${postId}`,
+        success: function (response) {
+          if (response.status == 'like') {
+            let contnDislike = `<div class="btn-dislike">
+                                  <i class="bi bi-hand-thumbs-down"></i> Dislike
+                                </div>`;
+
+            // Reemplazar el botón de like por dislike
+            let newDislikeButton = $(contnDislike).insertBefore(e.target);
+            $(e.target).remove();
+          } else {
+            console.log('dislike');
+          }
+        }
+      });
+    });
+  }
+
+  // Método para manejar el botón dislike usando delegación de eventos
+  handleDislike() {
+    this.cardBody.on("click", ".btn-dislike", (e) => {
+      let form = $(e.target).closest('.card-body').find('form.form__comments');
+      let postId = form.data('post-id');
+
+      $.ajax({
+        type: "GET",
+        url: `${baseUrl}dislike/${postId}`,
+        success: function (response) {
+          if (response.status == 'dislike') {
+            let contnLike = `<div class="btn-like">
+                               <i class="bi bi-hand-thumbs-up"></i> Like
+                             </div>`;
+
+            // Reemplazar el botón de dislike por like
+            let newLikeButton = $(contnLike).insertBefore(e.target);
+            $(e.target).remove();
+          } else {
+            console.log('like');
+          }
+        }
+      });
     });
   }
 }

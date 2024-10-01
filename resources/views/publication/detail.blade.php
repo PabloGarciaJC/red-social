@@ -24,7 +24,7 @@
                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                         <li class="dropdown-header text-start"><h6>Opciones</h6></li>                 
                                         {{-- <li><a class="dropdown-item" href="#">Editar</a></li> --}}
-                                        <li><a class="dropdown-item" id="eliminarPublication" onclick="deletePublication({{ $getPublication->id }})" href="javascript:void(0);">Eliminar</a></li>
+                                        <li><a class="dropdown-item" id="eliminarPublication" href="javascript:void(0);">Eliminar</a></li>
                                     </ul>
                                 </div>
                                 {{-- Cuerpo --}}
@@ -55,13 +55,11 @@
                                             @endif
                                         @endforeach
                                         @if ($userLike)
-                                            <div class="col col-lg-2 dislike" id="btn-dislike{{ $getPublication->id }}"
-                                                onclick="dislike({{ $getPublication->id }})">
+                                            <div class="col col-lg-2 dislike">                                                
                                                 Dislike
                                             </div>
                                         @else
-                                            <div class="col col-lg-2 like" id="btn-like{{ $getPublication->id }}"
-                                                onclick="like({{ $getPublication->id }})">
+                                            <div class="col col-lg-2 like">
                                                 Like
                                             </div>
                                         @endif
