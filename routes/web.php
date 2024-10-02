@@ -35,7 +35,6 @@ Route::get('/', 'PublicationController@index')->name('home');
 Route::post('/publicationSave', 'PublicationController@save')->name('publicationSave');
 Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
 Route::get('/publicationDelete/{publicationId}', 'PublicationController@delete')->name('publicationDelete');
-Route::get('/detalle/{publicationId}', 'PublicationController@detail')->name('publicationDetail');
 
 // LIKE
 Route::get('/like/{publicationId}', 'LikeController@like')->name('likeSave');

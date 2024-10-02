@@ -1,6 +1,6 @@
 class LikeClass {
   constructor() {
-    this.cardBody = $(".card-body"); // Un contenedor que siempre está presente
+    this.cardBody = $(".card-body");
   }
 
   // Método para inicializar la clase
@@ -27,8 +27,6 @@ class LikeClass {
             // Reemplazar el botón de like por dislike
             let newDislikeButton = $(contnDislike).insertBefore(e.target);
             $(e.target).remove();
-          } else {
-            console.log('dislike');
           }
         }
       });
@@ -53,8 +51,6 @@ class LikeClass {
             // Reemplazar el botón de dislike por like
             let newLikeButton = $(contnLike).insertBefore(e.target);
             $(e.target).remove();
-          } else {
-            console.log('like');
           }
         }
       });

@@ -30,7 +30,6 @@ class PublicationClass {
   }
 
   create() {
-    const self = this;
     $('.form-publication__create').on('submit', (e) => {
       e.preventDefault();
       let form = $(e.currentTarget);

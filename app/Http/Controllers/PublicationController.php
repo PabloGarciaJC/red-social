@@ -85,10 +85,5 @@ class PublicationController extends Controller
             return response()->json(['message' => 'Publication not found'], 200);
         }
     }
-    
-    public function detail($idPublication)
-    {
-        $getPublication = Publication::find($idPublication);
-        return view('publication.detail', ['getPublication' => $getPublication]);
-    }
+
 }

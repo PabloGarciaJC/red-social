@@ -1,12 +1,4 @@
 @foreach ($publications as $mostrarPublication)
-
-<style>
-    /*--------------------------------------------------------------
-# Modal
---------------------------------------------------------------*/
-</style>
-
-
 <div class="col-12 mb-3">
     <div class="card info-card sales-card">
         <!-- Filtro -->
@@ -51,18 +43,7 @@
             <hr>
             <div class="row justify-content-end">
                 <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
-                <!-- <div class="col col-lg-2"> -->
-                <!-- <div class="btn-like-dislike {{ $userLike ? 'dislike' : 'like' }}" id-data-like-dislike="btn-{{ $userLike ? 'dislike' : 'like' }}-{{ $mostrarPublication->id }}">
-                            {{ $userLike ? 'Dislike' : 'Like' }}
-                        </div> -->
-                <!-- <div class="btn-like">
-                        <i class="bi bi-hand-thumbs-up"></i> Like
-                    </div>
-                    <div class="btn-dislike">
-                        <i class="bi bi-hand-thumbs-down"></i> Dislike
-                    </div>
-                </div> -->
-
+    
                 <div class="col col-lg-2">
                     <div class="d-flex align-items-center gap-5">
                         @if($userLike)
