@@ -139,13 +139,12 @@ class AppClass {
 
     // Funcionalidades
     startAppClass() {
-
         // Crear Publicacion
         this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
-
         // Comentarios
         this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
-
+        // Chat
+        this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
     }
 }
 
