@@ -47,30 +47,11 @@ class CommentClass {
     });
   }
 
-  emojis() {
-    // Guarda la referencia a 'this' para usarla en el evento click
-    const self = this;
-    // Mostrar y ocultar el selector de emojis de manera contextual para cada publicación
-    $('.form__comments').each(function () {
-      const form = $(this);
-      // Mostrar/ocultar emojis solo dentro del formulario actual
-      form.find('#emojiToggle').on('click', function () {
-        form.find('.emoji-picker').toggle();
-      });
-      // Añadir emojis al input de comentario del formulario actual
-      form.find('.chat-container__emoji').on('click', function () {
-        let comentarioInput = form.find('.comentario-input');
-        comentarioInput.val(comentarioInput.val() + $(this).text());
-      });
-    });
-  }
-
   // Funcionalidades
   startCommentClass() {
     this.showComments();
     this.collapseComments();
     this.save();
-    this.emojis();
   }
 }
 

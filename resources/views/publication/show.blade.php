@@ -43,7 +43,7 @@
             <hr>
             <div class="row justify-content-end">
                 <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
-    
+
                 <div class="col col-lg-2">
                     <div class="d-flex align-items-center gap-5">
                         @if($userLike)
@@ -83,43 +83,13 @@
                             <div class="file-select">
                                 <input type="file" name="imagen" aria-label="Archivo">
                             </div>
-                            <button type="button" id="emojiToggle" class="btn btn-secondary">😄 Emojis</button>
+                            <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
                             <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                             <button class="btn btn-primary" type="submit">Enviar</button>
                         </div>
                         <div class="text-center form__collapse">contraer Formulario</div>
-                        <div class="emoji-picker" style="display: none; margin-top: 10px;">
-                            <span class="chat-container__emoji">😊</span>
-                            <span class="chat-container__emoji">😂</span>
-                            <span class="chat-container__emoji">😍</span>
-                            <span class="chat-container__emoji">😉</span>
-                            <span class="chat-container__emoji">😭</span>
-                            <span class="chat-container__emoji">😎</span>
-                            <span class="chat-container__emoji">😡</span>
-                            <span class="chat-container__emoji">🥺</span>
-                            <span class="chat-container__emoji">😜</span>
-                            <span class="chat-container__emoji">🤔</span>
-                            <span class="chat-container__emoji">👍</span>
-                            <span class="chat-container__emoji">🙏</span>
-                            <span class="chat-container__emoji">❤️</span>
-                            <span class="chat-container__emoji">🎉</span>
-                            <span class="chat-container__emoji">🔥</span>
-                            <span class="chat-container__emoji">🤯</span>
-                            <span class="chat-container__emoji">🤩</span>
-                            <span class="chat-container__emoji">😇</span>
-                            <span class="chat-container__emoji">🥳</span>
-                            <span class="chat-container__emoji">🤪</span>
-                            <span class="chat-container__emoji">👀</span>
-                            <span class="chat-container__emoji">😏</span>
-                            <span class="chat-container__emoji">💀</span>
-                            <span class="chat-container__emoji">👻</span>
-                            <span class="chat-container__emoji">🤤</span>
-                            <span class="chat-container__emoji">😴</span>
-                            <span class="chat-container__emoji">👑</span>
-                            <span class="chat-container__emoji">💩</span>
-                            <span class="chat-container__emoji">🦄</span>
-                            <span class="chat-container__emoji">🐶</span>
-                        </div>
+                        <!-- Aquí se inyectará el emoji-picker -->
+                        <div class="form__cntn-emojis"></div>
                     </form>
                 </div>
             </div>

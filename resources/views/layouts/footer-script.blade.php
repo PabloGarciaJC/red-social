@@ -1,6 +1,7 @@
 
         <script src="{{ asset('js/app.js') }}"></script> 
         <script src="{{ asset('js/custom/main.js') }}"></script>
+        <script src="{{ asset('js/custom/app.js') }}"></script>
         <script src="{{ asset('js/custom/config/config.js') }}"></script>
         <script src="{{ asset('js/custom/user/user.js') }}"></script>
         <script src="{{ asset('js/custom/likes/like.js') }}"></script>

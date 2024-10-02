@@ -65,44 +65,13 @@ window.Echo.channel('broadcastPublication-channel')
                                               <div class="file-select">
                                                   <input type="file" name="imagen" aria-label="Archivo">
                                               </div>
-                                              <button type="button" id="emojiToggle" class="btn btn-secondary">😄 Emojis</button>
+                                              <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
                                               <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                                               <button class="btn btn-primary" type="submit">Enviar</button>
                                           </div>
                                           <div class="text-center form__collapse">contraer Formulario</div>
-                                          <!-- Cuadro de emojis visible inicialmente -->
-                                          <div class="emoji-picker" style="display: none; margin-top: 10px;">
-                                              <span class="chat-container__emoji">😊</span>
-                                              <span class="chat-container__emoji">😂</span>
-                                              <span class="chat-container__emoji">😍</span>
-                                              <span class="chat-container__emoji">😉</span>
-                                              <span class="chat-container__emoji">😭</span>
-                                              <span class="chat-container__emoji">😎</span>
-                                              <span class="chat-container__emoji">😡</span>
-                                              <span class="chat-container__emoji">🥺</span>
-                                              <span class="chat-container__emoji">😜</span>
-                                              <span class="chat-container__emoji">🤔</span>
-                                              <span class="chat-container__emoji">👍</span>
-                                              <span class="chat-container__emoji">🙏</span>
-                                              <span class="chat-container__emoji">❤️</span>
-                                              <span class="chat-container__emoji">🎉</span>
-                                              <span class="chat-container__emoji">🔥</span>
-                                              <span class="chat-container__emoji">🤯</span>
-                                              <span class="chat-container__emoji">🤩</span>
-                                              <span class="chat-container__emoji">😇</span>
-                                              <span class="chat-container__emoji">🥳</span>
-                                              <span class="chat-container__emoji">🤪</span>
-                                              <span class="chat-container__emoji">👀</span>
-                                              <span class="chat-container__emoji">😏</span>
-                                              <span class="chat-container__emoji">💀</span>
-                                              <span class="chat-container__emoji">👻</span>
-                                              <span class="chat-container__emoji">🤤</span>
-                                              <span class="chat-container__emoji">😴</span>
-                                              <span class="chat-container__emoji">👑</span>
-                                              <span class="chat-container__emoji">💩</span>
-                                              <span class="chat-container__emoji">🦄</span>
-                                              <span class="chat-container__emoji">🐶</span>
-                                          </div>
+                                            <!-- Aquí se inyectará el emoji-picker -->
+                                            <div class="form__cntn-emojis"></div>
                                       </form>
                                     </div>
                                 </div>
@@ -115,5 +84,6 @@ window.Echo.channel('broadcastPublication-channel')
                 // Llamada a los método desde la clase
                 window.initComment.startCommentClass();
                 window.initLike.startLikeClass();
+                window.initApp.startAppClass();
         }
     });
