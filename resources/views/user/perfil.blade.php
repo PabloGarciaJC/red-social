@@ -90,14 +90,14 @@
                                             <label for="fotoPerfil" class="col-md-4 col-lg-3 col-form-label">Foto del Perfil</label>
                                             <div class="col-md-8 col-lg-9">
                                             @if (Auth::user()->fotoPerfil)
-                                                <img src="{{ route('foto.perfil', ['filename' => Auth::user()->fotoPerfil]) }}" id="previe" alt="fotoPerfil">        
+                                                <img src="{{ route('foto.perfil', ['filename' => Auth::user()->fotoPerfil]) }}" id="previe-perfil-user" alt="fotoPerfil">        
                                             @else
-                                                <img src="assets/img/profile-img.jpg" id="previe" alt="fotoPerfil">
+                                                <img src="assets/img/profile-img.jpg" id="previe-perfil-user" alt="fotoPerfil">
                                             @endif
                                                 <!-- Carga de imagen -->
-                                                <label for="imageFilea" class="modal__image-upload">
+                                                <label for="image-file-perfil-user" class="modal__image-upload">
                                                     <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
-                                                    <input type="file" class="form-control-file" id="imageFilea" name="fotoPerfil">
+                                                    <input type="file" class="form-control-file" id="image-file-perfil-user" name="fotoPerfil">
                                                 </label>
                                             </div>
                                         </div>

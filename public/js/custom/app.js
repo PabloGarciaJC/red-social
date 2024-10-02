@@ -137,14 +137,42 @@ class AppClass {
         });
     }
 
+    // Método para vista preliminar de imágenes
+    changeImagePreview($imageFileInput, $previeImage) {
+        let currentImageSrc = $previeImage.attr('src'); // Almacena la imagen actual
+
+        // Evento que se dispara al cambiar el input de archivo
+        $imageFileInput.on('change', function (event) {
+            const file = event.target.files[0]; // Obtiene el archivo seleccionado
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Actualiza la imagen de vista previa
+                    $previeImage.attr('src', e.target.result);
+                    $previeImage.show();
+                };
+
+                reader.readAsDataURL(file); // Lee el archivo como una URL
+            } else {
+                // Si no hay archivo, restaura la imagen anterior
+                $previeImage.attr('src', currentImageSrc);
+            }
+        });
+    }
+
     // Funcionalidades
     startAppClass() {
         // Crear Publicacion
         this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
+        this.changeImagePreview($('#image-file-create-publication'), $('#previe-create-publication'));
         // Comentarios
         this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
         // Chat
         this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
+        // User Perfil
+        this.changeImagePreview($('#image-file-perfil-user'), $('#previe-perfil-user'));
     }
 }
 

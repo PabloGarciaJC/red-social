@@ -29,9 +29,10 @@
                     <textarea class="form-control publication-input" name="comentarioPublicacion"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="imageFile" class="modal__image-upload">
+
+                    <label for="image-file-create-publication" class="modal__image-upload">
                         <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
-                        <input type="file" class="form-control-file" id="imageFile" name="imagenPublicacion">
+                        <input type="file" class="form-control-file" id="image-file-create-publication" name="imagenPublicacion">
                     </label>
 
                     <button type="button" class="modal__button--emoji-toggle">😊</button>
@@ -40,8 +41,9 @@
                      <div class="form__cntn-emojis"></div>
 
                     <div class="modal__image-preview">
-                        <img id="imagePreview" src="" alt="Vista previa de la imagen" style="display: none;">
+                        <img id="previe-create-publication" alt="fotoPerfil" style="display: none;">
                     </div>
+
                 </div>
                 <div class="modal__footer">
                     <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>

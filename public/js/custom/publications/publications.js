@@ -60,27 +60,6 @@ class PublicationClass {
   }
 
   modal() {
-    const $imageFileInput = $('#imageFile');
-    const $imagePreview = $('#imagePreview');
-
-    $imageFileInput.on('change', function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-          $imagePreview.attr('src', e.target.result);
-          $imagePreview.show(); // Muestra la imagen
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        $imagePreview.attr('src', '');
-        // Oculta la imagen si no hay archivo
-        $imagePreview.hide();
-      }
-    });
-
     $('#openModal').on('click', function () {
       $('#exampleModal').addClass('modal--active').fadeIn();
     });

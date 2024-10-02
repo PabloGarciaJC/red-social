@@ -64,34 +64,9 @@ class UserClass {
         });
     }
 
-    // Método para vista preliminar de imágenes
-    vistaPreliminar() {
-        const $imageFileInput = $('#imageFilea');
-        const $previeImage = $('#previe');
-        let currentImageSrc = $previeImage.attr('src');
-
-        $imageFileInput.on('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    // Actualiza la imagen de vista previa
-                    $previeImage.attr('src', e.target.result);
-                };
-
-                reader.readAsDataURL(file);
-            } else {
-                // Si no hay archivo, mantiene la imagen anterior
-                $previeImage.attr('src', currentImageSrc);
-            }
-        });
-    }
-
     // Método para inicializar la clase
     startUserClass() {
-        this.searchAutocompletado();
-        this.vistaPreliminar();
+        this.searchAutocompletado();   
     }
 }
 
