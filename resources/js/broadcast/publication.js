@@ -51,8 +51,10 @@ window.Echo.channel('broadcastPublication-channel')
                                 <hr>
                                 <div class="row justify-content-end">
                                     <div class="col col-lg-2">
-                                        <div class="like" id="btn-like${publication.id}" onclick="like(${publication.id})">
-                                            Like
+                                        <div class="d-flex align-items-center gap-5">
+                                            <div class="btn-like">
+                                                <i class="bi bi-hand-thumbs-up"></i> Like
+                                            </div> 
                                         </div>
                                     </div>
                                     <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
@@ -110,10 +112,8 @@ window.Echo.channel('broadcastPublication-channel')
 
                 $('#exampleModal').after(cardHtml);
 
-                // Llamada a los métodos desde la instancia
-                window.initComment.showComments();
-                window.initComment.collapseComments();
-                window.initComment.save();
-                window.initComment.emojis();
+                // Llamada a los método desde la clase
+                window.initComment.startCommentClass();
+                window.initLike.startLikeClass();
         }
     });

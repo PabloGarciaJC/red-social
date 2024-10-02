@@ -1,7 +1,4 @@
 class LikeClass {
-  constructor() {
-    this.cardBody = $(".card-body");
-  }
 
   // Método para inicializar la clase
   startLikeClass() {
@@ -11,7 +8,7 @@ class LikeClass {
 
   // Método para manejar el botón like usando delegación de eventos
   handleLike() {
-    this.cardBody.on("click", ".btn-like", (e) => {
+    $(".card-body").on("click", ".btn-like", (e) => {
       let form = $(e.target).closest('.card-body').find('form.form__comments');
       let postId = form.data('post-id');
 
@@ -35,7 +32,7 @@ class LikeClass {
 
   // Método para manejar el botón dislike usando delegación de eventos
   handleDislike() {
-    this.cardBody.on("click", ".btn-dislike", (e) => {
+    $(".card-body").on("click", ".btn-dislike", (e) => {
       let form = $(e.target).closest('.card-body').find('form.form__comments');
       let postId = form.data('post-id');
 
@@ -59,5 +56,5 @@ class LikeClass {
 }
 
 // Instanciamos la clase
-let initLike = new LikeClass();
-initLike.startLikeClass();
+window.initLike = new LikeClass();
+window.initLike.startLikeClass();
