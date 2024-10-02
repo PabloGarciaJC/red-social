@@ -62,7 +62,6 @@ class PublicationClass {
   modal() {
     const $imageFileInput = $('#imageFile');
     const $imagePreview = $('#imagePreview');
-    const $commentTextarea = $('#commentTextarea');
 
     $imageFileInput.on('change', function (event) {
       const file = event.target.files[0];
@@ -94,17 +93,6 @@ class PublicationClass {
       if (event.target === this) {
         $('#exampleModal').removeClass('modal--active').fadeOut();
       }
-    });
-
-    $('#emojiToggle').on('click', function () {
-      $('.modal__emoji-picker').toggle(); // Muestra u oculta el selector de emojis
-    });
-
-    $('.modal__emoji-picker__emoji').on('click', function () {
-      const emoji = $(this).text();
-      const currentValue = $commentTextarea.val();
-      $commentTextarea.val(currentValue + emoji); // Inserta el emoji en el textarea
-      $('.modal__emoji-picker').hide(); // Opcional: Oculta el selector de emojis después de seleccionar
     });
   }
 

@@ -115,8 +115,7 @@ class AppClass {
             </div>`;
     }
 
-    // Función para inicializar el selector de emojis en el formulario
-    initEmojiPicker(formClass, emojiContainerClass) {
+    initEmojiPicker(formClass, emojiContainerClass, toggleButtonClass, commentInputClass) {
         // Mostrar y ocultar el selector de emojis de manera contextual para cada formulario
         $(formClass).each((index, formElement) => {
             const form = $(formElement);
@@ -126,13 +125,13 @@ class AppClass {
             form.find(emojiContainerClass).append(emojiPicker);
 
             // Mostrar/ocultar emojis solo dentro del formulario actual
-            form.find('.form__emojis-toggle').on('click', function () {
+            form.find(toggleButtonClass).on('click', function () {
                 form.find('.form__emoji-picker').toggle();
             });
 
             // Añadir emojis al input de comentario del formulario actual
             form.find('.form__emoji').on('click', function () {
-                let comentarioInput = form.find('.comentario-input');
+                let comentarioInput = form.find(commentInputClass);
                 comentarioInput.val(comentarioInput.val() + $(this).text());
             });
         });
@@ -140,7 +139,13 @@ class AppClass {
 
     // Funcionalidades
     startAppClass() {
-        this.initEmojiPicker('.form__comments', '.form__cntn-emojis');
+
+        // Crear Publicacion
+        this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
+
+        // Comentarios
+        this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
+
     }
 }
 
