@@ -1,17 +1,23 @@
 window.Echo.channel('broadcastPublication-channel')
     .listen('.broadcastPublication-event', (e) => {
+
+       
         switch (e.status) {
             case 'delete':
                 let contnPublication = $(`[data-post-id="${e.publication}"]`);
                 contnPublication.closest('.col-12.mb-3').remove();
                 break;
             default:
-                let publication = e.publication;
+
+                let publication = e.publication.publication;
                 let user = publication.user;
                 let contenido = (publication.contenido ?? '').trim();
                 let csrfToken = $('meta[name="csrf-token"]').attr('content');
+                let imagePaths = e.publication.imagePaths
+
+                // Generar HTML para la publicación
                 let cardHtml = `
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-3" data-post-id="${publication.id}">
                         <div class="card info-card sales-card">
                             <div class="filter">
                                 <a class="icon" href="#" data-bs-toggle="dropdown">
@@ -41,12 +47,32 @@ window.Echo.channel('broadcastPublication-channel')
                                         </div>
                                     </div>
                                 </div>
-                                ${publication.imagen ? `
-                                    <img src="/publicationImagen/${publication.imagen}" 
-                                        alt="Publication Image" 
-                                        class="img-fluid rounded mb-3" 
-                                        style="max-width: 100%; height: auto;">
-                                ` : ''}
+                                <div class="product-sheet__image">
+                                    <div id="slick-fich-${publication.id}" class="slick-fich product-sheet__contn-slick">
+                                        ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => `
+                                                <div class="item ${key === 0 ? 'actv' : ''} imge"
+                                                    data-thumb="/product_thumb.php?img=/publicationImagen/${image}&w=122&h=122"
+                                                    data-src="/publicationImagen/${image}">
+                                                    <a href="/publicationImagen/${image}" data-lightbox="image-${publication.id}" data-title="Imagen ${key + 1}">
+                                                        <img class="imge" src="/publicationImagen/${image}" alt="Imagen de publicación ${key + 1}" />
+                                                    </a>
+                                                </div>
+                                                `).join('')
+                                            : ''
+                                            }
+                                    </div>
+                                </div>
+                                <!-- Aquí añadimos el contenedor de miniaturas -->
+                                <div class="product-sheet__thumbnails">
+                                    ${Array.isArray(imagePaths) && imagePaths.length > 0
+                                            ? imagePaths.map((image, key) => `
+                                                            <div class="thumbnail" data-src="/publicationImagen/${image}">
+                                                                <img src="/publicationImagen/${image}" alt="Thumbnail de publicación ${key + 1}" />
+                                                            </div>
+                                                        `).join('')
+                                            : ''
+                                        }
+                                </div>
                                 ${contenido !== '' ? `<p class="pt-3">${contenido}</p>` : ''}
                                 <hr>
                                 <div class="row justify-content-end">
@@ -59,20 +85,19 @@ window.Echo.channel('broadcastPublication-channel')
                                     </div>
                                     <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
                                     <div class="wrapper-comments" style="display: none;">
-                                      <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
-                                          <input type="hidden" name="_token" value="${csrfToken}">
-                                          <div class="input-group">
-                                              <div class="file-select">
-                                                  <input type="file" name="imagen" aria-label="Archivo">
-                                              </div>
-                                              <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
-                                              <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
-                                              <button class="btn btn-primary" type="submit">Enviar</button>
-                                          </div>
-                                          <div class="text-center form__collapse">contraer Formulario</div>
-                                            <!-- Aquí se inyectará el emoji-picker -->
+                                        <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
+                                            <input type="hidden" name="_token" value="${csrfToken}">
+                                            <div class="input-group">
+                                                <div class="file-select">
+                                                    <input type="file" name="imagen" aria-label="Archivo">
+                                                </div>
+                                                <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
+                                                <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
+                                                <button class="btn btn-primary" type="submit">Enviar</button>
+                                            </div>
+                                            <div class="text-center form__collapse">contraer Formulario</div>
                                             <div class="form__cntn-emojis"></div>
-                                      </form>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +106,7 @@ window.Echo.channel('broadcastPublication-channel')
 
                 $('#exampleModal').after(cardHtml);
 
-                // Llamada a los método desde la clase
+                // Llamada a los métodos desde la clase
                 window.initComment.startCommentClass();
                 window.initLike.startLikeClass();
                 window.initApp.startAppClass();

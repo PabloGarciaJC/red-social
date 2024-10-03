@@ -1421,3 +1421,57 @@ h6 {
 .modal__emoji-picker__emoji {font-size: 24px; cursor: pointer; transition: background-color .15s ease-in-out;}
 
 
+.product-sheet {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: auto;
+}
+
+.product-sheet__image {
+  position: relative;
+}
+
+.product-sheet__contn-slick {
+  width: 100%;
+}
+
+
+.product-sheet__thumbnails {
+  display: flex;
+
+  /* Centra los thumbnails */
+  margin-top: 20px;
+  /* Espacio arriba de los thumbnails */
+}
+
+.thumbnail {
+  margin: 0 5px;
+  /* Espaciado entre los thumbnails */
+}
+
+.thumbnail img {
+  max-width: 80px;
+  /* Tamaño del thumbnail */
+  height: auto;
+  border: 2px solid #ddd;
+  /* Borde alrededor de las miniaturas */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  cursor: pointer;
+  /* Cursor de puntero al pasar sobre las miniaturas */
+  transition: transform 0.2s;
+  /* Animación al pasar el mouse */
+}
+
+.thumbnail img:hover {
+  transform: scale(1.1);
+  /* Aumenta el tamaño al pasar el mouse */
+}
+
+
+.slick-slide.slick-current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

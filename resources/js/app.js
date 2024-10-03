@@ -6,9 +6,13 @@ try {
     // Cargar Popper.js y jQuery
     window.Popper = require('@popperjs/core');
     window.$ = window.jQuery = require('jquery');
-
     // Importa los JavaScript de Bootstrap
     require('bootstrap');
+    // Importar Slick JS
+    require('slick-carousel');
+    // Importar Lightbox JS
+    require('lightbox2');
+
 } catch (e) {
     console.error('Error al cargar una de las dependencias: ', e);
 }
@@ -44,13 +48,6 @@ require('./broadcast/chat');
 require('./broadcast/publication');
 require('./broadcast/comments');
 require('./broadcast/likes');
-
-
-
-
-
-
-
 
 
 

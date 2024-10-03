@@ -17,16 +17,22 @@ class Publication extends Model
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
-    // Relación One To Many
+    // Relación One To Many para Likes
     public function like()
     {
         return $this->hasMany('App\Models\Like');
     }
 
-    // Relación One To Many
+    // Relación One To Many para Comments
     public function comment()
     {
         return $this->hasMany('App\Models\Comment')->orderBy('id', 'desc');
+    }
+
+    // Nueva relación One to Many con publication_images
+    public function images()
+    {
+        return $this->hasMany('App\Models\PublicationImage', 'publication_id');
     }
 
     // Evento que se ejecuta antes de eliminar una publicación
@@ -35,6 +41,8 @@ class Publication extends Model
         static::deleting(function ($publication) {
             // Eliminar los likes relacionados
             $publication->like()->delete();
+            // Eliminar las imágenes relacionadas
+            $publication->images()->delete();
         });
     }
 }

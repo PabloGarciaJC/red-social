@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publication;
+use App\Models\PublicationImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Events\BroadcastPublication;
+use Illuminate\Support\Facades\DB;
 
 class PublicationController extends Controller
 {
@@ -26,7 +28,7 @@ class PublicationController extends Controller
     public function save(Request $request)
     {
         $comentarioPublicacion = $request->input('comentarioPublicacion');
-        $imagenPublicacion = $request->file('imagenPublicacion');
+        $imagenesPublicacion = $request->file('imagenPublicacion'); // Debes asegurarte de que esto sea un array
 
         // Instancio Objeto Publication
         $publication = new Publication();
@@ -34,27 +36,37 @@ class PublicationController extends Controller
         // Seteo Objeto
         $publication->user_id = Auth::user()->id;
         $publication->contenido = $comentarioPublicacion;
+        $publication->save(); // Primero guarda la publicación
 
-        // Guardo Imagen en los Archivos, Seteo Objeto
-        if ($imagenPublicacion) {
-            // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Sube
-            $imagenPathName = time() . $imagenPublicacion->getClientOriginalName();
+        $imagePaths = [];
 
-            // Guardo la Imagen en la carpeta del Proyecto
-            Storage::disk('publication')->put($imagenPathName, File::get($imagenPublicacion));
+        // Ahora guarda las imágenes en la tabla publication_images
+        if ($imagenesPublicacion) {
+            foreach ($imagenesPublicacion as $imagen) {
+                // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Sube
+                $imagenPathName = time() . '_' . $imagen->getClientOriginalName();
 
-            // Seteo el Objeto con el Nombre Original del Usuario
-            $publication->imagen = $imagenPathName;
+                // Guardo la Imagen en la carpeta del Proyecto
+                Storage::disk('publication')->put($imagenPathName, File::get($imagen));
+
+                // Guarda la ruta de la imagen en la tabla publication_images
+                DB::table('publication_images')->insert([
+                    'publication_id' => $publication->id,
+                    'image_path' => $imagenPathName,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                array_push($imagePaths, $imagenPathName);
+            }
         }
 
-        $publication->save();
-        
         // Cargar la relación del usuario y los comentarios asociados
         $publication = Publication::with('user', 'comment')->find($publication->id);
 
         // Emitir la notificación a través de Pusher
-        event(new BroadcastPublication($publication, 'success'));
-        
+        event(new BroadcastPublication(['publication' => $publication, 'imagePaths' => $imagePaths], 'success'));
+
         return response()->json(['publication' => $publication], 201);
     }
 
@@ -66,24 +78,34 @@ class PublicationController extends Controller
 
     public function delete($idPublicacion)
     {
+        // Buscar la publicación por el ID y el usuario autenticado
         $publication = Publication::where('user_id', Auth::user()->id)
             ->where('id', $idPublicacion)
             ->first();  // Obtenemos la primera coincidencia directamente
-    
-        if ($publication) {
 
+        if ($publication) {
             // Emitir la notificación a través de Pusher
             event(new BroadcastPublication($idPublicacion, 'delete'));
 
-            // Eliminar la publicación (esto también eliminará los comentarios asociados por la restricción ON DELETE CASCADE)
+            // Obtener las imágenes relacionadas a la publicación
+            $images = PublicationImage::where('publication_id', $publication->id)->get();
+
+            // Eliminar las imágenes del sistema de archivos y de la base de datos
+            foreach ($images as $image) {
+                // Eliminar el archivo físico
+                Storage::disk('publication')->delete($image->image_path);
+                // // Eliminar la imagen de la base de datos
+                $image->delete();
+            }
+
+            // Eliminar la publicación
             $publication->delete();
-    
+
             // Respondemos con un mensaje de éxito
-            return response()->json(['message' => 'success'], 200);
+            return response()->json(['message' => 'delete'], 200);
         } else {
             // Si no se encuentra la publicación, respondemos con un error
             return response()->json(['message' => 'Publication not found'], 200);
         }
     }
-
 }

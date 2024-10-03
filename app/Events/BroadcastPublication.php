@@ -42,7 +42,7 @@ class BroadcastPublication implements ShouldBroadcast
 
     public function broadcastAs()
     {
-        //   \Log::debug("{$this->publication}");
+        // \Log::debug(json_encode($this->publication));
         return new Channel('broadcastPublication-event');
     }
 }

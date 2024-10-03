@@ -17,6 +17,7 @@
                 </li>
             </ul>
         </div>
+        
         <!-- Cuerpo -->
         <div class="card-body">
             <div class="d-flex align-items-center pt-3">
@@ -31,15 +32,38 @@
                     </div>
                 </div>
             </div>
-            @if ($mostrarPublication->imagen == '')
+
+            <!-- Carrusel de imágenes -->
+            <div class="product-sheet__image">
+                <div id="slick-fich-{{ $mostrarPublication->id }}" class="slick-fich product-sheet__contn-slick">
+                    @foreach ($mostrarPublication->images as $key => $image)
+                    @php
+                    $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
+                    $thumbPath = "product_thumb.php?img=" . $imagePath . "&w=122&h=122"; // Lógica para miniaturas
+                    @endphp
+                    <div class="item {{ $key === 0 ? 'actv' : '' }} imge"
+                        data-thumb="{{ $thumbPath }}"
+                        data-src="{{ $imagePath }}">
+                        <a href="{{ $imagePath }}" data-lightbox="image-{{ $mostrarPublication->id }}" data-title="Imagen {{ $key + 1 }}">
+                            <img class="imge" src="{{ $imagePath }}" alt="Publication Image" />
+                        </a>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="product-sheet__thumbnails">
+                @foreach ($mostrarPublication->images as $key => $image)
+                @php
+                $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
+                @endphp
+                <div class="thumbnail" data-index="{{ $key }}">
+                    <img src="{{ $imagePath }}" alt="Thumbnail" class="img-thumbnail" />
+                </div>
+                @endforeach
+            </div>
+
             <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
-            @else
-            <img src="{{ route('publicationImagen', ['filename' => $mostrarPublication->imagen]) }}"
-                alt="Publication Image"
-                class="img-fluid rounded mb-3"
-                style="max-width: 100%; height: auto;">
-            <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
-            @endif
             <hr>
             <div class="row justify-content-end">
                 <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>

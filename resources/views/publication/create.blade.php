@@ -29,21 +29,18 @@
                     <textarea class="form-control publication-input" name="comentarioPublicacion"></textarea>
                 </div>
                 <div class="form-group">
-
                     <label for="image-file-create-publication" class="modal__image-upload">
-                        <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
+                        <span class="modal__image-upload__icon">➕</span> Subir Imagenes
                         <input type="file" class="form-control-file" id="image-file-create-publication" name="imagenPublicacion">
                     </label>
-
                     <button type="button" class="modal__button--emoji-toggle">😊</button>
- 
-                     <!-- Aquí se inyectará el emoji-picker -->
-                     <div class="form__cntn-emojis"></div>
-
-                    <div class="modal__image-preview">
-                        <img id="previe-create-publication" alt="fotoPerfil" style="display: none;">
+                    <!-- Aquí se inyectará el emoji-picker -->
+                    <div class="form__cntn-emojis"></div>
+                    <!-- Contenedor de las vistas previas de las imágenes -->
+                    <div class="modal__image-preview" style="display: none;">
+                        <div class="modal__image-wrapper">
+                        </div>
                     </div>
-
                 </div>
                 <div class="modal__footer">
                     <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
@@ -53,4 +50,3 @@
         </div>
     </div>
 </div>
-
