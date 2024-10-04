@@ -39,7 +39,7 @@ class CommentClass {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    if (response.success) {
+                    if (response.message == "success") {
                         form[0].reset();
                     }
                 },
