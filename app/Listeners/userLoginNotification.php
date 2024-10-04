@@ -6,7 +6,7 @@ use Auth;
 use App\Models\User;
 use App\Models\Follower;
 use Illuminate\Auth\Events\Login;
-use App\Events\UserSessionChanged;
+use App\Events\BroadcastUserSessionChanged;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\DB;
@@ -59,10 +59,8 @@ class userLoginNotification
         $queryChange['userEmisor'] = $queryEmisor;
 
         // \Log::debug("{$this->user}");
-        // Emitir la notificación a través de Pusher
-        broadcast(new UserSessionChanged(json_encode($queryChange)));
+        broadcast(new BroadcastUserSessionChanged(json_encode($queryChange)));
 
-        // Retorna los usuarios seguidos y los seguidores como una respuesta JSON
         return response()->json($queryChange, 200);
     }
 }

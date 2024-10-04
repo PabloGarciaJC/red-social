@@ -26,49 +26,19 @@
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="commentTextarea">Escribe tu Comentario</label>
-                    <textarea class="form-control" id="commentTextarea" name="comentarioPublicacion"></textarea>
+                    <textarea class="form-control publication-input" name="comentarioPublicacion"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="imageFile" class="modal__image-upload">
-                        <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
-                        <input type="file" class="form-control-file" id="imageFile" name="imagenPublicacion">
+                    <label for="image-file-create-publication" class="modal__image-upload">
+                        <span class="modal__image-upload__icon">➕</span> Subir Imagenes
+                        <input type="file" class="form-control-file" id="image-file-create-publication" name="imagenPublicacion">
                     </label>
-
-                    <button type="button" class="modal__button--emoji-toggle" id="emojiToggle">😊</button>
-                    <div class="modal__emoji-picker" style="display: none; margin-top: 10px;">
-                        <span class="modal__emoji-picker__emoji">😊</span>
-                        <span class="modal__emoji-picker__emoji">😂</span>
-                        <span class="modal__emoji-picker__emoji">😍</span>
-                        <span class="modal__emoji-picker__emoji">😉</span>
-                        <span class="modal__emoji-picker__emoji">😭</span>
-                        <span class="modal__emoji-picker__emoji">😎</span>
-                        <span class="modal__emoji-picker__emoji">😡</span>
-                        <span class="modal__emoji-picker__emoji">🥺</span>
-                        <span class="modal__emoji-picker__emoji">😜</span>
-                        <span class="modal__emoji-picker__emoji">🤔</span>
-                        <span class="modal__emoji-picker__emoji">👍</span>
-                        <span class="modal__emoji-picker__emoji">🙏</span>
-                        <span class="modal__emoji-picker__emoji">❤️</span>
-                        <span class="modal__emoji-picker__emoji">🎉</span>
-                        <span class="modal__emoji-picker__emoji">🔥</span>
-                        <span class="modal__emoji-picker__emoji">🤯</span>
-                        <span class="modal__emoji-picker__emoji">🤩</span>
-                        <span class="modal__emoji-picker__emoji">😇</span>
-                        <span class="modal__emoji-picker__emoji">🥳</span>
-                        <span class="modal__emoji-picker__emoji">🤪</span>
-                        <span class="modal__emoji-picker__emoji">👀</span>
-                        <span class="modal__emoji-picker__emoji">😏</span>
-                        <span class="modal__emoji-picker__emoji">💀</span>
-                        <span class="modal__emoji-picker__emoji">👻</span>
-                        <span class="modal__emoji-picker__emoji">🤤</span>
-                        <span class="modal__emoji-picker__emoji">😴</span>
-                        <span class="modal__emoji-picker__emoji">👑</span>
-                        <span class="modal__emoji-picker__emoji">💩</span>
-                        <span class="modal__emoji-picker__emoji">🦄</span>
-                        <span class="modal__emoji-picker__emoji">🐶</span>
-                    </div>
-                    <div class="modal__image-preview">
-                        <img id="imagePreview" src="" alt="Vista previa de la imagen" style="display: none;">
+                    <button type="button" class="modal__button--emoji-toggle">😊</button>
+                    <!-- Aquí se inyectará el emoji-picker -->
+                    <div class="form__cntn-emojis"></div>
+                    <!-- Contenedor de las vistas previas de las imágenes -->
+                    <div class="modal__image-preview" style="display: none;">
+                        <div class="modal__image-wrapper"></div>
                     </div>
                 </div>
                 <div class="modal__footer">
@@ -79,4 +49,3 @@
         </div>
     </div>
 </div>
-

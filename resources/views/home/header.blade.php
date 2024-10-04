@@ -28,7 +28,6 @@
                         <li class="dropdown-header">
                             Tú tienes <span id="total-notifications">{{ count(auth()->user()->unReadNotifications) }}</span> Notificaciones
                         </li>
-                
                         <!-- Aquí se insertarán dinámicamente las notificaciones -->
                         <div id="notifications-list">
                             @foreach (auth()->user()->notifications as $notification)

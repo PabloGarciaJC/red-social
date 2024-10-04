@@ -35,7 +35,6 @@ Route::get('/', 'PublicationController@index')->name('home');
 Route::post('/publicationSave', 'PublicationController@save')->name('publicationSave');
 Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
 Route::get('/publicationDelete/{publicationId}', 'PublicationController@delete')->name('publicationDelete');
-Route::get('/detalle/{publicationId}', 'PublicationController@detail')->name('publicationDetail');
 
 // LIKE
 Route::get('/like/{publicationId}', 'LikeController@like')->name('likeSave');
@@ -49,6 +48,11 @@ Route::get('/chats/send', 'ChatController@sendMessage')->name('chat.sendMessage'
 // JUEGOS
 Route::get('/game', 'GameController@show')->name('game.show');
 Route::get('/game/guess', 'GameController@guess')->name('game.guess');
+
+
+Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
+
+
 
 // NOTIFICACIONES
 Route::get('markAsRead', function () {

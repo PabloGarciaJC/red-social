@@ -1,6 +1,6 @@
 
-window.Echo.channel('broadcastUserSessionChanged-channel')
-    .listen('UserSessionChanged', (e) => {
+window.Echo.channel('BroadcastUserSessionChanged-channel')
+    .listen('BroadcastUserSessionChanged', (e) => {
 
         // Parsear el JSON contenido en e.user
         let user = JSON.parse(e.user);

@@ -1360,14 +1360,20 @@ h6 {
 .chat-container__input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; font-size: 16px; margin-left: 10px; }
 .chat-container__input button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; margin-left: 5px; }
 .chat-container__input button:hover { background-color: #0056b3; }
-.chat-container__emoji-picker { position: absolute; bottom: 82px; left: 35px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
-  grid-template-columns: repeat(6, 1fr) }
+/* .chat-container__emoji-picker { position: absolute; bottom: 82px; left: 35px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
+  grid-template-columns: repeat(6, 1fr) } */
 .chat-container__emoji { cursor: pointer; font-size: 24px; margin: 5px; }
 .chat-container__modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;z-index: 996; }
-.chat-container__modal-content { background: #fff; padding: 20px; border-radius: 5px; width: 300px; text-align: center; position: relative; }
+/* .chat-container__modal-content { background: #fff; padding: 20px; border-radius: 5px; width: 300px; text-align: center; position: relative; } */
 .chat-container__modal .chat-container__close { position: absolute; top: 10px; right: 10px; font-size: 20px; cursor: pointer; }
 /* Responsive Design */
 @media (max-width: 768px) { .chat-container { height: 400px; } .chat-container__message-content { max-width: 80%; } .chat-container__input input { font-size: 14px; } .chat-container__input button { font-size: 14px; } }
+
+
+/*--------------------------------------------------------------
+# Estructura del chat
+--------------------------------------------------------------*/
+.form__cntn-emojis {cursor: pointer; font-size: 24px; margin: 5px;}
 
 /*--------------------------------------------------------------
 # Autor
@@ -1415,3 +1421,57 @@ h6 {
 .modal__emoji-picker__emoji {font-size: 24px; cursor: pointer; transition: background-color .15s ease-in-out;}
 
 
+.product-sheet {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: auto;
+}
+
+.product-sheet__image {
+  position: relative;
+}
+
+.product-sheet__contn-slick {
+  width: 100%;
+}
+
+
+.product-sheet__thumbnails {
+  display: flex;
+
+  /* Centra los thumbnails */
+  margin-top: 20px;
+  /* Espacio arriba de los thumbnails */
+}
+
+.thumbnail {
+  margin: 0 5px;
+  /* Espaciado entre los thumbnails */
+}
+
+.thumbnail img {
+  max-width: 80px;
+  /* Tamaño del thumbnail */
+  height: auto;
+  border: 2px solid #ddd;
+  /* Borde alrededor de las miniaturas */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  cursor: pointer;
+  /* Cursor de puntero al pasar sobre las miniaturas */
+  transition: transform 0.2s;
+  /* Animación al pasar el mouse */
+}
+
+.thumbnail img:hover {
+  transform: scale(1.1);
+  /* Aumenta el tamaño al pasar el mouse */
+}
+
+
+.slick-slide.slick-current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -8,10 +8,11 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\file;
+use App\Events\BroadcastLikes;
 
 class LikeController extends Controller
 {
-      /**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -29,20 +30,21 @@ class LikeController extends Controller
         $conteoLikes = $like->count();
 
         if ($conteoLikes == 0) {
-
             $like = new Like();
             $like->user_id = Auth::user()->id;
             $like->publication_id = (int)$idPublicacion;
-
             $like->save();
 
-            return response()->json([
-                'like' => $like
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'El like ya existe'
-            ]);
+            $response = [
+                'status' => 'like',
+                'data' => [
+                    'id' => $like->id,
+                    'user' => $like->user_id,
+                    'publication_id' => $like->publication_id
+                ]
+            ];
+
+            return response()->json($response);
         }
     }
 
@@ -53,18 +55,20 @@ class LikeController extends Controller
             ->first();
 
         if ($like) {
-
             $like->delete();
 
-            return response()->json([
-                'like' => $like,
-                'message' => 'Has dado dislike correctamente'
-            ]);
-            
-        } else {
-            return response()->json([
-                'message' => 'El like no existe'
-            ]);
+
+            $response = [
+                'status' => 'dislike',
+                'data' => [
+                    'id' => $like->id,
+                    'user' => $like->user_id,
+                    'publication_id' => $like->publication_id
+                ]
+            ];
+
+            return response()->json($response);
+
         }
     }
 }

@@ -27,6 +27,8 @@
         "boxicons": "^2.1.4",
         "jquery": "^3.7.1",
         "jquery-ui": "^1.14.0",
+        "lightbox2": "^2.11.4",
+        "slick-carousel": "^1.8.1",
         "sweetalert2": "^11.14.1"
     }
 }

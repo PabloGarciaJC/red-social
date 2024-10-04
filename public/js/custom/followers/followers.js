@@ -56,6 +56,4 @@ class FollowerClass {
 
 // Instanciamos la clase
 let initFollower = new FollowerClass();
-
-// Iniciamos el proyecto
 initFollower.startFollowerClass();

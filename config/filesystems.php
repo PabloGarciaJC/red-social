@@ -53,31 +53,35 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        // Disco para almacenar imágenes de usuarios
         'users' => [
             'driver' => 'local',
             'root' => storage_path('app/users'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL') . '/storage/users',
             'visibility' => 'public',
         ],
 
+        // Disco para almacenar imágenes generales
         'images' => [
             'driver' => 'local',
             'root' => storage_path('app/images'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL') . '/storage/images',
             'visibility' => 'public',
         ],
 
+        // Disco para almacenar imágenes de comentarios
         'comments' => [
             'driver' => 'local',
             'root' => storage_path('app/comments'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL') . '/storage/comments',
             'visibility' => 'public',
         ],
 
+        // Disco para almacenar imágenes de publicaciones
         'publication' => [
             'driver' => 'local',
             'root' => storage_path('app/publication'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL') . '/storage/publication',
             'visibility' => 'public',
         ],
 

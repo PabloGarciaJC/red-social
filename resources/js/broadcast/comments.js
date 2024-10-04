@@ -10,7 +10,6 @@ window.Echo.channel('broadcastComment-channel')
                 let contnPublication = $(`[data-post-id="${comment.publication_id}"]`);
                 let contenidoHtml = comment.contenido ? `<p>${comment.contenido}</p>` : '';
                 let commentButton = contnPublication.closest('.wrapper-comments').prev('.btn__comments');
-
                 let commentHtml = `
                                     <div class="row row-cols-auto mb-2">
                                         <div class="col news">
@@ -28,7 +27,7 @@ window.Echo.channel('broadcastComment-channel')
                                         </div>
                                     </div>
                                 `;
-                                
+
                 // Encuentra el contenedor de comentarios asociado con el ID de la publicación e inyeacta el comentario
                 contnPublication.before(commentHtml);
 
@@ -36,6 +35,7 @@ window.Echo.channel('broadcastComment-channel')
                 if (commentButton.length === 0) {
                     return;
                 }
+                
                 let buttonText = commentButton.text().trim();
                 let match = buttonText.match(/\d+/);
                 if (!match) {

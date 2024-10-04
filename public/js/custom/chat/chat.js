@@ -1,9 +1,7 @@
 class ChatClass {
     constructor() {
-        this.messageInput = $('#messageInput');
+        this.messageInput = $('.chat__input');
         this.sendMessageButton = $('#sendMessage');
-        this.emojiButton = $('#emojiButton');
-        this.emojiPicker = $('#emojiPicker');
         this.videoCallButton = $('#videoCallButton');
         this.videoCallModal = $('#videoCallModal');
         this.userReceptor = $('#user-receptor');
@@ -38,16 +36,6 @@ class ChatClass {
                 sendMessage();
                 event.preventDefault();
             }
-        });
-
-        const insertEmoji = (emoji) => {
-            this.messageInput.val(this.messageInput.val() + emoji);
-            this.emojiPicker.hide();
-        };
-
-        this.emojiButton.on('click', () => this.emojiPicker.toggle());
-        this.emojiPicker.on('click', '.chat-container__emoji', function () {
-            insertEmoji($(this).text());
         });
 
         this.videoCallButton.on('click', () => this.videoCallModal.show());
@@ -85,7 +73,7 @@ class ChatClass {
 
     startChatClass() {
         this.chat();
-        this.loadMessages();      
+        this.loadMessages();
     }
 }
 

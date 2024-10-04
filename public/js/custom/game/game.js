@@ -1,10 +1,6 @@
 class GameClass {
 
-    constructor() {
-        // 
-    }
-
-    starGameClass() {
+    startGameClass() {
 
         const images = ['🍎', '🍌', '🍒', '🍓', '🍉', '🍇', '🍍', '🥭'];
         let cards = [...images, ...images];
@@ -76,4 +72,4 @@ class GameClass {
 
 // Instanciamos la clase
 let initGame = new GameClass();
-initGame.starGameClass();
+initGame.startGameClass();

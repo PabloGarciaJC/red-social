@@ -1,70 +1,5 @@
 class PublicationClass {
 
-  showComments() {
-    $(document).on('click', '.btn__comments', (e) => {
-      e.preventDefault();
-      const $currentTarget = $(e.currentTarget);
-      const $wrapperComments = $currentTarget.closest('.justify-content-end').find('.wrapper-comments');
-      // Evita múltiples animaciones
-      if ($wrapperComments.is(':animated')) return;
-      // `slideToggle` para la animación de deslizamiento
-      $wrapperComments.slideToggle();
-    });
-  }
-
-  collapseComments() {
-    $('.form__collapse').on('click', (e) => {
-      $(e.currentTarget).closest('.justify-content-end').find('.wrapper-comments').slideUp();
-    })
-  }
-
-  save() {
-    $(document).off('click', '.form__comments');
-    $('.form__comments').on('submit', function (e) {
-      e.preventDefault();
-      let form = $(this);
-      let formData = new FormData(form[0]);
-      formData.append('post_id', form.data('post-id'));
-      // Enviar los datos por AJAX
-      $.ajax({
-        url: form.attr('action'),
-        method: "POST",
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        },
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-          if (response.success) {
-            form[0].reset();
-          }
-        },
-        error: function (xhr, status, error) {
-          console.error('Error:', error);
-        }
-      });
-    });
-  }
-
-  emojis() {
-    // Guarda la referencia a 'this' para usarla en el evento click
-    const self = this;
-    // Mostrar y ocultar el selector de emojis de manera contextual para cada publicación
-    $('.form__comments').each(function () {
-      const form = $(this);
-      // Mostrar/ocultar emojis solo dentro del formulario actual
-      form.find('#emojiToggle').on('click', function () {
-        form.find('.emoji-picker').toggle();
-      });
-      // Añadir emojis al input de comentario del formulario actual
-      form.find('.chat-container__emoji').on('click', function () {
-        let comentarioInput = form.find('.comentario-input');
-        comentarioInput.val(comentarioInput.val() + $(this).text());
-      });
-    });
-  }
-
   delete() {
     $(document).off('click', '.eliminar-publication');
     $(document).on('click', '.eliminar-publication', function (e) {
@@ -73,7 +8,7 @@ class PublicationClass {
         url: `${$(this).attr('href')}`,
         method: 'GET',
         success: (response) => {
-          if (response.message == 'success') {
+          if (response.message == 'delete') {
             Swal.fire({
               icon: 'success',
               title: 'Publicación eliminada',
@@ -95,26 +30,53 @@ class PublicationClass {
   }
 
   create() {
-    const self = this;
-    $('.form-publication__create').on('submit', (e) => {
+    $('.form-publication__create').on('submit', function (e) {
       e.preventDefault();
 
       let form = $(e.currentTarget);
       let formData = new FormData(form[0]);
+
+      // Recorrer todas las imágenes previsualizadas dentro del contenedor
+      $('.modal__image-wrapper img').each(function (index, img) {
+        // El atributo "src" contiene la imagen en base64
+        let src = $(img).attr('src');
+        let fileName = 'imagen_' + index + '.jpg';
+
+        if (src && fileName) {
+          // Convertir la imagen base64 a un objeto Blob
+          let byteString = atob(src.split(',')[1]); // Decodificar base64
+          let mimeString = src.split(',')[0].split(':')[1].split(';')[0]; // Obtener el MIME type
+          let arrayBuffer = new ArrayBuffer(byteString.length);
+          let intArray = new Uint8Array(arrayBuffer);
+
+          for (let i = 0; i < byteString.length; i++) {
+            intArray[i] = byteString.charCodeAt(i);
+          }
+
+          let blob = new Blob([intArray], { type: mimeString });
+
+          // Añadir el archivo Blob al FormData con el nombre temporal
+          formData.append('imagenPublicacion[]', blob, fileName);
+        }
+
+      });
+
+      // Enviar el formulario con AJAX
       $.ajax({
         url: form.attr('action'),
         method: "POST",
         headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: formData,
         processData: false,
         contentType: false,
         success: function (response) {
-          // Limpia el formulario y cierra el modal
-          $('.form-publication__create')[0].reset(); // Resetea los campos del formulario
-          $('#exampleModal').removeClass('modal--active'); // Cierra el modal
-          // Mostrar un mensaje de éxito usando SweetAlert
+          // Resetear el formulario después de éxito
+          $('.form-publication__create')[0].reset();
+          $('#exampleModal').removeClass('modal--active');
+          // Limpiar las imágenes previsualizadas
+          $('.modal__image-wrapper').empty();
           Swal.fire({
             icon: 'success',
             title: 'Publicación Creada',
@@ -125,31 +87,10 @@ class PublicationClass {
         }
       });
     });
+
   }
 
   modal() {
-    const $imageFileInput = $('#imageFile');
-    const $imagePreview = $('#imagePreview');
-    const $commentTextarea = $('#commentTextarea');
-
-    $imageFileInput.on('change', function (event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-          $imagePreview.attr('src', e.target.result);
-          $imagePreview.show(); // Muestra la imagen
-        };
-
-        reader.readAsDataURL(file);
-      } else {
-        $imagePreview.attr('src', '');
-        // Oculta la imagen si no hay archivo
-        $imagePreview.hide();
-      }
-    });
-
     $('#openModal').on('click', function () {
       $('#exampleModal').addClass('modal--active').fadeIn();
     });
@@ -163,27 +104,12 @@ class PublicationClass {
         $('#exampleModal').removeClass('modal--active').fadeOut();
       }
     });
-
-    $('#emojiToggle').on('click', function () {
-      $('.modal__emoji-picker').toggle(); // Muestra u oculta el selector de emojis
-    });
-
-    $('.modal__emoji-picker__emoji').on('click', function () {
-      const emoji = $(this).text();
-      const currentValue = $commentTextarea.val();
-      $commentTextarea.val(currentValue + emoji); // Inserta el emoji en el textarea
-      $('.modal__emoji-picker').hide(); // Opcional: Oculta el selector de emojis después de seleccionar
-    });
   }
 
   // Funcionalidades
   startPublicationClass() {
-    this.showComments();
-    this.save();
-    this.collapseComments();
-    this.emojis();
-    this.delete();
     this.create();
+    this.delete();
     this.modal();
   }
 }
