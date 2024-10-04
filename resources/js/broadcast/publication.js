@@ -1,14 +1,13 @@
 window.Echo.channel('broadcastPublication-channel')
     .listen('.broadcastPublication-event', (e) => {
 
-       
+
         switch (e.status) {
             case 'delete':
                 let contnPublication = $(`[data-post-id="${e.publication}"]`);
                 contnPublication.closest('.col-12.mb-3').remove();
                 break;
             default:
-
                 let publication = e.publication.publication;
                 let user = publication.user;
                 let contenido = (publication.contenido ?? '').trim();
@@ -17,7 +16,7 @@ window.Echo.channel('broadcastPublication-channel')
 
                 // Generar HTML para la publicación
                 let cardHtml = `
-                    <div class="col-12 mb-3" data-post-id="${publication.id}">
+                    <div class="col-12 mb-3">
                         <div class="card info-card sales-card">
                             <div class="filter">
                                 <a class="icon" href="#" data-bs-toggle="dropdown">
@@ -58,20 +57,19 @@ window.Echo.channel('broadcastPublication-channel')
                                                     </a>
                                                 </div>
                                                 `).join('')
-                                            : ''
-                                            }
+                                        : ''
+                                        }
                                     </div>
                                 </div>
                                 <!-- Aquí añadimos el contenedor de miniaturas -->
                                 <div class="product-sheet__thumbnails">
-                                    ${Array.isArray(imagePaths) && imagePaths.length > 0
-                                            ? imagePaths.map((image, key) => `
-                                                            <div class="thumbnail" data-src="/publicationImagen/${image}">
-                                                                <img src="/publicationImagen/${image}" alt="Thumbnail de publicación ${key + 1}" />
-                                                            </div>
-                                                        `).join('')
-                                            : ''
-                                        }
+                                    ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => `
+                                        <div class="thumbnail" data-src="/publicationImagen/${image}">
+                                            <img src="/publicationImagen/${image}" alt="Thumbnail de publicación ${key + 1}" />
+                                        </div>
+                                    `).join('')
+                                    : ''
+                                    }
                                 </div>
                                 ${contenido !== '' ? `<p class="pt-3">${contenido}</p>` : ''}
                                 <hr>
@@ -87,16 +85,18 @@ window.Echo.channel('broadcastPublication-channel')
                                     <div class="wrapper-comments" style="display: none;">
                                         <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
                                             <input type="hidden" name="_token" value="${csrfToken}">
-                                            <div class="input-group">
-                                                <div class="file-select">
-                                                    <input type="file" name="imagen" aria-label="Archivo">
+                                                <div class="input-group">
+                                                    <label class="modal__image-upload">
+                                                        <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
+                                                        <input type="file" class="form-control-file image-commets" name="imagen">
+                                                    </label>
+                                                    <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
+                                                    <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
+                                                    <button class="btn btn-primary" type="submit">Enviar</button>
                                                 </div>
-                                                <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
-                                                <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
-                                                <button class="btn btn-primary" type="submit">Enviar</button>
-                                            </div>
-                                            <div class="text-center form__collapse">contraer Formulario</div>
-                                            <div class="form__cntn-emojis"></div>
+                                                <!-- Aquí se inyectará el emoji-picker -->
+                                                <div class="form__cntn-emojis"></div>
+                                                <div class="text-center form__collapse">contraer Formulario</div>
                                         </form>
                                     </div>
                                 </div>

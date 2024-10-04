@@ -77,7 +77,7 @@ class CommentController extends Controller
   
       // Emitir la notificación a través de Pusher
       event(new BroadcastComment(response()->json($response), 'success'));
-      return response()->json($response);
+      // return response()->json($response);
   }
   
   public function getImage($filename)

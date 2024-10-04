@@ -129,13 +129,15 @@ class AppClass {
 
             // Mostrar/ocultar emojis solo dentro del formulario actual
             form.find(toggleButtonClass).off('click').on('click', function () {
-                form.find('.form__emoji-picker').toggle();
+                form.find('.form__emoji-picker').slideToggle();
+
             });
 
             // Añadir emojis al input de comentario del formulario actual
             form.find('.form__emoji').off('click').on('click', function () {
                 let comentarioInput = form.find(commentInputClass);
                 comentarioInput.val(comentarioInput.val() + $(this).text());
+                form.find('.form__emoji-picker').slideUp();
             });
         });
     }
@@ -164,67 +166,6 @@ class AppClass {
             }
         });
     }
-
-    updateImagePreview(previewSelector, inputSelector, labelSelector) {
-        // Oculta todas las imágenes de vista previa al inicio
-        $(previewSelector).hide();
-
-        // Evento change directamente sobre el input de archivos
-        $(inputSelector).on('change', function (event) {
-            const file = event.target.files[0]; // Obtiene el archivo seleccionado
-
-            if (file) {
-                const reader = new FileReader();
-                const input = $(event.target); // El input de archivo que cambió
-                const form = input.closest('form'); // El formulario que contiene el input
-                const label = input.closest(labelSelector); // El <label> contenedor del input
-
-                reader.onload = function (e) {
-                    // Mostrar previsualización de la imagen en ese formulario
-                    const previewImg = form.find(previewSelector);
-                    previewImg.attr('src', e.target.result);
-                    previewImg.show();
-
-                    // Si el botón de eliminar no existe aún, agregarlo
-                    if (form.find('.delete-image-btn').length === 0) {
-                        // Crea el bloque HTML del botón de "Eliminar"
-                        const deleteButton = `
-                            <button type="button" class="delete-image-btn">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        `;
-
-                        // Inserta el botón después de la imagen de previsualización
-                        previewImg.after(deleteButton);
-
-                        // Evento para el botón de eliminar imagen
-                        form.find('.delete-image-btn').on('click', function () {
-                            // Elimina la imagen de vista previa
-                            previewImg.attr('src', '#').hide(); // Oculta la imagen
-
-                            // Elimina el botón de eliminar
-                            $(this).remove();
-
-                            // Restablece el input de archivo (limpia el valor)
-                            input.val('');
-
-                            // Restaura el fondo del label al estado original
-                            label.css('background', '');
-                        });
-                    }
-                };
-
-                reader.readAsDataURL(file); // Lee el archivo como una URL
-            } else {
-                // Si no hay archivo, oculta la vista previa
-                const form = $(event.target).closest('form');
-                const previewImg = form.find(previewSelector);
-                previewImg.hide(); // Oculta la imagen de vista previa si no hay archivo
-            }
-        });
-    }
-
-
 
     // Función para manejar la vista previa de las imágenes
     changeImageCardPreview($imageFileInput, $imageWrapper) {
@@ -344,7 +285,6 @@ class AppClass {
         });
     }
 
-
     // Funcionalidades
     startAppClass() {
         // Crear Publicacion
@@ -355,20 +295,10 @@ class AppClass {
         this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
         // Chat
         this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
-
         // User Perfil
         this.changeImagePreview($('#image-file-perfil-user'), $('#previe-perfil-user'));
-
-        // Visualiza la Imagen Previa los fomularios
-        this.updateImagePreview('.previe-img-comments', '.image-commets', '.modal__image-upload');
-
         // Llama a la función para todos los slider
         this.initSlickSlider();
-
-
-
-
-
 
     }
 }

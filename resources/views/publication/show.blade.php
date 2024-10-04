@@ -91,23 +91,25 @@
                 </style>
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
+
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
-                    <div class="row row-cols-auto mb-2">
-                        <div class="col news">
-                            <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="40" height="40" />
+                        <div class="row row-cols-auto mb-2">
+                            <div class="col news">
+                                <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="40" height="40" />
+                            </div>
+                            <div class="col">
+                                <a href="#">{{ $coments->user->alias }}</a>
+                                <p>{{ $coments->contenido }}</p>
+                                @if ($coments->imagen != '')
+                                <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}"
+                                    alt="Comment Image"
+                                    class="img-fluid"
+                                    style="max-width: 100%; height: auto;">
+                                @endif
+                            </div>
                         </div>
-                        <div class="col">
-                            <a href="#">{{ $coments->user->alias }}</a>
-                            <p>{{ $coments->contenido }}</p>
-                            @if ($coments->imagen != '')
-                            <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}"
-                                alt="Comment Image"
-                                class="img-fluid"
-                                style="max-width: 100%; height: auto;">
-                            @endif
-                        </div>
-                    </div>
                     @endforeach
+
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         <div class="input-group">
@@ -120,10 +122,7 @@
                             <button class="btn btn-primary" type="submit">Enviar</button>
                         </div>
                         <!-- Aquí se inyectará el emoji-picker -->
-                        <div class="form__cntn-emojis">
-                            <!-- Carga de imagen Previa -->
-                            <img src="#" class="previe-img-comments" alt="fotoPerfil">
-                        </div>
+                        <div class="form__cntn-emojis"></div>
                         <div class="text-center form__collapse">contraer Formulario</div>
                     </form>
                 </div>

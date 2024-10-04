@@ -73,7 +73,7 @@ class ChatClass {
 
     startChatClass() {
         this.chat();
-        this.loadMessages();      
+        this.loadMessages();
     }
 }
 

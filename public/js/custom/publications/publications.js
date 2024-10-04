@@ -33,14 +33,14 @@ class PublicationClass {
     $('.form-publication__create').on('submit', function (e) {
       e.preventDefault();
 
-      let form = $(e.currentTarget); // El formulario actual
-      let formData = new FormData(form[0]); // Crear un objeto FormData con todos los datos del formulario
+      let form = $(e.currentTarget);
+      let formData = new FormData(form[0]);
 
       // Recorrer todas las imágenes previsualizadas dentro del contenedor
       $('.modal__image-wrapper img').each(function (index, img) {
         // El atributo "src" contiene la imagen en base64
         let src = $(img).attr('src');
-        let fileName = 'imagen_' + index + '.jpg'; // Crear un nombre de archivo temporal (puedes cambiar el formato si es necesario)
+        let fileName = 'imagen_' + index + '.jpg';
 
         if (src && fileName) {
           // Convertir la imagen base64 a un objeto Blob
@@ -61,31 +61,22 @@ class PublicationClass {
 
       });
 
-      // Verificar qué imágenes se están enviando
-      for (let pair of formData.entries()) {
-        if (pair[0] === 'imagenPublicacion[]') {
-          // console.log('Archivo enviado:', pair[1].name);
-        }
-      }
-
       // Enviar el formulario con AJAX
       $.ajax({
-        url: form.attr('action'), // La URL del controlador
-        method: "POST", // Método POST
+        url: form.attr('action'),
+        method: "POST",
         headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Token CSRF
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: formData, // Enviar los datos del formulario
-        processData: false, // Necesario para enviar archivos
-        contentType: false, // No establecer el tipo de contenido automáticamente
+        data: formData,
+        processData: false,
+        contentType: false,
         success: function (response) {
-          // Resetear el formulario después de éxito
           // Resetear el formulario después de éxito
           $('.form-publication__create')[0].reset();
           $('#exampleModal').removeClass('modal--active');
-
           // Limpiar las imágenes previsualizadas
-          $('.modal__image-wrapper').empty(); // Limpia el contenedor de imágenes
+          $('.modal__image-wrapper').empty();
           Swal.fire({
             icon: 'success',
             title: 'Publicación Creada',
