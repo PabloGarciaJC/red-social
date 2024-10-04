@@ -1,7 +1,5 @@
 window.Echo.channel('broadcastPublication-channel')
     .listen('.broadcastPublication-event', (e) => {
-
-
         switch (e.status) {
             case 'delete':
                 let contnPublication = $(`[data-post-id="${e.publication}"]`);
