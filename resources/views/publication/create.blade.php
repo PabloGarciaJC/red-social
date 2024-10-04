@@ -38,8 +38,7 @@
                     <div class="form__cntn-emojis"></div>
                     <!-- Contenedor de las vistas previas de las imágenes -->
                     <div class="modal__image-preview" style="display: none;">
-                        <div class="modal__image-wrapper">
-                        </div>
+                        <div class="modal__image-wrapper"></div>
                     </div>
                 </div>
                 <div class="modal__footer">

@@ -17,7 +17,7 @@
                 </li>
             </ul>
         </div>
-        
+
         <!-- Cuerpo -->
         <div class="card-body">
             <div class="d-flex align-items-center pt-3">
@@ -82,6 +82,13 @@
                     </div>
                 </div>
 
+                <style>
+                    .form__cntn-emojis {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                </style>
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
@@ -104,16 +111,20 @@
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
                         <meta name="csrf-token" content="{{ csrf_token() }}">
                         <div class="input-group">
-                            <div class="file-select">
-                                <input type="file" name="imagen" aria-label="Archivo">
-                            </div>
+                            <label class="modal__image-upload">
+                                <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
+                                <input type="file" class="form-control-file image-commets" name="imagen">
+                            </label>
                             <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
                             <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                             <button class="btn btn-primary" type="submit">Enviar</button>
                         </div>
-                        <div class="text-center form__collapse">contraer Formulario</div>
                         <!-- Aquí se inyectará el emoji-picker -->
-                        <div class="form__cntn-emojis"></div>
+                        <div class="form__cntn-emojis">
+                            <!-- Carga de imagen Previa -->
+                            <img src="#" class="previe-img-comments" alt="fotoPerfil">
+                        </div>
+                        <div class="text-center form__collapse">contraer Formulario</div>
                     </form>
                 </div>
             </div>
