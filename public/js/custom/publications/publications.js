@@ -86,6 +86,7 @@ class PublicationClass {
           $('#exampleModal').removeClass('modal--active').fadeOut();
         }
       });
+
     });
 
   }
