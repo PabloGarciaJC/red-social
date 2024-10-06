@@ -30,7 +30,7 @@ class CommentClass {
             let form = $(this);
             let formData = new FormData(form[0]);
             formData.append("post_id", form.data("post-id"));
-            console.log('btn enviar formulario' + form.data("post-id"));
+            console.log('btn enviar formulario' + form.data("post-id"), form.attr("action"));
             // Enviar los datos por AJAX
             $.ajax({
                 url: form.attr("action"),
@@ -57,7 +57,7 @@ class CommentClass {
                 let form = $(this).closest(".form__comments");
                 let formData = new FormData(form[0]);
                 formData.append("post_id", form.data("post-id"));
-                console.log('btn subir imagen' + form.data("post-id"));
+                console.log('btn subir imagen, ' + form.data("post-id"), form.attr("action"));
                 $.ajax({
                     url: form.attr("action"),
                     method: "POST",
