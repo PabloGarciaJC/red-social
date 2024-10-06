@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql
--- Tiempo de generación: 17-09-2024 a las 01:13:35
--- Versión del servidor: 9.0.1
+-- Tiempo de generación: 06-10-2024 a las 14:51:52
+-- Versión del servidor: 10.11.9-MariaDB-ubu2204
 -- Versión de PHP: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chats` (
-  `id` int UNSIGNED NOT NULL,
-  `emisor_id` int UNSIGNED NOT NULL,
-  `receptor_id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `emisor_id` int(10) UNSIGNED NOT NULL,
+  `receptor_id` int(10) UNSIGNED NOT NULL,
   `message` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -43,14 +43,14 @@ CREATE TABLE `chats` (
 --
 
 CREATE TABLE `comments` (
-  `id` int UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL,
-  `publication_id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `publication_id` int(10) UNSIGNED NOT NULL,
   `imagen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,13 +59,20 @@ CREATE TABLE `comments` (
 --
 
 CREATE TABLE `followers` (
-  `id` int UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL,
-  `seguido` int NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `seguido` int(11) NOT NULL,
   `estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `followers`
+--
+
+INSERT INTO `followers` (`id`, `user_id`, `seguido`, `estado`, `created_at`, `updated_at`) VALUES
+(186, 115, 111, 'confirmado', '2024-10-02 04:50:37', '2024-10-02 04:50:45');
 
 -- --------------------------------------------------------
 
@@ -74,12 +81,12 @@ CREATE TABLE `followers` (
 --
 
 CREATE TABLE `likes` (
-  `id` int UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL,
-  `publication_id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `publication_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -88,9 +95,9 @@ CREATE TABLE `likes` (
 --
 
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) NOT NULL,
+  `batch` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -119,12 +126,12 @@ CREATE TABLE `notifications` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `notifiable_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notifiable_id` bigint UNSIGNED NOT NULL,
+  `notifiable_id` bigint(20) UNSIGNED NOT NULL,
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `read_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,10 +140,17 @@ CREATE TABLE `notifications` (
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `token` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `password_resets`
+--
+
+INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
+('user1@user.com', '$2y$10$cyimxdfgEwmLdqq2d8xnEu4/pkPQKbcz3uCkmkQ24rx9hrcjodf8u', '2024-09-18 00:48:59');
 
 -- --------------------------------------------------------
 
@@ -145,16 +159,16 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `personal_access_tokens` (
-  `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(191) NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -163,13 +177,34 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `publications` (
-  `id` int UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
   `imagen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `publications`
+--
+
+INSERT INTO `publications` (`id`, `user_id`, `imagen`, `contenido`, `created_at`, `updated_at`) VALUES
+(633, 115, NULL, NULL, '2024-10-06 14:48:20', '2024-10-06 14:48:20');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `publication_images`
+--
+
+CREATE TABLE `publication_images` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `publication_id` int(10) UNSIGNED NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -178,7 +213,7 @@ CREATE TABLE `publications` (
 --
 
 CREATE TABLE `users` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `alias` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `apellido` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -190,23 +225,23 @@ CREATE TABLE `users` (
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `fotoPerfil` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sobreMi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `sobreMi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `conectado` tinyint(1) DEFAULT NULL,
   `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `alias`, `nombre`, `apellido`, `pais`, `direccion`, `empresa`, `cargo`, `movil`, `email`, `fotoPerfil`, `password`, `sobreMi`, `conectado`, `remember_token`, `created_at`, `updated_at`) VALUES
-(110, 'user1', 'user1', 'Pablo Garcia', 'España', 'Malaga', 'empresa1', 'Developer', '555 555 555', 'user1@user.com', '1725217917img-user.png', '$2y$10$zHpiolT3RVT9TUewFNSH3.GTY8XIBNRr38gONxJBzobWPXqi7oAJW', 'Lorem ipsum dolor sit amet consectetur adipiscing elit dictum, vivamus tristique justo nostra natoque inceptos. Curae penatibus phasellus tempor hac natoque curabitur leo, justo vivamus sed sodales lobortis magnis ante, ullamcorper rhoncus laoreet a quisque faucibus. Quisque urna gravida luctus vivamus nam magnis etiam, laoreet feugiat euismod tempor maecenas venenatis leo fringilla, penatibus taciti sociosqu a inceptos nibh.', 1, NULL, '2024-09-01 18:40:32', '2024-09-15 17:36:05'),
-(111, 'user2', 'user2', 'apellido2', 'España', 'Malaga', 'empresa2', 'developer2', '555 555 555', 'user2@user.com', '1725218453img-user.png', '$2y$10$yV4bfuX1TFzE7v6OAtC9i.mVhy0dsZxIIbyOo3vj7aDTjy1BHaQAG', 'Lorem ipsum dolor sit amet consectetur adipiscing elit cum nunc vehicula, lobortis sociis consequat diam dis porttitor tincidunt natoque nascetur, facilisis molestie vulputate ad venenatis quam nulla nullam tristique. Vel blandit neque feugiat fames aptent non, et ornare nisl porttitor laoreet, dui libero a natoque ac. Feugiat taciti molestie imperdiet mi aliquam fermentum nibh, natoque aliquet est interdum ridiculus dis velit ac, fames purus porttitor auctor in vitae.', 0, NULL, '2024-09-01 18:43:08', '2024-09-15 16:48:02'),
+(111, 'user2', 'user2', 'apellido2', 'España', 'Malaga', 'empresa2', 'developer2', '555 555 555', 'user2@user.com', '1725218453img-user.png', '$2y$10$yV4bfuX1TFzE7v6OAtC9i.mVhy0dsZxIIbyOo3vj7aDTjy1BHaQAG', 'Lorem ipsum dolor sit amet consectetur adipiscing elit cum nunc vehicula, lobortis sociis consequat diam dis porttitor tincidunt natoque nascetur, facilisis molestie vulputate ad venenatis quam nulla nullam tristique. Vel blandit neque feugiat fames aptent non, et ornare nisl porttitor laoreet, dui libero a natoque ac. Feugiat taciti molestie imperdiet mi aliquam fermentum nibh, natoque aliquet est interdum ridiculus dis velit ac, fames purus porttitor auctor in vitae.', 1, NULL, '2024-09-01 18:43:08', '2024-09-26 03:46:00'),
 (112, 'user3', 'user3', 'apellido3', 'España', 'Malaga', 'empresa3', 'cargo3', '555 555 555', 'user3@user.com', '1725218700img-user.png', '$2y$10$X/fCuCvm8QNR9fSCtWuXLuPtrHntbge.6X5p9bG43CAyh2UFYZmZO', 'Lorem ipsum dolor sit amet consectetur adipiscing elit, vestibulum porta augue habitant volutpat auctor odio, vel nisi nostra scelerisque vitae nibh. Quis et dictumst mi sed mus malesuada, aliquam torquent odio imperdiet risus convallis, posuere nunc sem eleifend nisi. Taciti tortor potenti dictum nullam accumsan venenatis, porta aliquet nulla suscipit ligula senectus fermentum, justo odio sociosqu scelerisque nisi.', 0, NULL, '2024-09-01 18:45:00', '2024-09-15 12:28:03'),
 (113, 'user4', 'user4', 'apellido4', 'España', 'Malaga', 'empresa4', 'developer4', '555 555 555', 'user4@user.com', '1725218726img-user.png', '$2y$10$bTlrYZCshMpdY9Uxn4XQkemMv2nYN8UTBp3j8HCKhX629.d/j83tu', 'Lorem ipsum dolor sit amet consectetur adipiscing elit laoreet, ullamcorper mus ad non primis ante porttitor tincidunt, aenean augue volutpat nisl nostra netus curabitur. Feugiat bibendum vivamus aenean accumsan venenatis potenti dignissim justo metus, ac sodales sem pharetra maecenas nisi ultricies. Bibendum semper tempus scelerisque ultrices praesent magna fermentum himenaeos torquent, parturient netus vestibulum aliquet non consequat nisl nibh interdum, justo facilisis taciti sodales dapibus fringilla hendrerit vulputate.', 1, NULL, '2024-09-01 18:46:29', '2024-09-15 14:17:12'),
-(114, 'user5', 'user5', 'apellido5', 'España', 'Malaga', 'empresa5', 'developer5', '555 555 555', 'user5@user.com', '1725218746img-user.png', '$2y$10$8sr8gAfipkjEJj9/XI6Y3unne2.HBWOlF3jwWoNswP85APxPIR9Si', 'Lorem ipsum dolor sit amet consectetur adipiscing elit mi enim nullam parturient dui ad, varius scelerisque integer aptent justo id montes per habitasse ultrices iaculis. Nulla morbi gravida pretium augue duis netus velit orci varius nullam fusce pellentesque praesent vel, venenatis phasellus lectus dignissim platea vitae faucibus aliquam sodales libero diam condimentum. Convallis suspendisse aptent varius felis nisl potenti semper leo, mi magnis ornare aliquet urna ante condimentum, dis eleifend integer erat sollicitudin facilisi cubilia.', 0, NULL, '2024-09-01 18:47:42', '2024-09-08 14:04:19');
+(114, 'user5', 'user5', 'apellido5', 'España', 'Malaga', 'empresa5', 'developer5', '555 555 555', 'user5@user.com', '1725218746img-user.png', '$2y$10$8sr8gAfipkjEJj9/XI6Y3unne2.HBWOlF3jwWoNswP85APxPIR9Si', 'Lorem ipsum dolor sit amet consectetur adipiscing elit mi enim nullam parturient dui ad, varius scelerisque integer aptent justo id montes per habitasse ultrices iaculis. Nulla morbi gravida pretium augue duis netus velit orci varius nullam fusce pellentesque praesent vel, venenatis phasellus lectus dignissim platea vitae faucibus aliquam sodales libero diam condimentum. Convallis suspendisse aptent varius felis nisl potenti semper leo, mi magnis ornare aliquet urna ante condimentum, dis eleifend integer erat sollicitudin facilisi cubilia.', 0, NULL, '2024-09-01 18:47:42', '2024-09-08 14:04:19'),
+(115, 'user1', 'user1', NULL, NULL, NULL, NULL, NULL, NULL, 'user1@user.com', '1727870366img-user.png', '$2y$10$DNDuHiKvxpq/JyBkx4Nq/OWx0SSlkYSMep3ATgzv54wXDkVnPc4Yu', NULL, 1, NULL, '2024-09-18 00:59:26', '2024-10-06 14:48:03');
 
 --
 -- Índices para tablas volcadas
@@ -277,6 +312,13 @@ ALTER TABLE `publications`
   ADD KEY `publications_user_id_foreign` (`user_id`);
 
 --
+-- Indices de la tabla `publication_images`
+--
+ALTER TABLE `publication_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `publication_id` (`publication_id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -291,49 +333,55 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=302;
 
 --
 -- AUTO_INCREMENT de la tabla `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=534;
 
 --
 -- AUTO_INCREMENT de la tabla `followers`
 --
 ALTER TABLE `followers`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT de la tabla `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `publications`
 --
 ALTER TABLE `publications`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=634;
+
+--
+-- AUTO_INCREMENT de la tabla `publication_images`
+--
+ALTER TABLE `publication_images`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- Restricciones para tablas volcadas
@@ -370,6 +418,12 @@ ALTER TABLE `likes`
 --
 ALTER TABLE `publications`
   ADD CONSTRAINT `publications_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Filtros para la tabla `publication_images`
+--
+ALTER TABLE `publication_images`
+  ADD CONSTRAINT `publication_images_ibfk_1` FOREIGN KEY (`publication_id`) REFERENCES `publications` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

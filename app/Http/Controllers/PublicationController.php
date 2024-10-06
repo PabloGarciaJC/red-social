@@ -39,27 +39,25 @@ class PublicationController extends Controller
         $publication->save(); // Primero guarda la publicación
 
         $imagePaths = [];
-        dd($imagenesPublicacion);
+
         // Ahora guarda las imágenes en la tabla publication_images
         if ($imagenesPublicacion) {
             foreach ($imagenesPublicacion as $imagen) {
-                // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Sube
+                // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Subee
                 $imagenPathName = time() . '_' . $imagen->getClientOriginalName();
 
-               
+                // Guardo la Imagen en la carpeta del Proyecto
+                Storage::disk('publication')->put($imagenPathName, File::get($imagen));
 
-                // // Guardo la Imagen en la carpeta del Proyecto
-                // Storage::disk('publication')->put($imagenPathName, File::get($imagen));
+                // Guarda la ruta de la imagen en la tabla publication_images
+                DB::table('publication_images')->insert([
+                    'publication_id' => $publication->id,
+                    'image_path' => $imagenPathName,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
 
-                // // Guarda la ruta de la imagen en la tabla publication_images
-                // DB::table('publication_images')->insert([
-                //     'publication_id' => $publication->id,
-                //     'image_path' => $imagenPathName,
-                //     'created_at' => now(),
-                //     'updated_at' => now(),
-                // ]);
-
-                // array_push($imagePaths, $imagenPathName);
+                array_push($imagePaths, $imagenPathName);
             }
         }
 

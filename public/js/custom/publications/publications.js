@@ -61,8 +61,6 @@ class PublicationClass {
 
       });
 
-      console.log(form.attr('action'));
-
       // Enviar el formulario con AJAX
       $.ajax({
         url: form.attr('action'),
@@ -74,19 +72,18 @@ class PublicationClass {
         processData: false,
         contentType: false,
         success: function (response) {
-          console.log(response);
           // Resetear el formulario después de éxito
-          // $('.form-publication__create')[0].reset();
-          // $('#exampleModal').removeClass('modal--active');
-          // // Limpiar las imágenes previsualizadas
-          // $('.modal__image-wrapper').empty();
-          // Swal.fire({
-          //   icon: 'success',
-          //   title: 'Publicación Creada',
-          //   showConfirmButton: false,
-          //   timer: 1000
-          // });
-          // $('#exampleModal').removeClass('modal--active').fadeOut();
+          $('.form-publication__create')[0].reset();
+          $('#exampleModal').removeClass('modal--active');
+          // Limpiar las imágenes previsualizadas
+          $('.modal__image-wrapper').empty();
+          Swal.fire({
+            icon: 'success',
+            title: 'Publicación Creada',
+            showConfirmButton: false,
+            timer: 1000
+          });
+          $('#exampleModal').removeClass('modal--active').fadeOut();
         }
       });
 

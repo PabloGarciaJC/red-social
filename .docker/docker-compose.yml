@@ -17,7 +17,7 @@ services:
       - network_red_social
 
   mysql:
-    image: mysql:latest
+    image: mariadb:10.11.9
     container_name: mysql-red_social
     ports:
       - "${MYSQL_PORT}:3306"
