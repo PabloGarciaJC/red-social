@@ -61,6 +61,8 @@ class PublicationClass {
 
       });
 
+      console.log(form.attr('action'));
+
       // Enviar el formulario con AJAX
       $.ajax({
         url: form.attr('action'),
