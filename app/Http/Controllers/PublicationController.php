@@ -39,14 +39,14 @@ class PublicationController extends Controller
         $publication->save(); // Primero guarda la publicación
 
         $imagePaths = [];
-
+        var_dump($imagenesPublicacion);
         // Ahora guarda las imágenes en la tabla publication_images
         if ($imagenesPublicacion) {
             foreach ($imagenesPublicacion as $imagen) {
                 // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Sube
                 $imagenPathName = time() . '_' . $imagen->getClientOriginalName();
 
-                var_dump($imagenPathName);
+               
 
                 // // Guardo la Imagen en la carpeta del Proyecto
                 // Storage::disk('publication')->put($imagenPathName, File::get($imagen));
