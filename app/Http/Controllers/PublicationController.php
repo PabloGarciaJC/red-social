@@ -39,7 +39,7 @@ class PublicationController extends Controller
         $publication->save(); // Primero guarda la publicación
 
         $imagePaths = [];
-        var_dump($imagenesPublicacion);
+        dd($imagenesPublicacion);
         // Ahora guarda las imágenes en la tabla publication_images
         if ($imagenesPublicacion) {
             foreach ($imagenesPublicacion as $imagen) {
