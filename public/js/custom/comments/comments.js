@@ -30,7 +30,7 @@ class CommentClass {
             let form = $(this);
             let formData = new FormData(form[0]);
             formData.append("post_id", form.data("post-id"));
-            console.log('enviar formulario' + form.data("post-id"));
+            console.log('btn enviar formulario' + form.data("post-id"));
             // Enviar los datos por AJAX
             $.ajax({
                 url: form.attr("action"),
@@ -40,7 +40,6 @@ class CommentClass {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    console.log('enviar formulario peticion' + response);
                     if (response.message == "success") {
                         form[0].reset();
                     }
@@ -58,7 +57,7 @@ class CommentClass {
                 let form = $(this).closest(".form__comments");
                 let formData = new FormData(form[0]);
                 formData.append("post_id", form.data("post-id"));
-                console.log('subbir imagen' + form.data("post-id"));
+                console.log('btn subir imagen' + form.data("post-id"));
                 $.ajax({
                     url: form.attr("action"),
                     method: "POST",
@@ -67,7 +66,6 @@ class CommentClass {
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        console.log('subir imagen petecion ' + response);
                         Swal.fire({
                             icon: 'success',
                             showConfirmButton: false,
