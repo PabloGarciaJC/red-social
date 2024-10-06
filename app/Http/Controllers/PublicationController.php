@@ -46,18 +46,20 @@ class PublicationController extends Controller
                 // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Sube
                 $imagenPathName = time() . '_' . $imagen->getClientOriginalName();
 
-                // Guardo la Imagen en la carpeta del Proyecto
-                Storage::disk('publication')->put($imagenPathName, File::get($imagen));
+                var_dump($imagenPathName);
 
-                // Guarda la ruta de la imagen en la tabla publication_images
-                DB::table('publication_images')->insert([
-                    'publication_id' => $publication->id,
-                    'image_path' => $imagenPathName,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+                // // Guardo la Imagen en la carpeta del Proyecto
+                // Storage::disk('publication')->put($imagenPathName, File::get($imagen));
 
-                array_push($imagePaths, $imagenPathName);
+                // // Guarda la ruta de la imagen en la tabla publication_images
+                // DB::table('publication_images')->insert([
+                //     'publication_id' => $publication->id,
+                //     'image_path' => $imagenPathName,
+                //     'created_at' => now(),
+                //     'updated_at' => now(),
+                // ]);
+
+                // array_push($imagePaths, $imagenPathName);
             }
         }
 
