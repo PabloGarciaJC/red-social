@@ -101,10 +101,7 @@
                                 <a href="#">{{ $coments->user->alias }}</a>
                                 <p>{{ $coments->contenido }}</p>
                                 @if ($coments->imagen != '')
-                                <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}"
-                                    alt="Comment Image"
-                                    class="img-fluid"
-                                    style="max-width: 100%; height: auto;">
+                                <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
                                 @endif
                             </div>
                         </div>

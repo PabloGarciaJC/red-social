@@ -23,13 +23,22 @@ class CommentClass {
     }
 
     save() {
-        // Evento para el input de Texto
-        $(document).off("click", ".form__comments");
+        // Evento para el submit del formulario (solo para texto)
+        $(document).off("submit", ".form__comments");
         $(".form__comments").on("submit", function (e) {
             e.preventDefault();
             let form = $(this);
+
+            // Verificar si el input de archivo tiene algo antes de enviar el formulario
+            const fileInput = form.find(".image-commets")[0];
+            if (fileInput && fileInput.files.length > 0) {
+                return;
+            }
+
+            // Procesar solo los campos de texto
             let formData = new FormData(form[0]);
             formData.append("post_id", form.data("post-id"));
+
             // Enviar los datos por AJAX
             $.ajax({
                 url: form.attr("action"),
@@ -40,7 +49,7 @@ class CommentClass {
                 contentType: false,
                 success: function (response) {
                     if (response.message == "success") {
-                        form[0].reset();
+                        form[0].reset(); // Reiniciar el formulario
                     }
                 },
                 error: function (xhr, status, error) {
@@ -49,13 +58,15 @@ class CommentClass {
             });
         });
 
-        // Evento para el input de archivos
+        // Evento para el input de archivos (solo para archivos)
         $(".image-commets").on("change", function (event) {
             const file = event.target.files[0];
             if (file) {
                 let form = $(this).closest(".form__comments");
                 let formData = new FormData(form[0]);
                 formData.append("post_id", form.data("post-id"));
+
+                // Enviar el archivo por AJAX
                 $.ajax({
                     url: form.attr("action"),
                     method: "POST",
@@ -69,6 +80,9 @@ class CommentClass {
                             showConfirmButton: false,
                             timer: 1000
                         });
+
+                        // Reiniciar el campo de archivo
+                        form.find(".image-commets").val(''); // Limpiar el campo de archivo después del envío
                     },
                     error: function (xhr, status, error) {
                         console.error("Error:", error);

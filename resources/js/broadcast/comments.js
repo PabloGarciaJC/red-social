@@ -13,17 +13,12 @@ window.Echo.channel('broadcastComment-channel')
                 let commentHtml = `
                                     <div class="row row-cols-auto mb-2">
                                         <div class="col news">
-                                            <img src="${baseUrl}fotoPerfil/${comment.user.fotoPerfil}" 
-                                                alt="${comment.user.alias}'s profile picture" 
-                                                class="rounded-circle" width="40" height="40"/>
+                                            <img src="${baseUrl}fotoPerfil/${comment.user.fotoPerfil}" class="rounded-circle" width="40" height="40"/>
                                         </div>
                                         <div class="col">
                                             <a href="${baseUrl}usuario/${comment.user.alias}?estado=confirmado">${comment.user.name}</a>
                                             <p>${contenidoHtml}</p>
-                                            ${comment.imagen ? `<img src="${baseUrl}comentarioImagen/${comment.imagen}" 
-                                                                alt="Comment Image" 
-                                                                class="img-fluid" 
-                                                                style="max-width: 100%; height: auto;">` : ''}
+                                            ${comment.imagen ? `<img src="${baseUrl}comentarioImagen/${comment.imagen}" class="img-fluid" style="max-width: 100%; height: auto;">` : ''}
                                         </div>
                                     </div>
                                 `;
@@ -35,7 +30,7 @@ window.Echo.channel('broadcastComment-channel')
                 if (commentButton.length === 0) {
                     return;
                 }
-                
+
                 let buttonText = commentButton.text().trim();
                 let match = buttonText.match(/\d+/);
                 if (!match) {
