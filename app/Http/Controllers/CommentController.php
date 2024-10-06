@@ -24,12 +24,6 @@ class CommentController extends Controller
 
   public function save(Request $request)
   {
-      // Validar el archivo
-      $request->validate([
-          'post_id' => 'required|integer',
-          'imagen' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Ajustar según sea necesario
-      ]);
-  
       // Obtener los datos del formulario
       $comentarioPublicacion = $request->input('comentario');
       $idPublicacionForm = $request->input('post_id');
