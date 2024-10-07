@@ -68,21 +68,18 @@
             <div class="row justify-content-end">
                 <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
 
-
                 <div class="col col-lg-2">
                     <div class="d-flex align-items-center gap-5">
                         <div class="btn-like">
-                            <i class="bi bi-hand-thumbs-up"></i> Likes (<span id="likes-count-{{ $mostrarPublication->id }}">{{ $mostrarPublication->like->where('type', 'like')->count() }}</span>)
+                            <i class="bi bi-hand-thumbs-up"></i> Likes (<span class="likes-count">{{ $mostrarPublication->like->where('type', 'like')->count() }}</span>)
                         </div>
                         <div>
                             <div class="btn-dislike">
-                                <i class="bi bi-hand-thumbs-down"></i> Dislike (<span id="dislikes-count-{{ $mostrarPublication->id }}">{{ $mostrarPublication->like->where('type', 'dislike')->count() }}</span>)
+                                <i class="bi bi-hand-thumbs-down"></i> Dislike (<span class="dislikes-count">{{ $mostrarPublication->like->where('type', 'dislike')->count() }}</span>)
                             </div>
                         </div>
                     </div>
                 </div>
-
-
 
                 <style>
                     .form__cntn-emojis {

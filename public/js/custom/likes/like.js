@@ -13,16 +13,18 @@ class LikeClass {
           $.ajax({
               type: "GET",
               url: `${baseUrl}like/${postId}`,
-              success: function (response) {
+              success: (response) => {
                   // Manejar la respuesta
+                  let contnPublication = $(`[data-post-id="${postId}"]`).closest('.row.justify-content-end');
+
                   if (response.status === 'like') {
                       // Se ha añadido un like
-                      $(`#likes-count-${postId}`).text(response.likes_count);
-                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                      contnPublication.find('.btn-like span').text(response.likes_count);
+                      contnPublication.find('.btn-dislike span').text(response.dislikes_count);
                   } else if (response.status === 'removed_like') {
                       // Se ha eliminado el like
-                      $(`#likes-count-${postId}`).text(response.likes_count);
-                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                      contnPublication.find('.btn-like span').text(response.likes_count);
+                      contnPublication.find('.btn-dislike span').text(response.dislikes_count);
                   }
               }
           });
@@ -37,16 +39,18 @@ class LikeClass {
           $.ajax({
               type: "GET",
               url: `${baseUrl}dislike/${postId}`,
-              success: function (response) {
+              success: (response) => {
                   // Manejar la respuesta
+                  let contnPublication = $(`[data-post-id="${postId}"]`).closest('.row.justify-content-end');
+
                   if (response.status === 'dislike') {
                       // Se ha añadido un dislike
-                      $(`#likes-count-${postId}`).text(response.likes_count);
-                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                      contnPublication.find('.btn-like span').text(response.likes_count);
+                      contnPublication.find('.btn-dislike span').text(response.dislikes_count);
                   } else if (response.status === 'removed_dislike') {
                       // Se ha eliminado el dislike
-                      $(`#likes-count-${postId}`).text(response.likes_count);
-                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                      contnPublication.find('.btn-like span').text(response.likes_count);
+                      contnPublication.find('.btn-dislike span').text(response.dislikes_count);
                   }
               }
           });

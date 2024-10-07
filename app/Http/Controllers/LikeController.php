@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\BroadcastLikes;
 
 class LikeController extends Controller
 {
@@ -42,11 +43,10 @@ class LikeController extends Controller
             ->first();
 
         if ($like) {
-            
+
             // Si ya existe un like, lo eliminamos
             $like->delete();
             $status = 'removed_like';
-
         } else {
             // Si no existe un like, lo creamos
             $like = new Like();
@@ -60,6 +60,8 @@ class LikeController extends Controller
         // Contamos likes y dislikes
         $likesCount = Like::where('publication_id', $idPublicacion)->where('type', 'like')->count();
         $dislikesCount = Like::where('publication_id', $idPublicacion)->where('type', 'dislike')->count();
+
+        event(new BroadcastLikes($likesCount, $dislikesCount, $idPublicacion));
 
         return response()->json([
             'status' => $status,
@@ -106,6 +108,8 @@ class LikeController extends Controller
         // Contamos likes y dislikes
         $likesCount = Like::where('publication_id', $idPublicacion)->where('type', 'like')->count();
         $dislikesCount = Like::where('publication_id', $idPublicacion)->where('type', 'dislike')->count();
+
+        event(new BroadcastLikes($likesCount, $dislikesCount, $idPublicacion));
 
         return response()->json([
             'status' => $status,

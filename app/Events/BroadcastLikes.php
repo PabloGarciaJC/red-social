@@ -18,7 +18,8 @@ class BroadcastLikes implements ShouldBroadcast
 
     // public $objetoFollowerRecibir;
     public $likes;
-    public $status;
+    public $dislike;
+    public $postId;
 
     /**
      * Create a new event instance.
@@ -26,10 +27,11 @@ class BroadcastLikes implements ShouldBroadcast
      * @return void
      */
 
-    public function __construct($likes, $status)
+    public function __construct($likes, $dislike, $postId)
     {
         $this->likes = $likes;
-        $this->status = $status;
+        $this->dislike = $dislike;
+        $this->postId = $postId;
     }
 
     /**
@@ -45,7 +47,8 @@ class BroadcastLikes implements ShouldBroadcast
     public function broadcastAs()
     {
         // \Log::debug("{$this->likes}");
-        // \Log::debug("{$this->status}");
+        // \Log::debug("{$this->dislike}");
+        // \Log::debug("{$this->postId}");
         return new Channel('broadcastLikes-event');
     }
 }
