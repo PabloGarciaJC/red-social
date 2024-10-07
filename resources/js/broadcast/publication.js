@@ -10,7 +10,11 @@ window.Echo.channel('broadcastPublication-channel')
                 let user = publication.user;
                 let contenido = (publication.contenido ?? '').trim();
                 let csrfToken = $('meta[name="csrf-token"]').attr('content');
-                let imagePaths = e.publication.imagePaths
+                let imagePaths = e.publication.imagePaths;
+                
+                // Obtener conteo de likes y dislikes
+                let likesCount = publication.like.filter(like => like.type === 'like').length;
+                let dislikesCount = publication.like.filter(like => like.type === 'dislike').length;
 
                 // Generar HTML para la publicación
                 let cardHtml = `
@@ -59,7 +63,6 @@ window.Echo.channel('broadcastPublication-channel')
                                         }
                                     </div>
                                 </div>
-                                <!-- Aquí añadimos el contenedor de miniaturas -->
                                 <div class="product-sheet__thumbnails">
                                     ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => `
                                         <div class="thumbnail" data-src="/publicationImagen/${image}">
@@ -75,10 +78,16 @@ window.Echo.channel('broadcastPublication-channel')
                                     <div class="col col-lg-2">
                                         <div class="d-flex align-items-center gap-5">
                                             <div class="btn-like">
-                                                <i class="bi bi-hand-thumbs-up"></i> Like
-                                            </div> 
+                                                <i class="bi bi-hand-thumbs-up"></i> Likes (<span class="likes-count">${likesCount}</span>)
+                                            </div>
+                                            <div>
+                                                <div class="btn-dislike">
+                                                    <i class="bi bi-hand-thumbs-down"></i> Dislikes (<span class="dislikes-count">${dislikesCount}</span>)
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
                                     <div class="wrapper-comments" style="display: none;">
                                         <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
@@ -92,7 +101,6 @@ window.Echo.channel('broadcastPublication-channel')
                                                     <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                                                     <button class="btn btn-primary" type="submit">Enviar</button>
                                                 </div>
-                                                <!-- Aquí se inyectará el emoji-picker -->
                                                 <div class="form__cntn-emojis"></div>
                                                 <div class="text-center form__collapse">contraer Formulario</div>
                                         </form>

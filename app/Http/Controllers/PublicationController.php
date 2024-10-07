@@ -30,27 +30,27 @@ class PublicationController extends Controller
     public function save(Request $request)
     {
         $comentarioPublicacion = $request->input('comentarioPublicacion');
-        $imagenesPublicacion = $request->file('imagenPublicacion'); // Debes asegurarte de que esto sea un array
-
+        $imagenesPublicacion = $request->file('imagenPublicacion'); // Asegúrate de que esto sea un array
+    
         // Instancio Objeto Publication
         $publication = new Publication();
-
+    
         // Seteo Objeto
         $publication->user_id = Auth::user()->id;
         $publication->contenido = $comentarioPublicacion;
         $publication->save(); // Primero guarda la publicación
-
+    
         $imagePaths = [];
-
+    
         // Ahora guarda las imágenes en la tabla publication_images
         if ($imagenesPublicacion) {
             foreach ($imagenesPublicacion as $imagen) {
                 // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Subee
                 $imagenPathName = time() . '_' . $imagen->getClientOriginalName();
-
+    
                 // Guardo la Imagen en la carpeta del Proyecto
                 Storage::disk('publication')->put($imagenPathName, File::get($imagen));
-
+    
                 // Guarda la ruta de la imagen en la tabla publication_images
                 DB::table('publication_images')->insert([
                     'publication_id' => $publication->id,
@@ -58,19 +58,20 @@ class PublicationController extends Controller
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-
+    
                 array_push($imagePaths, $imagenPathName);
             }
         }
-
+    
         // Cargar la relación del usuario y los comentarios asociados
-        $publication = Publication::with('user', 'comment')->find($publication->id);
-
+        $publication = Publication::with('user', 'comment', 'like')->find($publication->id);
+    
         // Emitir la notificación a través de Pusher
         event(new BroadcastPublication(['publication' => $publication, 'imagePaths' => $imagePaths], 'success'));
-
+    
         return response()->json(['publication' => $publication], 201);
     }
+    
 
     public function getImage($filename)
     {
