@@ -289,7 +289,7 @@ class AppClass {
     startAppClass() {
         // Crear Publicacion
         this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
-        // Cambia la vista previa de las imágenes
+        // Cambia la vista previa de las imágenes Create Publication
         this.changeImageCardPreview($('#image-file-create-publication'), $('.modal__image-wrapper'));
         // Comentarios
         this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
@@ -299,7 +299,6 @@ class AppClass {
         this.changeImagePreview($('#image-file-perfil-user'), $('#previe-perfil-user'));
         // Llama a la función para todos los slider
         this.initSlickSlider();
-
     }
 }
 

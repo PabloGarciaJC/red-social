@@ -11,6 +11,9 @@
                     <span>Opciones</span>
                 </li>
                 <li>
+                    <a class="dropdown-item edit-publication" href="javascript:void(0);">
+                        Editar
+                    </a>
                     <a class="dropdown-item eliminar-publication" href="{{ route('publicationDelete', ['publicationId' => $mostrarPublication->id]) }}">
                         Eliminar
                     </a>
@@ -127,3 +130,40 @@
     </div>
 </div>
 @endforeach
+
+<!-- Modal - Crear Publicación, se repite-->
+<div class="modal modal-edit">
+    <div class="modal__content">
+        <div class="modal__header">
+            <h5>Editar Publicación</h5>
+            <button class="modal__close modal__close--icon">×</button>
+        </div>
+        <div class="modal__body">
+            <form action="" method="POST" enctype="multipart/form-data" class="form-publication__edit">
+                <!-- CSRF Token -->
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="commentTextarea">Escribe tu Comentario</label>
+                    <textarea class="form-control publication-input" name="editcomentariopublicacion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image-file-edit-publication" class="modal__image-upload">
+                        <span class="modal__image-upload__icon">➕</span> Subir Imagenes
+                        <input type="file" class="form-control-file" id="image-file-edit-publication" name="editimagenpublicacion">
+                    </label>
+                    <button type="button" class="modal__button--emoji-toggle">😊</button>
+                    <!-- Aquí se inyectará el emoji-picker -->
+                    <div class="form__cntn-emojis"></div>
+                    <!-- Contenedor de las vistas previas de las imágenes -->
+                    <div class="modal__image-preview" style="display: none;">
+                        <div class="modal__edit-image-wrapper"></div>
+                    </div>
+                </div>
+                <div class="modal__footer">
+                    <button type="submit" class="button">Aceptar</button>
+                    <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -42,8 +42,8 @@
                     </div>
                 </div>
                 <div class="modal__footer">
-                    <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
                     <button type="submit" class="button">Aceptar</button>
+                    <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
                 </div>
             </form>
         </div>
