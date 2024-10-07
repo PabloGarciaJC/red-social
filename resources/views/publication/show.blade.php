@@ -68,19 +68,21 @@
             <div class="row justify-content-end">
                 <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
 
+
                 <div class="col col-lg-2">
                     <div class="d-flex align-items-center gap-5">
-                        @if($userLike)
-                        <div class="btn-dislike">
-                            <i class="bi bi-hand-thumbs-down"></i> Dislike
-                        </div>
-                        @else
                         <div class="btn-like">
-                            <i class="bi bi-hand-thumbs-up"></i> Like
+                            <i class="bi bi-hand-thumbs-up"></i> Likes (<span id="likes-count-{{ $mostrarPublication->id }}">{{ $mostrarPublication->like->where('type', 'like')->count() }}</span>)
                         </div>
-                        @endif
+                        <div>
+                            <div class="btn-dislike">
+                                <i class="bi bi-hand-thumbs-down"></i> Dislike (<span id="dislikes-count-{{ $mostrarPublication->id }}">{{ $mostrarPublication->like->where('type', 'dislike')->count() }}</span>)
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+
 
                 <style>
                     .form__cntn-emojis {
@@ -93,18 +95,18 @@
                 <div class="wrapper-comments" style="display: none;">
 
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
-                        <div class="row row-cols-auto mb-2">
-                            <div class="col news">
-                                <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="40" height="40" />
-                            </div>
-                            <div class="col">
-                                <a href="#">{{ $coments->user->alias }}</a>
-                                <p>{{ $coments->contenido }}</p>
-                                @if ($coments->imagen != '')
-                                <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
-                                @endif
-                            </div>
+                    <div class="row row-cols-auto mb-2">
+                        <div class="col news">
+                            <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="40" height="40" />
                         </div>
+                        <div class="col">
+                            <a href="#">{{ $coments->user->alias }}</a>
+                            <p>{{ $coments->contenido }}</p>
+                            @if ($coments->imagen != '')
+                            <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                            @endif
+                        </div>
+                    </div>
                     @endforeach
 
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">

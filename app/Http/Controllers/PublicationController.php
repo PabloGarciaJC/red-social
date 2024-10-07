@@ -21,7 +21,9 @@ class PublicationController extends Controller
 
     public function index(Request $request)
     {
-        $publications = Publication::orderBy('id', 'desc')->get();
+        // $publications = Publication::orderBy('id', 'desc')->get();
+
+        $publications = Publication::with(['like', 'comment'])->orderBy('id', 'desc')->get();
         return view('home', ['publications' => $publications]);
     }
 

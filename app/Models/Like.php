@@ -19,6 +19,11 @@ class Like extends Model
     public function publication()
     {
         return $this->belongsTo('App\Models\Publication', 'publication_id');
-        // App\Models\Publication => Es la Entidad Padre / publication_id => es la clave Foranea para relacion
+    }
+
+    // Relación de Una Publicación con muchos "Likes"
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Like', 'publication_id');
     }
 }

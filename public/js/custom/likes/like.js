@@ -1,57 +1,56 @@
 class LikeClass {
-
   // Método para inicializar la clase
   startLikeClass() {
-    this.handleLike();
-    this.handleDislike();
+      this.handleLike();
+      this.handleDislike();
   }
 
-  // Método para manejar el botón like usando delegación de eventos
   handleLike() {
-    $(".card-body").on("click", ".btn-like", (e) => {
-      let form = $(e.target).closest('.card-body').find('form.form__comments');
-      let postId = form.data('post-id');
+      $(".card-body").on("click", ".btn-like", (e) => {
+          let form = $(e.target).closest('.card-body').find('form.form__comments');
+          let postId = form.data('post-id');
 
-      $.ajax({
-        type: "GET",
-        url: `${baseUrl}like/${postId}`,
-        success: function (response) {
-          if (response.status == 'like') {
-            let contnDislike = `<div class="btn-dislike">
-                                  <i class="bi bi-hand-thumbs-down"></i> Dislike
-                                </div>`;
-
-            // Reemplazar el botón de like por dislike
-            let newDislikeButton = $(contnDislike).insertBefore(e.target);
-            $(e.target).remove();
-          }
-        }
+          $.ajax({
+              type: "GET",
+              url: `${baseUrl}like/${postId}`,
+              success: function (response) {
+                  // Manejar la respuesta
+                  if (response.status === 'like') {
+                      // Se ha añadido un like
+                      $(`#likes-count-${postId}`).text(response.likes_count);
+                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                  } else if (response.status === 'removed_like') {
+                      // Se ha eliminado el like
+                      $(`#likes-count-${postId}`).text(response.likes_count);
+                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                  }
+              }
+          });
       });
-    });
   }
 
-  // Método para manejar el botón dislike usando delegación de eventos
   handleDislike() {
-    $(".card-body").on("click", ".btn-dislike", (e) => {
-      let form = $(e.target).closest('.card-body').find('form.form__comments');
-      let postId = form.data('post-id');
+      $(".card-body").on("click", ".btn-dislike", (e) => {
+          let form = $(e.target).closest('.card-body').find('form.form__comments');
+          let postId = form.data('post-id');
 
-      $.ajax({
-        type: "GET",
-        url: `${baseUrl}dislike/${postId}`,
-        success: function (response) {
-          if (response.status == 'dislike') {
-            let contnLike = `<div class="btn-like">
-                               <i class="bi bi-hand-thumbs-up"></i> Like
-                             </div>`;
-
-            // Reemplazar el botón de dislike por like
-            let newLikeButton = $(contnLike).insertBefore(e.target);
-            $(e.target).remove();
-          }
-        }
+          $.ajax({
+              type: "GET",
+              url: `${baseUrl}dislike/${postId}`,
+              success: function (response) {
+                  // Manejar la respuesta
+                  if (response.status === 'dislike') {
+                      // Se ha añadido un dislike
+                      $(`#likes-count-${postId}`).text(response.likes_count);
+                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                  } else if (response.status === 'removed_dislike') {
+                      // Se ha eliminado el dislike
+                      $(`#likes-count-${postId}`).text(response.likes_count);
+                      $(`#dislikes-count-${postId}`).text(response.dislikes_count);
+                  }
+              }
+          });
       });
-    });
   }
 }
 
