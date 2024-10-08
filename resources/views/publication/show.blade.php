@@ -139,13 +139,14 @@
             <button class="modal__close modal__close--icon">×</button>
         </div>
         <div class="modal__body">
-            <form action="" method="POST" enctype="multipart/form-data" class="form-publication__edit">
+            <form action="{{ action('PublicationController@edit') }}" method="POST" enctype="multipart/form-data" class="form-publication__edit">
                 <!-- CSRF Token -->
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="commentTextarea">Escribe tu Comentario</label>
                     <textarea class="form-control publication-input" name="editcomentariopublicacion"></textarea>
                 </div>
+                <input type="hidden" class="id-post__edit">
                 <div class="form-group">
                     <label for="image-file-edit-publication" class="modal__image-upload">
                         <span class="modal__image-upload__icon">➕</span> Subir Imagenes

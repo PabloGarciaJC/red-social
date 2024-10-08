@@ -33,6 +33,7 @@ Route::get('/comentarioImagen/{filename}', 'CommentController@getImage')->name('
 // PUBLICATION
 Route::get('/', 'PublicationController@index')->name('home');
 Route::post('/publicationSave', 'PublicationController@save')->name('publicationSave');
+Route::post('/publicationEdit', 'PublicationController@edit')->name('publicationEdit');
 Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
 Route::get('/publicationDelete/{publicationId}', 'PublicationController@delete')->name('publicationDelete');
 

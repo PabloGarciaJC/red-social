@@ -31,26 +31,26 @@ class PublicationController extends Controller
     {
         $comentarioPublicacion = $request->input('comentarioPublicacion');
         $imagenesPublicacion = $request->file('imagenPublicacion'); // Asegúrate de que esto sea un array
-    
+
         // Instancio Objeto Publication
         $publication = new Publication();
-    
+
         // Seteo Objeto
         $publication->user_id = Auth::user()->id;
         $publication->contenido = $comentarioPublicacion;
         $publication->save(); // Primero guarda la publicación
-    
+
         $imagePaths = [];
-    
+
         // Ahora guarda las imágenes en la tabla publication_images
         if ($imagenesPublicacion) {
             foreach ($imagenesPublicacion as $imagen) {
                 // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Subee
                 $imagenPathName = time() . '_' . $imagen->getClientOriginalName();
-    
+
                 // Guardo la Imagen en la carpeta del Proyecto
                 Storage::disk('publication')->put($imagenPathName, File::get($imagen));
-    
+
                 // Guarda la ruta de la imagen en la tabla publication_images
                 DB::table('publication_images')->insert([
                     'publication_id' => $publication->id,
@@ -58,20 +58,83 @@ class PublicationController extends Controller
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-    
+
                 array_push($imagePaths, $imagenPathName);
             }
         }
-    
+
         // Cargar la relación del usuario y los comentarios asociados
         $publication = Publication::with('user', 'comment', 'like')->find($publication->id);
-    
+
         // Emitir la notificación a través de Pusher
         event(new BroadcastPublication(['publication' => $publication, 'imagePaths' => $imagePaths], 'success'));
-    
+
         return response()->json(['publication' => $publication], 201);
     }
-    
+
+    public function edit(Request $request)
+    {
+        $postId = $request->input('post-id');
+        $comentarioPublicacion = $request->input('editcomentariopublicacion');
+        $imagenesPublicacion = $request->file('editimagenpublicacion'); // Nuevas imágenes
+        $removedImages = json_decode($request->input('removedImages'), true); // Imágenes eliminadas
+
+        $publication = Publication::find($postId);
+
+        if ($publication && $publication->user_id == Auth::user()->id) {
+
+            // Guardo Texto de Publicacion
+            $publication->contenido = $comentarioPublicacion;
+            $publication->save();
+
+            // Obtener las imágenes relacionadas a la publicación
+            $images = PublicationImage::where('publication_id', $postId)->get();
+
+            // Eliminar las imágenes del sistema de archivos y de la base de datos
+            foreach ($images as $image) {
+                // Eliminar la imagen del almacenamiento
+                Storage::disk('publication')->delete($image->image_path);
+                $image->delete();
+            }
+
+
+            $imagePaths = [];
+
+            // Ahora guarda las imágenes en la tabla publication_images
+            if ($imagenesPublicacion) {
+                foreach ($imagenesPublicacion as $imagen) {
+                    // Nombre de la Imagen Original del Usuario y el Tiempo en que lo Subee
+                    $imagenPathName = time() . '_' . $imagen->getClientOriginalName();
+
+                    // Guardo la Imagen en la carpeta del Proyecto
+                    Storage::disk('publication')->put($imagenPathName, File::get($imagen));
+
+                    // Guarda la ruta de la imagen en la tabla publication_images
+                    DB::table('publication_images')->insert([
+                        'publication_id' => $publication->id,
+                        'image_path' => $imagenPathName,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+
+                    array_push($imagePaths, $imagenPathName);
+                }
+            }
+
+            // Cargar la relación del usuario y los comentarios asociados
+            $publication = Publication::with('user', 'comment', 'like')->find($publication->id);
+
+            // Emitir la notificación a través de Pusher
+            event(new BroadcastPublication(['publication' => $publication, 'imagePaths' => $imagePaths], 'edit'));
+
+            return response()->json(['publication' => $publication], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Esta Publicación no tienes permiso para editarla.'
+            ], 403);
+        }
+    }
 
     public function getImage($filename)
     {

@@ -5,13 +5,16 @@ window.Echo.channel('broadcastPublication-channel')
                 let contnPublication = $(`[data-post-id="${e.publication}"]`);
                 contnPublication.closest('.col-12.mb-3').remove();
                 break;
+            case 'edit':
+                console.log(e);
+                break;
             default:
                 let publication = e.publication.publication;
                 let user = publication.user;
                 let contenido = (publication.contenido ?? '').trim();
                 let csrfToken = $('meta[name="csrf-token"]').attr('content');
                 let imagePaths = e.publication.imagePaths;
-                
+
                 // Obtener conteo de likes y dislikes
                 let likesCount = publication.like.filter(like => like.type === 'like').length;
                 let dislikesCount = publication.like.filter(like => like.type === 'dislike').length;
@@ -29,6 +32,9 @@ window.Echo.channel('broadcastPublication-channel')
                                         <span>Opciones</span>
                                     </li>
                                     <li>
+                                        <a class="dropdown-item edit-publication" href="javascript:void(0);">
+                                            Editar
+                                        </a>
                                         <a class="dropdown-item eliminar-publication" href="${baseUrl}publicationDelete/${publication.id}">
                                           Eliminar
                                         </a>
@@ -59,8 +65,8 @@ window.Echo.channel('broadcastPublication-channel')
                                                     </a>
                                                 </div>
                                                 `).join('')
-                                        : ''
-                                        }
+                        : ''
+                    }
                                     </div>
                                 </div>
                                 <div class="product-sheet__thumbnails">
@@ -69,8 +75,8 @@ window.Echo.channel('broadcastPublication-channel')
                                             <img src="/publicationImagen/${image}" alt="Thumbnail de publicación ${key + 1}" />
                                         </div>
                                     `).join('')
-                                    : ''
-                                    }
+                        : ''
+                    }
                                 </div>
                                 ${contenido !== '' ? `<p class="pt-3">${contenido}</p>` : ''}
                                 <hr>
