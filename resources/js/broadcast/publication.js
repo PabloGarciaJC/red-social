@@ -119,6 +119,7 @@ window.Echo.channel('broadcastPublication-channel')
                 $('#exampleModal').after(cardHtml);
 
                 // Llamada a los métodos desde la clase
+                window.initPublication.startPublicationClass();
                 window.initComment.startCommentClass();
                 window.initLike.startLikeClass();
                 window.initApp.startAppClass();
