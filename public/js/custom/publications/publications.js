@@ -30,37 +30,34 @@ class PublicationClass {
   }
 
   create() {
-    $('.form-publication__create').on('submit', function (e) {
+    $('.form-publication__create').off('submit').on('submit', function (e) {
       e.preventDefault();
-
       let form = $(this);
+      let submitButton = form.find('button[type="submit"]'); // Seleccionar el botón de envío
+      submitButton.prop('disabled', true); // Deshabilitar el botón
+  
       let formData = new FormData(form[0]);
-
+  
       // Recorrer todas las imágenes previsualizadas dentro del contenedor
       $('.modal__image-wrapper img').each(function (index, img) {
-        // El atributo "src" contiene la imagen en base64
         let src = $(img).attr('src');
         let fileName = 'imagen_' + index + '.jpg';
-
+  
         if (src && fileName) {
-          // Convertir la imagen base64 a un objeto Blob
-          let byteString = atob(src.split(',')[1]); // Decodificar base64
-          let mimeString = src.split(',')[0].split(':')[1].split(';')[0]; // Obtener el MIME type
+          let byteString = atob(src.split(',')[1]);
+          let mimeString = src.split(',')[0].split(':')[1].split(';')[0];
           let arrayBuffer = new ArrayBuffer(byteString.length);
           let intArray = new Uint8Array(arrayBuffer);
-
+  
           for (let i = 0; i < byteString.length; i++) {
             intArray[i] = byteString.charCodeAt(i);
           }
-
+  
           let blob = new Blob([intArray], { type: mimeString });
-
-          // Añadir el archivo Blob al FormData con el nombre temporal
           formData.append('imagenPublicacion[]', blob, fileName);
         }
-
       });
-
+  
       // Enviar el formulario con AJAX
       $.ajax({
         url: form.attr('action'),
@@ -75,7 +72,6 @@ class PublicationClass {
           // Resetear el formulario después de éxito
           $('.form-publication__create')[0].reset();
           $('#exampleModal').removeClass('modal--active');
-          // Limpiar las imágenes previsualizadas
           $('.modal__image-wrapper').empty();
           Swal.fire({
             icon: 'success',
@@ -84,29 +80,33 @@ class PublicationClass {
             timer: 1000
           });
           $('#exampleModal').removeClass('modal--active').fadeOut();
+        },
+        complete: function() {
+          submitButton.prop('disabled', false); // Volver a habilitar el botón
         }
       });
-
     });
   }
-
+  
   sendFormEdit() {
-    $('.form-publication__edit').on('submit', function (e) {
+    $('.form-publication__edit').off('submit').on('submit', function (e) {
       e.preventDefault();
-
+  
       let form = $(this);
+      let submitButton = form.find('button[type="submit"]'); // Seleccionar el botón de envío
+      submitButton.prop('disabled', true); // Deshabilitar el botón
+  
       let formData = new FormData(form[0]);
       formData.append("post_id", $(this).find('.id-post__edit').val());
-
+  
       // Crear un array de promesas para las imágenes
       let promises = [];
-
+  
       // Añadir imágenes nuevas y editadas
       form.find('.modal__edit-image-wrapper img').each(function (index, img) {
-        // El atributo "src" contiene la URL de la imagen
         let src = $(img).attr('src');
         let fileName = 'imagen_' + index + '.jpg';
-
+  
         if (src) {
           // Crear una promesa para cada imagen
           promises.push(
@@ -122,7 +122,7 @@ class PublicationClass {
           );
         }
       });
-
+  
       // Esperar a que todas las promesas se resuelvan
       Promise.all(promises).then(() => {
         // Enviar el formulario con AJAX
@@ -137,11 +137,10 @@ class PublicationClass {
           contentType: false,
           success: function (response) {
             $('.modal-edit').removeClass('modal--active');
-            // Limpiar las imágenes previsualizadas
             $('.modal__image-wrapper').empty();
             Swal.fire({
               icon: 'success',
-              title: 'Publicación Creada',
+              title: 'Publicación Editada',
               showConfirmButton: false,
               timer: 1000
             });
@@ -149,13 +148,15 @@ class PublicationClass {
           },
           error: function (xhr, status, error) {
             console.error('Error en la solicitud:', error);
+          },
+          complete: function() {
+            submitButton.prop('disabled', false); // Volver a habilitar el botón
           }
         });
       });
     });
   }
-
-
+  
   setupModalTriggers() {
     $('#openModal').on('click', function () {
       $('#exampleModal').addClass('modal--active').fadeIn();
@@ -394,7 +395,11 @@ class PublicationClass {
     // Evento de clic en las miniaturas
     $('.product-sheet__thumbnails').on('click', '.thumbnail', function () {
       let index = $(this).data('index'); // Obtiene el índice de la miniatura
+
+      console.log(index);
       let publicationId = $(this).closest('.card-body').find('.slick-fich').attr('id');
+
+      console.log(publicationId);
       $('#' + publicationId).slick('slickGoTo', index);
     });
   }

@@ -30,9 +30,10 @@ set-permissions:
 	@chmod -R 777 storage/logs || true
 	@sudo chown -R pablogarciajc:pablogarciajc public || true
 	@chmod -R 777 public || true
+	@sudo chown -R pablogarciajc:pablogarciajc node_modules || true
+	@chmod -R 777 node_modules || true
 	@echo "Propietarios y permisos establecidos correctamente."
 
-	
 .PHONY: create-symlink
 create-symlink:
 	@ [ -L .docker/.env ] || ln -s ../.env .docker/.env

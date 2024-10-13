@@ -43,30 +43,26 @@
                     @php 
                     $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
                     $thumbPath = "product_thumb.php?img=" . $imagePath . "&w=122&h=122"; // Lógica para miniaturas
-
-                 
                     @endphp
                     <div class="item {{ $key === 0 ? 'actv' : '' }} imge"
-                        data-thumb="{{ $thumbPath }}"
-                        data-src="{{ $imagePath }}">
+                         data-thumb="{{ $thumbPath }}"
+                         data-src="{{ $imagePath }}">
                         <a href="{{ $imagePath }}" data-lightbox="image-{{ $mostrarPublication->id }}">
-                            <img class="imge" src="{{ $imagePath }}" alt="Publication Image" />
+                            <img class="imge" src="{{ $imagePath }}" />
                         </a>
                     </div>
                     @endforeach
-                </div>
+                </div>                
             </div>
 
             <div class="product-sheet__thumbnails">
                 @foreach ($mostrarPublication->images as $key => $image)
-                @php
-                $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
-
-
-                @endphp
-                <div class="thumbnail" data-index="{{ $key }}">
-                    <img src="{{ $imagePath }}" alt="Thumbnail" class="img-thumbnail" data-path="{{ $image->image_path }}" />
-                </div>
+                    @php
+                        $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
+                    @endphp
+                    <div class="thumbnail" data-index="{{ $key }}">
+                        <img src="{{ $imagePath }}" alt="Thumbnail" class="img-thumbnail" data-path="{{ $image->image_path }}" />
+                    </div>
                 @endforeach
             </div>
 

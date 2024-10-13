@@ -21,7 +21,10 @@ class PublicationController extends Controller
 
     public function index(Request $request)
     {
-        $publications = Publication::with(['like', 'comment', 'images'])
+        // Obtén las publicaciones con likes, comentarios y ordena las imágenes
+        $publications = Publication::with(['like', 'comment', 'images' => function ($query) {
+            $query->orderBy('created_at', 'asc'); // O el campo que determines para ordenar
+        }])
             ->orderBy('id', 'desc')
             ->get();
 
