@@ -395,11 +395,7 @@ class PublicationClass {
     // Evento de clic en las miniaturas
     $('.product-sheet__thumbnails').on('click', '.thumbnail', function () {
       let index = $(this).data('index'); // Obtiene el índice de la miniatura
-
-      console.log(index);
       let publicationId = $(this).closest('.card-body').find('.slick-fich').attr('id');
-
-      console.log(publicationId);
       $('#' + publicationId).slick('slickGoTo', index);
     });
   }
