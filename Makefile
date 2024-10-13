@@ -15,10 +15,24 @@ init-app: | copy-env set-permissions create-symlink up print-urls
 copy-env:
 	@ [ ! -f .env ] && cp .env.example .env || true
 
+.PHONY: set-permissions
 set-permissions:
-	@chmod -R 777 storage
-	@chmod -R 777 bootstrap
+	@echo "Estableciendo propietario y permisos..."
+	@sudo chown -R pablogarciajc:pablogarciajc storage || true
+	@chmod -R 777 storage || true
+	@sudo chown -R pablogarciajc:pablogarciajc bootstrap/cache || true
+	@chmod -R 777 bootstrap/cache || true
+	@sudo chown -R pablogarciajc:pablogarciajc vendor || true
+	@chmod -R 777 vendor || true
+	@sudo chown -R pablogarciajc:pablogarciajc .env || true
+	@chmod 664 .env || true
+	@sudo chown -R pablogarciajc:pablogarciajc storage/logs || true
+	@chmod -R 777 storage/logs || true
+	@sudo chown -R pablogarciajc:pablogarciajc public || true
+	@chmod -R 777 public || true
+	@echo "Propietarios y permisos establecidos correctamente."
 
+	
 .PHONY: create-symlink
 create-symlink:
 	@ [ -L .docker/.env ] || ln -s ../.env .docker/.env

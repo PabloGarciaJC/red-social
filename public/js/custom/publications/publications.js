@@ -98,48 +98,63 @@ class PublicationClass {
       let formData = new FormData(form[0]);
       formData.append("post_id", $(this).find('.id-post__edit').val());
 
+      // Crear un array de promesas para las imágenes
+      let promises = [];
+
       // Añadir imágenes nuevas y editadas
-      $('.modal__edit-image-wrapper .hidden-input-file').each(function (index, input) {
-        const file = $(input)[0].files[0]; // Obtenemos el archivo seleccionado
-        if (file) {
-          formData.append('editimagenpublicacion[]', file); // Añadir el archivo al formData
+      form.find('.modal__edit-image-wrapper img').each(function (index, img) {
+        // El atributo "src" contiene la URL de la imagen
+        let src = $(img).attr('src');
+        let fileName = 'imagen_' + index + '.jpg';
+
+        if (src) {
+          // Crear una promesa para cada imagen
+          promises.push(
+            fetch(src)
+              .then(response => response.blob())
+              .then(blob => {
+                // Añadir el archivo Blob al FormData con el nombre temporal
+                formData.append('imagenPublicacion[]', blob, fileName);
+              })
+              .catch(error => {
+                console.error('Error al obtener la imagen:', error);
+              })
+          );
         }
       });
 
-      // Recopilar las imágenes eliminadas (si se ha marcado alguna)
-      let removedImages = [];
-      $('.modal__edit-image-wrapper .delete-image-btn').each(function (index, button) {
-        if ($(button).data('deleted')) { // Marcamos las eliminadas con "data-deleted"
-          removedImages.push($(button).data('image-id')); // Capturamos el ID de la imagen para eliminarla
-        }
-      });
-
-      formData.append('removedImages', JSON.stringify(removedImages)); // Añadimos las imágenes eliminadas al formData
-
-      $.ajax({
-        url: form.attr("action"),
-        method: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function (response) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Publicación actualizada',
-            showConfirmButton: false,
-            timer: 1000
-          });
-          $('.modal-edit').removeClass('modal--active').fadeOut();
-        },
-        error: function (xhr, status, error) {
-          alert('Error al actualizar la publicación.');
-        }
+      // Esperar a que todas las promesas se resuelvan
+      Promise.all(promises).then(() => {
+        // Enviar el formulario con AJAX
+        $.ajax({
+          url: form.attr('action'),
+          method: "POST",
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            $('.modal-edit').removeClass('modal--active');
+            // Limpiar las imágenes previsualizadas
+            $('.modal__image-wrapper').empty();
+            Swal.fire({
+              icon: 'success',
+              title: 'Publicación Creada',
+              showConfirmButton: false,
+              timer: 1000
+            });
+            $('.modal-edit').removeClass('modal--active').fadeOut();
+          },
+          error: function (xhr, status, error) {
+            console.error('Error en la solicitud:', error);
+          }
+        });
       });
     });
   }
+
 
   setupModalTriggers() {
     $('#openModal').on('click', function () {
@@ -282,13 +297,15 @@ class PublicationClass {
       // Iterar sobre las imágenes y mostrarlas en la vista previa del modal
       imageElements.each(function (index) {
         let imgSrc = $(this).attr('src');  // Obtener la URL de la imagen
+        let imgPath = $(this).data('path');
+
         let newPreviewId = `image-edit-${index}`; // Generar un ID único basado en el índice de la imagen
 
         // Crear el HTML para la vista previa de las imágenes en el modal
         const newImagePreview = `
                 <div class="modal__image-preview-item" id="image-container-${newPreviewId}">
                     <a href="${imgSrc}" class="lightbox-image" data-lightbox="gallery">
-                        <img id="${newPreviewId}" src="${imgSrc}" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;">
+                        <img id="${newPreviewId}" src="${imgSrc}" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;" data-m-img-path="${imgPath}">
                     </a>
                     <div class="modal__image-actions">
                         <button type="button" class="edit-image-btn" data-target="${newPreviewId}">

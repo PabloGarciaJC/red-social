@@ -40,14 +40,16 @@
             <div class="product-sheet__image">
                 <div id="slick-fich-{{ $mostrarPublication->id }}" class="slick-fich product-sheet__contn-slick">
                     @foreach ($mostrarPublication->images as $key => $image)
-                    @php
+                    @php 
                     $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
                     $thumbPath = "product_thumb.php?img=" . $imagePath . "&w=122&h=122"; // Lógica para miniaturas
+
+                 
                     @endphp
                     <div class="item {{ $key === 0 ? 'actv' : '' }} imge"
                         data-thumb="{{ $thumbPath }}"
                         data-src="{{ $imagePath }}">
-                        <a href="{{ $imagePath }}" data-lightbox="image-{{ $mostrarPublication->id }}" data-title="Imagen {{ $key + 1 }}">
+                        <a href="{{ $imagePath }}" data-lightbox="image-{{ $mostrarPublication->id }}">
                             <img class="imge" src="{{ $imagePath }}" alt="Publication Image" />
                         </a>
                     </div>
@@ -59,9 +61,11 @@
                 @foreach ($mostrarPublication->images as $key => $image)
                 @php
                 $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
+
+
                 @endphp
                 <div class="thumbnail" data-index="{{ $key }}">
-                    <img src="{{ $imagePath }}" alt="Thumbnail" class="img-thumbnail" />
+                    <img src="{{ $imagePath }}" alt="Thumbnail" class="img-thumbnail" data-path="{{ $image->image_path }}" />
                 </div>
                 @endforeach
             </div>

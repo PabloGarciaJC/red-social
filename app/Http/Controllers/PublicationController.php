@@ -21,9 +21,10 @@ class PublicationController extends Controller
 
     public function index(Request $request)
     {
-        // $publications = Publication::orderBy('id', 'desc')->get();
+        $publications = Publication::with(['like', 'comment', 'images'])
+            ->orderBy('id', 'desc')
+            ->get();
 
-        $publications = Publication::with(['like', 'comment'])->orderBy('id', 'desc')->get();
         return view('home', ['publications' => $publications]);
     }
 
@@ -76,14 +77,14 @@ class PublicationController extends Controller
     {
         $postId = $request->input('post-id');
         $comentarioPublicacion = $request->input('editcomentariopublicacion');
-        $imagenesPublicacion = $request->file('editimagenpublicacion'); // Nuevas imágenes
-        $removedImages = json_decode($request->input('removedImages'), true); // Imágenes eliminadas
+        $imagenesPublicacion = $request->file('imagenPublicacion'); // Nuevas imágenes
 
         $publication = Publication::find($postId);
 
         if ($publication && $publication->user_id == Auth::user()->id) {
 
             // Guardo Texto de Publicacion
+            $publication->user_id = Auth::user()->id;
             $publication->contenido = $comentarioPublicacion;
             $publication->save();
 
@@ -96,7 +97,6 @@ class PublicationController extends Controller
                 Storage::disk('publication')->delete($image->image_path);
                 $image->delete();
             }
-
 
             $imagePaths = [];
 
