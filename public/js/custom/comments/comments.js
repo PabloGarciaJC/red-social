@@ -81,8 +81,8 @@ class CommentClass {
                             timer: 1000
                         });
 
-                        // Reiniciar el campo de archivo
-                        form.find(".image-commets").val(''); // Limpiar el campo de archivo después del envío
+                        // Limpiar el campo de archivo después del envío
+                        form.find(".image-commets").val(''); 
                     },
                     error: function (xhr, status, error) {
                         console.error("Error:", error);
@@ -92,11 +92,45 @@ class CommentClass {
         });
     }
 
-    // Funcionalidades
+    delete() {
+        $('.comments__btn-delete').on('click', function (e) {
+            e.preventDefault();
+
+            let publication = $(this).closest('.col-12.mb-3').find('.form__comments');
+            let idPublication = publication.data('post-id');
+
+            let comments = $(this).closest('.comments__btns');
+            let idComments = comments.data('id-comments');
+
+            let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: $(this).attr('href'),
+                data: {
+                    _token: csrfToken,
+                    idPublication: idPublication,
+                    idComments: idComments,
+                },
+                success: (response) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Comentario Eliminado',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                },
+                error: (err) => {
+                    console.error('Error:', err);
+                }
+            });
+        });
+    }
+
     startCommentClass() {
         this.showComments();
         this.collapseComments();
         this.save();
+        this.delete();
     }
 }
 

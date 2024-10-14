@@ -20,7 +20,6 @@
                 </li>
             </ul>
         </div>
-
         <!-- Cuerpo -->
         <div class="card-body">
             <div class="d-flex align-items-center pt-3">
@@ -35,7 +34,8 @@
                     </div>
                 </div>
             </div>
-
+            <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
+            <hr>
             <!-- Carrusel de imágenes -->
             <div class="product-sheet__image">
                 <div id="slick-fich-{{ $mostrarPublication->id }}" class="slick-fich product-sheet__contn-slick">
@@ -65,9 +65,6 @@
                     </div>
                 @endforeach
             </div>
-
-            <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
-            <hr>
             <div class="row justify-content-end">
                 <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
 
@@ -84,29 +81,27 @@
                     </div>
                 </div>
 
-                <style>
-                    .form__cntn-emojis {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                </style>
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
-
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
-                    <div class="row row-cols-auto mb-2">
-                        <div class="col news">
-                            <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="40" height="40" />
+                        <div class="comments__card">
+                            <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="60" height="60" />
+                            <div class="comments__description">
+                                <div class="comments__body">
+                                    <a href="#">{{ $coments->user->alias }}</a>
+                                    <p>{{ $coments->contenido }}</p>
+                                    @if ($coments->imagen != '')
+                                        <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                                    @endif
+                                </div>
+                                <div class="comments__btns" data-id-comments="{{ $coments->id }}">
+                                    @if (Auth::check() && Auth::user()->id === $coments->user_id) <!-- Verifica si el usuario está autenticado y si es el creador del comentario -->
+                                        <a href="{{ route('edit.comments', ['id' => $coments->id]) }}" class="comments__btn-edit">Editar</a>
+                                        <a href="{{ route('delete.comments', ['id' => $coments->id]) }}" class="comments__btn-delete">Eliminar</a>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <a href="#">{{ $coments->user->alias }}</a>
-                            <p>{{ $coments->contenido }}</p>
-                            @if ($coments->imagen != '')
-                            <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
-                            @endif
-                        </div>
-                    </div>
                     @endforeach
 
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">

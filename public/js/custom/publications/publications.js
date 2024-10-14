@@ -35,29 +35,29 @@ class PublicationClass {
       let form = $(this);
       let submitButton = form.find('button[type="submit"]'); // Seleccionar el botón de envío
       submitButton.prop('disabled', true); // Deshabilitar el botón
-  
+
       let formData = new FormData(form[0]);
-  
+
       // Recorrer todas las imágenes previsualizadas dentro del contenedor
       $('.modal__image-wrapper img').each(function (index, img) {
         let src = $(img).attr('src');
         let fileName = 'imagen_' + index + '.jpg';
-  
+
         if (src && fileName) {
           let byteString = atob(src.split(',')[1]);
           let mimeString = src.split(',')[0].split(':')[1].split(';')[0];
           let arrayBuffer = new ArrayBuffer(byteString.length);
           let intArray = new Uint8Array(arrayBuffer);
-  
+
           for (let i = 0; i < byteString.length; i++) {
             intArray[i] = byteString.charCodeAt(i);
           }
-  
+
           let blob = new Blob([intArray], { type: mimeString });
           formData.append('imagenPublicacion[]', blob, fileName);
         }
       });
-  
+
       // Enviar el formulario con AJAX
       $.ajax({
         url: form.attr('action'),
@@ -81,32 +81,32 @@ class PublicationClass {
           });
           $('#exampleModal').removeClass('modal--active').fadeOut();
         },
-        complete: function() {
+        complete: function () {
           submitButton.prop('disabled', false); // Volver a habilitar el botón
         }
       });
     });
   }
-  
+
   sendFormEdit() {
     $('.form-publication__edit').off('submit').on('submit', function (e) {
       e.preventDefault();
-  
+
       let form = $(this);
       let submitButton = form.find('button[type="submit"]'); // Seleccionar el botón de envío
       submitButton.prop('disabled', true); // Deshabilitar el botón
-  
+
       let formData = new FormData(form[0]);
       formData.append("post_id", $(this).find('.id-post__edit').val());
-  
+
       // Crear un array de promesas para las imágenes
       let promises = [];
-  
+
       // Añadir imágenes nuevas y editadas
       form.find('.modal__edit-image-wrapper img').each(function (index, img) {
         let src = $(img).attr('src');
         let fileName = 'imagen_' + index + '.jpg';
-  
+
         if (src) {
           // Crear una promesa para cada imagen
           promises.push(
@@ -122,7 +122,7 @@ class PublicationClass {
           );
         }
       });
-  
+
       // Esperar a que todas las promesas se resuelvan
       Promise.all(promises).then(() => {
         // Enviar el formulario con AJAX
@@ -149,14 +149,14 @@ class PublicationClass {
           error: function (xhr, status, error) {
             console.error('Error en la solicitud:', error);
           },
-          complete: function() {
+          complete: function () {
             submitButton.prop('disabled', false); // Volver a habilitar el botón
           }
         });
       });
     });
   }
-  
+
   setupModalTriggers() {
     $('#openModal').on('click', function () {
       $('#exampleModal').addClass('modal--active').fadeIn();

@@ -11,7 +11,10 @@ window.Echo.channel('broadcastPublication-channel')
                 let publicationElement = $(`[data-post-id="${publicationIdentifier.id}"]`);
                 let slickContainer = publicationElement.closest('.col-12.mb-3').find('.slick-fich');
                 let slickThumbnails = publicationElement.closest('.col-12.mb-3').find('.product-sheet__thumbnails');
-           
+
+                // Actualizo el comentario
+                publicationElement.closest('.col-12.mb-3').find('p').text(publicationIdentifier.contenido);
+
                 // Verificar si slick está inicializado antes de destruir
                 if (slickContainer.hasClass('slick-initialized')) {
                     slickContainer.slick('unslick');
@@ -50,18 +53,18 @@ window.Echo.channel('broadcastPublication-channel')
                 // Se reinicia Slick
                 slickContainer.each(function () {
                     if ($(this).hasClass('slick-initialized')) {
-                      $(this).slick('unslick');
+                        $(this).slick('unslick');
                     }
                     $(this).slick({
-                      dots: false,
-                      infinite: true,
-                      speed: 500,
-                      slidesToShow: 1,
-                      slidesToScroll: 1,
-                      autoplay: false,
-                      autoplaySpeed: 2000,
+                        dots: false,
+                        infinite: true,
+                        speed: 500,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: false,
+                        autoplaySpeed: 2000,
                     });
-                  });
+                });
                 break;
             default:
                 let publication = e.publication.publication;
@@ -109,6 +112,8 @@ window.Echo.channel('broadcastPublication-channel')
                                             </div>
                                         </div>
                                     </div>
+                                    ${contenido !== '' ? `<p class="pt-3">${contenido}</p>` : ''}
+                                    <hr>
                                     <div class="product-sheet__image">
                                         <div id="slick-fich-${publication.id}" class="slick-fich product-sheet__contn-slick">
                                             ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => {
@@ -131,7 +136,6 @@ window.Echo.channel('broadcastPublication-channel')
                                         ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => {
                                         // Define la ruta de la imagen
                                         let imagePath = `/publicationImagen/${image}`;
-
                                         // Retorna el HTML para cada miniatura
                                         return `
                                                 <div class="thumbnail" data-src="${imagePath}">
@@ -140,39 +144,37 @@ window.Echo.channel('broadcastPublication-channel')
 
                                         }).join('') : ''}
                                     </div>
-                                    ${contenido !== '' ? `<p class="pt-3">${contenido}</p>` : ''}
-                                    <hr>
-                                        <div class="row justify-content-end">
-                                            <div class="col col-lg-2">
-                                                <div class="d-flex align-items-center gap-5">
-                                                    <div class="btn-like">
-                                                        <i class="bi bi-hand-thumbs-up"></i> Likes (<span class="likes-count">${likesCount}</span>)
-                                                    </div>
-                                                    <div>
-                                                        <div class="btn-dislike">
-                                                            <i class="bi bi-hand-thumbs-down"></i> Dislikes (<span class="dislikes-count">${dislikesCount}</span>)
-                                                        </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col col-lg-2">
+                                            <div class="d-flex align-items-center gap-5">
+                                                <div class="btn-like">
+                                                    <i class="bi bi-hand-thumbs-up"></i> Likes (<span class="likes-count">${likesCount}</span>)
+                                                </div>
+                                                <div>
+                                                    <div class="btn-dislike">
+                                                        <i class="bi bi-hand-thumbs-down"></i> Dislikes (<span class="dislikes-count">${dislikesCount}</span>)
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
-                                            <div class="wrapper-comments" style="display: none;">
-                                                <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
-                                                    <input type="hidden" name="_token" value="${csrfToken}">
-                                                        <div class="input-group">
-                                                            <label class="modal__image-upload">
-                                                                <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
-                                                                <input type="file" class="form-control-file image-commets" name="imagen">
-                                                            </label>
-                                                            <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
-                                                            <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
-                                                                <button class="btn btn-primary" type="submit">Enviar</button>
-                                                        </div>
-                                                        <div class="form__cntn-emojis"></div>
-                                                        <div class="text-center form__collapse">contraer Formulario</div>
-                                                </form>
-                                            </div>
                                         </div>
+                                        <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
+                                        <div class="wrapper-comments" style="display: none;">
+                                            <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
+                                                <input type="hidden" name="_token" value="${csrfToken}">
+                                                <div class="input-group">
+                                                    <label class="modal__image-upload">
+                                                        <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
+                                                        <input type="file" class="form-control-file image-commets" name="imagen">
+                                                    </label>
+                                                    <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
+                                                    <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
+                                                        <button class="btn btn-primary" type="submit">Enviar</button>
+                                                </div>
+                                                <div class="form__cntn-emojis"></div>
+                                                <div class="text-center form__collapse">contraer Formulario</div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

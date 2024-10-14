@@ -147,6 +147,7 @@ class AppClass {
         this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
         this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
         this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
+        this.initEmojiPicker('.form-publication__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
     }
 }
 

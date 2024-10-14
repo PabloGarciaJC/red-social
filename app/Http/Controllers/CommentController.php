@@ -89,10 +89,43 @@ class CommentController extends Controller
     return response()->json(['message' => 'No se ha enviado ni comentario ni imagen.'], 400);
   }
 
-
   public function getImage($filename)
   {
     $file = Storage::disk('comments')->get($filename);
     return new Response($file, 200);
+  }
+
+  public function edit(Request $request)
+  {
+    echo 'si editar';
+  }
+
+  public function delete(Request $request)
+  {
+    // Buscar el comentario por usuario, publicación y ID de comentario
+    $comments = Comment::where('user_id', Auth::user()->id)
+      ->where('publication_id', $request->idPublication)
+      ->where('id', $request->idComments)
+      ->first();
+
+    // Si el comentario existe
+    if ($comments) {
+      // Verificar si el comentario tiene una imagen
+      if ($comments->imagen) {
+        // Eliminar la imagen del almacenamiento si existe
+        Storage::disk('comments')->delete($comments->imagen);
+      }
+
+      // Eliminar el comentario de la base de datos
+      $comments->delete();
+
+      // Preparar la respuesta JSON
+      $response = [
+        'idPublication' => $request->idPublication,
+        'idComment' => $request->idComments
+      ];
+      // Emitir la notificación a través de Pusher
+      event(new BroadcastComment($response, 'delete'));
+    }
   }
 }

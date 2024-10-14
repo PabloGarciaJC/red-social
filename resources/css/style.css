@@ -1373,7 +1373,7 @@ h6 {
 /*--------------------------------------------------------------
 # Estructura del chat
 --------------------------------------------------------------*/
-.form__cntn-emojis {cursor: pointer; font-size: 24px; margin: 5px;}
+.form__cntn-emojis {display: flex; align-items: center; justify-content: center;cursor: pointer; font-size: 24px; margin: 5px;}
 
 /*--------------------------------------------------------------
 # Autor
@@ -1475,3 +1475,19 @@ h6 {
   align-items: center;
   justify-content: center;
 }
+
+
+
+/*--------------------------------------------------------------
+# Comentarios
+--------------------------------------------------------------*/
+
+.form__comments {margin-top: 20px;}
+.comments__btns {display: flex; align-items: center; justify-content: center; flex-direction: column;gap: 5px;}
+.comments__btns a {padding: 1px 5px 1px 5px; width: 100%;text-align: center;font-size: 14px;}
+.comments__btns a:nth-child(1) {border: 1px solid #2d9547; color: #2d9547;}
+.comments__btns a:nth-child(2) {border: 1px solid #ec0606; color: #ec0606;}
+.comments__card {display: flex; align-items: center; gap: 10px;margin-bottom: 10px;}
+.comments__description {display: flex; align-items: center;width: 100%}
+.comments__body{width: 100%}
+.comments__body p {margin-bottom: 0px;}

@@ -29,6 +29,8 @@ Route::post('/followers/denegar', 'FollowersController@denegar')->name('denegar'
 // COMMENTS
 Route::post('/comentarioSave', 'CommentController@save')->name('comentarioSave');
 Route::get('/comentarioImagen/{filename}', 'CommentController@getImage')->name('comentarioImagen');
+Route::get('/editarComentario/{id}', 'CommentController@edit')->name('edit.comments');
+Route::get('/borrarComentario/{id}', 'CommentController@delete')->name('delete.comments');
 
 // PUBLICATION
 Route::get('/', 'PublicationController@index')->name('home');
