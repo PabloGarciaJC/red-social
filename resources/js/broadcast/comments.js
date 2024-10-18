@@ -2,6 +2,27 @@
 window.Echo.channel('broadcastComment-channel')
     .listen('.broadcastComment-event', (e) => {
         switch (e.status) {
+            case 'edit':
+                let editComment = e.comment.data;
+
+                let contnPublicacion = $(`[data-post-id="${editComment.idPublication}"]`).closest('.col-12.mb-3');
+
+                let commentsBody = contnPublicacion.find($(`[data-id-comments="${editComment.id}"]`)).closest('.comments__description').find('.comments__body');
+
+                let existingParagraphs = commentsBody.find('p');
+
+                // Obtener el contenido y reemplazar múltiples saltos de línea con un único salto de línea
+                let newContent = editComment.contenido.replace(/\n+/g, '\n').trim();
+
+                // Comprobar si el contenido ya existe
+                if (existingParagraphs.text() !== newContent) {
+                    // Limpiar los párrafos existentes
+                    existingParagraphs.remove(); 
+                    
+                    // Crear un nuevo párrafo
+                    commentsBody.append(`<p>${newContent}</p>`);
+                }
+                break;
             case 'delete':
                 let publication = $(`[data-post-id="${e.comment.idPublication}"]`);
                 publication.closest('.col-12.mb-3').find($(`[data-id-comments="${e.comment.idComment}"]`)).closest('.comments__card').remove();
@@ -34,7 +55,7 @@ window.Echo.channel('broadcastComment-channel')
                              ${buttonsHtml}
                         </div>
                     </div>
-                </div>`;  
+                </div>`;
 
                 // Encuentra el contenedor de comentarios asociado con el ID de la publicación e inyeacta el comentario
                 contnPublication.before(commentHtml);
@@ -55,7 +76,9 @@ window.Echo.channel('broadcastComment-channel')
 
                 // Llamada a los métodos desde la clase
                 window.initComment.delete();
+                window.initComment.edit();
         }
+
     });
 
 

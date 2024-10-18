@@ -105,12 +105,7 @@
                     @endforeach
 
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
-                        <meta name="csrf-token" content="{{ csrf_token() }}">
                         <div class="input-group">
-                            <label class="modal__image-upload">
-                                <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
-                                <input type="file" class="form-control-file image-commets" name="imagen">
-                            </label>
                             <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
                             <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                             <button class="btn btn-primary" type="submit">Enviar</button>
@@ -126,7 +121,7 @@
 </div>
 @endforeach
 
-<!-- Modal - Crear Publicación, se repite-->
+<!-- Modal - EDITAR Publicación -->
 <div class="modal modal-edit">
     <div class="modal__content">
         <div class="modal__header">
@@ -163,3 +158,4 @@
         </div>
     </div>
 </div>
+

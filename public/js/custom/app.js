@@ -119,7 +119,7 @@ class AppClass {
         // Mostrar y ocultar el selector de emojis de manera contextual para cada formulario
         $(formClass).each((index, formElement) => {
             const form = $(formElement);
-
+            
             // Verifica si ya se ha añadido el picker para evitar duplicados
             if (form.find('.form__emoji-picker').length === 0) {
                 // Crear el emoji picker y añadirlo dentro del contenedor de emojis
@@ -130,6 +130,7 @@ class AppClass {
             // Mostrar/ocultar emojis solo dentro del formulario actual
             form.find(toggleButtonClass).off('click').on('click', function () {
                 form.find('.form__emoji-picker').slideToggle();
+               
 
             });
 

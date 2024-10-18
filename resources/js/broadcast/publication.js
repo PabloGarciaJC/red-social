@@ -6,14 +6,12 @@ window.Echo.channel('broadcastPublication-channel')
                 contnPublication.closest('.col-12.mb-3').remove();
                 break;
             case 'edit':
-
                 let publicationIdentifier = e.publication.publication;
                 let publicationElement = $(`[data-post-id="${publicationIdentifier.id}"]`);
                 let slickContainer = publicationElement.closest('.col-12.mb-3').find('.slick-fich');
                 let slickThumbnails = publicationElement.closest('.col-12.mb-3').find('.product-sheet__thumbnails');
-
                 // Actualizo el comentario
-                publicationElement.closest('.col-12.mb-3').find('p').text(publicationIdentifier.contenido);
+                publicationElement.closest('.col-12.mb-3').find('p').first().text(publicationIdentifier.contenido);
 
                 // Verificar si slick está inicializado antes de destruir
                 if (slickContainer.hasClass('slick-initialized')) {
@@ -70,7 +68,6 @@ window.Echo.channel('broadcastPublication-channel')
                 let publication = e.publication.publication;
                 let user = publication.user;
                 let contenido = (publication.contenido ?? '').trim();
-                let csrfToken = $('meta[name="csrf-token"]').attr('content');
                 let imagePaths = e.publication.imagePaths;
 
                 // Obtener conteo de likes y dislikes
@@ -159,16 +156,11 @@ window.Echo.channel('broadcastPublication-channel')
                                         </div>
                                         <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
                                         <div class="wrapper-comments" style="display: none;">
-                                            <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
-                                                <input type="hidden" name="_token" value="${csrfToken}">
+                                            <form action="http://localhost:8081/comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
                                                 <div class="input-group">
-                                                    <label class="modal__image-upload">
-                                                        <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
-                                                        <input type="file" class="form-control-file image-commets" name="imagen">
-                                                    </label>
                                                     <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
                                                     <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
-                                                        <button class="btn btn-primary" type="submit">Enviar</button>
+                                                    <button class="btn btn-primary" type="submit">Enviar</button>
                                                 </div>
                                                 <div class="form__cntn-emojis"></div>
                                                 <div class="text-center form__collapse">contraer Formulario</div>
