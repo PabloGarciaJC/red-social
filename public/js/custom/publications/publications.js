@@ -223,6 +223,8 @@ class PublicationClass {
 
     $('.edit-publication').on('click', function (e) {
 
+      e.preventDefault();
+
       // Mostrar el modal de edición
       $('.modal-edit').addClass('modal--active').fadeIn();
 
@@ -245,7 +247,9 @@ class PublicationClass {
       cntnModalEdit.find('.modal__image-preview').show();
 
       // Inyectar el comentario en el modal
-      cntnModalEdit.find('.publication-input').html(textComent);
+      cntnModalEdit.find('.publication-input').val('');
+      cntnModalEdit.find('.publication-input').val(textComent);
+      
 
       // Limpiar vista previa de imágenes previa
       let imageWrapper = cntnModalEdit.find('.modal__edit-image-wrapper');
@@ -447,9 +451,9 @@ class PublicationClass {
     this.create();
     this.setupModalTriggers();
     this.delete();
-    this.desplegarModalEdit();
     this.btnChangeImagenModalPrevie($('#image-file-create-publication'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
     this.sendFormEdit();
+    this.desplegarModalEdit();
     this.initSlickSlider();
   }
 }
