@@ -116,10 +116,14 @@ class AppClass {
     }
 
     initEmojiPicker(formClass, emojiContainerClass, toggleButtonClass, commentInputClass) {
+        console.log(formClass);
         // Mostrar y ocultar el selector de emojis de manera contextual para cada formulario
         $(formClass).each((index, formElement) => {
+
             const form = $(formElement);
+
             
+
             // Verifica si ya se ha añadido el picker para evitar duplicados
             if (form.find('.form__emoji-picker').length === 0) {
                 // Crear el emoji picker y añadirlo dentro del contenedor de emojis
@@ -149,6 +153,7 @@ class AppClass {
         this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
         this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
         this.initEmojiPicker('.form-publication__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
+        this.initEmojiPicker('.form-comentario__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
     }
 }
 

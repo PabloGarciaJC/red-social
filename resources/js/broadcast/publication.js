@@ -156,7 +156,7 @@ window.Echo.channel('broadcastPublication-channel')
                                         </div>
                                         <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
                                         <div class="wrapper-comments" style="display: none;">
-                                            <form action="http://localhost:8081/comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
+                                            <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
                                                 <div class="input-group">
                                                     <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
                                                     <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
@@ -169,44 +169,8 @@ window.Echo.channel('broadcastPublication-channel')
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Modal - Crear Publicación, se repite-->
-                        <div class="modal modal-edit">
-                            <div class="modal__content">
-                                <div class="modal__header">
-                                    <h5>Editar Publicación</h5>
-                                    <button class="modal__close modal__close--icon">×</button>
-                                </div>
-                                <div class="modal__body">
-                                    <form action="{{ action('PublicationController@edit') }}" method="POST" enctype="multipart/form-data" class="form-publication__edit">
-                                        <div class="form-group">
-                                            <label for="commentTextarea">Escribe tu Comentario</label>
-                                            <textarea class="form-control publication-input" name="editcomentariopublicacion"></textarea>
-                                        </div>
-                                        <input type="hidden" class="id-post__edit">
-                                        <div class="form-group">
-                                            <label for="image-file-edit-publication" class="modal__image-upload">
-                                                <span class="modal__image-upload__icon">➕</span> Subir Imagenes
-                                                <input type="file" class="form-control-file" id="image-file-edit-publication" name="editimagenpublicacion">
-                                            </label>
-                                            <button type="button" class="modal__button--emoji-toggle">😊</button>
-                                            <!-- Aquí se inyectará el emoji-picker -->
-                                            <div class="form__cntn-emojis"></div>
-                                            <!-- Contenedor de las vistas previas de las imágenes -->
-                                            <div class="modal__image-preview" style="display: none;">
-                                                <div class="modal__edit-image-wrapper"></div>
-                                            </div>
-                                        </div>
-                                        <div class="modal__footer">
-                                            <button type="submit" class="button">Aceptar</button>
-                                            <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                         </div>`;
-
+                        
                 $('#exampleModal').after(cardHtml);
 
                 // Llamada a los métodos desde la clase

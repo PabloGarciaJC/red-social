@@ -1,120 +1,5 @@
 class CommentClass {
 
-    // Método para crear el HTML de la lista de emojis
-    createEmojiPicker() {
-        return `
-            <div class="form__emoji-picker" style="display: none; margin-top: 10px;">
-                <span class="form__emoji">😊</span>
-                <span class="form__emoji">😂</span>
-                <span class="form__emoji">😍</span>
-                <span class="form__emoji">😉</span>
-                <span class="form__emoji">😭</span>
-                <span class="form__emoji">😎</span>
-                <span class="form__emoji">😡</span>
-                <span class="form__emoji">🥺</span>
-                <span class="form__emoji">😜</span>
-                <span class="form__emoji">🤔</span>
-                <span class="form__emoji">👍</span>
-                <span class="form__emoji">🙏</span>
-                <span class="form__emoji">❤️</span>
-                <span class="form__emoji">🎉</span>
-                <span class="form__emoji">🔥</span>
-                <span class="form__emoji">🤯</span>
-                <span class="form__emoji">🤩</span>
-                <span class="form__emoji">😇</span>
-                <span class="form__emoji">🥳</span>
-                <span class="form__emoji">🤪</span>
-                <span class="form__emoji">👀</span>
-                <span class="form__emoji">😏</span>
-                <span class="form__emoji">💀</span>
-                <span class="form__emoji">👻</span>
-                <span class="form__emoji">🤤</span>
-                <span class="form__emoji">😴</span>
-                <span class="form__emoji">👑</span>
-                <span class="form__emoji">💩</span>
-                <span class="form__emoji">🦄</span>
-                <span class="form__emoji">🐶</span>
-                <span class="form__emoji">🐱</span>
-                <span class="form__emoji">🐭</span>
-                <span class="form__emoji">🐰</span>
-                <span class="form__emoji">🐻</span>
-                <span class="form__emoji">🐼</span>
-                <span class="form__emoji">🐸</span>
-                <span class="form__emoji">🦊</span>
-                <span class="form__emoji">🐵</span>
-                <span class="form__emoji">🦉</span>
-                <span class="form__emoji">🐢</span>
-                <span class="form__emoji">🐍</span>
-                <span class="form__emoji">🐯</span>
-                <span class="form__emoji">🦁</span>
-                <span class="form__emoji">🐉</span>
-                <span class="form__emoji">🦚</span>
-                <span class="form__emoji">🌈</span>
-                <span class="form__emoji">🌻</span>
-                <span class="form__emoji">🌸</span>
-                <span class="form__emoji">🌼</span>
-                <span class="form__emoji">🌷</span>
-                <span class="form__emoji">🍎</span>
-                <span class="form__emoji">🍌</span>
-                <span class="form__emoji">🍉</span>
-                <span class="form__emoji">🍇</span>
-                <span class="form__emoji">🍓</span>
-                <span class="form__emoji">🍊</span>
-                <span class="form__emoji">🍑</span>
-                <span class="form__emoji">🥭</span>
-                <span class="form__emoji">🍍</span>
-                <span class="form__emoji">🥥</span>
-                <span class="form__emoji">🍅</span>
-                <span class="form__emoji">🥗</span>
-                <span class="form__emoji">🍔</span>
-                <span class="form__emoji">🍕</span>
-                <span class="form__emoji">🌭</span>
-                <span class="form__emoji">🍟</span>
-                <span class="form__emoji">🍿</span>
-                <span class="form__emoji">🥘</span>
-                <span class="form__emoji">🍲</span>
-                <span class="form__emoji">🍰</span>
-                <span class="form__emoji">🍦</span>
-                <span class="form__emoji">🍩</span>
-                <span class="form__emoji">🍪</span>
-                <span class="form__emoji">🎂</span>
-                <span class="form__emoji">🎉</span>
-                <span class="form__emoji">🍾</span>
-                <span class="form__emoji">🍸</span>
-                <span class="form__emoji">🍹</span>
-                <span class="form__emoji">🍺</span>
-                <span class="form__emoji">🥂</span>
-                <span class="form__emoji">🧊</span>
-                <span class="form__emoji">☕</span>
-                <span class="form__emoji">🧋</span>
-                <span class="form__emoji">🍵</span>
-                <span class="form__emoji">🍶</span>
-                <span class="form__emoji">🥤</span>
-                <span class="form__emoji">🥛</span>
-                <span class="form__emoji">🥡</span>
-                <span class="form__emoji">🍙</span>
-                <span class="form__emoji">🍚</span>
-                <span class="form__emoji">🍱</span>
-                <span class="form__emoji">🍛</span>
-                <span class="form__emoji">🥟</span>
-                <span class="form__emoji">🥙</span>
-                <span class="form__emoji">🌮</span>
-                <span class="form__emoji">🌯</span>
-                <span class="form__emoji">🍢</span>
-                <span class="form__emoji">🌿</span>
-                <span class="form__emoji">🏆</span>
-                <span class="form__emoji">⚽</span>
-                <span class="form__emoji">🏀</span>
-                <span class="form__emoji">🎾</span>
-                <span class="form__emoji">🎳</span>
-                <span class="form__emoji">🏋️‍♂️</span>
-                <span class="form__emoji">🤸‍♂️</span>
-                <span class="form__emoji">⛷️</span>
-                <span class="form__emoji">🚴‍♂️</span>
-                <span class="form__emoji">🚣‍♂️</span>
-            </div>`;
-    }
-
     showComments() {
         $(document).on("click", ".btn__comments", (e) => {
             e.preventDefault();
@@ -218,36 +103,9 @@ class CommentClass {
         });
     }
 
-    initEmojiPicker(formClass, emojiContainerClass, toggleButtonClass, commentInputClass) {
-        // Mostrar y ocultar el selector de emojis de manera contextual para cada formulario
-        $(formClass).each((index, formElement) => {
-            const form = $(formElement);
-
-            // Verifica si ya se ha añadido el picker para evitar duplicados
-            if (form.find('.form__emoji-picker').length === 0) {
-                // Crear el emoji picker y añadirlo dentro del contenedor de emojis
-                const emojiPicker = this.createEmojiPicker();
-                form.find(emojiContainerClass).append(emojiPicker);
-            }
-
-            // Mostrar/ocultar emojis solo dentro del formulario actual
-            form.find(toggleButtonClass).off('click').on('click', function () {
-                form.find('.form__emoji-picker').slideToggle();
-            });
-
-            // Añadir emojis al input de comentario del formulario actual
-            form.find('.form__emoji').off('click').on('click', function () {
-                let comentarioInput = form.find(commentInputClass);
-                comentarioInput.val(comentarioInput.val() + $(this).text());
-                form.find('.form__emoji-picker').slideUp();
-            });
-        });
-    }
-
     edit() {
 
         let modalEditComment = `
-
         <div class="modal modal-edit-comentario">
             <div class="modal__content">
                 <div class="modal__header">
@@ -287,6 +145,9 @@ class CommentClass {
             let idComments = comments.data('id-comments');
             let commentsText = $(this).closest('.comments__btns').parent('.comments__description').find('p').text();
             let href = $(this).attr('href');
+
+            // Muestro los Emojis
+            $('.modal-edit-comentario').find('.form__emoji-picker').show();
 
             // Asignar el valor de "href" al atributo "action" del formulario
             $('.modal-edit-comentario').find('form').attr('action', href);
@@ -341,10 +202,8 @@ class CommentClass {
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    // Resetear el formulario después de éxito
                     form[0].reset(); // Reinicia el formulario
                     $('.modal-edit-comentario').removeClass('modal--active');
-        
                     Swal.fire({
                         icon: 'success',
                         title: '¡Comentario editado con éxito!',
@@ -370,7 +229,6 @@ class CommentClass {
         this.save();
         this.delete();
         this.edit();
-        this.initEmojiPicker('.form-comentario__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
     }
 }
 
