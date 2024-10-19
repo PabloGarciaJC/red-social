@@ -130,8 +130,6 @@
         </div>
         <div class="modal__body">
             <form action="{{ action('PublicationController@edit') }}" method="POST" enctype="multipart/form-data" class="form-publication__edit">
-                <!-- CSRF Token -->
-                {{ csrf_field() }}
                 <div class="form-group">
                     <label for="commentTextarea">Escribe tu Comentario</label>
                     <textarea class="form-control publication-input" name="editcomentariopublicacion"></textarea>

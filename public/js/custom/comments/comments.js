@@ -247,7 +247,7 @@ class CommentClass {
     edit() {
 
         let modalEditComment = `
-        <!-- Modal - EDITAR Comentarios -->
+
         <div class="modal modal-edit-comentario">
             <div class="modal__content">
                 <div class="modal__header">
@@ -255,44 +255,16 @@ class CommentClass {
                     <button class="modal__close modal__close--icon">×</button>
                 </div>
                 <div class="modal__body">
-                    <form action="#" method="POST" enctype="multipart/form-data" class="form-comentario__edit">
+                    <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" class="form-comentario__edit">
                         <div class="form-group">
                             <label for="commentTextarea">Escribe tu Comentario</label>
                             <textarea class="form-control comentario-input" name="editcomentariopublicacion"></textarea>
                         </div>
-                  
                         <input type="hidden" class="id-post__edit-comentario">
-
                         <div class="form-group">
-
-                            <label for="image-file-edit-comentario" class="modal__image-upload">
-                                <span class="modal__image-icon-commentario">➕</span> Subir Imagenes
-                                <input type="file" class="form-control-file" id="image-file-edit-comentario" name="editimagencomentario">
-                            </label>
-
                             <button type="button" class="modal__button--emoji-toggle">😊</button>
-
-                            <!-- Aquí se inyectará el emoji-picker -->
-                            <div class="form__cntn-emojis"></div>
-                            <!-- Contenedor de las vistas previas de las imágenes -->
-                            <div class="modal__image-preview" style="display: none;">
-                                <div class="modal__edit-image-wrapper">
-                                    <a href="" class="lightbox-image" data-lightbox="gallery">
-                                        <img id="image-edit-0" src="" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;">
-                                    </a>
-                                    <div class="modal__image-actions">
-                                        <button type="button" class="edit-image-btn">
-                                            <i class="bi bi-pencil"></i> Editar
-                                        </button>
-                                        <button type="button" class="delete-image-btn">
-                                            <i class="bi bi-trash"></i> Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
+                            <div class="form__cntn-emojis"></div> <!-- Aquí se inyectará el emoji-picker -->
                         </div>
-
                         <div class="modal__footer">
                             <button type="submit" class="button">Aceptar</button>
                             <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
@@ -311,12 +283,9 @@ class CommentClass {
         $('.comments__btn-edit').on('click', function (e) {
             e.preventDefault();
 
-            let publication = $(this).closest('.col-12.mb-3').find('.form__comments');
-            // let idPublication = publication.data('post-id');
             let comments = $(this).closest('.comments__btns');
             let idComments = comments.data('id-comments');
             let commentsText = $(this).closest('.comments__btns').parent('.comments__description').find('p').text();
-            let commentsImg = $(this).closest('.comments__btns').parent('.comments__description').find('img');
             let href = $(this).attr('href');
 
             // Asignar el valor de "href" al atributo "action" del formulario
@@ -327,36 +296,6 @@ class CommentClass {
 
             // Asigno el comentario al campo de textarea
             $('.modal-edit-comentario').find('textarea').text(commentsText);
-
-            // Muestra el contenedor de vista previa si hay imágenes seleccionadas
-            if (commentsImg.length > 0) {
-
-                // Si hay una imagen
-                $('.modal-edit-comentario').find('.modal__image-preview').show();
-
-                // Obtener el src de la imagen
-                let imgSrc = commentsImg.attr('src');
-
-                // Actualizar el href del enlace que contiene la imagen para lightbox
-                $('.modal-edit-comentario').find('.modal__edit-image-wrapper .lightbox-image').attr('href', imgSrc);
-
-                // También puedes mostrar la imagen en la vista previa
-                $('.modal-edit-comentario').find('.modal__edit-image-wrapper .lightbox-image img').attr('src', imgSrc);
-
-                // Oculto secciones del formulario
-                $('.modal-edit-comentario').find('.form-group').first().hide();
-                $('.modal-edit-comentario').find('.modal__button--emoji-toggle').hide();
-                $('.modal-edit-comentario').find('.modal__image-upload').show();
-
-            } else {
-
-                // Muestro secciones del formulario
-                $('.modal-edit-comentario').find('.form-group').first().show();
-                $('.modal-edit-comentario').find('.modal__button--emoji-toggle').show();
-                $('.modal-edit-comentario').find('.modal__image-upload').hide();
-                // Si no hay imagen, ocultar el contenedor de vista previa
-                $('.modal-edit-comentario').find('.modal__image-preview').hide();
-            }
 
             // CIerre del Modal
             $('.modal-edit-comentario').addClass('modal--active').fadeIn();
@@ -370,53 +309,7 @@ class CommentClass {
                     $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
                 }
             });
-        });
 
-        // Escuchar cambios en el input de archivo
-        $('#image-file-edit-comentario').on('change', function (e) {
-            // Verificar si el usuario seleccionó un archivo
-            if (e.target.files && e.target.files[0]) {
-                let reader = new FileReader();
-
-                // Leer el archivo como una URL de datos
-                reader.onload = function (event) {
-                    // Obtener la URL de la imagen
-                    let imgSrc = event.target.result;
-
-                    // Mostrar el contenedor de vista previa
-                    $('.modal__image-preview').show();
-
-                    // Actualizar la imagen en la vista previa
-                    $('.modal__edit-image-wrapper .lightbox-image img').attr('src', imgSrc);
-
-                    // Actualizar el href del enlace de la lightbox
-                    $('.modal__edit-image-wrapper .lightbox-image').attr('href', imgSrc);
-                };
-
-                // Leer el archivo (imagen)
-                reader.readAsDataURL(e.target.files[0]);
-
-            } else {
-
-                // Si no hay imagen, ocultar el contenedor de vista previa
-                $('.modal__image-preview').hide();
-            }
-        });
-
-        // Funcionalidad para el botón Editar Imagen
-        $('.modal__image-preview').on('click', '.edit-image-btn', function () {
-            $('#image-file-edit-comentario').click();
-        });
-
-        // Funcionalidad para el botón Eliminar Imagen
-        $('.modal__image-preview').on('click', '.delete-image-btn', function () {
-            // Limpiar el input de archivo
-            $('#image-file-edit-comentario').val('');
-            // Ocultar la vista previa de la imagen
-            $('.modal__image-preview').hide();
-            // Limpiar la imagen del contenedor
-            $('.modal__edit-image-wrapper .lightbox-image img').attr('src', '');
-            $('.modal__edit-image-wrapper .lightbox-image').attr('href', '');
         });
 
         // Enviar 

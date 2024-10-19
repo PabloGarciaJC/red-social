@@ -97,63 +97,66 @@ class CommentController extends Controller
 
   public function edit(Request $request)
   {
-      // Obtener los valores del formulario
-      $commentId = $request->input('comment_id');
-      $content = $request->input('editcomentariopublicacion', null);
-  
-      // Encontrar el comentario en la base de datos
-      $comment = Comment::where('id', $commentId)
-          ->where('user_id', Auth::user()->id)
-          ->first();
-  
-      if ($comment) {
-          // Preparar la respuesta inicial
-          $response = [
-              'idPublication' => $comment->publication_id,
-              'idComment' => $comment->id
-          ];
-  
-          // Comprobar si hay contenido
-          if (is_null($content) || trim($content) === '') {
-              // Si no hay contenido, eliminar el comentario
-              $comment->delete();
-  
-              return response()->json(['message' => 'Comentario eliminado porque no había contenido.']);
-          }
-  
-          // Si hay contenido, actualizar el comentario
-          if (!is_null($content) && trim($content) !== '') {
-              $comment->contenido = $content;
-          }
-  
-          // Guardar el comentario actualizado
-          $comment->save();
-  
-          // Preparar la respuesta de éxito
-          $response = [
-              'success' => true,
-              'data' => [
-                  'id' => $comment->id,
-                  'contenido' => $comment->contenido,
-                  'idPublication' => $comment->publication_id,
-                  'user' => [
-                      'id' => $comment->user_id,
-                      'name' => Auth::user()->alias,
-                      'fotoPerfil' => Auth::user()->fotoPerfil,
-                  ],
-                  'updated_at' => $comment->updated_at->toDateTimeString(),
-              ]
-          ];
-  
-          // Emitir la notificación de edición
-          event(new BroadcastComment($response, 'edit'));
-  
-          return response()->json(['message' => 'Comentario actualizado con éxito.', 'data' => $response['data']]);
+    // Obtener los valores del formulario
+    $commentId = $request->input('comment_id');
+    $content = $request->input('editcomentariopublicacion', null);
+
+    // Encontrar el comentario en la base de datos
+    $comment = Comment::where('id', $commentId)
+      ->where('user_id', Auth::user()->id)
+      ->first();
+
+    if ($comment) {
+      // Preparar la respuesta inicial
+      $response = [
+        'idPublication' => $comment->publication_id,
+        'idComment' => $comment->id
+      ];
+
+      // Comprobar si hay contenido
+      if (is_null($content) || trim($content) === '') {
+        // Si no hay contenido, eliminar el comentario
+        $comment->delete();
+
+        // Emitir la notificación a través de Pusher
+        event(new BroadcastComment($response, 'delete'));
+
+        return response()->json(['message' => 'Comentario eliminado porque no había contenido.']);
       }
-  
-      return response()->json(['message' => 'Comentario no encontrado o no autorizado.'], 404);
+
+      // Si hay contenido, actualizar el comentario
+      if (!is_null($content) && trim($content) !== '') {
+        $comment->contenido = $content;
+      }
+
+      // Guardar el comentario actualizado
+      $comment->save();
+
+      // Preparar la respuesta de éxito
+      $response = [
+        'success' => true,
+        'data' => [
+          'id' => $comment->id,
+          'contenido' => $comment->contenido,
+          'idPublication' => $comment->publication_id,
+          'user' => [
+            'id' => $comment->user_id,
+            'name' => Auth::user()->alias,
+            'fotoPerfil' => Auth::user()->fotoPerfil,
+          ],
+          'updated_at' => $comment->updated_at->toDateTimeString(),
+        ]
+      ];
+
+      // Emitir la notificación de edición
+      event(new BroadcastComment($response, 'edit'));
+
+      return response()->json(['message' => 'Comentario actualizado con éxito.', 'data' => $response['data']]);
+    }
+
+    return response()->json(['message' => 'Comentario no encontrado o no autorizado.'], 404);
   }
-  
+
 
   public function delete(Request $request)
   {
