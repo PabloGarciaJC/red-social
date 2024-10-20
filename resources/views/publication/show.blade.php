@@ -2,8 +2,8 @@
 <div class="col-12 mb-3">
     <div class="card info-card sales-card">
 
-    @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
-        @if (Auth::check() && Auth::user()->id === $coments->user_id)
+        <!-- Mostrar el filtro solo si el usuario autenticado es el dueño de la publicación -->
+        @if (Auth::check() && Auth::user()->id === $mostrarPublication->user_id)
             <!-- Filtro -->
             <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown">
@@ -24,7 +24,6 @@
                 </ul>
             </div>
         @endif
-    @endforeach
 
         <!-- Cuerpo -->
         <div class="card-body">
