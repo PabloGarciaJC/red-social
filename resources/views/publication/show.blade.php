@@ -1,25 +1,31 @@
 @foreach ($publications as $mostrarPublication)
 <div class="col-12 mb-3">
     <div class="card info-card sales-card">
-        <!-- Filtro -->
-        <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="dropdown">
-                <i class="bi bi-three-dots"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                    <span>Opciones</span>
-                </li>
-                <li>
-                    <a class="dropdown-item edit-publication" href="javascript:void(0);">
-                        Editar
-                    </a>
-                    <a class="dropdown-item eliminar-publication" href="{{ route('publicationDelete', ['publicationId' => $mostrarPublication->id]) }}">
-                        Eliminar
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+    @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
+        @if (Auth::check() && Auth::user()->id === $coments->user_id)
+            <!-- Filtro -->
+            <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-three-dots"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                        <span>Opciones</span>
+                    </li>
+                    <li>
+                        <a class="dropdown-item edit-publication" href="javascript:void(0);">
+                            Editar
+                        </a>
+                        <a class="dropdown-item eliminar-publication" href="{{ route('publicationDelete', ['publicationId' => $mostrarPublication->id]) }}">
+                            Eliminar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        @endif
+    @endforeach
+
         <!-- Cuerpo -->
         <div class="card-body">
             <div class="d-flex align-items-center pt-3">
@@ -84,7 +90,10 @@
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
+
+                
                         <div class="comments__card">
+
                             <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="60" height="60" />
                             <div class="comments__description">
                                 <div class="comments__body">
@@ -94,8 +103,11 @@
                                         <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
                                     @endif
                                 </div>
+
+                         
+
                                 <div class="comments__btns" data-id-comments="{{ $coments->id }}">
-                                    @if (Auth::check() && Auth::user()->id === $coments->user_id) <!-- Verifica si el usuario está autenticado y si es el creador del comentario -->
+                                    @if (Auth::check() && Auth::user()->id === $coments->user_id)
                                         <a href="{{ route('edit.comments', ['id' => $coments->id]) }}" class="comments__btn-edit">Editar</a>
                                         <a href="{{ route('delete.comments', ['id' => $coments->id]) }}" class="comments__btn-delete">Eliminar</a>
                                     @endif

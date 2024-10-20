@@ -246,10 +246,7 @@ class PublicationClass {
       cntnModalEdit.find('.modal__image-preview').show();
 
       // Inyectar el comentario en el modal
-      // cntnModalEdit.find('.publication-input').val('');
       cntnModalEdit.find('.publication-input').val(textComent);
-
-      console.log(textComent);
 
       // Limpiar vista previa de imágenes previa
       let imageWrapper = cntnModalEdit.find('.modal__edit-image-wrapper');

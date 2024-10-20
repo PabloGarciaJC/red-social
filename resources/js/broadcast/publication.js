@@ -74,28 +74,34 @@ window.Echo.channel('broadcastPublication-channel')
                 let likesCount = publication.like.filter(like => like.type === 'like').length;
                 let dislikesCount = publication.like.filter(like => like.type === 'dislike').length;
 
+                // Inicializar la variable opcionesHtml vacía
+                let opcionesHtml = '';
+                
+                // Opciones de Filtros
+                if (window.userLogin === user.id) {
+                    opcionesHtml = `
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <span>Opciones</span>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item edit-publication" href="javascript:void(0);">Editar</a>
+                                    <a class="dropdown-item eliminar-publication" href="${baseUrl}publicationDelete/${publication.id}">Eliminar</a>
+                                </li>
+                            </ul>
+                        </div>
+                    `;
+                }
+
                 // Generar HTML para la publicación
                 let cardHtml = `
                         <div class="col-12 mb-3">
                             <div class="card info-card sales-card">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown">
-                                        <i class="bi bi-three-dots"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <span>Opciones</span>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item edit-publication" href="javascript:void(0);">
-                                                Editar
-                                            </a>
-                                            <a class="dropdown-item eliminar-publication" href="${baseUrl}publicationDelete/${publication.id}">
-                                                Eliminar
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    ${opcionesHtml}
                                 <div class="card-body">
                                     <div class="d-flex align-items-center pt-3">
                                         <div class="news">
