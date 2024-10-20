@@ -1,7 +1,7 @@
 class CommentClass {
 
-    showComments() {
-        $(document).on("click", ".btn__comments", (e) => {
+    showComments(elementBtnComments) {
+        $(document).on("click", elementBtnComments, (e) => {
             e.preventDefault();
             const $currentTarget = $(e.currentTarget);
             const $wrapperComments = $currentTarget
@@ -14,8 +14,8 @@ class CommentClass {
         });
     }
 
-    collapseComments() {
-        $(".form__collapse").on("click", (e) => {
+    collapseComments(elementBtnCollapse) {
+        $(elementBtnCollapse).on("click", (e) => {
             $(e.currentTarget)
                 .closest(".justify-content-end")
                 .find(".wrapper-comments")
@@ -23,9 +23,9 @@ class CommentClass {
         });
     }
 
-    save() {
+    save(elementForm) {
         // Evento para el submit del formulario (solo para texto)
-        $(".form__comments").on("submit", function (e) {
+        $(elementForm).off("submit").on("submit", function (e) {
             e.preventDefault();
             let form = $(this);
 
@@ -69,8 +69,8 @@ class CommentClass {
         });
     }
 
-    delete() {
-        $('.comments__btn-delete').on('click', function (e) {
+    delete(elementBtnDelete) {
+        $(elementBtnDelete).off("click").on("click", function (e) {
             e.preventDefault();
 
             let publication = $(this).closest('.col-12.mb-3').find('.form__comments');
@@ -103,7 +103,7 @@ class CommentClass {
         });
     }
 
-    edit() {
+    edit(elementEdit) {
 
         let modalEditComment = `
         <div class="modal modal-edit-comentario">
@@ -138,7 +138,7 @@ class CommentClass {
         }
 
         // Desplego el Modal
-        $('.comments__btn-edit').on('click', function (e) {
+        $(elementEdit).off("click").on("click", function (e) {
             e.preventDefault();
 
             let comments = $(this).closest('.comments__btns');
@@ -224,11 +224,11 @@ class CommentClass {
     }
 
     startCommentClass() {
-        this.showComments();
-        this.collapseComments();
-        this.save();
-        this.delete();
-        this.edit();
+        this.showComments(".btn__comments");
+        this.collapseComments(".form__collapse");
+        this.save(".form__comments");
+        this.delete('.comments__btn-delete');
+        this.edit('.comments__btn-edit');
     }
 }
 

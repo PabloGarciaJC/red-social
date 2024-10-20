@@ -1,8 +1,7 @@
 class PublicationClass {
 
-  delete() {
-    $(document).off('click', '.eliminar-publication');
-    $(document).on('click', '.eliminar-publication', function (e) {
+  delete(elementDelete) {
+    $(elementDelete).off("click").on("click", function (e) {
       e.preventDefault();
       $.ajax({
         url: `${$(this).attr('href')}`,
@@ -29,8 +28,8 @@ class PublicationClass {
     });
   }
 
-  create() {
-    $('.form-publication__create').off('submit').on('submit', function (e) {
+  create(elementCreate) {
+    $(elementCreate).off('submit').on('submit', function (e) {
       e.preventDefault();
       let form = $(this);
       let submitButton = form.find('button[type="submit"]'); // Seleccionar el botón de envío
@@ -176,7 +175,7 @@ class PublicationClass {
     });
   }
 
-  desplegarModalEdit() {
+  desplegarModalEdit(elementEdit) {
 
     const self = this;
 
@@ -221,7 +220,7 @@ class PublicationClass {
       $('body').append(modalPublicacionEdit);
     }
 
-    $('.edit-publication').on('click', function (e) {
+    $(elementEdit).off("click").on("click", function (e) {
 
       e.preventDefault();
 
@@ -229,7 +228,7 @@ class PublicationClass {
       $('.modal-edit').addClass('modal--active').fadeIn();
 
       // Publicación - Comentario
-      let textComent = $(this).closest('.col-12.mb-3').find('p').text();
+      let textComent = $(this).closest('.col-12.mb-3').find('p').first().text();
 
       // Se obtiene Post ID, para cada publicacion
       let postId = $(this).closest('.col-12.mb-3').find('.form__comments').data("post-id");
@@ -247,9 +246,10 @@ class PublicationClass {
       cntnModalEdit.find('.modal__image-preview').show();
 
       // Inyectar el comentario en el modal
-      cntnModalEdit.find('.publication-input').val('');
+      // cntnModalEdit.find('.publication-input').val('');
       cntnModalEdit.find('.publication-input').val(textComent);
-      
+
+      console.log(textComent);
 
       // Limpiar vista previa de imágenes previa
       let imageWrapper = cntnModalEdit.find('.modal__edit-image-wrapper');
@@ -336,8 +336,8 @@ class PublicationClass {
   }
 
   // Inicializa todos los slick sliders
-  initSlickSlider() {
-    $('.product-sheet__contn-slick').each(function () {
+  initSlickSlider(elementSlick, Elementhumbnails) {
+    $(elementSlick).each(function () {
       if ($(this).hasClass('slick-initialized')) {
         $(this).slick('unslick');
       }
@@ -353,7 +353,7 @@ class PublicationClass {
     });
 
     // Evento de clic en las miniaturas
-    $('.product-sheet__thumbnails').on('click', '.thumbnail', function () {
+    $(Elementhumbnails).on('click', '.thumbnail', function () {
       let index = $(this).data('index'); // Obtiene el índice de la miniatura
       let publicationId = $(this).closest('.card-body').find('.slick-fich').attr('id');
       $('#' + publicationId).slick('slickGoTo', index);
@@ -361,8 +361,8 @@ class PublicationClass {
   }
 
 
-  sendFormEdit() {
-    $('.form-publication__edit').off('submit').on('submit', function (e) {
+  sendFormEdit(elementEdit) {
+    $(elementEdit).off('submit').on('submit', function (e) {
       e.preventDefault();
 
       let form = $(this);
@@ -430,31 +430,31 @@ class PublicationClass {
     });
   }
 
-  setupModalTriggers() {
-    $('#openModal').on('click', function () {
-      $('#exampleModal').addClass('modal--active').fadeIn();
+  setupModalTriggers(openSelector, closeSelector, modalSelector) {
+    $(openSelector).on('click', function () {
+      $(modalSelector).addClass('modal--active').fadeIn();
     });
 
-    $('#closeModal, #closeModalFooter').on('click', function () {
-      $('#exampleModal').removeClass('modal--active').fadeOut();
+    $(closeSelector).on('click', function () {
+      $(modalSelector).removeClass('modal--active').fadeOut();
     });
 
-    $('#exampleModal').on('click', function (event) {
+    $(modalSelector).on('click', function (event) {
       if (event.target === this) {
-        $('#exampleModal').removeClass('modal--active').fadeOut();
+        $(modalSelector).removeClass('modal--active').fadeOut();
       }
     });
   }
 
   // Funcionalidades
   startPublicationClass() {
-    this.create();
-    this.setupModalTriggers();
-    this.delete();
+    this.create('.form-publication__create');
+    this.setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '#exampleModal');
+    this.delete('.eliminar-publication');
     this.btnChangeImagenModalPrevie($('#image-file-create-publication'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
-    this.sendFormEdit();
-    this.desplegarModalEdit();
-    this.initSlickSlider();
+    this.desplegarModalEdit('.edit-publication');
+    this.sendFormEdit('.form-publication__edit');
+    this.initSlickSlider('.product-sheet__contn-slick', '.product-sheet__thumbnails');
   }
 }
 

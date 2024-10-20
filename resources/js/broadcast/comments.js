@@ -17,15 +17,30 @@ window.Echo.channel('broadcastComment-channel')
                 // Comprobar si el contenido ya existe
                 if (existingParagraphs.text() !== newContent) {
                     // Limpiar los párrafos existentes
-                    existingParagraphs.remove(); 
-                    
+                    existingParagraphs.remove();
+
                     // Crear un nuevo párrafo
                     commentsBody.append(`<p>${newContent}</p>`);
                 }
                 break;
             case 'delete':
                 let publication = $(`[data-post-id="${e.comment.idPublication}"]`);
-                publication.closest('.col-12.mb-3').find($(`[data-id-comments="${e.comment.idComment}"]`)).closest('.comments__card').remove();
+                let commentCard = publication.closest('.col-12.mb-3').find($(`[data-id-comments="${e.comment.idComment}"]`)).closest('.comments__card');
+
+                // Eliminar el comentario de la interfaz
+                commentCard.remove();
+
+                // Actualizar el contador de comentarios
+                let commentButtone = publication.closest('.wrapper-comments').prev('.btn__comments');
+                if (commentButtone.length > 0) {
+                    let buttonText = commentButtone.text().trim();
+                    let match = buttonText.match(/\d+/);
+                    if (match) {
+                        let currentCount = parseInt(match[0]);
+                        let newCount = currentCount > 0 ? currentCount - 1 : 0; // Asegúrate de no tener un contador negativo
+                        commentButtone.text(`Comentarios (${newCount})`);
+                    }
+                }
                 break;
             default:
                 let comment = e.comment.original.data;
@@ -75,8 +90,8 @@ window.Echo.channel('broadcastComment-channel')
                 commentButton.text(`Comentarios (${newCount})`);
 
                 // Llamada a los métodos desde la clase
-                window.initComment.delete();
-                window.initComment.edit();
+                window.initComment.delete('.comments__btn-delete');
+                window.initComment.edit('.comments__btn-edit');
         }
 
     });

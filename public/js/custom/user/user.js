@@ -88,6 +88,7 @@ class UserClass {
             }
         });
     }
+    
     // Método para inicializar la clase
     startUserClass() {
         this.searchAutocompletado();

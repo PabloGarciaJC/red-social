@@ -29,7 +29,7 @@ window.Echo.channel('broadcastPublication-channel')
                          data-thumb="${imagePath}"
                          data-src="${imagePath}">
                         <a href="${imagePath}" data-lightbox="image-${publicationIdentifier.id}">
-                            <img class="imge" src="${imagePath}" alt="Imagen ${key + 1}" />
+                            <img class="imge" src="${imagePath}" alt="Imagen ${key + 1}"/>
                         </a>
                     </div>`;
                 }).join('');
@@ -42,7 +42,7 @@ window.Echo.channel('broadcastPublication-channel')
                     let imagePath = `/publicationImagen/${image}`;
                     return `
                     <div class="thumbnail" data-src="${imagePath}" data-index="${key}">
-                        <img src="${imagePath}" alt="Thumbnail de publicación ${key + 1}" />
+                        <img src="${imagePath}" alt="Thumbnail" class="img-thumbnail" data-path="${imagePath}"/>
                     </div>`;
                 }).join('');
 
