@@ -9,7 +9,7 @@ window.Echo.channel('broadcastPublication-channel')
                 let publicationIdentifier = e.publication.publication;
                 let publicationElement = $(`[data-post-id="${publicationIdentifier.id}"]`);
                 let slickContainer = publicationElement.closest('.col-12.mb-3').find('.slick-fich');
-                let slickThumbnails = publicationElement.closest('.col-12.mb-3').find('.product-sheet__thumbnails');
+                let slickThumbnails = publicationElement.closest('.col-12.mb-3').find('.slick__thumbnails');
                 // Actualizo el comentario
                 publicationElement.closest('.col-12.mb-3').find('p').first().text(publicationIdentifier.contenido);
 
@@ -117,8 +117,8 @@ window.Echo.channel('broadcastPublication-channel')
                                     </div>
                                     ${contenido !== '' ? `<p class="pt-3">${contenido}</p>` : ''}
                                     <hr>
-                                    <div class="product-sheet__image">
-                                        <div id="slick-fich-${publication.id}" class="slick-fich product-sheet__contn-slick">
+                                    <div class="slick__image">
+                                        <div id="slick-fich-${publication.id}" class="slick-fich slick__contn">
                                             ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => {
                                             // Define la ruta de la imagen y la miniatura
                                             let imagePath = `/publicationImagen/${image}`;
@@ -135,7 +135,7 @@ window.Echo.channel('broadcastPublication-channel')
                                             }).join('') : ''}
                                         </div>
                                     </div>
-                                    <div class="product-sheet__thumbnails">
+                                    <div class="slick__thumbnails">
                                         ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => {
                                         // Define la ruta de la imagen
                                         let imagePath = `/publicationImagen/${image}`;

@@ -471,6 +471,15 @@ h6 {
 .header .list-unstyled { position: absolute; background: #fff; width: 100%;}
 .header .nt-item__img {width: 60px; border-radius: 10px; padding: 0px; margin-right: 10px; margin-top: -10px}
 .header .nt-item__description { display: flex; flex-direction: column; font-size: 14px;}
+.nav-item-users {display: none;}
+
+@media only screen and (min-width: 768px) and (max-width: 991px),
+screen and (max-width:767px)
+{
+.header .search-bar { position: inherit}
+.nav-item-users {display: block;}
+.header .list-unstyled {position: initial;}
+}
 
 /*--------------------------------------------------------------
 # Header Nav
@@ -1247,94 +1256,42 @@ h6 {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
-.footer {
-  padding: 20px 0;
-  font-size: 14px;
-  transition: all 0.3s;
-  border-top: 1px solid #cddfff;
+.footer {padding: 20px 0;font-size: 14px;transition: all 0.3s;border-top: 1px solid #cddfff;}
+.footer .copyright {text-align: center;color: #012970;}
+.footer .credits {padding-top: 5px;text-align: center;font-size: 13px;color: #012970;}
+
+/*--------------------------------------------------------------
+# like
+--------------------------------------------------------------*/
+.like {color: green;}
+.dislike {color: red;}
+
+
+/*--------------------------------------------------------------
+# Autocompletado
+--------------------------------------------------------------*/
+.ui-menu-item {height: 70px;border: 1px solid #ffffff;}
+.label {background: #ffffff;color: #0b0b0b;text-align: left;}
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {border-color: #ffffff;background: #ffffff !important;}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px){
+body {background-color: yellow;}
+}
+@media only screen and (min-width: 768px) and (max-width: 991px){
+body { background-color: blue; }
+}
+@media (max-width:767px){
+body {background-color: red; }
 }
 
-.footer .copyright {
-  text-align: center;
-  color: #012970;
-}
-
-.footer .credits {
-  padding-top: 5px;
-  text-align: center;
-  font-size: 13px;
-  color: #012970;
-}
-
-/* like */
-.like {
-  color: green;
-  /* background-image: url("../img/heart-red.png"); */
-}
-
-.dislike {
-  color: red;
-  /* background-image: url("../img/heart-black.png"); */
-}
-
-/* Autocompletado */
-.ui-menu-item {
-  height: 70px;
-  border: 1px solid #ffffff;
-}
-
-.label {
-  background: #ffffff;
-  color: #0b0b0b;
-  text-align: left;
-}
-
-.ui-menu-item .ui-menu-item-wrapper.ui-state-active {
-  border-color: #ffffff;
-  background: #ffffff !important;
-}
-
-/* File Comentario */
-
-.file-select {
-  position: relative;
-  display: inline-block;
-}
-
-.file-select::before {
-  background-color: #17a2b8;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 3px;
-  content: 'Subir Imagen';
-  /* testo por defecto */
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
-
-.file-select input[type="file"] {
-  opacity: 0;
-  width: 120px;
-  height: 32px;
-  display: inline-block;
-}
-
-#src-file1::before {
-  content: 'Subir Imagen';
-
-}
-
-.margenImagenComment {
-  width: 100px;
-  height: 100px;
-  border-radius: 10%;
-  margin-bottom: 20px;
-}
+/*--------------------------------------------------------------
+# File Comentario
+--------------------------------------------------------------*/
+.file-select {position: relative;display: inline-block;}
+.file-select::before {background-color: #17a2b8;color: white;display: flex;justify-content: center; align-items: center;border-radius: 3px;content: 'Subir Imagen';position: absolute; left: 0; right: 0; top: 0; bottom: 0;}
+.file-select input[type="file"] {opacity: 0; width: 120px; height: 32px;display: inline-block;}
+#src-file1::before {content: 'Subir Imagen';}
+.margenImagenComment {width: 100px; height: 100px; border-radius: 10%;margin-bottom: 20px;}
 
 /*--------------------------------------------------------------
 # Mostrar Contactos Followers
@@ -1360,12 +1317,10 @@ h6 {
 .chat-container__input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-right: 10px; font-size: 16px; margin-left: 10px; }
 .chat-container__input button { padding: 10px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; font-size: 16px; cursor: pointer; margin-left: 5px; }
 .chat-container__input button:hover { background-color: #0056b3; }
-/* .chat-container__emoji-picker { position: absolute; bottom: 82px; left: 35px; border: 1px solid #ddd; background-color: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1);    display: grid;
-  grid-template-columns: repeat(6, 1fr) } */
 .chat-container__emoji { cursor: pointer; font-size: 24px; margin: 5px; }
 .chat-container__modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;z-index: 996; }
-/* .chat-container__modal-content { background: #fff; padding: 20px; border-radius: 5px; width: 300px; text-align: center; position: relative; } */
 .chat-container__modal .chat-container__close { position: absolute; top: 10px; right: 10px; font-size: 20px; cursor: pointer; }
+
 /* Responsive Design */
 @media (max-width: 768px) { .chat-container { height: 400px; } .chat-container__message-content { max-width: 80%; } .chat-container__input input { font-size: 14px; } .chat-container__input button { font-size: 14px; } }
 
@@ -1391,7 +1346,6 @@ h6 {
 .memory-game__card--flipped img { display: block;}
 .memory-game__card--matched {background-color: #a5d6a7; cursor: default;}
 
-
 /* Estilo para ocultar el campo de texto cuando tiene el foco */
 .form-control:focus {box-shadow: unset;}
 .btn-check:focus+.btn, .btn:focus {box-shadow: unset;}
@@ -1401,7 +1355,6 @@ h6 {
 /*--------------------------------------------------------------
 # Modal
 --------------------------------------------------------------*/
-.button {display: block;width: 100%;padding: .375rem .75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #212529;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .375rem;transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;cursor: pointer;}
 .modal {display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.5);justify-content: center;align-items: center;z-index: 1000;}
 .modal__content {background: white;padding: 20px;border-radius: 5px;width: 80%;max-width: 600px;transform: translateY(-50px);transition: transform 0.3s ease, opacity 0.3s ease;opacity: 0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%) translateY(-50px);box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);}
 .modal--active .modal__content {transform: translate(-50%, -50%) translateY(0);opacity: 1;}
@@ -1419,69 +1372,23 @@ h6 {
 .modal__button--emoji-toggle:hover {background-color: #e9ecef;border-color: #adb5bd;}
 .modal__emoji-picker {display: flex; flex-wrap: wrap; gap: 5px;}
 .modal__emoji-picker__emoji {font-size: 24px; cursor: pointer; transition: background-color .15s ease-in-out;}
+.button {display: block;width: 100%;padding: .375rem .75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #212529;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .375rem;transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;cursor: pointer;}
 
 
-.product-sheet {
-  display: flex;
-  flex-direction: column;
-  max-width: 800px;
-  margin: auto;
-}
-
-.product-sheet__image {
-  position: relative;
-}
-
-.product-sheet__contn-slick {
-  width: 100%;
-}
-
-
-.product-sheet__thumbnails {
-  display: flex;
-
-  /* Centra los thumbnails */
-  margin-top: 20px;
-  /* Espacio arriba de los thumbnails */
-}
-
-.thumbnail {
-  margin: 0 5px;
-  /* Espaciado entre los thumbnails */
-}
-
-.thumbnail img {
-  max-width: 80px;
-  /* Tamaño del thumbnail */
-  height: auto;
-  border: 2px solid #ddd;
-  /* Borde alrededor de las miniaturas */
-  border-radius: 5px;
-  /* Bordes redondeados */
-  cursor: pointer;
-  /* Cursor de puntero al pasar sobre las miniaturas */
-  transition: transform 0.2s;
-  /* Animación al pasar el mouse */
-}
-
-.thumbnail img:hover {
-  transform: scale(1.1);
-  /* Aumenta el tamaño al pasar el mouse */
-}
-
-
-.slick-slide.slick-current {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
+/*--------------------------------------------------------------
+# Slick 
+--------------------------------------------------------------*/
+.slick__image {position: relative;}
+.slick__contn {width: 100%;}
+.slick__thumbnails {display: flex;margin-top: 20px;}
+.thumbnail {margin: 0 5px;}
+.thumbnail img {max-width: 80px;height: auto;border: 2px solid #ddd;border-radius: 5px;cursor: pointer;transition: transform 0.2s;}
+.thumbnail img:hover {transform: scale(1.1);}
+.slick-slide.slick-current {display: flex;align-items: center;justify-content: center;}
 
 /*--------------------------------------------------------------
 # Comentarios
 --------------------------------------------------------------*/
-
 .form__comments {margin-top: 20px;}
 .comments__btns {display: flex; align-items: center; justify-content: center; flex-direction: column;gap: 5px;}
 .comments__btns a {padding: 1px 5px 1px 5px; width: 100%;text-align: center;font-size: 14px;}

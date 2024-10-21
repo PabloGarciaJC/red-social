@@ -234,7 +234,7 @@ class PublicationClass {
       let postId = $(this).closest('.col-12.mb-3').find('.form__comments').data("post-id");
 
       // Publicación - Imágenes
-      let imageElements = $(this).closest('.col-12.mb-3').find('.product-sheet__thumbnails img');
+      let imageElements = $(this).closest('.col-12.mb-3').find('.slick__thumbnails img');
 
       // Modal Contenedor
       let cntnModalEdit = $(this).parents('body').find('.modal-edit');
@@ -451,7 +451,7 @@ class PublicationClass {
     this.btnChangeImagenModalPrevie($('#image-file-create-publication'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
     this.desplegarModalEdit('.edit-publication');
     this.sendFormEdit('.form-publication__edit');
-    this.initSlickSlider('.product-sheet__contn-slick', '.product-sheet__thumbnails');
+    this.initSlickSlider('.slick__contn', '.slick__thumbnails');
   }
 }
 

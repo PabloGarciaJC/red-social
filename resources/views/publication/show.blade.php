@@ -42,8 +42,8 @@
             <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
             <hr>
             <!-- Carrusel de imágenes -->
-            <div class="product-sheet__image">
-                <div id="slick-fich-{{ $mostrarPublication->id }}" class="slick-fich product-sheet__contn-slick">
+            <div class="slick__image">
+                <div id="slick-fich-{{ $mostrarPublication->id }}" class="slick-fich slick__contn">
                     @foreach ($mostrarPublication->images as $key => $image)
                     @php 
                     $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
@@ -60,7 +60,7 @@
                 </div>                
             </div>
 
-            <div class="product-sheet__thumbnails">
+            <div class="slick__thumbnails">
                 @foreach ($mostrarPublication->images as $key => $image)
                     @php
                         $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
