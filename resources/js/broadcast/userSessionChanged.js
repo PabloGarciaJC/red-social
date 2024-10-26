@@ -8,7 +8,7 @@ window.Echo.channel('BroadcastUserSessionChanged-channel')
         // Función para actualizar el estado de un usuario
         function actualizarEstadoConexion(alias, conectado, selector) {
             let estadoClase = conectado === 1 ? 'show-contact__online' : 'show-contact__off-online';
-            let estadoTexto = conectado === 1 ? 'Conectado' : 'desconectado';
+            let estadoTexto = conectado === 1 ? 'Conectado' : 'Desconectado';
 
             $(selector + ' .show-contact__user-name').each(function () {
                 if ($(this).text() === alias) {
@@ -23,11 +23,11 @@ window.Echo.channel('BroadcastUserSessionChanged-channel')
 
         // Actualizar estado de userReceptor si existe
         if (user && user.userReceptor) {
-            actualizarEstadoConexion(user.userReceptor.alias, user.userReceptor.conectado, '#showFollowers');
+            actualizarEstadoConexion(user.userReceptor.alias, user.userReceptor.conectado, '.show-follower');
         }
 
         // Actualizar estado de userEmisor si existe
         if (user && user.userEmisor) {
-            actualizarEstadoConexion(user.userEmisor.alias, user.userEmisor.conectado, '#showContacts');
+            actualizarEstadoConexion(user.userEmisor.alias, user.userEmisor.conectado, '.show-emisor');
         }
     });

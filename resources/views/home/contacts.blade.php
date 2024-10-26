@@ -1,9 +1,9 @@
 <div class="col-lg-4">
-    <div class="card">
-        <div class="card-body pb-0">
+    <div class="card card-fixed">
+        <div class="card-body">
             <h5 class="card-title">Contactos</h5>
-            <div class="news show-contacts" id="showContacts"></div>
-            <div class="news show-contacts" id="showFollowers"></div>
+            <div class="news show-contacts show-emisor"></div>
+            <div class="news show-contacts show-follower"></div>
         </div>
     </div>
 </div>

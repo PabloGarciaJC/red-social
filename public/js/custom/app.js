@@ -160,21 +160,14 @@ class AppClass {
             });
         }
 
-
-    // Verifica si el botón de la barra de búsqueda existe
-if ($('.search-bar-toggle').length) {
-    // Añade un evento click al botón
-    $(document).on('click', '.search-bar-toggle', function(e) {
-        // Alterna la clase para mostrar/ocultar la barra de búsqueda
-        $('.search-bar').toggleClass('search-bar-show');
-    });
-}
-
-
-
-   
-
-
+        // Verifica si el botón de la barra de búsqueda existe
+        if ($('.search-bar-toggle').length) {
+            // Añade un evento click al botón
+            $(document).on('click', '.search-bar-toggle', function (e) {
+                // Alterna la clase para mostrar/ocultar la barra de búsqueda
+                $('.search-bar').toggleClass('search-bar-show');
+            });
+        }
     }
 }
 

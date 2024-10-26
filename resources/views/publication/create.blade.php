@@ -13,8 +13,6 @@
     </div>
 </div>
 
-
-
 <!-- Modal - Crear Publicación -->
 <div class="modal" id="exampleModal">
     <div class="modal__content">
