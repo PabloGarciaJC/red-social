@@ -8,7 +8,7 @@ window.Echo.channel('broadcastChat-channel')
         let userFollowersNav = $('.header .nav-item-users .dropdown-menu').find($(`[data-id-followers="${receptorId}"]`));
         let cntnUserFollower = $('.card-fixed').find($(`[data-id-followers="${receptorId}"]`));
 
-        // Actualizar los mensajes no leídos en el menú de navegación
+        // Actualizar los mensajes no leídos en el menú de Navegación
         let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
         let messageCountNavText = newMessagesNavDiv.find('.show-contact__count-text');
 
@@ -25,10 +25,10 @@ window.Echo.channel('broadcastChat-channel')
                     </div> nuevos
                 </div>
             `);
-            userFollowersNav.append(newMessageNavDiv);
+            userFollowersNav.find('.show-contact__info').append(newMessageNavDiv);
         }
 
-        // Actualizar los mensajes no leídos en la tarjeta de seguidores
+        // Actualizar los mensajes no leídos en la Card de seguidores en el Home
         let newMessagesDiv = cntnUserFollower.find('.show-contact__new-messages');
         let messageCountElement = cntnUserFollower.find('.show-contact__info');
 
@@ -51,7 +51,7 @@ window.Echo.channel('broadcastChat-channel')
             }
         }
 
-        // Estilo del mensaje según si es enviado o recibido
+        // Actualizar los mensajes no leídos en la Card de CHAT Dstalles
         let messageClass = receptorId == userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
 
         let messageHtml = `
@@ -68,4 +68,8 @@ window.Echo.channel('broadcastChat-channel')
             chatBox.append(messageHtml);
             chatBox.scrollTop(chatBox[0].scrollHeight); // Desplazar hacia el final
         }
+
+        // window.initChat.startChatClass();
     });
+
+

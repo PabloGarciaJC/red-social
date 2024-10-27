@@ -74,8 +74,8 @@ class FollowerClass {
                 });
 
                 // Agregar los usuarios seguidos a su contenedor
-                showContacts.html(htmlEmisor);
-                showFollowers.html(htmlReceptor);
+                showContacts.append(htmlEmisor);
+                showFollowers.append(htmlReceptor);
             })
             .catch((error) => {
                 console.error(error);
@@ -91,3 +91,5 @@ class FollowerClass {
 // Instanciar la clase
 let initFollower = new FollowerClass();
 initFollower.startFollowerClass();
+
+
