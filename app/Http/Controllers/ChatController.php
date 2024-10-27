@@ -42,38 +42,22 @@ class ChatController extends Controller
     // Función para enviar un mensaje
     public function sendMessage(Request $request)
     {
-        // // Validar los datos entrantes
-        // $validator = Validator::make($request->all(), [
-        //     'emisor_id' => 'required|integer|exists:users,id',
-        //     'receptor_id' => 'required|integer|exists:users,id',
-        //     'message' => 'required|string|max:1000',
-        // ]);
+        echo 'si es una prueba';
+        // // Crear un nuevo mensaje
+        // $chat = new Chat();
+        // $chat->emisor_id = $request->input('emisor_id');
+        // $chat->receptor_id = $request->input('receptor_id');
+        // $chat->message = $request->input('message');
+        // $chat->leido = 0; // Inicialmente no está leído
+        // $chat->created_at = now();
+        // $chat->updated_at = now();
+        // $chat->save();
 
-        // // Si la validación falla, devolver un error
-        // if ($validator->fails()) {
-        //     return response()->json(['error' => $validator->errors()], 400);
-        // }
+        // // Emitir la notificación a través de Pusher
+        // broadcast(new BroadcastChat($chat));
 
-        // try {
-        // Crear un nuevo mensaje
-        $chat = new Chat();
-        $chat->emisor_id = $request->input('emisor_id');
-        $chat->receptor_id = $request->input('receptor_id');
-        $chat->message = $request->input('message');
-        $chat->leido = 0; // Inicialmente no está leído
-        $chat->created_at = now();
-        $chat->updated_at = now();
-        $chat->save();
-
-        // Emitir la notificación a través de Pusher
-        broadcast(new BroadcastChat($chat));
-
-        // Devolver una respuesta de éxito
-        return response()->json(['data' => $chat], 201);
-        // } catch (\Exception $e) {
-        //     // En caso de error, devolver una respuesta de error
-        //     return response()->json(['error' => 'Error al enviar el mensaje'], 500);
-        // }
+        // // Devolver una respuesta de éxito
+        // return response()->json(['data' => $chat], 201);
     }
 
 
