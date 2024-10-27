@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\Chat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -12,36 +12,16 @@ use Auth;
 class FollowersController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Follower::all();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Follower  $follower
+     * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
     public function show($userId)
     {
         $queryChange = [];
 
+        // Obtener usuarios que sigue el usuario actual (emisores de mensajes al usuario)
         $usersEmisor = DB::table('users')
             ->join('followers', 'users.id', '=', 'followers.seguido')
             ->where('followers.user_id', $userId)
@@ -49,8 +29,20 @@ class FollowersController extends Controller
             ->select('users.*', 'followers.estado')
             ->get();
 
+        // Agregar la cuenta de mensajes no leídos de los emisores
+        foreach ($usersEmisor as $user) {
+            $unreadMessagesCount = Chat::where('emisor_id', $user->id)  // Mensajes enviados por el emisor
+                ->where('receptor_id', $userId)                         // Al usuario actual
+                ->where('leido', 0)                                     // Que no han sido leídos
+                ->count();
+
+            // Agregar la cantidad de mensajes no leídos al resultado
+            $user->unread_messages = $unreadMessagesCount;
+        }
+
         $queryChange['usersEmisor'] = $usersEmisor;
 
+        // Obtener usuarios que siguen al usuario actual (usuarios receptores)
         $userReceptor = DB::table('users')
             ->join('followers', 'users.id', '=', 'followers.user_id')
             ->where('followers.seguido', $userId)
@@ -58,32 +50,20 @@ class FollowersController extends Controller
             ->select('users.*', 'followers.estado')
             ->get();
 
+        // Agregar la cuenta de mensajes no leídos de los (usuarios receptores)
+        foreach ($userReceptor as $user) {
+            $unreadMessagesCount = Chat::where('emisor_id', $user->id)  // Mensajes enviados por el receptor (seguidor)
+                ->where('receptor_id', $userId)                          // Al usuario actual
+                ->where('leido', 0)                                      // Que no han sido leídos
+                ->count();
+
+            // Agregar la cantidad de mensajes no leídos al resultado
+            $user->unread_messages = $unreadMessagesCount;
+        }
+
         $queryChange['userReceptor'] = $userReceptor;
 
-        // Retorna los usuarios seguidos y los seguidores como una respuesta JSON
+        // Retornar los usuarios seguidos y los seguidores con la cantidad de mensajes no leídos
         return response()->json($queryChange, 200);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Follower  $follower
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Follower $follower)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Follower  $follower
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Follower $follower)
-    {
-        //
     }
 }

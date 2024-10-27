@@ -14,9 +14,6 @@
     <h5 class="card-title">Sobre Mi</h5>
     <p class="small">{{ Auth::user()->sobreMi }}</p>
     <h5 class="card-title">Detalles de mi Perfil</h5>
-    @foreach ($usuario as $user)
-        <input type="hidden" id="user-receptor" value="{{ $user->id }}">
-    @endforeach
     <div class="row">
         <div class="col-lg-3 col-md-4 label">Nombre</div>
         @foreach ($usuario as $user)

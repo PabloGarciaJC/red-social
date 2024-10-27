@@ -15,7 +15,7 @@
         <div class="chat-container__input">
             <button type="button" id="emojiButton" class="btn btn-secondary chat__emojis-toggle">😄 Emojis</button>
             <input type="text" class="chat__input" placeholder="Type a message...">
-            <button type="button" id="sendMessage">Send</button>
+            <button type="button" class="sendMessage">Send</button>
         </div>
         <!-- Aquí se inyectará el emoji-picker -->
         <div class="form__cntn-emojis"></div>

@@ -9,6 +9,7 @@
     <script src="{{ asset('js/custom/publications/publications.js') }}"></script>
     <script src="{{ asset('js/custom/game/game.js') }}"></script>
     <script src="{{ asset('js/custom/app.js') }}"></script>
+
     @stack('scripts')
     </body>
 </html>

@@ -5,6 +5,7 @@
               <img src="{{ asset('images/logo.webp') }}" alt="">
               <span class="d-none d-lg-block">PabloGarciaJC</span>
           </a>
+          <i class="bi bi-list toggle-sidebar-btn"></i>
       </div>
       <div class="search-bar">
           <form class="search-form d-flex align-items-center" id='formBuscador' method="POST" action="#">
@@ -16,6 +17,11 @@
       </div>
       <nav class="header-nav ms-auto">
           <ul class="d-flex align-items-center">
+            <li class="nav-item d-block d-lg-none">
+                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                  <i class="bi bi-search"></i>
+                </a>
+              </li>
               {{-- Notificaciones --}}
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link nav-icon" data-bs-toggle="dropdown">
@@ -50,6 +56,18 @@
                         </li>
                     </ul>
                 </li>
+
+                {{-- Usuarios conectados en movil --}}
+                <div class="nav-item dropdown nav-item-users">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-people fs-2"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                      <div class="news show-contacts show-emisor"></div>
+                      <div class="news show-contacts show-follower"></div>
+                    </div>
+                </div>
+
               {{-- Perfil --}}
               <li class="nav-item dropdown pe-3">
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"

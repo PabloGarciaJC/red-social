@@ -150,6 +150,24 @@ class AppClass {
         this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
         this.initEmojiPicker('.form-publication__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
         this.initEmojiPicker('.form-comentario__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
+
+        /*  Sidebar toggle */
+        if ($('.toggle-sidebar-btn').length) {
+            // Escucha el evento click
+            $(document).on('click', '.toggle-sidebar-btn', function (e) {
+                // Alterna la clase en el body
+                $('body').toggleClass('toggle-sidebar');
+            });
+        }
+
+        // Verifica si el botón de la barra de búsqueda existe
+        if ($('.search-bar-toggle').length) {
+            // Añade un evento click al botón
+            $(document).on('click', '.search-bar-toggle', function (e) {
+                // Alterna la clase para mostrar/ocultar la barra de búsqueda
+                $('.search-bar').toggleClass('search-bar-show');
+            });
+        }
     }
 }
 
