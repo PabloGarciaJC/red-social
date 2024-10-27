@@ -47,7 +47,7 @@ class ChatController extends Controller
         $chat->emisor_id = $request->input('emisor_id');
         $chat->receptor_id = $request->input('receptor_id');
         $chat->message = $request->input('message');
-        $chat->leido = 0; // Inicialmente no está leído
+        $chat->leido = 0;
         $chat->created_at = now();
         $chat->updated_at = now();
         $chat->save();
