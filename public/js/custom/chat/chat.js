@@ -261,9 +261,12 @@ class ChatClass {
             url: `${this.baseUrl}chats/${this.userReceptor.val()}`,
             method: 'GET',
             success: (response) => {
-                // console.log(this.userReceptor);
-                // $('card-body pt-3')
-                // console.log("Todos los mensajes han sido marcados como leídos.");
+                 // Reiniciar Contactos NAV
+                let userFollowersNav = $('.show-contacts').find($(`[data-id-followers="${this.userReceptor.val()}"]`));
+                let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
+                let showContactChat = userFollowersNav.find('.show-contact__chat');
+                newMessagesNavDiv.remove();
+                showContactChat.show();
             }
         });
     }
