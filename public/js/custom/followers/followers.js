@@ -17,7 +17,7 @@ class FollowerClass {
                         : '<span class="show-contact__off-online">Desconectado</span>';
 
                     // Verificar si tiene mensajes no leídos
-                    let unreadMessages = user.unread_messages > 0 
+                    let unreadMessages = user.unread_messages > 0
                         ? `<div class="show-contact__new-messages">                                
                                 <div class="show-contact__count-messages">
                                     <span class="show-contact__count-text">${user.unread_messages}</span>    
@@ -50,7 +50,7 @@ class FollowerClass {
                         : '<span class="show-contact__off-online">Desconectado</span>';
 
                     // Verificar si tiene mensajes no leídos
-                    let unreadMessages = user.unread_messages > 0 
+                    let unreadMessages = user.unread_messages > 0
                         ? `<div class="show-contact__new-messages">                                
                                 <span class="show-contact__count-messages">${user.unread_messages}<i class="bi bi-envelope-fill"></i></span> nuevos
                             </div>`
@@ -76,6 +76,98 @@ class FollowerClass {
                 // Agregar los usuarios seguidos a su contenedor
                 showContacts.append(htmlEmisor);
                 showFollowers.append(htmlReceptor);
+
+                function sendChatModal(element) {
+                    // Mostrar el modal Chat
+                    let dataIdFollowers = element.closest('.show-contact__link').data('id-followers');
+                    // Asignar Id al Modal
+                    $('.modal-chat').find('.user-receptor-chat').val(dataIdFollowers);
+                    // Mmarcar todos los mensajes como leídos
+                    $.ajax({
+                        url: `${baseUrl}chats/${dataIdFollowers}`,
+                        method: 'GET',
+                        success: (response) => {
+                            console.log('implementar el div del chat');
+                        }
+                    });
+                    // Send Enviar chat
+                    $.ajax({
+                        url: `${baseUrl}chats/${userLogin}/${dataIdFollowers}`,
+                        method: 'GET',
+                        success: (response) => {
+                            $('.chat-container__box').empty();
+                            response.forEach((message) => {
+                                let messageClass = message.emisor_id == userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
+                                let messageHtml = `<div class="chat-container__message ${messageClass}">
+                                                        <div class="chat-container__message-content">${message.message}</div>                        
+                                                    </div> `;
+                                $('.chat-container__box').append(messageHtml);
+                            });
+                            $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
+                        }
+                    });
+                }
+
+                // Enviar Ajax Texto Chat 
+                $('.modal-chat').find('.sendMessage').off("click").on("click", (e) => {
+                    let parentContainer = $(e.currentTarget).closest('.chat-container__input')
+                    let userReceptor = parentContainer.find('.user-receptor-chat');
+                    let messageText = parentContainer.find('.chat__input').val().trim()
+                    if (userReceptor === 0) return;
+                    if (messageText) {
+                        $.ajax({
+                            url: `${baseUrl}chats/send`,
+                            method: 'GET',
+                            data: {
+                                emisor_id: userLogin,
+                                receptor_id: userReceptor.val(),
+                                message: messageText
+                            },
+                            success: () => {
+                                $('.chat__input').val('');
+                            }
+                        });
+                    }
+                })
+
+                // Enviar Ajax Texto Chat con Enter
+                $('.modal-chat').find('.chat__input').off("keypress").on('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        let parentContainer = $(e.currentTarget).closest('.chat-container__input')
+                        let userReceptor = parentContainer.find('.user-receptor-chat');
+                        let messageText = parentContainer.find('.chat__input').val().trim()
+                        if (userReceptor === 0) return;
+                        if (messageText) {
+                            $.ajax({
+                                url: `${baseUrl}chats/send`,
+                                method: 'GET',
+                                data: {
+                                    emisor_id: userLogin,
+                                    receptor_id: userReceptor.val(),
+                                    message: messageText
+                                },
+                                success: () => {
+                                    $('.chat__input').val('');
+                                }
+                            });
+                        }
+                    }
+                });
+
+                // Adjuntar evento al botón "Ir al Chat - Mostrar Mensajes"
+                $(".show-contact__chat").off("click").on("click", function (e) {
+                    e.preventDefault();
+                    $('.modal-chat').addClass('modal--active').fadeIn();
+                    sendChatModal($(this));
+                });
+
+                // Adjuntar evento al botón "Nuevos Mensajes - Mostrar Mensajes"
+                $(".show-contact__new-messages").off("click").on("click", function (e) {
+                    e.preventDefault();
+                    $('.modal-chat').addClass('modal--active').fadeIn();
+                    sendChatModal($(this));
+                });
+
             })
             .catch((error) => {
                 console.error(error);

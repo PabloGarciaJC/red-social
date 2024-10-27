@@ -129,6 +129,7 @@ class ChatClass {
         $('.header .nav-item-users').off("click").on('click', function (e) {
             let messageNew = $(this).find('.show-contact__new-messages');
             let goToChat = $(this).find('.show-contact__chat');
+
             function sendChatModal(element) {
                 // Mostrar el modal Chat
                 let dataIdFollowers = element.closest('.show-contact__link').data('id-followers');
@@ -159,7 +160,8 @@ class ChatClass {
                     }
                 });
             }
-            // Enviar Ajax Texto Chat
+
+            // Enviar Ajax Texto Chat 
             $('.modal-chat').find('.sendMessage').off("click").on("click", (e) => {
                 let parentContainer = $(e.currentTarget).closest('.chat-container__input')
                 let userReceptor = parentContainer.find('.user-receptor-chat');
@@ -180,6 +182,7 @@ class ChatClass {
                     });
                 }
             })
+
             // Enviar Ajax Texto Chat con Enter
             $('.modal-chat').find('.chat__input').off("keypress").on('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -203,7 +206,9 @@ class ChatClass {
                     }
                 }
             });
+            
             if (messageNew.length) {
+                // Adjuntar evento al botón "Nuevos Mensajes - Mostrar Mensajes"
                 messageNew.off("click").on('click', function (e) {
                     e.preventDefault();
                     // Despliega Modal del Chat
@@ -213,6 +218,7 @@ class ChatClass {
                 });
             }
             if (goToChat.length) {
+                // Adjuntar evento al botón "Ir al Chat - Mostrar Mensajes"
                 goToChat.off("click").on('click', function (e) {
                     e.preventDefault();
                     // Despliega Modal del chat
