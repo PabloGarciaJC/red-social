@@ -84,6 +84,25 @@ class FollowerClass {
             }
         });
 
+        // Cuando existe click en el INPUT
+        $('.modal-chat').find('.chat__input').off("click").on("click", (e) => {
+            let parentContainer = $(e.currentTarget).closest('.chat-container__input')
+            let userReceptor = parentContainer.find('.user-receptor-chat');
+            // Mmarcar todos los mensajes como leídos
+            $.ajax({
+                url: `${baseUrl}chats/${userReceptor.val()}`,
+                method: 'GET',
+                success: (response) => {
+                    // Reiniciar Contactos Sidebar
+                    let userFollowersNav = $('.show-contacts').find($(`[data-id-followers="${userReceptor.val()}"]`));
+                    let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
+                    let showContactChat = userFollowersNav.find('.show-contact__chat');
+                    newMessagesNavDiv.remove();
+                    showContactChat.show();
+                }
+            });
+        });
+
         // Adjuntar evento al botón "Ir al Chat - Mostrar Mensajes"
         $(".show-contact__chat").off("click").on("click", function (e) {
             e.preventDefault();
