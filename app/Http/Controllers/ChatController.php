@@ -42,22 +42,21 @@ class ChatController extends Controller
     // Función para enviar un mensaje
     public function sendMessage(Request $request)
     {
-        echo 'si es una prueba';
-        // // Crear un nuevo mensaje
-        // $chat = new Chat();
-        // $chat->emisor_id = $request->input('emisor_id');
-        // $chat->receptor_id = $request->input('receptor_id');
-        // $chat->message = $request->input('message');
-        // $chat->leido = 0; // Inicialmente no está leído
-        // $chat->created_at = now();
-        // $chat->updated_at = now();
-        // $chat->save();
+        // Crear un nuevo mensaje
+        $chat = new Chat();
+        $chat->emisor_id = $request->input('emisor_id');
+        $chat->receptor_id = $request->input('receptor_id');
+        $chat->message = $request->input('message');
+        $chat->leido = 0; // Inicialmente no está leído
+        $chat->created_at = now();
+        $chat->updated_at = now();
+        $chat->save();
 
-        // // Emitir la notificación a través de Pusher
-        // broadcast(new BroadcastChat($chat));
+        // Emitir la notificación a través de Pusher
+        broadcast(new BroadcastChat($chat));
 
-        // // Devolver una respuesta de éxito
-        // return response()->json(['data' => $chat], 201);
+        // Devolver una respuesta de éxito
+        return response()->json(['data' => $chat], 201);
     }
 
 

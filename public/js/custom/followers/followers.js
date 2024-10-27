@@ -76,9 +76,8 @@ class FollowerClass {
                             receptor_id: userReceptor.val(),
                             message: messageText
                         },
-                        success: (response) => {
-                            console.log(response);
-                            // $('.chat__input').val('');
+                        success: () => {
+                            $('.chat__input').val('');
                         }
                     });
                 }
