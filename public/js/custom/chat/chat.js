@@ -1,10 +1,8 @@
 class ChatClass {
     constructor() {
-        this.messageInput = $('.chat__input');
-        this.sendMessageButton = $('#sendMessage');
         this.videoCallButton = $('#videoCallButton');
         this.videoCallModal = $('#videoCallModal');
-        this.userReceptor = $('#user-receptor');
+        this.userReceptor = $('.user-receptor');
         this.baseUrl = baseUrl;
         this.userLogin = userLogin;
     }
@@ -14,11 +12,10 @@ class ChatClass {
         <div class="modal modal-chat">
             <div class="modal__content">
                 <div class="modal__header">
-                    <h5>Editar Publicación</h5>
+                    <h5>Chat</h5>
                     <button class="modal__close modal__close--icon">×</button>
                 </div>
                 <div class="modal__body">
-                    <h5 class="card-title">Chat</h5>
                     <div class="chat-container">
                         <div class="chat-container__box">
                             <div class="chat-container__message chat-container__message--received">
@@ -29,9 +26,10 @@ class ChatClass {
                             </div>
                         </div>
                         <div class="chat-container__input">
+                            <input type="hidden" class="user-receptor-chat" value="">
                             <button type="button" id="emojiButton" class="btn btn-secondary chat__emojis-toggle">😄 Emojis</button>
                             <input type="text" class="chat__input" placeholder="Type a message...">
-                            <button type="button" id="sendMessage">Send</button>
+                            <button type="button" class="sendMessage">Send</button>
                         </div>
                         <div class="form__cntn-emojis"></div>
                     </div>
@@ -58,7 +56,7 @@ class ChatClass {
 
     chat() {
         const sendMessage = () => {
-            let messageText = this.messageInput.val().trim();
+            let messageText = $('.chat__input').val().trim();
             if (this.userReceptor.length === 0) return;
             if (messageText) {
                 $.ajax({
@@ -70,15 +68,15 @@ class ChatClass {
                         message: messageText
                     },
                     success: () => {
-                        this.messageInput.val('');
+                        $('.chat__input').val('');
                         this.scrollToBottom();
                     }
                 });
             }
         };
 
-        this.sendMessageButton.off("click").on("click", sendMessage);
-        this.messageInput.on('keypress', (event) => {
+        $('.sendMessage').off("click").on("click", sendMessage);
+        $('.chat__input').on('keypress', (event) => {
             if (event.key === 'Enter') {
                 sendMessage();
                 event.preventDefault();
@@ -98,7 +96,6 @@ class ChatClass {
 
     loadMessages() {
         if (this.userReceptor.length === 0) return;
-
         $.ajax({
             url: `${this.baseUrl}chats/${this.userLogin}/${this.userReceptor.val()}`,
             method: 'GET',
@@ -129,50 +126,103 @@ class ChatClass {
     }
 
     deployModalChat() {
-
         $('.header .nav-item-users').off("click").on('click', function (e) {
-            
-            let navNewMessage = $(this).find('.show-contact__new-messages');
-            let navChat = $(this).find('.show-contact__chat');
-
-            if (navNewMessage.length) {
-                // Evento click para el nuevo mensaje
-                navNewMessage.off("click").on('click', function (e) {
-                    e.preventDefault();
-
-                    // Mostrar el modal de edición
-                    $('.modal-chat').addClass('modal--active').fadeIn();
-
-                    // Reemplaza 'closed' por 'hide' si lo que quieres es ocultar el elemento
-                    // let dataFollower = $(this).closest('.show-contact__info').parent('.show-contact__link');
-
-                    // let dataIdFollower = dataFollower.data('id-followers');
-                    // $.ajax({
-                    //     url: `${window.baseUrl}chats/${dataIdFollower}`,
-                    //     method: 'GET',
-                    //     success: (response) => {
-                    //         console.log(response);
-                    //         // Nota: Queda Pendiente, poder levantar el popup en "ir a chat y count mensajes" - para Nav y para contactos.
-                    //         // Queda Pendiente crear Chat Popup
-                    //         // $('card-body pt-3')
-                    //         // console.log("Todos los mensajes han sido marcados como leídos.");
-                    //     }
-                    // });
-
+            let messageNew = $(this).find('.show-contact__new-messages');
+            let goToChat = $(this).find('.show-contact__chat');
+            function sendChatModal(element) {
+                // Mostrar el modal Chat
+                let dataIdFollowers = element.closest('.show-contact__link').data('id-followers');
+                // Asignar Id al Modal
+                $('.modal-chat').find('.user-receptor-chat').val(dataIdFollowers);
+                // Mmarcar todos los mensajes como leídos
+                $.ajax({
+                    url: `${baseUrl}chats/${dataIdFollowers}`,
+                    method: 'GET',
+                    success: (response) => {
+                        console.log('implementar el div del chat');
+                    }
+                });
+                // Send Enviar chat
+                $.ajax({
+                    url: `${baseUrl}chats/${userLogin}/${dataIdFollowers}`,
+                    method: 'GET',
+                    success: (response) => {
+                        $('.chat-container__box').empty();
+                        response.forEach((message) => {
+                            let messageClass = message.emisor_id == userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
+                            let messageHtml = `<div class="chat-container__message ${messageClass}">
+                                                    <div class="chat-container__message-content">${message.message}</div>                        
+                                                </div> `;
+                            $('.chat-container__box').append(messageHtml);
+                        });
+                        $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
+                    }
                 });
             }
-
-            if (navChat.length) {
-                // Evento click para el nuevo mensaje
-                navChat.off("click").on('click', function (e) {
+            // Enviar Ajax Texto Chat
+            $('.modal-chat').find('.sendMessage').off("click").on("click", (e) => {
+                let parentContainer = $(e.currentTarget).closest('.chat-container__input')
+                let userReceptor = parentContainer.find('.user-receptor-chat');
+                let messageText = parentContainer.find('.chat__input').val().trim()
+                if (userReceptor === 0) return;
+                if (messageText) {
+                    $.ajax({
+                        url: `${baseUrl}chats/send`,
+                        method: 'GET',
+                        data: {
+                            emisor_id: userLogin,
+                            receptor_id: userReceptor.val(),
+                            message: messageText
+                        },
+                        success: () => {
+                            $('.chat__input').val('');
+                        }
+                    });
+                }
+            })
+            // Enviar Ajax Texto Chat con Enter
+            $('.modal-chat').find('.chat__input').off("keypress").on('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    let parentContainer = $(e.currentTarget).closest('.chat-container__input')
+                    let userReceptor = parentContainer.find('.user-receptor-chat');
+                    let messageText = parentContainer.find('.chat__input').val().trim()
+                    if (userReceptor === 0) return;
+                    if (messageText) {
+                        $.ajax({
+                            url: `${baseUrl}chats/send`,
+                            method: 'GET',
+                            data: {
+                                emisor_id: userLogin,
+                                receptor_id: userReceptor.val(),
+                                message: messageText
+                            },
+                            success: () => {
+                                $('.chat__input').val('');
+                            }
+                        });
+                    }
+                }
+            });
+            if (messageNew.length) {
+                messageNew.off("click").on('click', function (e) {
                     e.preventDefault();
-                    // Mostrar el modal de edición
+                    // Despliega Modal del Chat
                     $('.modal-chat').addClass('modal--active').fadeIn();
+                    // Enviar Datas
+                    sendChatModal($(this));
+                });
+            }
+            if (goToChat.length) {
+                goToChat.off("click").on('click', function (e) {
+                    e.preventDefault();
+                    // Despliega Modal del chat
+                    $('.modal-chat').addClass('modal--active').fadeIn();
+                    // Enviar Dotos
+                    sendChatModal($(this));
                 });
             }
         });
     }
-
 
     // Método para marcar todos los mensajes como leídos
     markAllAsRead() {
@@ -181,9 +231,7 @@ class ChatClass {
             url: `${this.baseUrl}chats/${this.userReceptor.val()}`,
             method: 'GET',
             success: (response) => {
-
-                console.log(response);
-
+                // console.log(this.userReceptor);
                 // $('card-body pt-3')
                 // console.log("Todos los mensajes han sido marcados como leídos.");
             }
@@ -192,15 +240,10 @@ class ChatClass {
 
     startChatClass() {
         this.chat();
+        this.deployModalChat();
         this.loadMessages();
         this.marcarComoLeidoChat();
         this.modalChat();
-
-        this.deployModalChat();
-
-    
-
-
     }
 }
 

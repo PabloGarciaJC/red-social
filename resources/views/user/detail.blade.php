@@ -57,7 +57,7 @@
                                         <form action="{{ $actionUrl }}" method="POST">
                                             @csrf
                                             @foreach ($usuario as $userReceptor)
-                                                <input type="hidden" id="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
+                                                <input type="hidden" class="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
                                             @endforeach
                                             @if ($gestionBtns)
                                                 <button type="submit" class="btn btn-success">
@@ -74,7 +74,7 @@
                                             <form action="{{ $actionUrlDenegada }}" method="POST">
                                                 @csrf
                                                 @foreach ($usuario as $userReceptor)
-                                                    <input type="hidden" id="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
+                                                    <input type="hidden" class="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
                                                 @endforeach
                                                 <input type="hidden" name="accion" value="cancelar">
                                                 <button type="submit" class="btn btn-danger">
