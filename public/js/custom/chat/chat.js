@@ -125,7 +125,7 @@ class ChatClass {
         });
     }
 
-    deployModalChat() {
+    deployModalNavChat() {
         $('.header .nav-item-users').off("click").on('click', function (e) {
             let messageNew = $(this).find('.show-contact__new-messages');
             let goToChat = $(this).find('.show-contact__chat');
@@ -140,7 +140,12 @@ class ChatClass {
                     url: `${baseUrl}chats/${dataIdFollowers}`,
                     method: 'GET',
                     success: (response) => {
-                        console.log('implementar el div del chat');
+                        // Reiniciar Contactos NAV
+                        let userFollowersNav = $('.show-contacts').find($(`[data-id-followers="${dataIdFollowers}"]`));
+                        let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
+                        let showContactChat = userFollowersNav.find('.show-contact__chat');
+                        newMessagesNavDiv.remove();
+                        showContactChat.show();
                     }
                 });
                 // Send Enviar chat
@@ -206,7 +211,7 @@ class ChatClass {
                     }
                 }
             });
-            
+
             if (messageNew.length) {
                 // Adjuntar evento al botón "Nuevos Mensajes - Mostrar Mensajes"
                 messageNew.off("click").on('click', function (e) {
@@ -246,7 +251,7 @@ class ChatClass {
 
     startChatClass() {
         this.chat();
-        this.deployModalChat();
+        this.deployModalNavChat();
         this.loadMessages();
         this.marcarComoLeidoChat();
         this.modalChat();

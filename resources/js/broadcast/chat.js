@@ -32,7 +32,7 @@ window.Echo.channel('broadcastChat-channel')
         let newMessagesDiv = cntnUserFollower.find('.show-contact__new-messages');
         let messageCountElement = cntnUserFollower.find('.show-contact__info');
 
-        if (newMessagesDiv.length > 0) {
+        if (newMessagesDiv.length > 0) {  
             let messageCountText = newMessagesDiv.find('.show-contact__count-text');
             let currentCount = parseInt(messageCountText.text());
             messageCountText.text(currentCount + 1);
@@ -69,7 +69,8 @@ window.Echo.channel('broadcastChat-channel')
             chatBox.scrollTop(chatBox[0].scrollHeight); // Desplazar hacia el final
         }
 
-        // window.initChat.startChatClass();
+        // Llamada a los métodos desde la clase
+        initFollower.sendDataFollowers();
     });
 
 
