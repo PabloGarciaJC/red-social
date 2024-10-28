@@ -474,7 +474,7 @@ h6 {
 .header .list-unstyled { position: absolute; background: #fff; width: 100%;}
 .header .nt-item__img {width: 60px; border-radius: 10px; padding: 0px; margin-right: 10px; margin-top: -10px}
 .header .nt-item__description { display: flex; flex-direction: column; font-size: 14px;}
-/* .nav-item-users {display: none;} */
+.nav-item-users {display: none;}
 
 .nav-item-users img {width: 50px}
 .nav-item-users .dropdown-menu{padding: 20px;}
@@ -483,7 +483,7 @@ h6 {
 screen and (max-width:767px)
 {
 .header .search-bar { position: inherit}
-/* .nav-item-users {display: block;} */
+.nav-item-users {display: block;}
 .header .list-unstyled {position: initial;}
 }
 
@@ -1280,7 +1280,7 @@ screen and (max-width:767px)
 .label {background: #ffffff;color: #0b0b0b;text-align: left;}
 .ui-menu-item .ui-menu-item-wrapper.ui-state-active {border-color: #ffffff;background: #ffffff !important;}
 
-@media only screen and (min-width: 992px) and (max-width: 1200px){
+/* @media only screen and (min-width: 992px) and (max-width: 1200px){
 body {background-color: yellow;}
 }
 @media only screen and (min-width: 768px) and (max-width: 991px){
@@ -1288,7 +1288,7 @@ body { background-color: blue; }
 }
 @media (max-width:767px){
 body {background-color: red; }
-}
+} */
 
 /*--------------------------------------------------------------
 # File Comentario
