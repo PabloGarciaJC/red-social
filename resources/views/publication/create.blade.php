@@ -25,8 +25,7 @@
                 <!-- CSRF Token -->
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="commentTextarea">Escribe tu Comentario</label>
-                    <textarea class="form-control publication-input" name="comentarioPublicacion"></textarea>
+                    <textarea class="form-control publication-input" name="comentarioPublicacion" placeholder="Escribe tu Comentario"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="image-file-create-publication" class="modal__image-upload">
@@ -42,8 +41,8 @@
                     </div>
                 </div>
                 <div class="modal__footer">
-                    <button type="submit" class="button">Aceptar</button>
                     <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
+                    <button type="submit" class="button">Aceptar</button>
                 </div>
             </form>
         </div>

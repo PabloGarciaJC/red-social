@@ -7,12 +7,9 @@
             <!-- Filtro -->
             <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bi bi-three-dots"></i>
+                    <i class="bi bi-gear"></i> Opciones
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                        <span>Opciones</span>
-                    </li>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">                    
                     <li>
                         <a class="dropdown-item edit-publication" href="javascript:void(0);">
                             Editar
@@ -71,28 +68,27 @@
                 @endforeach
             </div>
             <div class="row justify-content-end">
-                <?php $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id); ?>
-
-                <div class="col col-lg-2">
-                    <div class="d-flex align-items-center gap-5">
-                        <div class="btn-like">
-                            <i class="bi bi-hand-thumbs-up"></i> Likes (<span class="likes-count">{{ $mostrarPublication->like->where('type', 'like')->count() }}</span>)
-                        </div>
-                        <div>
-                            <div class="btn-dislike">
-                                <i class="bi bi-hand-thumbs-down"></i> Dislike (<span class="dislikes-count">{{ $mostrarPublication->like->where('type', 'dislike')->count() }}</span>)
-                            </div>
-                        </div>
+                <?php 
+                $userLike = $mostrarPublication->like->contains('user_id', Auth::user()->id);
+                $userLikeStatus = $mostrarPublication->like->where('user_id', Auth::id())->first();
+                $hasLiked = $userLikeStatus && $userLikeStatus->type === 'like';
+                $hasDisliked = $userLikeStatus && $userLikeStatus->type === 'dislike';
+                ?>
+                <div class="col col-lg-2 comment__btns-action">
+                    <div class="btn-wrapper">
+                        <div class="btn-like <?php echo $hasLiked ? 'like' : ''; ?>">
+                            <i class="bi bi-hand-thumbs-up"></i> (<span class="likes-count">{{ $mostrarPublication->like->where('type', 'like')->count() }}</span>)
+                        </div>                       
+                        <div class="btn-dislike <?php echo $hasDisliked ? 'dislike' : ''; ?>">
+                            <i class="bi bi-hand-thumbs-down"></i> (<span class="dislikes-count">{{ $mostrarPublication->like->where('type', 'dislike')->count() }}</span>)
+                        </div>                      
                     </div>
                 </div>
 
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
-
-                
                         <div class="comments__card">
-
                             <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="60" height="60" />
                             <div class="comments__description">
                                 <div class="comments__body">
@@ -102,9 +98,6 @@
                                         <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
                                     @endif
                                 </div>
-
-                         
-
                                 <div class="comments__btns" data-id-comments="{{ $coments->id }}">
                                     @if (Auth::check() && Auth::user()->id === $coments->user_id)
                                         <a href="{{ route('edit.comments', ['id' => $coments->id]) }}" class="comments__btn-edit">Editar</a>

@@ -117,12 +117,8 @@ class PublicationClass {
                             <img id="${newPreviewId}" src="${fileContent}" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;">
                         </a>
                         <div class="modal__image-actions">
-                            <button type="button" class="edit-image-btn" data-target="${newPreviewId}">
-                                <i class="bi bi-pencil"></i> Editar
-                            </button>
-                            <button type="button" class="delete-image-btn" data-target="${newPreviewId}">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
+                            <div class="edit-image-btn" data-target="${newPreviewId}">Editar</div>
+                            <div class="delete-image-btn" data-target="${newPreviewId}">Eliminar</div>
                         </div>
                         <input type="file" class="hidden-input-file" id="input-${newPreviewId}" style="display: none;" accept="image/*">
                     </div>
@@ -189,8 +185,7 @@ class PublicationClass {
               <div class="modal__body">
                   <form action="${baseUrl}publicationEdit" method="POST" enctype="multipart/form-data" class="form-publication__edit">
                       <div class="form-group">
-                          <label for="commentTextarea">Escribe tu Comentario</label>
-                          <textarea class="form-control publication-input" name="editcomentariopublicacion"></textarea>
+                          <textarea class="form-control publication-input" name="comentarioPublicacion" placeholder="Escribe tu Comentario"></textarea>
                       </div>
                       <input type="hidden" class="id-post__edit">
                       <div class="form-group">
@@ -207,8 +202,8 @@ class PublicationClass {
                           </div>
                       </div>
                       <div class="modal__footer">
-                          <button type="submit sss" class="button">Aceptar</button>
                           <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
+                          <button type="submit sss" class="button">Aceptar</button>
                       </div>
                   </form>
               </div>
@@ -266,12 +261,8 @@ class PublicationClass {
                           <img id="${newPreviewId}" src="${imgSrc}" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;" data-m-img-path="${imgPath}">
                       </a>
                       <div class="modal__image-actions">
-                          <button type="button" class="edit-image-btn" data-target="${newPreviewId}">
-                              <i class="bi bi-pencil"></i> Editar
-                          </button>
-                          <button type="button" class="delete-image-btn" data-target="${newPreviewId}">
-                              <i class="bi bi-trash"></i> Eliminar
-                          </button>
+                          <div class="edit-image-btn" data-target="${newPreviewId}">Editar</div>
+                          <div class="delete-image-btn" data-target="${newPreviewId}">Eliminar</div>
                       </div>
                       <input type="file" class="hidden-input-file" id="input-${newPreviewId}" style="display: none;" accept="image/*">
                   </div>
@@ -356,7 +347,6 @@ class PublicationClass {
       $('#' + publicationId).slick('slickGoTo', index);
     });
   }
-
 
   sendFormEdit(elementEdit) {
     $(elementEdit).off('submit').on('submit', function (e) {

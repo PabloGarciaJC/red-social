@@ -115,7 +115,6 @@ class CommentClass {
                 <div class="modal__body">
                     <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" class="form-comentario__edit">
                         <div class="form-group">
-                            <label for="commentTextarea">Escribe tu Comentario</label>
                             <textarea class="form-control comentario-input" name="editcomentariopublicacion"></textarea>
                         </div>
                         <input type="hidden" class="id-post__edit-comentario">
@@ -124,8 +123,8 @@ class CommentClass {
                             <div class="form__cntn-emojis"></div> <!-- Aquí se inyectará el emoji-picker -->
                         </div>
                         <div class="modal__footer">
-                            <button type="submit" class="button">Aceptar</button>
                             <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
+                            <button type="submit" class="button">Aceptar</button>
                         </div>
                     </form>
                 </div>
@@ -145,9 +144,6 @@ class CommentClass {
             let idComments = comments.data('id-comments');
             let commentsText = $(this).closest('.comments__btns').parent('.comments__description').find('p').text();
             let href = $(this).attr('href');
-
-            // Muestro los Emojis
-            $('.modal-edit-comentario').find('.form__emoji-picker').show();
 
             // Asignar el valor de "href" al atributo "action" del formulario
             $('.modal-edit-comentario').find('form').attr('action', href);

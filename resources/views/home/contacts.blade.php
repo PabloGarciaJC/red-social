@@ -1,4 +1,4 @@
-<div class="col-lg-4">
+<div class="col-lg-4 show-all-contacts">
     <div class="card card-fixed">
         <div class="card-body">
             <h5 class="card-title">Contactos</h5>

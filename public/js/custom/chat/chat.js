@@ -28,7 +28,7 @@ class ChatClass {
                         <div class="chat-container__input">
                             <input type="hidden" class="user-receptor-chat" value="">
                             <button type="button" id="emojiButton" class="btn btn-secondary chat__emojis-toggle">😄 Emojis</button>
-                            <input type="text" class="chat__input" placeholder="Type a message...">
+                            <input type="text" class="chat__input" placeholder="Escribe el mensaje">
                             <button type="button" class="sendMessage">Send</button>
                         </div>
                         <div class="form__cntn-emojis"></div>

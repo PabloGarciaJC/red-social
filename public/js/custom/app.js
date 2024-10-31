@@ -143,14 +143,7 @@ class AppClass {
         });
     }
 
-    // Funcionalidades Generales
-    startAppClass() {
-        this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
-        this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
-        this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
-        this.initEmojiPicker('.form-publication__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
-        this.initEmojiPicker('.form-comentario__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
-
+    desplegarSidebar() {
         /*  Sidebar toggle */
         if ($('.toggle-sidebar-btn').length) {
             // Escucha el evento click
@@ -168,6 +161,16 @@ class AppClass {
                 $('.search-bar').toggleClass('search-bar-show');
             });
         }
+    }
+
+    // Funcionalidades Generales
+    startAppClass() {
+        this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
+        this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
+        this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
+        this.initEmojiPicker('.form-publication__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
+        this.initEmojiPicker('.form-comentario__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
+        this.desplegarSidebar();
     }
 }
 

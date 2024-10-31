@@ -82,12 +82,9 @@ window.Echo.channel('broadcastPublication-channel')
                     opcionesHtml = `
                         <div class="filter">
                             <a class="icon" href="#" data-bs-toggle="dropdown">
-                                <i class="bi bi-three-dots"></i>
+                                 <i class="bi bi-gear"></i> Opciones
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <li class="dropdown-header text-start">
-                                    <span>Opciones</span>
-                                </li>
                                 <li>
                                     <a class="dropdown-item edit-publication" href="javascript:void(0);">Editar</a>
                                     <a class="dropdown-item eliminar-publication" href="${baseUrl}publicationDelete/${publication.id}">Eliminar</a>
@@ -148,16 +145,14 @@ window.Echo.channel('broadcastPublication-channel')
                                         }).join('') : ''}
                                     </div>
                                     <div class="row justify-content-end">
-                                        <div class="col col-lg-2">
-                                            <div class="d-flex align-items-center gap-5">
+                                        <div class="col col-lg-2 comment__btns-action">
+                                            <div class="btn-wrapper">
                                                 <div class="btn-like">
-                                                    <i class="bi bi-hand-thumbs-up"></i> Likes (<span class="likes-count">${likesCount}</span>)
-                                                </div>
-                                                <div>
-                                                    <div class="btn-dislike">
-                                                        <i class="bi bi-hand-thumbs-down"></i> Dislikes (<span class="dislikes-count">${dislikesCount}</span>)
-                                                    </div>
-                                                </div>
+                                                    <i class="bi bi-hand-thumbs-up"></i> (<span class="likes-count">${likesCount}</span>)
+                                                </div>                                              
+                                                <div class="btn-dislike">
+                                                    <i class="bi bi-hand-thumbs-down"></i> (<span class="dislikes-count">${dislikesCount}</span>)
+                                                </div>                                                
                                             </div>
                                         </div>
                                         <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
