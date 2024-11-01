@@ -31,7 +31,7 @@ class ChatClass {
                             <input type="text" class="chat__input" placeholder="Escribe el mensaje">
                             <button type="button" class="sendMessage">Send</button>
                         </div>
-                        <div class="form__cntn-emojis"></div>
+                        <div class="modal__cntn-emojis"></div>
                     </div>
                 </div>
             </div>

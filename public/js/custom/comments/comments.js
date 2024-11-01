@@ -118,9 +118,9 @@ class CommentClass {
                             <textarea class="form-control comentario-input" name="editcomentariopublicacion"></textarea>
                         </div>
                         <input type="hidden" class="id-post__edit-comentario">
-                        <div class="form-group">
-                            <button type="button" class="modal__button--emoji-toggle">😊</button>
-                            <div class="form__cntn-emojis"></div> <!-- Aquí se inyectará el emoji-picker -->
+                        <div class="form-group modal__group"">
+                            <button type="button" class="button modal__button--emoji-toggle"><i class="modal__icon emoji-31"></i></button>
+                            <div class="modal__cntn-emojis"></div>
                         </div>
                         <div class="modal__footer">
                             <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>

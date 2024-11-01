@@ -163,7 +163,7 @@ window.Echo.channel('broadcastPublication-channel')
                                                     <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                                                     <button class="btn btn-primary" type="submit">Enviar</button>
                                                 </div>
-                                                <div class="form__cntn-emojis"></div>
+                                                <div class="modal__cntn-emojis"></div>
                                                 <div class="text-center form__collapse">contraer Formulario</div>
                                             </form>
                                         </div>
@@ -172,7 +172,7 @@ window.Echo.channel('broadcastPublication-channel')
                             </div>
                         </div>`;
                         
-                $('#exampleModal').after(cardHtml);
+                $('#modal-create-publication').after(cardHtml);
 
                 // Llamada a los métodos desde la clase
                 window.initPublication.startPublicationClass();

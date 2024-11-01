@@ -3,145 +3,61 @@ class AppClass {
     // Método para crear el HTML de la lista de emojis
     createEmojiPicker() {
         return `
-            <div class="form__emoji-picker" style="display: none; margin-top: 10px;">
-                <span class="form__emoji">😊</span>
-                <span class="form__emoji">😂</span>
-                <span class="form__emoji">😍</span>
-                <span class="form__emoji">😉</span>
-                <span class="form__emoji">😭</span>
-                <span class="form__emoji">😎</span>
-                <span class="form__emoji">😡</span>
-                <span class="form__emoji">🥺</span>
-                <span class="form__emoji">😜</span>
-                <span class="form__emoji">🤔</span>
-                <span class="form__emoji">👍</span>
-                <span class="form__emoji">🙏</span>
-                <span class="form__emoji">❤️</span>
-                <span class="form__emoji">🎉</span>
-                <span class="form__emoji">🔥</span>
-                <span class="form__emoji">🤯</span>
-                <span class="form__emoji">🤩</span>
-                <span class="form__emoji">😇</span>
-                <span class="form__emoji">🥳</span>
-                <span class="form__emoji">🤪</span>
-                <span class="form__emoji">👀</span>
-                <span class="form__emoji">😏</span>
-                <span class="form__emoji">💀</span>
-                <span class="form__emoji">👻</span>
-                <span class="form__emoji">🤤</span>
-                <span class="form__emoji">😴</span>
-                <span class="form__emoji">👑</span>
-                <span class="form__emoji">💩</span>
-                <span class="form__emoji">🦄</span>
-                <span class="form__emoji">🐶</span>
-                <span class="form__emoji">🐱</span>
-                <span class="form__emoji">🐭</span>
-                <span class="form__emoji">🐰</span>
-                <span class="form__emoji">🐻</span>
-                <span class="form__emoji">🐼</span>
-                <span class="form__emoji">🐸</span>
-                <span class="form__emoji">🦊</span>
-                <span class="form__emoji">🐵</span>
-                <span class="form__emoji">🦉</span>
-                <span class="form__emoji">🐢</span>
-                <span class="form__emoji">🐍</span>
-                <span class="form__emoji">🐯</span>
-                <span class="form__emoji">🦁</span>
-                <span class="form__emoji">🐉</span>
-                <span class="form__emoji">🦚</span>
-                <span class="form__emoji">🌈</span>
-                <span class="form__emoji">🌻</span>
-                <span class="form__emoji">🌸</span>
-                <span class="form__emoji">🌼</span>
-                <span class="form__emoji">🌷</span>
-                <span class="form__emoji">🍎</span>
-                <span class="form__emoji">🍌</span>
-                <span class="form__emoji">🍉</span>
-                <span class="form__emoji">🍇</span>
-                <span class="form__emoji">🍓</span>
-                <span class="form__emoji">🍊</span>
-                <span class="form__emoji">🍑</span>
-                <span class="form__emoji">🥭</span>
-                <span class="form__emoji">🍍</span>
-                <span class="form__emoji">🥥</span>
-                <span class="form__emoji">🍅</span>
-                <span class="form__emoji">🥗</span>
-                <span class="form__emoji">🍔</span>
-                <span class="form__emoji">🍕</span>
-                <span class="form__emoji">🌭</span>
-                <span class="form__emoji">🍟</span>
-                <span class="form__emoji">🍿</span>
-                <span class="form__emoji">🥘</span>
-                <span class="form__emoji">🍲</span>
-                <span class="form__emoji">🍰</span>
-                <span class="form__emoji">🍦</span>
-                <span class="form__emoji">🍩</span>
-                <span class="form__emoji">🍪</span>
-                <span class="form__emoji">🎂</span>
-                <span class="form__emoji">🎉</span>
-                <span class="form__emoji">🍾</span>
-                <span class="form__emoji">🍸</span>
-                <span class="form__emoji">🍹</span>
-                <span class="form__emoji">🍺</span>
-                <span class="form__emoji">🥂</span>
-                <span class="form__emoji">🧊</span>
-                <span class="form__emoji">☕</span>
-                <span class="form__emoji">🧋</span>
-                <span class="form__emoji">🍵</span>
-                <span class="form__emoji">🍶</span>
-                <span class="form__emoji">🥤</span>
-                <span class="form__emoji">🥛</span>
-                <span class="form__emoji">🥡</span>
-                <span class="form__emoji">🍙</span>
-                <span class="form__emoji">🍚</span>
-                <span class="form__emoji">🍱</span>
-                <span class="form__emoji">🍛</span>
-                <span class="form__emoji">🥟</span>
-                <span class="form__emoji">🥙</span>
-                <span class="form__emoji">🌮</span>
-                <span class="form__emoji">🌯</span>
-                <span class="form__emoji">🍢</span>
-                <span class="form__emoji">🌿</span>
-                <span class="form__emoji">🏆</span>
-                <span class="form__emoji">⚽</span>
-                <span class="form__emoji">🏀</span>
-                <span class="form__emoji">🎾</span>
-                <span class="form__emoji">🎳</span>
-                <span class="form__emoji">🏋️‍♂️</span>
-                <span class="form__emoji">🤸‍♂️</span>
-                <span class="form__emoji">⛷️</span>
-                <span class="form__emoji">🚴‍♂️</span>
-                <span class="form__emoji">🚣‍♂️</span>
-            </div>`;
+                <div class="form__emoji-picker" style="display: none">
+                    <span class="form__emoji" data-emoji="😊"><i class="emoji-1"></i></span>
+                    <span class="form__emoji" data-emoji="😋"><i class="emoji-2"></i></span>
+                    <span class="form__emoji" data-emoji="😍"><i class="emoji-4"></i></span>
+                    <span class="form__emoji" data-emoji="😎"><i class="emoji-5"></i></span>
+                    <span class="form__emoji" data-emoji="😊"><i class="emoji-7"></i></span>
+                    <span class="form__emoji" data-emoji="😜"><i class="emoji-8"></i></span>
+                    <span class="form__emoji" data-emoji="😝"><i class="emoji-9"></i></span>
+                    <span class="form__emoji" data-emoji="😌"><i class="emoji-10"></i></span>
+                    <span class="form__emoji" data-emoji="😟"><i class="emoji-11"></i></span>
+                    <span class="form__emoji" data-emoji="😢"><i class="emoji-12"></i></span>
+                    <span class="form__emoji" data-emoji="😣"><i class="emoji-13"></i></span>
+                    <span class="form__emoji" data-emoji="😁"><i class="emoji-14"></i></span>
+                    <span class="form__emoji" data-emoji="😱"><i class="emoji-16"></i></span>
+                    <span class="form__emoji" data-emoji="😴"><i class="emoji-17"></i></span>
+                    <span class="form__emoji" data-emoji="🤫"><i class="emoji-18"></i></span>
+                    <span class="form__emoji" data-emoji="🤬"><i class="emoji-19"></i></span>
+                    <span class="form__emoji" data-emoji="🤮"><i class="emoji-20"></i></span>
+                    <span class="form__emoji" data-emoji="😂"><i class="emoji-21"></i></span>
+                    <span class="form__emoji" data-emoji="😈"><i class="emoji-22"></i></span>
+                    <span class="form__emoji" data-emoji="😉"><i class="emoji-23"></i></span>
+                    <span class="form__emoji" data-emoji="😥"><i class="emoji-24"></i></span>
+                    <span class="form__emoji" data-emoji="😨"><i class="emoji-25"></i></span>
+                    <span class="form__emoji" data-emoji="🤑"><i class="emoji-26"></i></span>
+                    <span class="form__emoji" data-emoji="🤩"><i class="emoji-27"></i></span>
+                    <span class="form__emoji" data-emoji="🥰"><i class="emoji-28"></i></span>
+                    <span class="form__emoji" data-emoji="😅"><i class="emoji-29"></i></span>
+                    <span class="form__emoji" data-emoji="🥶"><i class="emoji-30"></i></span>
+                </div>`;
     }
 
     initEmojiPicker(formClass, emojiContainerClass, toggleButtonClass, commentInputClass) {
-
-        // Mostrar y ocultar el selector de emojis de manera contextual para cada formulario
         $(formClass).each((index, formElement) => {
-
             const form = $(formElement);
 
-            // Verifica si ya se ha añadido el picker para evitar duplicados
             if (form.find('.form__emoji-picker').length === 0) {
-                // Crear el emoji picker y añadirlo dentro del contenedor de emojis
                 const emojiPicker = this.createEmojiPicker();
                 form.find(emojiContainerClass).append(emojiPicker);
             }
 
-            // Mostrar/ocultar emojis solo dentro del formulario actual
             form.find(toggleButtonClass).off('click').on('click', function () {
                 form.find('.form__emoji-picker').slideToggle();
             });
 
-            // Añadir emojis al input de comentario del formulario actual
-            form.find('.form__emoji').off('click').on('click', function () {
-                let comentarioInput = form.find(commentInputClass);
-                comentarioInput.val(comentarioInput.val() + $(this).text());
+            form.find('.form__emoji-picker').off('click').on('click', '.form__emoji', function () {
+                const emojiSymbol = $(this).data('emoji'); // Obtiene el símbolo del emoji
+                const commentInput = form.find(commentInputClass)[0];
+
+                commentInput.focus();
+                document.execCommand('insertText', false, emojiSymbol); // Inserta el símbolo del emoji en el cursor
                 form.find('.form__emoji-picker').slideUp();
             });
         });
     }
+
 
     desplegarSidebar() {
         /*  Sidebar toggle */
@@ -163,14 +79,42 @@ class AppClass {
         }
     }
 
+    initScrollNav() {
+
+        let initScrollTop = 0;
+        let header = $(".card-publication");
+
+        $(window).on("scroll", function () {
+            let scroll = $(this).scrollTop();
+            if (scroll === 0) {
+                // Al llegar a la parte superior
+                header.removeClass('card-animation');
+            } else if (scroll > initScrollTop) {
+                // Si el usuario hace scroll hacia abajo
+                header.removeClass('card-animation');
+            } else {
+                // Si el usuario hace scroll hacia arriba
+                header.addClass('card-animation');
+            }
+            initScrollTop = scroll;
+        });
+    }
+
     // Funcionalidades Generales
     startAppClass() {
-        this.initEmojiPicker('.form-publication__create', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
-        this.initEmojiPicker('.form__comments', '.form__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
-        this.initEmojiPicker('.chat-container', '.form__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
-        this.initEmojiPicker('.form-publication__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.publication-input');
-        this.initEmojiPicker('.form-comentario__edit', '.form__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
+        this.initEmojiPicker('.modal__form-publication-create', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
+        this.initEmojiPicker('.form-publication__edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
+
+
+
+        this.initEmojiPicker('.form__comments', '.modal__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
+        this.initEmojiPicker('.form-comentario__edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
+
+        this.initEmojiPicker('.chat-container', '.modal__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
+      
+     
         this.desplegarSidebar();
+        this.initScrollNav();
     }
 }
 

@@ -96,7 +96,7 @@
                                             @endif
                                                 <!-- Carga de imagen -->
                                                 <label for="image-file-perfil-user" class="modal__image-upload">
-                                                    <span class="modal__image-upload__icon">📁</span> Subir Imagen o Video
+                                                    <span class="modal__image-upload-cntn">📁</span> Subir Imagen o Video
                                                     <input type="file" class="form-control-file" id="image-file-perfil-user" name="fotoPerfil">
                                                 </label>
                                             </div>

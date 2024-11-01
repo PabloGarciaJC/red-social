@@ -70,7 +70,7 @@ class PublicationClass {
         success: function (response) {
           // Resetear el formulario después de éxito
           $('.form-publication__create')[0].reset();
-          $('#exampleModal').removeClass('modal--active');
+          $('#modal-create-publication').removeClass('modal--active');
           $('.modal__image-wrapper').empty();
           Swal.fire({
             icon: 'success',
@@ -78,7 +78,7 @@ class PublicationClass {
             showConfirmButton: false,
             timer: 1000
           });
-          $('#exampleModal').removeClass('modal--active').fadeOut();
+          $('#modal-create-publication').removeClass('modal--active').fadeOut();
         },
         complete: function () {
           submitButton.prop('disabled', false); // Volver a habilitar el botón
@@ -183,19 +183,21 @@ class PublicationClass {
                   <button class="modal__close modal__close--icon">×</button>
               </div>
               <div class="modal__body">
-                  <form action="${baseUrl}publicationEdit" method="POST" enctype="multipart/form-data" class="form-publication__edit">
+                 <form action="${baseUrl}publicationEdit" method="POST" enctype="multipart/form-data" class="form-publication__edit">
                       <div class="form-group">
-                          <textarea class="form-control publication-input" name="comentarioPublicacion" placeholder="Escribe tu Comentario"></textarea>
+                          <textarea class="button form-control modal__publication-textarea" name="editcomentariopublicacion" placeholder="Escribe tu Comentario"></textarea>
                       </div>
                       <input type="hidden" class="id-post__edit">
-                      <div class="form-group">
-                          <label for="image-file-edit-publication" class="modal__image-upload">
-                              <span class="modal__image-upload__icon">➕</span> Subir Imagenes
+                      <div class="form-group modal__group">
+                        <div class="modal__form-actions">
+                          <button type="button" class="button modal__button--emoji-toggle"><i class="modal__icon emoji-31"></i></button>
+                          <label for="image-file-edit-publication" class="button modal__image-upload">
+                              <span class="modal__image-upload-cntn"><i class="modal__icon emoji-32"></i></span> Agregar fotos
                               <input type="file" class="form-control-file" id="image-file-edit-publication" name="editimagenpublicacion">
                           </label>
-                          <button type="button" class="modal__button--emoji-toggle">😊</button>
+                        </div>
                           <!-- Aquí se inyectará el emoji-picker -->
-                          <div class="form__cntn-emojis"></div>
+                          <div class="modal__cntn-emojis"></div>
                           <!-- Contenedor de las vistas previas de las imágenes -->
                           <div class="modal__image-preview" style="display: none;">
                               <div class="modal__edit-image-wrapper"></div>
@@ -203,7 +205,7 @@ class PublicationClass {
                       </div>
                       <div class="modal__footer">
                           <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
-                          <button type="submit sss" class="button">Aceptar</button>
+                          <button type="submit" class="button">Aceptar</button>
                       </div>
                   </form>
               </div>
@@ -241,7 +243,7 @@ class PublicationClass {
       cntnModalEdit.find('.modal__image-preview').show();
 
       // Inyectar el comentario en el modal
-      cntnModalEdit.find('.publication-input').val(textComent);
+      cntnModalEdit.find('.modal__publication-textarea').val(textComent);
 
       // Limpiar vista previa de imágenes previa
       let imageWrapper = cntnModalEdit.find('.modal__edit-image-wrapper');
@@ -436,9 +438,9 @@ class PublicationClass {
   // Funcionalidades
   startPublicationClass() {
     this.create('.form-publication__create');
-    this.setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '#exampleModal');
+    this.setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '#modal-create-publication');
     this.delete('.eliminar-publication');
-    this.btnChangeImagenModalPrevie($('#image-file-create-publication'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
+    this.btnChangeImagenModalPrevie($('#modal__for-file'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
     this.desplegarModalEdit('.edit-publication');
     this.sendFormEdit('.form-publication__edit');
     this.initSlickSlider('.slick__contn', '.slick__thumbnails');

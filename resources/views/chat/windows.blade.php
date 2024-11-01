@@ -18,6 +18,6 @@
             <button type="button" class="sendMessage">Enviar</button>
         </div>
         <!-- Aquí se inyectará el emoji-picker -->
-        <div class="form__cntn-emojis"></div>
+        <div class="modal__cntn-emojis"></div>
     </div>
 </div>

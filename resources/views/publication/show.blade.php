@@ -115,7 +115,7 @@
                             <button class="btn btn-primary" type="submit">Enviar</button>
                         </div>
                         <!-- Aquí se inyectará el emoji-picker -->
-                        <div class="form__cntn-emojis"></div>
+                        <div class="modal__cntn-emojis"></div>
                         <div class="text-center form__collapse">contraer Formulario</div>
                     </form>
                 </div>
