@@ -111,12 +111,12 @@
 
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
                         <div class="form__comments-group">
-                            <input type="text" class="button form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
+                            <input type="text" class="button form-control form__comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                             <button type="button" class="button btn-secondary form__emojis-toggle"><i class="modal__icon emoji-31"></i></button>
-                            <button class="button" type="submit"><i class="form__send-icon emoji-34"></i></button>
+                            <button class="button" type="button submit"><i class="form__send-icon emoji-34"></i></button>
                         </div>
                         <!-- Aquí se inyectará el emoji-picker -->
-                        <div class="modal__cntn-emojis"></div>
+                        <div class="emojis-wrapper emojis-wrapper-grid-large"></div>
                         <div class="text-center form__collapse">contraer Formulario</div>
                     </form>
                 </div>

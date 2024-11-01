@@ -158,12 +158,13 @@ window.Echo.channel('broadcastPublication-channel')
                                         <div class="col col-lg-2 btn__comments">Comentarios (0)</div>
                                         <div class="wrapper-comments" style="display: none;">
                                             <form action="${baseUrl}comentarioSave" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="${publication.id}">
-                                                <div class="input-group">
-                                                    <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
-                                                    <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
-                                                    <button class="btn btn-primary" type="submit">Enviar</button>
+                                                <div class="form__comments-group">
+                                                    <input type="text" class="button form-control form__comentario-input" placeholder="Escribe tu Comentario" name="comentario">
+                                                    <button type="button" class="button btn-secondary form__emojis-toggle"><i class="modal__icon emoji-31"></i></button>
+                                                    <button class="button" type="button submit"><i class="form__send-icon emoji-34"></i></button>
                                                 </div>
-                                                <div class="modal__cntn-emojis"></div>
+                                                <!-- Aquí se inyectará el emoji-picker -->
+                                                <div class="emojis-wrapper emojis-wrapper-grid-large"></div>
                                                 <div class="text-center form__collapse">contraer Formulario</div>
                                             </form>
                                         </div>

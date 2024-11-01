@@ -102,11 +102,11 @@ class AppClass {
 
     // Funcionalidades Generales
     startAppClass() {
-        this.initEmojiPicker('.modal__form-publication-create', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
-        this.initEmojiPicker('.modal__form-publication-edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
-        this.initEmojiPicker('.form__comments', '.modal__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
-        this.initEmojiPicker('.modal__form-comments-edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
-        this.initEmojiPicker('.chat-container', '.modal__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
+        this.initEmojiPicker('.modal__form-publication-create', '.emojis-wrapper', '.modal__button--emoji-toggle', '.modal__publication-textarea');
+        this.initEmojiPicker('.modal__form-publication-edit', '.emojis-wrapper', '.modal__button--emoji-toggle', '.modal__publication-textarea');
+        this.initEmojiPicker('.form__comments', '.emojis-wrapper', '.form__emojis-toggle', '.form__comentario-input');
+        this.initEmojiPicker('.modal__form-comments-edit', '.emojis-wrapper', '.modal__button--emoji-toggle', '.form__comentario-input');
+        this.initEmojiPicker('.chat-container', '.emojis-wrapper', '.chat__emojis-toggle', '.chat__input');
         this.desplegarSidebar();
         this.initScrollNav();
     }

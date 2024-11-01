@@ -197,7 +197,7 @@ class PublicationClass {
                           </label>
                         </div>
                           <!-- Aquí se inyectará el emoji-picker -->
-                          <div class="modal__cntn-emojis"></div>
+                          <div class="emojis-wrapper"></div>
                           <!-- Contenedor de las vistas previas de las imágenes -->
                           <div class="modal__image-preview" style="display: none;">
                               <div class="modal__edit-image-wrapper"></div>

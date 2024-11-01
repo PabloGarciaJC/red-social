@@ -115,12 +115,12 @@ class CommentClass {
                 <div class="modal__body">
                     <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" class="modal__form-comments-edit">
                         <div class="form-group">
-                            <textarea class="form-control comentario-input" name="editcomentariopublicacion"></textarea>
+                            <textarea class="button form-control form__comentario-input" name="editcomentariopublicacion"></textarea>
                         </div>
                         <input type="hidden" class="id-post__edit-comentario">
                         <div class="form-group modal__group"">
                             <button type="button" class="button modal__button--emoji-toggle"><i class="modal__icon emoji-31"></i></button>
-                            <div class="modal__cntn-emojis"></div>
+                            <div class="emojis-wrapper"></div>
                         </div>
                         <div class="modal__footer">
                             <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
