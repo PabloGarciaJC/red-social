@@ -172,7 +172,7 @@ window.Echo.channel('broadcastPublication-channel')
                             </div>
                         </div>`;
                         
-                $('#modal-create-publication').after(cardHtml);
+                $('.modal-create-publication').after(cardHtml);
 
                 // Llamada a los métodos desde la clase
                 window.initPublication.startPublicationClass();

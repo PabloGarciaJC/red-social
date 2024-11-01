@@ -233,6 +233,21 @@
   display: inline-block;
 }
 
+.emoji-33 {
+  background-image: url('/emojis-svg/emoji-33.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-34 {
+  background-image: url('/emojis-svg/emoji-34.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
 
 
 /*--------------------------------------------------------------
@@ -271,6 +286,9 @@ h6 {
 
 .button {display: flex;align-items: center; justify-content: center;padding: 5px;border-radius: 5px;color: #000;width: 100%; height: 100%; font-size: 16px; cursor: pointer; margin-left: 5px;border: 1px solid #d1f0ff;background-color: #d1f0ff; border-color: #a2c2e6; box-shadow: 0 0 3px 0 #66b9fb;transition: background-color .15s ease-in-out}
 .button:hover {outline: none;box-shadow: 0 0 4px 0 #007bdd;border: 1px solid #66b9fb;}
+
+.btn-check:focus+.btn, .btn:focus {box-shadow: unset;}
+.btn-check:active+.btn:focus, .btn-check:checked+.btn:focus, .btn.active:focus, .btn.show:focus, .btn:active:focus {box-shadow: unset;}
 
 /*--------------------------------------------------------------
 # Main
@@ -1603,7 +1621,7 @@ transition: background-color .15s ease-in-out }
 .modal {display: none;position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.5);justify-content: center;align-items: center;z-index: 1000;}
 .modal__content {background: #eaf5fd;padding: 20px;border-radius: 5px;width: 80%;max-width: 600px;transform: translateY(-50px);transition: transform 0.3s ease, opacity 0.3s ease;opacity: 0;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%) translateY(-50px);   border: 1px solid #66b9fb !important; box-shadow: 0 0 15px 0 #007bdd !important; }
 .modal--active .modal__content {transform: translate(-50%, -50%) translateY(0);opacity: 1;}
-.modal__header, .modal__footer {display: flex;justify-content: space-between;align-items: center;}
+.modal__header, .modal__footer {display: flex;justify-content: space-between;align-items: center; gap: 10px;}
 .modal__header h5 {width: 100%; text-align:center; color: #1a5166;font-size: 25px;font-weight: 700; margin-bottom: 0px;}
 .modal__close {background: none;border: none;font-size: 40px;cursor: pointer;}
 .modal__image-upload {display: flex;font-weight: 600;font-size: 20px;}
@@ -1613,7 +1631,7 @@ transition: background-color .15s ease-in-out }
 .modal__image-preview img {max-width: 100%;max-height: 200px;object-fit: cover;border: 1px solid #ced4da;border-radius: 5px;display: block;}
 .modal__emoji-picker {display: flex; flex-wrap: wrap; gap: 5px;}
 .modal__emoji-picker__emoji {font-size: 24px; cursor: pointer; transition: background-color .15s ease-in-out;}
-.modal__form-actions {display: grid; grid-template-columns: 12% 86%; gap: 10px; justify-content: center; align-items: center;}
+.modal__form-actions {display: grid; grid-template-columns: 12% 86%; gap: 10px; justify-content: center; align-items: center; margin-top: 20px; }
 .modal__icon {width: 30px; height: 30px;}
 .modal__group {margin-bottom: 0px !important;}
 .modal__image-wrapper, .modal__edit-image-wrapper {display: grid;grid-template-columns: repeat(3, 1fr);gap: 21px; width: 100%;}
@@ -1622,6 +1640,7 @@ transition: background-color .15s ease-in-out }
 .modal__image-actions {width: 100%;display: flex;flex-direction: column;gap: 10px;text-align: center;}
 .modal__btn-open {color: #1a5166;font-size: 25px;font-weight: 700;}
 .modal__publication-textarea {padding: 20px;}
+.modal__cntn-emojis {display: flex; align-items: center; justify-content: center;cursor: pointer; font-size: 24px; padding: 10px;}
 
 .edit-image-btn {border: 1px solid #2d9547;color: #2d9547;width: 100%; cursor: pointer;}
 .delete-image-btn {border: 1px solid #ec0606;color: #ec0606;width: 100%; cursor: pointer;}
@@ -1641,7 +1660,6 @@ transition: background-color .15s ease-in-out }
 /*--------------------------------------------------------------
 # Comentarios
 --------------------------------------------------------------*/
-
 .comments__btns {display: flex; align-items: center; justify-content: center; flex-direction: column;gap: 5px;}
 .comments__btns a {padding: 1px 5px 1px 5px; width: 100%;text-align: center;font-size: 14px;}
 .comments__btns a:nth-child(1) {border: 1px solid #2d9547; color: #2d9547;padding-bottom: 0px;}
@@ -1655,39 +1673,15 @@ transition: background-color .15s ease-in-out }
 .comment__btns-action {width: 22%;}
 
 /*--------------------------------------------------------------
-# Formulario
+# Formulario Comentarios
 --------------------------------------------------------------*/
 .form__comments {margin-top: 20px;}
-.form-group {margin-bottom: 1em;}
-.form__comments .form__emojis-toggle, .form__comments .btn.btn-primary, .form__comments .comentario-input {padding: 10px 15px;border-radius: 5px; color: #000;font-size: 16px; cursor: pointer; margin-left: 5px; border: 1px solid #d1f0ff; background-color: #d1f0ff; border-color: #a2c2e6; box-shadow: 0 0 3px 0 #66b9fb; transition: background-color .15s ease-in-out;border-top-left-radius: 5px !important;border-bottom-left-radius: 5px !important; border-top-right-radius: 5px !important; border-bottom-right-radius: 5px !important;}
-.form__comments .form__emojis-toggle:hover, .form__comments .btn.btn-primary:hover, .form__comments .comentario-input:hover {outline: none;box-shadow: 0 0 4px 0 #007bdd !important;border: 1px solid #66b9fb !important; background-color: #d1f0ff !important; border-color: #a2c2e6 !important;color: #000 !important;}
-
 .form__comments .input-group {gap: 10px}
 .form__collapse {cursor: pointer; font-weight: 600; font-size: 18px; color: #000000; text-transform: capitalize;}
 .form__collapse:hover, .btn__comments:hover {color: #006eff;}
-
-
-.modal__cntn-emojis {display: flex; align-items: center; justify-content: center;cursor: pointer; font-size: 24px; padding: 10px;}
-
-.form__emoji-picker {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-control:focus {
-  border: 1px solid #66b9fb !important;
-  box-shadow: 0 0 4px 0 #007bdd !important;
-  background-color: #d1f0ff !important;
-}
-
-
-
-/* Estilo para ocultar el campo de texto cuando tiene el foco */
+.form__emoji-picker {margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap: 15px; justify-content: center; align-items: center;}
+.form-control:focus {border: 1px solid #66b9fb !important;box-shadow: 0 0 4px 0 #007bdd !important;background-color: #d1f0ff !important;}
+.form__comments-group{display: grid;grid-template-columns: 82% 6% 8%; gap: 10px;}
+.form__send-icon {width: 30px; height: 30px;}
 .form-control { font-size: 20px !important;}
 .form-control:focus {box-shadow: unset;}
-.btn-check:focus+.btn, .btn:focus {box-shadow: unset;}
-.btn-check:active+.btn:focus, .btn-check:checked+.btn:focus, .btn.active:focus, .btn.show:focus, .btn:active:focus {box-shadow: unset;}

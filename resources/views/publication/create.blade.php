@@ -12,7 +12,7 @@
 </div>
 
 <!-- Modal - Crear Publicación -->
-<div class="modal" id="modal-create-publication">
+<div class="modal modal-create-publication">
     <div class="modal__content">
         <div class="modal__header">
             <h5>Crear Publicación</h5>

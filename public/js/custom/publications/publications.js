@@ -69,8 +69,8 @@ class PublicationClass {
         contentType: false,
         success: function (response) {
           // Resetear el formulario después de éxito
-          $('.form-publication__create')[0].reset();
-          $('#modal-create-publication').removeClass('modal--active');
+          $('.modal__form-publication-create')[0].reset();
+          $('.modal-create-publication').removeClass('modal--active');
           $('.modal__image-wrapper').empty();
           Swal.fire({
             icon: 'success',
@@ -78,7 +78,7 @@ class PublicationClass {
             showConfirmButton: false,
             timer: 1000
           });
-          $('#modal-create-publication').removeClass('modal--active').fadeOut();
+          $('.modal-create-publication').removeClass('modal--active').fadeOut();
         },
         complete: function () {
           submitButton.prop('disabled', false); // Volver a habilitar el botón
@@ -437,8 +437,8 @@ class PublicationClass {
 
   // Funcionalidades
   startPublicationClass() {
-    this.create('.form-publication__create');
-    this.setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '#modal-create-publication');
+    this.create('.modal__form-publication-create');
+    this.setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '.modal-create-publication');
     this.delete('.eliminar-publication');
     this.btnChangeImagenModalPrevie($('#modal__for-file'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
     this.desplegarModalEdit('.edit-publication');
@@ -449,4 +449,3 @@ class PublicationClass {
 
 window.initPublication = new PublicationClass();
 window.initPublication.startPublicationClass();
-

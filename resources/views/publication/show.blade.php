@@ -87,6 +87,7 @@
 
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
+
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
                         <div class="comments__card">
                             <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="60" height="60" />
@@ -109,10 +110,10 @@
                     @endforeach
 
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
-                        <div class="input-group">
-                            <button type="button" class="btn btn-secondary form__emojis-toggle">😄 Emojis</button>
-                            <input type="text" class="form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
-                            <button class="btn btn-primary" type="submit">Enviar</button>
+                        <div class="form__comments-group">
+                            <input type="text" class="button form-control comentario-input" placeholder="Escribe tu Comentario" name="comentario">
+                            <button type="button" class="button btn-secondary form__emojis-toggle"><i class="modal__icon emoji-31"></i></button>
+                            <button class="button" type="submit"><i class="form__send-icon emoji-34"></i></button>
                         </div>
                         <!-- Aquí se inyectará el emoji-picker -->
                         <div class="modal__cntn-emojis"></div>
