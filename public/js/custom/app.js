@@ -105,10 +105,8 @@ class AppClass {
         this.initEmojiPicker('.modal__form-publication-create', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
         this.initEmojiPicker('.modal__form-publication-edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
 
-
-
         this.initEmojiPicker('.form__comments', '.modal__cntn-emojis', '.form__emojis-toggle', '.comentario-input');
-        this.initEmojiPicker('.form-comentario__edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
+        this.initEmojiPicker('.modal__form-comments-edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.comentario-input');
 
         this.initEmojiPicker('.chat-container', '.modal__cntn-emojis', '.chat__emojis-toggle', '.chat__input');
       

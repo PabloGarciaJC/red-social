@@ -113,7 +113,7 @@ class CommentClass {
                     <button class="modal__close modal__close--icon">×</button>
                 </div>
                 <div class="modal__body">
-                    <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" class="form-comentario__edit">
+                    <form action="javascript:void(0)" method="POST" enctype="multipart/form-data" class="modal__form-comments-edit">
                         <div class="form-group">
                             <textarea class="form-control comentario-input" name="editcomentariopublicacion"></textarea>
                         </div>
@@ -172,7 +172,7 @@ class CommentClass {
         // Enviar 
         let isEditing = false; // Bandera para verificar si se está enviando
 
-        $(".form-comentario__edit").off("submit").on("submit", function (e) {
+        $(".modal__form-comments-edit").off("submit").on("submit", function (e) {
             e.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
         
             let form = $(this);
