@@ -103,7 +103,7 @@ class AppClass {
     // Funcionalidades Generales
     startAppClass() {
         this.initEmojiPicker('.modal__form-publication-create', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
-        this.initEmojiPicker('.form-publication__edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
+        this.initEmojiPicker('.modal__form-publication-edit', '.modal__cntn-emojis', '.modal__button--emoji-toggle', '.modal__publication-textarea');
 
 
 

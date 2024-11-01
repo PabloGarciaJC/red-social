@@ -3712,11 +3712,6 @@ transition: background-color .15s ease-in-out }
 .comments__body p {margin-bottom: 0px;}
 .comment__btns-action {width: 22%;}
 
-
-
-
-
-
 /*--------------------------------------------------------------
 # Formulario
 --------------------------------------------------------------*/
@@ -3728,7 +3723,6 @@ transition: background-color .15s ease-in-out }
 .form__comments .input-group {gap: 10px}
 .form__collapse {cursor: pointer; font-weight: 600; font-size: 18px; color: #000000; text-transform: capitalize;}
 .form__collapse:hover, .btn__comments:hover {color: #006eff;}
-
 
 
 .modal__cntn-emojis {display: flex; align-items: center; justify-content: center;cursor: pointer; font-size: 24px; padding: 10px;}

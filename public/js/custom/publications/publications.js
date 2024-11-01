@@ -183,7 +183,7 @@ class PublicationClass {
                   <button class="modal__close modal__close--icon">×</button>
               </div>
               <div class="modal__body">
-                 <form action="${baseUrl}publicationEdit" method="POST" enctype="multipart/form-data" class="form-publication__edit">
+                 <form action="${baseUrl}publicationEdit" method="POST" enctype="multipart/form-data" class="modal__form-publication-edit">
                       <div class="form-group">
                           <textarea class="button form-control modal__publication-textarea" name="editcomentariopublicacion" placeholder="Escribe tu Comentario"></textarea>
                       </div>
@@ -442,7 +442,7 @@ class PublicationClass {
     this.delete('.eliminar-publication');
     this.btnChangeImagenModalPrevie($('#modal__for-file'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
     this.desplegarModalEdit('.edit-publication');
-    this.sendFormEdit('.form-publication__edit');
+    this.sendFormEdit('.modal__form-publication-edit');
     this.initSlickSlider('.slick__contn', '.slick__thumbnails');
   }
 }
