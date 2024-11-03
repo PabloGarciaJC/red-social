@@ -13,11 +13,11 @@
         </div>
         <!-- Área de entrada de texto -->
         <div class="chat-container__input">
-            <button type="button" id="emojiButton" class="btn btn-secondary chat__emojis-toggle">😄 Emojis</button>
-            <input type="text" class="chat__input" placeholder="Escribe el mensaje">
-            <button type="button" class="sendMessage">Enviar</button>
+            <input type="text" class="button form-control chat__input" placeholder="Escribe el mensaje">
+            <button type="button" id="emojiButton" class="button btn-secondary chat__emojis-toggle"><i class="modal__icon emoji-31"></i></button>
+            <button type="button" class="button sendMessage"><i class="form__send-icon emoji-34"></i></button>
         </div>
         <!-- Aquí se inyectará el emoji-picker -->
-        <div class="emojis-wrapper"></div>
+        <div class="emojis-wrapper emojis-wrapper-grid-large"></div>
     </div>
 </div>

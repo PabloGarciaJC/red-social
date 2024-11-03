@@ -165,7 +165,7 @@ window.Echo.channel('broadcastPublication-channel')
                                                 </div>
                                                 <!-- Aquí se inyectará el emoji-picker -->
                                                 <div class="emojis-wrapper emojis-wrapper-grid-large"></div>
-                                                <div class="text-center form__collapse">contraer Formulario</div>
+                                                <div class="text-center form__collapse"><i class="modal__icon emoji-37"></i></div>
                                             </form>
                                         </div>
                                     </div>

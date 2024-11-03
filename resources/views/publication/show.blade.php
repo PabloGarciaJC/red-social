@@ -87,7 +87,6 @@
 
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
-
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
                         <div class="comments__card">
                             <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="60" height="60" />
@@ -101,8 +100,8 @@
                                 </div>
                                 <div class="comments__btns" data-id-comments="{{ $coments->id }}">
                                     @if (Auth::check() && Auth::user()->id === $coments->user_id)
-                                        <a href="{{ route('edit.comments', ['id' => $coments->id]) }}" class="comments__btn-edit">Editar</a>
-                                        <a href="{{ route('delete.comments', ['id' => $coments->id]) }}" class="comments__btn-delete">Eliminar</a>
+                                        <a href="{{ route('edit.comments', ['id' => $coments->id]) }}" class="comments__btn-edit"><i class="emoji-36"></i></a>
+                                        <a href="{{ route('delete.comments', ['id' => $coments->id]) }}" class="comments__btn-delete"><i class="emoji-35"></i></a>
                                     @endif
                                 </div>
                             </div>
@@ -117,7 +116,7 @@
                         </div>
                         <!-- Aquí se inyectará el emoji-picker -->
                         <div class="emojis-wrapper emojis-wrapper-grid-large"></div>
-                        <div class="text-center form__collapse">contraer Formulario</div>
+                        <div class="text-center form__collapse"><i class="modal__icon emoji-37"></i></div>
                     </form>
                 </div>
             </div>

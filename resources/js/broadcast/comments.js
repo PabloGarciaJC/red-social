@@ -52,8 +52,8 @@ window.Echo.channel('broadcastComment-channel')
                 // Verifica si el usuario que está logueado es el creador del comentario
                 if (window.userLogin === comment.user.id) {
                     buttonsHtml = `
-                        <a href="${baseUrl}editarComentario/${comment.id}" class="comments__btn-edit">Editar</a>
-                        <a href="${baseUrl}borrarComentario/${comment.id}" class="comments__btn-delete">Eliminar</a>
+                        <a href="${baseUrl}editarComentario/${comment.id}" class="comments__btn-edit"><i class="emoji-36"></i></a>
+                        <a href="${baseUrl}borrarComentario/${comment.id}" class="comments__btn-delete"><i class="emoji-35"></i></a>
                     `;
                 }
 
