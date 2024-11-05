@@ -1373,6 +1373,8 @@ screen and (max-width:767px)
   font-size: 18px;
 }
 
+.social-links {margin-bottom: 10px;}
+
 .profile .profile-card .social-links a {
   font-size: 20px;
   display: inline-block;
@@ -1383,7 +1385,7 @@ screen and (max-width:767px)
 }
 
 .profile .profile-card .social-links a:hover {
-  color: #000;
+  color: #012970;
 }
 
 .profile .profile-overview .row {

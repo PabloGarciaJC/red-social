@@ -17,6 +17,12 @@
                             @endif
                             <h1>{{ Auth::user()->alias }}</h1>
                             <h3>{{ Auth::user()->cargo }}</h3>
+                            <div class="social-links mt-2">
+                                <a href="javascript:void(0)" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="javascript:void(0)" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="javascript:void(0)" class="instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="javascript:void(0)" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>

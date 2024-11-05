@@ -14,8 +14,14 @@
                                 @else
                                     <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                                 @endif
-                                <span>{{ $user->alias }}</span>
-                                <span>{{ $user->cargo }}</span>
+                                <h2>{{ $user->alias }}</h2>
+                                <h3>{{ $user->cargo }}</h3>
+                                <div class="social-links mt-2">
+                                    <a href="javascript:void(0)" class="twitter"><i class="bi bi-twitter"></i></a>
+                                    <a href="javascript:void(0)" class="facebook"><i class="bi bi-facebook"></i></a>
+                                    <a href="javascript:void(0)" class="instagram"><i class="bi bi-instagram"></i></a>
+                                    <a href="javascript:void(0)" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                </div>
                             @endforeach
                             <div class="container">
                                 <div class="row justify-content-md-center">
@@ -84,7 +90,7 @@
                                          @endif
                                     </div>
                                 </div>
-                            </div>
+                            </div>                           
                         </div>
                     </div>
                 </div>

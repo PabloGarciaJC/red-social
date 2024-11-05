@@ -3442,6 +3442,8 @@ screen and (max-width:767px)
   font-size: 18px;
 }
 
+.social-links {margin-bottom: 10px;}
+
 .profile .profile-card .social-links a {
   font-size: 20px;
   display: inline-block;
@@ -3452,7 +3454,7 @@ screen and (max-width:767px)
 }
 
 .profile .profile-card .social-links a:hover {
-  color: #000;
+  color: #012970;
 }
 
 .profile .profile-overview .row {
@@ -3733,11 +3735,11 @@ font-size: 14px;
 }
 }
 
-
 @media (max-width:767px){
 .chat-container__input {grid-template-columns: 55% 20% 17%;justify-content: center;}
 .chat__input {font-size: 11px !important; margin: 0px;}
 }
+
 /*--------------------------------------------------------------
 # Autor
 --------------------------------------------------------------*/
