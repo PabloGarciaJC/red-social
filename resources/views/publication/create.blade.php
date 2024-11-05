@@ -4,7 +4,12 @@
             <input id="userLogin" type="hidden" value="{{ Auth::user()->id }}"></input>
             <div class="d-flex align-items-center">
                 <div class="button modal__btn-open" id="openModal">
-                    ¿Qué estás Pensando, {{ Auth::user()->alias }}.?
+                    <span class="modal__texto">
+                        ¿Qué estás Pensando, {{ Auth::user()->alias }}.?
+                    </span>
+                    <span class="modal__icon-movil">
+                        <i class="emoji-38"></i>
+                    </span>
                 </div>
             </div>
         </div>

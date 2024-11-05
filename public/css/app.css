@@ -2359,6 +2359,14 @@ url(/fonts/vendor/bootstrap-icons/bootstrap-icons.woff?39795c0b4513de014cf8685fc
   background-size: cover;
 }
 
+.emoji-38 {
+  background-image: url('/emojis-svg/emoji-38.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
 
 /*--------------------------------------------------------------
 # General
@@ -2394,7 +2402,7 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
-.button {display: flex;align-items: center; justify-content: center;padding: 5px;border-radius: 5px;color: #000;width: 100%; height: 100%; font-size: 16px; cursor: pointer; margin-left: 5px;border: 1px solid #d1f0ff;background-color: #d1f0ff; border-color: #a2c2e6; box-shadow: 0 0 3px 0 #66b9fb;transition: background-color .15s ease-in-out}
+.button {display: flex;align-items: center; justify-content: center;padding: 5px;border-radius: 5px;color: #000;width: 100%; height: 100%; font-size: 16px; cursor: pointer; border: 1px solid #d1f0ff;background-color: #d1f0ff; border-color: #a2c2e6; box-shadow: 0 0 3px 0 #66b9fb;transition: background-color .15s ease-in-out}
 .button:hover {outline: none;box-shadow: 0 0 4px 0 #007bdd;border: 1px solid #66b9fb;}
 
 .form-control {padding: 10px;font-size: 20px !important;}
@@ -2592,6 +2600,10 @@ font-weight: 700;
 
 .card-fixed {position: fixed; width: 28%;}
 
+@media only screen and (min-width: 768px) and (max-width: 991px),
+screen and (max-width:767px){
+.card.card-fixed {display: none;}
+}
 
 .card-header,
 .card-footer {
@@ -2624,7 +2636,26 @@ font-weight: 700;
 }
 
 .card-publication {transition: transform 0.5s ease-out;}
-.card-animation.card-publication {position: fixed; top: 60px; z-index: 11; box-sizing: unset; transform: translateY(0px); opacity: 1; animation: smoothScroll 1s forwards; border-radius: 0px; width: 100%; max-width: 998px; margin: 0 auto; min-width: 310px;padding: 0 10px;}
+
+.card-animation.card-publication {position: fixed; top: 10px; z-index: 100; box-sizing: unset; transform: translateY(0px); opacity: 1; animation: smoothScroll 1s forwards; border-radius: 0px; width: 30%; left: 700px;
+padding: 0px; margin-bottom: 0px;}
+.card-animation.card-publication .modal__btn-open {font-size: 18px;}
+.card-animation.card-publication .card-body {padding: 0px;}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px){
+.card-animation.card-publication {left: 286px;}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+.card-animation.card-publication {left: 115px;width: 300px; min-width: 300px; max-width: 300px;}
+}
+
+@media (max-width:767px){
+.card-animation.card-publication {left: 115px;width: 40px; min-width: 40px; max-width: 40px;}
+.card-animation.card-publication .modal__texto {display: none;}
+.card-animation.card-publication .modal__icon-movil {display: flex;}
+.card-animation.card-publication .modal__icon-movil i{width: 25px;height: 25px;}
+}
 
 @keyframes smoothScroll {
     0% {
@@ -3001,7 +3032,7 @@ screen and (max-width:767px)
   left: 0;
   bottom: 0;
   width: 300px;
-  z-index: 996;
+  z-index: 98;
   transition: all 0.3s;
   padding: 20px;
   overflow-y: auto;
@@ -3672,16 +3703,41 @@ screen and (max-width:767px)
 .chat-container__message--sent { justify-content: flex-end; }
 .chat-container__message-content { max-width: 60%; padding: 10px; border-radius: 10px; background-color: #e1ffc7; border: 1px solid #c3e3d8; }
 .chat-container__message--sent .chat-container__message-content { background-color: #d1f0ff; border-color: #a2c2e6; }
-.chat-container__input { display: grid;grid-template-columns: 81% 6% 9.8%;gap: 10px;}
+.chat-container__input { display: grid;grid-template-columns: 81% 6% 9.8%;gap: 10px;padding-left: 10px;padding-right: 10px;}
 .chat-container__input, .sendMessage {margin-left: 0px;}
-.chat__input { flex: 1; padding: 10px; border-radius: 5px; margin-right: 10px; font-size: 16px !important; margin-left: 10px; }
+.chat__input { flex: 1; padding: 10px; border-radius: 5px; font-size: 16px !important; }
 .chat-container__emoji { cursor: pointer; font-size: 24px; margin: 5px; }
 .chat-container__modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;z-index: 996; }
 .chat-container__modal .chat-container__close { position: absolute; top: 10px; right: 10px; font-size: 20px; cursor: pointer; }
 
-/* Responsive Design */
-@media (max-width: 768px) { .chat-container { height: 400px; } .chat-container__message-content { max-width: 80%; } .chat-container__input input { font-size: 14px; } .chat-container__input button { font-size: 14px; } }
+@media only screen and (min-width: 992px) and (max-width: 1200px){
+.chat-container__input {grid-template-columns: 76% 11% 9.8%;}
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+.chat-container {
+height: 400px;
+}
+
+.chat-container__message-content {
+max-width: 80%;
+}
+
+.chat-container__input input {
+font-size: 14px;
+}
+
+.chat-container__input button {
+font-size: 14px;
+}
+}
+
+
+@media (max-width:767px){
+.chat-container__input {grid-template-columns: 55% 20% 17%;justify-content: center;}
+.chat__input {font-size: 11px !important; margin: 0px;}
+}
 /*--------------------------------------------------------------
 # Autor
 --------------------------------------------------------------*/
@@ -3711,7 +3767,7 @@ screen and (max-width:767px)
 .modal__image-upload-cntn {margin-right: 8px;font-size: 16px;}
 .modal__image-upload input[type="file"] {display: none;}
 .modal__image-preview {margin-top: 0px !important;justify-content: center;display: flex;display: none;}
-.modal__image-preview img {max-height: 170px; min-height: 170px;-o-object-fit: cover;object-fit: cover;border-bottom: 1px solid #ced4da;display: block;}
+.modal__image-preview img {max-height: 190px; min-height: 190px;-o-object-fit: cover;object-fit: cover;border-bottom: 1px solid #ced4da;display: block;}
 .modal__emoji-picker {display: flex; flex-wrap: wrap; gap: 5px;}
 .modal__emoji-picker__emoji {font-size: 24px; cursor: pointer; transition: background-color .15s ease-in-out;}
 .modal__form-actions {display: grid; grid-template-columns: 12% 86%; gap: 10px; justify-content: center; align-items: center; margin-top: 20px; }
@@ -3720,13 +3776,31 @@ screen and (max-width:767px)
 .modal__image-wrapper, .modal__edit-image-wrapper {display: grid;grid-template-columns: repeat(3, 1fr);gap: 21px; width: 100%;}
 .modal__image-preview-item {display: flex;flex-direction: column;justify-content: center;align-items: center;margin-bottom: 20px;border: 1px solid #ced4da;}
 .modal__image-preview-item img {margin-right: 0px !important; max-width: unset !important;}
+.modal__image-preview-item a {margin-bottom: 10px; margin-top: 10px;}
 .modal__image-actions {width: 100%;display: flex;text-align: center;}
 .modal__image-actions .edit-image-btn:nth-child(1) {border-right: 1px solid #ced4da;}
 .modal__btn-open {color: #1a5166;font-size: 25px;font-weight: 700;}
 .modal__publication-textarea {padding: 20px;}
 .modal__form-comments-edit > .form-group {margin-bottom: 20px;}
-.modal__image-actions .edit-image-btn, .modal__image-actions .delete-image-btn{width: 100%; cursor: pointer; padding: 5px;}
+.modal__image-actions .edit-image-btn, .modal__image-actions .delete-image-btn{width: 100%; cursor: pointer; padding: 5px;border-top: 1px solid #ced4da;}
 .modal__actions-icon {height: 25px; width: 25px;}
+.modal__texto{display: flex;}
+.modal__icon-movil {display: none;}
+
+@media (max-width:767px){
+.modal__texto {font-size: 15px;}
+.modal__form-actions {grid-template-columns: 24% 72%;}
+.modal__image-preview img {max-height: 140px;min-height: 140px;}
+}
+
+@media only screen and (min-width: 311px) and (max-width: 510px){
+.modal__image-wrapper, .modal__edit-image-wrapper {grid-template-columns: repeat(2, 1fr);}
+}
+
+@media (max-width:310px){
+.modal__image-wrapper, .modal__edit-image-wrapper {grid-template-columns: repeat(1, 1fr);}
+}
+
 
 /*--------------------------------------------------------------
 # Slick 
@@ -3740,11 +3814,25 @@ screen and (max-width:767px)
 .thumbnail img:hover {transform: scale(1.1);}
 .slick-slide.slick-current {display: flex;align-items: center;justify-content: center;}
 
+@media only screen and (min-width: 992px) and (max-width: 1200px),
+screen and (min-width: 768px) and (max-width: 991px),
+screen and (max-width:767px){
+.slick__image img {height: 600px;}
+}
+
+@media (max-width:767px){
+.slick__image img {height: 410px;}
+}
+
+@media (max-width:310px){
+.slick__image img {height: 280px;}
+}
+
 /*--------------------------------------------------------------
 # Emojis
 --------------------------------------------------------------*/
 .emojis-wrapper {display: flex; align-items: center; justify-content: center;cursor: pointer; font-size: 24px; padding: 10px;}
-.emojis-wrapper-grid-large > .form__emoji-picker {display: unset;}
+.emojis-wrapper-grid-large > .form__emoji-picker {display: unset; text-align: center;}
 
 /*--------------------------------------------------------------
 # Comentarios
@@ -3768,10 +3856,30 @@ screen and (max-width:767px)
 .form__comments .input-group {gap: 10px}
 .form__collapse {cursor: pointer; font-weight: 600; font-size: 18px; color: #000000; text-transform: capitalize;padding-bottom: 10px;}
 .form__collapse:hover, .btn__comments:hover {color: #006eff;}
-.form__emoji-picker {margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap: 15px; justify-content: center; align-items: center;}
-.form__comments-group{display: grid;grid-template-columns: 81% 6% 9.8%; gap: 10px;}
+.form__emoji-picker {margin-top: 10px; display: grid; grid-template-columns:repeat(8, 1fr); gap: 15px; justify-content: center; align-items: center;}
+.form__comments-group{display: grid;grid-template-columns: 81% 6% 9.8%; gap: 10px;padding-left: 10px;padding-right: 10px;}
 .form__send-icon {width: 30px; height: 30px;}
 .form__comentario-input {font-size: 16px !important;}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px){
+  .form__comments-group {grid-template-columns: 76% 11% 9.8%;}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px),
+screen and (min-width: 768px) and (max-width: 991px),
+screen and (max-width:767px){
+.comment__btns-action, .btn__comments {width: 100%;}
+.col.col-lg-2.comment__btns-action{flex: unset;}
+}
+
+@media (max-width:767px){
+.form__emoji-picker {grid-template-columns:repeat(4, 1fr) }
+.form__comments-group {grid-template-columns: 55% 20% 17%;justify-content: center;}
+.form__comentario-input {font-size: 11px !important;}
+
+}
+
+
 /* Slider */
 .slick-slider
 {

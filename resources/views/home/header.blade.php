@@ -18,7 +18,7 @@
       <nav class="header-nav ms-auto">
           <ul class="d-flex align-items-center">
             <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle " href="#">
+                <a class="nav-link nav-icon search-bar-toggle " href="javascript:void(0)">
                   <i class="bi bi-search"></i>
                 </a>
               </li>
@@ -49,7 +49,6 @@
                             <li><hr class="dropdown-divider"></li>
                             @endforeach
                         </div>
-                
                         <li class="dropdown-footer">
                             <a href="{{ route('markAsRead') }}">Marcar todo como leído</a><br>
                             <a href="{{ route('borrarNotificacion', ['id' => auth()->id()]) }}">Borrar todas las notificaciones</a>
