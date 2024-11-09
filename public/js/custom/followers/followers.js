@@ -2,11 +2,13 @@ class FollowerClass {
 
     sendDataFollowers() {
 
-        function sendChatModal(element) {
+        function loadMessagesChat(element) {
+
             // Mostrar el modal Chat
             let dataIdFollowers = element.closest('.show-contact__link').data('id-followers');
             // Asignar Id al Modal
             $('.modal-chat').find('.user-receptor-chat').val(dataIdFollowers);
+
             // Mmarcar todos los mensajes como leídos
             $.ajax({
                 url: `${baseUrl}chats/${dataIdFollowers}`,
@@ -20,7 +22,8 @@ class FollowerClass {
                     showContactChat.show();
                 }
             });
-            // Send Enviar chat
+
+            // Mostrar Mensajes en el Chat
             $.ajax({
                 url: `${baseUrl}chats/${userLogin}/${dataIdFollowers}`,
                 method: 'GET',
@@ -42,7 +45,7 @@ class FollowerClass {
         $('.modal-chat').find('.sendMessage').off("click").on("click", (e) => {
             let parentContainer = $(e.currentTarget).closest('.chat-container__input')
             let userReceptor = parentContainer.find('.user-receptor-chat');
-            let messageText = parentContainer.find('.chat__input').val().trim()
+            let messageText = parentContainer.find('.chat__input').val().trim();
             if (userReceptor === 0) return;
             if (messageText) {
                 $.ajax({
@@ -107,14 +110,14 @@ class FollowerClass {
         $(".show-contact__chat").off("click").on("click", function (e) {
             e.preventDefault();
             $('.modal-chat').addClass('modal--active').fadeIn();
-            sendChatModal($(this));
+            loadMessagesChat($(this));
         });
 
         // Adjuntar evento al botón "Nuevos Mensajes - Mostrar Mensajes"
         $(".show-contact__new-messages").off("click").on("click", function (e) {
             e.preventDefault();
             $('.modal-chat').addClass('modal--active').fadeIn();
-            sendChatModal($(this));
+            loadMessagesChat($(this));
         });
     }
 

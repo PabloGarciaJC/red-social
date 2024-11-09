@@ -107,6 +107,7 @@ class AppClass {
         this.initEmojiPicker('.form__comments', '.emojis-wrapper', '.form__emojis-toggle', '.form__comentario-input');
         this.initEmojiPicker('.modal__form-comments-edit', '.emojis-wrapper', '.modal__button--emoji-toggle', '.form__comentario-input');
         this.initEmojiPicker('.chat-container', '.emojis-wrapper', '.chat__emojis-toggle', '.chat__input');
+        this.initEmojiPicker('.modal-chat', '.emojis-wrapper-grid-large', '.chat__emojis-toggle', '.chat__input');
         this.desplegarSidebar();
         this.initScrollNav();
     }

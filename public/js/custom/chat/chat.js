@@ -1,14 +1,14 @@
 class ChatClass {
     constructor() {
-        this.videoCallButton = $('#videoCallButton');
-        this.videoCallModal = $('#videoCallModal');
+        // this.videoCallButton = $('#videoCallButton');
+        // this.videoCallModal = $('#videoCallModal');
         this.userReceptor = $('.user-receptor');
         this.baseUrl = baseUrl;
         this.userLogin = userLogin;
     }
 
     modalChat() {
-        let modalPublicacionEdit = `
+        let modalChat = `
         <div class="modal modal-chat">
             <div class="modal__content">
                 <div class="modal__header">
@@ -29,6 +29,7 @@ class ChatClass {
                             <input type="text" class="button chat__input" placeholder="Escribe el mensaje">
                             <button type="button" id="emojiButton" class="button btn-secondary chat__emojis-toggle"><i class="modal__icon emoji-31"></i></button>
                             <button type="button" class="button sendMessage"><i class="form__send-icon emoji-34"></i></button>
+                            <input type="hidden" class="user-receptor-chat"> 
                         </div>
                         <div class="modal__cntn-emojis emojis-wrapper-grid-large"></div>
                     </div>
@@ -38,7 +39,7 @@ class ChatClass {
 
         // Inyectar el modal en el DOM si no existe ya
         if (!$('.modal-chat').length) {
-            $('body').append(modalPublicacionEdit);
+            $('body').append(modalChat);
         }
 
         // Cerrar el modal
@@ -53,87 +54,19 @@ class ChatClass {
         });
     }
 
-    chat() {
-        const sendMessage = () => {
-            let messageText = $('.chat__input').val().trim();
-            if (this.userReceptor.length === 0) return;
-            if (messageText) {
-                $.ajax({
-                    url: `${this.baseUrl}chats/send`,
-                    method: 'GET',
-                    data: {
-                        emisor_id: this.userLogin,
-                        receptor_id: this.userReceptor.val(),
-                        message: messageText
-                    },
-                    success: () => {
-                        $('.chat__input').val('');
-                        this.scrollToBottom();
-                    }
-                });
-            }
-        };
-
-        $('.sendMessage').off("click").on("click", sendMessage);
-        $('.chat__input').on('keypress', (event) => {
-            if (event.key === 'Enter') {
-                sendMessage();
-                event.preventDefault();
-            }
-        });
-
-        this.videoCallButton.on('click', () => this.videoCallModal.show());
-        $('.chat-container__close').on('click', () => this.videoCallModal.hide());
-        this.videoCallModal.on('click', (event) => {
-            if ($(event.target).is('#videoCallModal')) this.videoCallModal.hide();
-        });
-    }
-
-    scrollToBottom() {
-        $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
-    }
-
-    loadMessages() {
-        if (this.userReceptor.length === 0) return;
-        $.ajax({
-            url: `${this.baseUrl}chats/${this.userLogin}/${this.userReceptor.val()}`,
-            method: 'GET',
-            success: (response) => {
-                $('.chat-container__box').empty();
-                response.forEach((message) => {
-                    let messageClass = message.emisor_id == this.userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
-                    let messageHtml = `
-                        <div class="chat-container__message ${messageClass}">
-                            <div class="chat-container__message-content">${message.message}</div>                        
-                        </div>
-                    `;
-                    $('.chat-container__box').append(messageHtml);
-                });
-                this.scrollToBottom();
-                // Llamar al método para marcar todos los mensajes como leídos
-                this.markAllAsRead();
-            }
-        });
-    }
-
-    marcarComoLeidoChat() {
-        $('.chat-container').off("click").on("click", (e) => {
-            e.preventDefault();
-            // Llamar al método para marcar todos los mensajes como leídos
-            this.markAllAsRead();
-        });
-    }
-
-    deployModalNavChat() {
+    chatNavMovil() {
         $('.header .nav-item-users').off("click").on('click', function (e) {
             let messageNew = $(this).find('.show-contact__new-messages');
             let goToChat = $(this).find('.show-contact__chat');
 
-            function sendChatModal(element) {
+            function loadMessagesChatModal(element) {
+
                 // Mostrar el modal Chat
                 let dataIdFollowers = element.closest('.show-contact__link').data('id-followers');
+
                 // Asignar Id al Modal
                 $('.modal-chat').find('.user-receptor-chat').val(dataIdFollowers);
+
                 // Mmarcar todos los mensajes como leídos
                 $.ajax({
                     url: `${baseUrl}chats/${dataIdFollowers}`,
@@ -147,7 +80,8 @@ class ChatClass {
                         showContactChat.show();
                     }
                 });
-                // Send Enviar chat
+
+                // Mostrar Mensajes en el Chat
                 $.ajax({
                     url: `${baseUrl}chats/${userLogin}/${dataIdFollowers}`,
                     method: 'GET',
@@ -165,11 +99,12 @@ class ChatClass {
                 });
             }
 
-            // Enviar Ajax Texto Chat 
+            // Enviar Ajax Texto Chat desde el Modal
             $('.modal-chat').find('.sendMessage').off("click").on("click", (e) => {
                 let parentContainer = $(e.currentTarget).closest('.chat-container__input')
                 let userReceptor = parentContainer.find('.user-receptor-chat');
                 let messageText = parentContainer.find('.chat__input').val().trim()
+                // Chat de Nav
                 if (userReceptor === 0) return;
                 if (messageText) {
                     $.ajax({
@@ -230,24 +165,25 @@ class ChatClass {
                 });
             });
 
+            // Adjuntar evento al botón "Nuevos Mensajes - Mostrar Mensajes"
             if (messageNew.length) {
-                // Adjuntar evento al botón "Nuevos Mensajes - Mostrar Mensajes"
                 messageNew.off("click").on('click', function (e) {
                     e.preventDefault();
                     // Despliega Modal del Chat
                     $('.modal-chat').addClass('modal--active').fadeIn();
                     // Enviar Datas
-                    sendChatModal($(this));
+                    loadMessagesChatModal($(this));
                 });
             }
+
+            // Adjuntar evento al botón "Ir al Chat - Mostrar Mensajes"
             if (goToChat.length) {
-                // Adjuntar evento al botón "Ir al Chat - Mostrar Mensajes"
                 goToChat.off("click").on('click', function (e) {
                     e.preventDefault();
                     // Despliega Modal del chat
                     $('.modal-chat').addClass('modal--active').fadeIn();
                     // Enviar Dotos
-                    sendChatModal($(this));
+                    loadMessagesChatModal($(this));
                 });
             }
         });
@@ -260,7 +196,7 @@ class ChatClass {
             url: `${this.baseUrl}chats/${this.userReceptor.val()}`,
             method: 'GET',
             success: (response) => {
-                 // Reiniciar Contactos NAV
+                // Reiniciar Contactos NAV
                 let userFollowersNav = $('.show-contacts').find($(`[data-id-followers="${this.userReceptor.val()}"]`));
                 let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
                 let showContactChat = userFollowersNav.find('.show-contact__chat');
@@ -270,12 +206,71 @@ class ChatClass {
         });
     }
 
+    chatUserPerfil() {
+        // Mostrar Mensajes en el Chat
+        if (this.userReceptor.length === 0) return;
+        $.ajax({
+            url: `${this.baseUrl}chats/${this.userLogin}/${this.userReceptor.val()}`,
+            method: 'GET',
+            success: (response) => {
+                $('.chat-container__box').empty();
+                response.forEach((message) => {
+                    let messageClass = message.emisor_id == this.userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
+                    let messageHtml = `
+                        <div class="chat-container__message ${messageClass}">
+                            <div class="chat-container__message-content">${message.message}</div>                        
+                        </div>
+                    `;
+                    $('.chat-container__box').append(messageHtml);
+                });
+                $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
+                // Llamar al método para marcar todos los mensajes como leídos
+                this.markAllAsRead();
+            }
+        });
+
+        // Marcar todos los mensajes como leídos
+        $('.chat-container').off("click").on("click", (e) => {
+            e.preventDefault();
+            this.markAllAsRead();
+        });
+
+        const sendMessage = () => {
+            let messageText = $('.chat__input').val().trim();
+            if (this.userReceptor.length === 0) return;
+            if (messageText) {
+                $.ajax({
+                    url: `${this.baseUrl}chats/send`,
+                    method: 'GET',
+                    data: {
+                        emisor_id: this.userLogin,
+                        receptor_id: this.userReceptor.val(),
+                        message: messageText
+                    },
+                    success: () => {
+                        $('.chat__input').val('');
+                        $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
+                    }
+                });
+            }
+        };
+
+        // Enviar mensajes chat por Btn
+        $('.sendMessage').off("click").on("click", sendMessage);
+
+        // Enviar mensajes chat por Tecla Enter
+        $('.chat__input').on('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+                event.preventDefault();
+            }
+        });
+    }
+
     startChatClass() {
-        this.chat();
-        this.deployModalNavChat();
-        this.loadMessages();
-        this.marcarComoLeidoChat();
         this.modalChat();
+        this.chatUserPerfil();
+        this.chatNavMovil();
     }
 }
 
