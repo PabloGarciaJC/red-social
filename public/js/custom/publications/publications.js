@@ -263,8 +263,8 @@ class PublicationClass {
                           <img id="${newPreviewId}" src="${imgSrc}" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;" data-m-img-path="${imgPath}">
                       </a>
                       <div class="modal__image-actions">
-                          <div class="edit-image-btn" data-target="${newPreviewId}">Editar</div>
-                          <div class="delete-image-btn" data-target="${newPreviewId}">Eliminar</div>
+                          <div class="edit-image-btn" data-target="${newPreviewId}"><i class="modal__actions-icon emoji-36"></i></div>
+                          <div class="delete-image-btn" data-target="${newPreviewId}"><i class="modal__actions-icon emoji-35"></i></div>
                       </div>
                       <input type="file" class="hidden-input-file" id="input-${newPreviewId}" style="display: none;" accept="image/*">
                   </div>
