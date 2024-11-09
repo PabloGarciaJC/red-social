@@ -325,10 +325,6 @@ h6 {
 .btn-check:focus+.btn, .btn:focus {box-shadow: unset;}
 .btn-check:active+.btn:focus, .btn-check:checked+.btn:focus, .btn.active:focus, .btn.show:focus, .btn:active:focus {box-shadow: unset;}
 
-@media (max-width:767px){
-.form-control {text-align: center;}
-}
-
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
@@ -1705,13 +1701,9 @@ screen and (max-width:767px)
 .modal__actions-icon {height: 25px; width: 25px;}
 .modal__texto{display: flex;}
 .modal__icon-movil {display: none;}
-
-/* aqui */
 .modal .emojis-wrapper {cursor: pointer; font-size: 24px;}
 .modal .form__emoji-picker {display: grid; grid-template-columns:repeat(8, 1fr); gap: 10px; justify-content: center; align-items: center;width: 100%; margin-bottom: 20px;}
 .modal .form__emoji-picker .form__emoji {display: flex; align-items: center; justify-content: center;}
-
-/* .emojis-wrapper-grid-large > .form__emoji-picker {display: flex; flex-wrap: wrap;} */
 
 @media (max-width:767px){
 .modal__header h5 {text-align: left; font-size: 20px;}
@@ -1721,7 +1713,7 @@ screen and (max-width:767px)
 .modal__image-upload {flex-direction: column; font-size: 15px;}
 .modal__image-preview img {max-height: 140px;min-height: 140px;}
 .modal .form__emoji-picker {grid-template-columns:repeat(5, 1fr);}
-.modal i {width: 35px; height: 35px;}
+.modal i, .emojis-wrapper-grid-large i {width: 35px; height: 35px;}
 }
 
 @media only screen and (min-width: 311px) and (max-width: 510px){
@@ -1731,7 +1723,6 @@ screen and (max-width:767px)
 @media (max-width:310px){
 .modal__image-wrapper, .modal__edit-image-wrapper {grid-template-columns: repeat(1, 1fr);}
 }
-
 
 /*--------------------------------------------------------------
 # Slick 
@@ -1793,14 +1784,14 @@ screen and (max-width:767px){
 /*--------------------------------------------------------------
 # COMUNES
 --------------------------------------------------------------*/
-.form__comments-group, .chat-container__input {display: grid;grid-template-columns: 81% 6% 9.8%; gap: 10px;justify-content: center;  padding: 10px; border-top: 1px solid #ddd;background-color: #ffffff;}
-.form__comentario-input, .chat__input {font-size: 16px !important;}
-
-@media only screen and (min-width: 992px) and (max-width: 1200px){
-.form__comments-group, .chat-container__input {grid-template-columns: 76% 11% 9.8%;}
-}
+.emojis-wrapper-grid-large .form__emoji-picker {padding: 10px 20px 20px 20px;}
+.form__comments-group, .chat-container__input {display: flex;gap: 10px;justify-content: center; padding: 10px; border-top: 1px solid #ddd;background-color: #ffffff;}
+.form__comments .form__comentario-input {width: 100% !important;}
+.chat__emojis-toggle, .sendMessage, .form__emojis-toggle, .form__comments .button {width: 10%;}
+.form__comentario-input, .chat__input {font-size: 15px !important;}
 
 @media (max-width:767px){
-.form__comments-group, .chat-container__input {grid-template-columns: 50% 20% 20%;justify-content: center;}
-.form__comentario-input, .chat__input {font-size: 11px !important;}
+.emojis-wrapper-grid-large .form__emoji-picker {text-align: center; padding: 0px;}
+.chat__emojis-toggle, .sendMessage, .form__emojis-toggle, .form__comments .button {width: 20%;}
+.form__comentario-input, .chat__input {font-size: 15px !important;}
 }
