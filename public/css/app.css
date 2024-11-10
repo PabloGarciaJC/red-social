@@ -2402,8 +2402,11 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
-.button {display: flex;align-items: center; justify-content: center;padding: 5px;border-radius: 5px;color: #000;width: 100%; height: 100%; font-size: 16px; cursor: pointer; border: 1px solid #d1f0ff;background-color: #d1f0ff; border-color: #a2c2e6; box-shadow: 0 0 3px 0 #66b9fb;transition: background-color .15s ease-in-out}
+.button, .button-small {display: flex;align-items: center; justify-content: center;padding: 5px;border-radius: 5px;color: #000;width: 100%; height: 100%; font-size: 16px; cursor: pointer; border: 1px solid #d1f0ff;background-color: #d1f0ff; border-color: #a2c2e6; box-shadow: 0 0 3px 0 #66b9fb;transition: background-color .15s ease-in-out}
 .button:hover {outline: none;box-shadow: 0 0 4px 0 #007bdd;border: 1px solid #66b9fb;}
+
+
+.button-small {height: auto; width: 100%;}
 
 .form-control {padding: 10px;font-size: 20px !important;}
 .form-control:focus {border: 1px solid #66b9fb !important;box-shadow: 0 0 4px 0 #007bdd !important;background-color: #d1f0ff !important;box-shadow: unset;}
@@ -2896,7 +2899,7 @@ screen and (max-width:767px)
 }
 
 .header-nav .nav-icon {
-  font-size: 18px;
+  font-size: 22px;
   color: #000;
   margin-right: 25px;
   position: relative;
