@@ -74,11 +74,11 @@ class PublicationClass {
           $('.modal__image-wrapper').empty();
 
           // Seleccionar la nueva tarjeta que acaba de ser creada (última tarjeta agregada)
-          let newCardElement = $('.row').children('.col-12.mb-3').first();
-
+          let newCardElement = $('.row__publications').find('.col-12').first().next();
+          
           // Desplazar automáticamente a la tarjeta recién creada
           $('html, body').animate({
-            scrollTop: newCardElement.offset().top - 800 // Ajustar para que se vea correctamente
+            scrollTop: newCardElement.offset().top - 800
           }, 'slow');
 
           Swal.fire({
@@ -449,11 +449,9 @@ class PublicationClass {
     });
   }
 
-
   // Funcionalidades
   startPublicationClass() {
     this.create('.modal__form-publication-create');
-
     this.delete('.eliminar-publication');
     this.btnChangeImagenModalPrevie($('#modal__for-file'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
     this.desplegarModalEdit('.edit-publication');

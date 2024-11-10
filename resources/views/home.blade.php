@@ -5,7 +5,7 @@
         <section class="section dashboard">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="row">
+                    <div class="row row__publications">
                         @include('publication.create')
                         @include('publication.show')
                     </div>

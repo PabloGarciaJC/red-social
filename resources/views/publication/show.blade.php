@@ -1,10 +1,7 @@
 @foreach ($publications as $mostrarPublication)
 <div class="col-12 mb-3">
     <div class="card info-card sales-card">
-
-        <!-- Mostrar el filtro solo si el usuario autenticado es el dueño de la publicación -->
         @if (Auth::check() && Auth::user()->id === $mostrarPublication->user_id)
-            <!-- Filtro -->
             <div class="filter">
                 <a class="icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-gear"></i> Opciones
@@ -17,12 +14,13 @@
                         <a class="dropdown-item eliminar-publication" href="{{ route('publicationDelete', ['publicationId' => $mostrarPublication->id]) }}">
                             Eliminar
                         </a>
+                        <a class="dropdown-item comentar-publication" href="javascript:void(0);">
+                            Comentar
+                        </a>
                     </li>
                 </ul>
             </div>
         @endif
-
-        <!-- Cuerpo -->
         <div class="card-body">
             <div class="d-flex align-items-center pt-3">
                 <div class="news">
@@ -38,13 +36,12 @@
             </div>
             <p class="pt-3">{{ $mostrarPublication->contenido }}</p>
             <hr>
-            <!-- Carrusel de imágenes -->
             <div class="slick__image">
                 <div id="slick-fich-{{ $mostrarPublication->id }}" class="slick-fich slick__contn">
                     @foreach ($mostrarPublication->images as $key => $image)
                     @php 
                     $imagePath = route('publicationImagen', ['filename' => $image->image_path]);
-                    $thumbPath = "product_thumb.php?img=" . $imagePath . "&w=122&h=122"; // Lógica para miniaturas
+                    $thumbPath = "product_thumb.php?img=" . $imagePath . "&w=122&h=122";
                     @endphp
                     <div class="item {{ $key === 0 ? 'actv' : '' }} imge"
                          data-thumb="{{ $thumbPath }}"
@@ -56,7 +53,6 @@
                     @endforeach
                 </div>                
             </div>
-
             <div class="slick__thumbnails">
                 @foreach ($mostrarPublication->images as $key => $image)
                     @php
@@ -84,7 +80,6 @@
                         </div>                      
                     </div>
                 </div>
-
                 <div class="col col-lg-2 btn__comments">Comentarios ({{ count($mostrarPublication->comment) }})</div>
                 <div class="wrapper-comments" style="display: none;">
                     @foreach ($mostrarPublication->comment->sortBy('created_at') as $coments)
@@ -107,14 +102,12 @@
                             </div>
                         </div>
                     @endforeach
-
                     <form action="{{ route('comentarioSave') }}" method="POST" enctype="multipart/form-data" class="form__comments" data-post-id="{{ $mostrarPublication->id }}">
                         <div class="form__comments-group">
                             <input type="text" class="button form-control form__comentario-input" placeholder="Escribe tu Comentario" name="comentario">
                             <button type="button" class="button btn-secondary form__emojis-toggle"><i class="modal__icon emoji-31"></i></button>
                             <button class="button" type="button submit"><i class="form__send-icon emoji-34"></i></button>
                         </div>
-                        <!-- Aquí se inyectará el emoji-picker -->
                         <div class="emojis-wrapper emojis-wrapper-grid-large"></div>
                         <div class="text-center form__collapse"><i class="modal__icon emoji-37"></i></div>
                     </form>

@@ -1,7 +1,5 @@
 class ChatClass {
     constructor() {
-        // this.videoCallButton = $('#videoCallButton');
-        // this.videoCallModal = $('#videoCallModal');
         this.userReceptor = $('.user-receptor');
         this.baseUrl = baseUrl;
         this.userLogin = userLogin;

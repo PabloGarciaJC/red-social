@@ -70,6 +70,8 @@ window.Echo.channel('broadcastPublication-channel')
                 let contenido = (publication.contenido ?? '').trim();
                 let imagePaths = e.publication.imagePaths;
 
+                console.log(publication);
+
                 // Obtener conteo de likes y dislikes
                 let likesCount = publication.like.filter(like => like.type === 'like').length;
                 let dislikesCount = publication.like.filter(like => like.type === 'dislike').length;
@@ -173,7 +175,8 @@ window.Echo.channel('broadcastPublication-channel')
                             </div>
                         </div>`;
                         
-                $('.modal-create-publication').after(cardHtml);
+                 // Inserta Nueva Publicacion
+                $('.row__publications').find('.col-12').first().after(cardHtml); 
 
                 // Llamada a los métodos desde la clase
                 window.initPublication.startPublicationClass();
