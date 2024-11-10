@@ -30,10 +30,10 @@ class CommentClass {
             let form = $(this);
 
             // Desactivar el botón de envío para evitar múltiples envíos
-            const submitButton = form.find("button[type='submit']"); // Asegúrate de que el selector apunte al botón correcto
+            const submitButton = form.find("button[type='submit']");
             submitButton.prop("disabled", true); // Desactiva el botón
 
-            // Verificar si el input de archivo tiene algo antes de enviar el formulario
+            // Verificar si el input de archivo tiene algo anpublications-id de enviar el formulario
             const fileInput = form.find(".image-commets")[0];
             if (fileInput && fileInput.files.length > 0) {
                 // Reactivar el botón si hay un archivo
@@ -104,7 +104,6 @@ class CommentClass {
     }
 
     edit(elementEdit) {
-
         let modalEditComment = `
         <div class="modal modal-edit-comentario">
             <div class="modal__content">
@@ -118,9 +117,12 @@ class CommentClass {
                             <textarea class="button form-control form__comentario-input" name="editcomentariopublicacion"></textarea>
                         </div>
                         <input type="hidden" class="id-post__edit-comentario">
-                        <div class="form-group modal__group"">
-                            <button type="button" class="button modal__button--emoji-toggle"><i class="modal__icon emoji-31"></i></button>
-                            <div class="emojis-wrapper"></div>
+                        <input type="hidden" class="publications-id" value="">
+                        <div class="form-group modal__group">
+                            <div class="modal__form-actions-commnets">
+                                <button type="button" class="button modal__button--emoji-toggle"><i class="modal__icon emoji-31"></i></button>
+                                <div class="emojis-wrapper"></div>
+                            </div>
                         </div>
                         <div class="modal__footer">
                             <button type="button" class="button button--modal-close" id="closeModalFooter">Cerrar</button>
@@ -145,60 +147,83 @@ class CommentClass {
             let commentsText = $(this).closest('.comments__btns').parent('.comments__description').find('p').text();
             let href = $(this).attr('href');
 
-            // Asignar el valor de "href" al atributo "action" del formulario
+            // Asignar valores al formulario y al campo `.publications-id`
             $('.modal-edit-comentario').find('form').attr('action', href);
-
-            // Asigno el id del comentario
-            $('.modal-edit-comentario').find('.id-post__edit-comentario').val(idComments)
-
-            // Asigno el comentario al campo de textarea
-            $('.modal-edit-comentario').find('textarea').text(commentsText);
+            $('.modal-edit-comentario').find('.id-post__edit-comentario').val(idComments);
+            $('.modal-edit-comentario').find('textarea').val(commentsText);
 
             // CIerre del Modal
             $('.modal-edit-comentario').addClass('modal--active').fadeIn();
-
             $('.modal__close, .button--modal-close').on('click', function () {
                 $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
             });
-
             $('.modal-edit-comentario').on('click', function (event) {
                 if (event.target === this) {
                     $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
                 }
             });
-
         });
 
-        // Enviar 
-        let isEditing = false; // Bandera para verificar si se está enviando
-
+        // Enviar el formulario
+        let isEditing = false; // Bandera para evitar envíos múltiples
         $(".modal__form-comments-edit").off("submit").on("submit", function (e) {
-            e.preventDefault(); // Evita que el formulario se envíe de la manera tradicional
-        
+            e.preventDefault();
+
+            if (isEditing) return;
+
+            isEditing = true;
             let form = $(this);
-        
-            if (isEditing) {
-                return; // Si ya se está enviando, no hacer nada
-            }
-        
-            isEditing = true; // Marcar como enviando
-        
-            // Crear un objeto FormData para procesar tanto los campos de texto como los archivos
             let formData = new FormData(this);
-            formData.append("comment_id", form.find('.id-post__edit-comentario').val());
-        
-            // Enviar los datos por AJAX
+            let commentId = form.find('.id-post__edit-comentario').val();
+
+            if (!commentId) {
+
+                let postId = form.find('.publications-id').val();
+                formData.append("post_id", postId);
+
+
+                // Obtener el contenido del textarea correctamente
+                let comentarioTexto = form.find('.form__comentario-input').val();
+                formData.append("comentario", comentarioTexto);
+
+                // Enviar los datos por AJAX
+                $.ajax({
+                    url: form.attr("action"),
+                    method: "POST",
+                    headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        form[0].reset();
+                        $('.modal-edit-comentario').removeClass('modal--active');
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Comentario creado con éxito!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                        $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error:", error);
+                    }
+                });
+
+                isEditing = false;
+                return;
+            }
+
+            formData.append("comment_id", commentId);
             $.ajax({
                 url: form.attr('action'),
                 method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    form[0].reset(); // Reinicia el formulario
+                    form[0].reset();
                     $('.modal-edit-comentario').removeClass('modal--active');
                     Swal.fire({
                         icon: 'success',
@@ -210,14 +235,51 @@ class CommentClass {
                 },
                 error: function (xhr, status, error) {
                     console.error("Error en la edición del comentario:", error);
-                    // Aquí podrías mostrar un mensaje de error a los usuarios
                 },
                 complete: function () {
-                    isEditing = false; // Reactivar después de la respuesta
+                    isEditing = false;
                 },
             });
         });
     }
+
+    createCommentsModal(elementEdit) {
+
+        // Desplegar el Modal al hacer clic en `elementEdit`
+        $(elementEdit).off("click").on("click", function (e) {
+            e.preventDefault();
+
+            let href = $(this).attr('href');
+            let publicationId = $(this).data('publication-id');
+
+            // Vaciar el contenido del textarea y del campo oculto
+            $('.modal__form-comments-edit').find('.form__comentario-input').val('');
+            $('.modal__form-comments-edit').find('.id-post__edit-comentario').val('');
+
+            // Actualizar el atributo 'action' del formulario con el valor de `href`
+            $('.modal__form-comments-edit').attr('action', href);
+
+            // Asignar el valor de `publicationId` al campo `.publications-id`
+            $('.modal__form-comments-edit').find('.publications-id').val(publicationId);
+
+            // console.log("Valor actual de .publications-id:", $('.modal__form-comments-edit').find('.publications-id').val());
+
+            // Mostrar el modal
+            $('.modal-edit-comentario').addClass('modal--active').fadeIn();
+
+            // Cerrar el modal al hacer clic en el botón de cierre o fuera del modal
+            $('.modal__close, .button--modal-close').on('click', function () {
+                $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
+            });
+
+            $('.modal-edit-comentario').on('click', function (event) {
+                if (event.target === this) {
+                    $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
+                }
+            });
+        });
+    }
+
 
     startCommentClass() {
         this.showComments(".btn__comments");
@@ -225,6 +287,9 @@ class CommentClass {
         this.save(".form__comments");
         this.delete('.comments__btn-delete');
         this.edit('.comments__btn-edit');
+
+        this.createCommentsModal('.comentar-publication');
+
     }
 }
 

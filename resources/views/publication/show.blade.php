@@ -14,7 +14,7 @@
                         <a class="dropdown-item eliminar-publication" href="{{ route('publicationDelete', ['publicationId' => $mostrarPublication->id]) }}">
                             Eliminar
                         </a>
-                        <a class="dropdown-item comentar-publication" href="javascript:void(0);">
+                        <a class="dropdown-item comentar-publication"  href="{{ route('comentarioSave') }}" data-publication-id="{{ $mostrarPublication->id }}">
                             Comentar
                         </a>
                     </li>

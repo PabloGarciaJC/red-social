@@ -80,7 +80,7 @@ class CommentController extends Controller
       ];
 
       // Emitir la notificación a través de Pusher
-      event(new BroadcastComment(response()->json($response), 'success'));
+      event(new BroadcastComment(response()->json($response), 'create'));
 
       return response()->json(['message' => 'success', 'data' => $response['data']]);
     }

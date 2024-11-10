@@ -90,6 +90,7 @@ window.Echo.channel('broadcastPublication-channel')
                                 <li>
                                     <a class="dropdown-item edit-publication" href="javascript:void(0);">Editar</a>
                                     <a class="dropdown-item eliminar-publication" href="${baseUrl}publicationDelete/${publication.id}">Eliminar</a>
+                                    <a class="dropdown-item comentar-publication" href="${baseUrl}comentarioSave" data-publication-id="${publication.id}">Comentar</a>
                                 </li>
                             </ul>
                         </div>

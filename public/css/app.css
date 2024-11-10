@@ -3746,10 +3746,8 @@ screen and (max-width:767px)
 .modal__emoji-picker__emoji {font-size: 24px; cursor: pointer; transition: background-color .15s ease-in-out;}
 .modal__form-actions {display: grid; grid-template-columns: 12% 86%; gap: 10px; justify-content: center; align-items: center; margin-top: 20px; margin-bottom: 20px; }
 .modal__icon {width: 30px; height: 30px;}
-
 .modal__form-comments-edit .modal__group {margin-top: 20px; margin-bottom: 20px;}
-
-/* .modal__group {margin-bottom: 0px !important;} */
+.modal__form-actions-commnets .form__emoji-picker {margin-top: 20px;}
 .modal__image-wrapper, .modal__edit-image-wrapper {display: grid;grid-template-columns: repeat(3, 1fr);gap: 21px; width: 100%;}
 .modal__image-preview-item {display: flex;flex-direction: column;justify-content: center;align-items: center;margin-bottom: 20px;border: 1px solid #ced4da;}
 .modal__image-preview-item img {margin-right: 0px !important; max-width: unset !important;}
@@ -3758,7 +3756,6 @@ screen and (max-width:767px)
 .modal__image-actions .edit-image-btn:nth-child(1) {border-right: 1px solid #ced4da;}
 .modal__btn-open {color: #1a5166;font-size: 25px;font-weight: 700;}
 .modal__publication-textarea {padding: 20px;}
-
 .modal__image-actions .edit-image-btn, .modal__image-actions .delete-image-btn{width: 100%; cursor: pointer; padding: 5px;border-top: 1px solid #ced4da;}
 .modal__actions-icon {height: 25px; width: 25px;}
 .modal__texto{display: flex;}

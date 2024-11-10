@@ -42,7 +42,7 @@ window.Echo.channel('broadcastComment-channel')
                     }
                 }
                 break;
-            default:
+            default:  // Por defecto create
                 let comment = e.comment.original.data;
                 let contnPublication = $(`[data-post-id="${comment.publication_id}"]`);
                 let contenidoHtml = comment.contenido ? `<p>${comment.contenido}</p>` : '';
