@@ -72,6 +72,15 @@ class PublicationClass {
           $('.modal__form-publication-create')[0].reset();
           $('.modal-create-publication').removeClass('modal--active');
           $('.modal__image-wrapper').empty();
+
+          // Seleccionar la nueva tarjeta que acaba de ser creada (última tarjeta agregada)
+          let newCardElement = $('.row').children('.col-12.mb-3').first();
+
+          // Desplazar automáticamente a la tarjeta recién creada
+          $('html, body').animate({
+            scrollTop: newCardElement.offset().top - 800 // Ajustar para que se vea correctamente
+          }, 'slow');
+
           Swal.fire({
             icon: 'success',
             title: 'Publicación Creada',
@@ -85,6 +94,27 @@ class PublicationClass {
         }
       });
     });
+
+    // Muestro y Cierro el Modal
+    function setupModalTriggers(openSelector, closeSelector, modalSelector) {
+      $(openSelector).on('click', function () {
+        $(modalSelector).addClass('modal--active').fadeIn();
+      });
+
+      $(closeSelector).on('click', function () {
+        $(modalSelector).removeClass('modal--active').fadeOut();
+        $('.modal__form-publication-create')[0].reset();
+      });
+
+      $(modalSelector).on('click', function (event) {
+        if (event.target === this) {
+          $(modalSelector).removeClass('modal--active').fadeOut();
+          $('.modal__form-publication-create')[0].reset();
+        }
+      });
+    }
+
+    setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '.modal-create-publication');
   }
 
   // Función general para manejar la vista previa de imágenes
@@ -419,26 +449,11 @@ class PublicationClass {
     });
   }
 
-  setupModalTriggers(openSelector, closeSelector, modalSelector) {
-    $(openSelector).on('click', function () {
-      $(modalSelector).addClass('modal--active').fadeIn();
-    });
-
-    $(closeSelector).on('click', function () {
-      $(modalSelector).removeClass('modal--active').fadeOut();
-    });
-
-    $(modalSelector).on('click', function (event) {
-      if (event.target === this) {
-        $(modalSelector).removeClass('modal--active').fadeOut();
-      }
-    });
-  }
 
   // Funcionalidades
   startPublicationClass() {
     this.create('.modal__form-publication-create');
-    this.setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '.modal-create-publication');
+
     this.delete('.eliminar-publication');
     this.btnChangeImagenModalPrevie($('#modal__for-file'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
     this.desplegarModalEdit('.edit-publication');
