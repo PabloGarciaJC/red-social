@@ -144,7 +144,7 @@ class PublicationClass {
             const imagePreview = `
                     <div class="modal__image-preview-item" id="image-container-${newPreviewId}">
                         <a href="${fileContent}" class="lightbox-image" data-lightbox="gallery">
-                            <img id="${newPreviewId}" src="${fileContent}" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;">
+                            <img id="${newPreviewId}" src="${fileContent}" alt="Imagen seleccionada" style="display: block;">
                         </a>
                         <div class="modal__image-actions">
                             <div class="edit-image-btn" data-target="${newPreviewId}"><i class="modal__actions-icon emoji-36"></i></div>
@@ -290,7 +290,7 @@ class PublicationClass {
         const newImagePreview = `
                   <div class="modal__image-preview-item" id="image-container-${newPreviewId}">
                       <a href="${imgSrc}" class="lightbox-image" data-lightbox="gallery">
-                          <img id="${newPreviewId}" src="${imgSrc}" alt="Imagen seleccionada" style="display: block; max-width: 100px; margin-right: 10px;" data-m-img-path="${imgPath}">
+                          <img id="${newPreviewId}" src="${imgSrc}" alt="Imagen seleccionada" style="display: block;" data-m-img-path="${imgPath}">
                       </a>
                       <div class="modal__image-actions">
                           <div class="edit-image-btn" data-target="${newPreviewId}"><i class="modal__actions-icon emoji-36"></i></div>

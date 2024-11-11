@@ -78,7 +78,7 @@ window.Echo.channel('broadcastPublication-channel')
 
                 // Inicializar la variable opcionesHtml vacía
                 let opcionesHtml = '';
-                
+
                 // Opciones de Filtros
                 if (window.userLogin === user.id) {
                     opcionesHtml = `
@@ -120,11 +120,11 @@ window.Echo.channel('broadcastPublication-channel')
                                     <div class="slick__image">
                                         <div id="slick-fich-${publication.id}" class="slick-fich slick__contn">
                                             ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => {
-                                            // Define la ruta de la imagen y la miniatura
-                                            let imagePath = `/publicationImagen/${image}`;
-                                            let thumbPath = `/product_thumb.php?img=${imagePath}&w=122&h=122`;
-                                            // Retorna el HTML para cada imagen en el carrusel
-                                            return `
+                    // Define la ruta de la imagen y la miniatura
+                    let imagePath = `/publicationImagen/${image}`;
+                    let thumbPath = `/product_thumb.php?img=${imagePath}&w=122&h=122`;
+                    // Retorna el HTML para cada imagen en el carrusel
+                    return `
                                                     <div class="item ${key === 0 ? 'actv' : ''} imge"
                                                         data-thumb="${thumbPath}"
                                                         data-src="${imagePath}">
@@ -132,20 +132,20 @@ window.Echo.channel('broadcastPublication-channel')
                                                             <img class="imge" src="${imagePath}" alt="Imagen de publicación ${key + 1}" />
                                                         </a>
                                                     </div> `;
-                                            }).join('') : ''}
+                }).join('') : ''}
                                         </div>
                                     </div>
                                     <div class="slick__thumbnails">
                                         ${Array.isArray(imagePaths) && imagePaths.length > 0 ? imagePaths.map((image, key) => {
-                                        // Define la ruta de la imagen
-                                        let imagePath = `/publicationImagen/${image}`;
-                                        // Retorna el HTML para cada miniatura
-                                        return `
+                    // Define la ruta de la imagen
+                    let imagePath = `/publicationImagen/${image}`;
+                    // Retorna el HTML para cada miniatura
+                    return `
                                                 <div class="thumbnail" data-src="${imagePath}">
                                                     <img src="${imagePath}" alt="Thumbnail de publicación ${key + 1}" />
                                                 </div>`;
 
-                                        }).join('') : ''}
+                }).join('') : ''}
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col col-lg-2 comment__btns-action">
@@ -175,9 +175,28 @@ window.Echo.channel('broadcastPublication-channel')
                                 </div>
                             </div>
                         </div>`;
-                        
-                 // Inserta Nueva Publicacion
-                $('.row__publications').find('.col-12').first().after(cardHtml); 
+
+                // Inserta Nueva Publicacion
+                $('.row__publications').find('.col-12').first().after(cardHtml);
+
+
+                /*  Sidebar toggle */
+                if ($('.toggle-sidebar-btn').length) {
+                    // Escucha el evento click
+                    $(document).on('click', '.toggle-sidebar-btn', function (e) {
+                        // Alterna la clase en el body
+                        $('body').toggleClass('toggle-sidebar');
+                    });
+                }
+
+                // Verifica si el botón de la barra de búsqueda existe
+                if ($('.search-bar-toggle').length) {
+                    // Añade un evento click al botón
+                    $(document).on('click', '.search-bar-toggle', function (e) {
+                        // Alterna la clase para mostrar/ocultar la barra de búsqueda
+                        $('.search-bar').toggleClass('search-bar-show');
+                    });
+                }
 
                 // Llamada a los métodos desde la clase
                 window.initPublication.startPublicationClass();

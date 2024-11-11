@@ -125,11 +125,11 @@ class UserController extends Controller
             
             // Maneja la imagen de perfil
             if (!empty($user->fotoPerfil)) {
-                $termArray['label'] = '<img src="' . url('fotoPerfil/' . $user->fotoPerfil) . '" width="60" class="pointer">&nbsp' . $user->alias;
+                $termArray['label'] = '<img src="' . url('fotoPerfil/' . $user->fotoPerfil) . '" width="60" class="pointer"> <span>' . $user->alias . '</span>';
             } else {
-                $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer">&nbsp' . $user->alias;
+                $termArray['label'] = '<img src="' . asset('assets/img/profile-img.jpg') . '" width="60" class="pointer"><span>' . $user->alias . '</span>';
             }
-    
+            
             // Añadir los datos al arreglo de resultados
             $data[] = $termArray;
         }

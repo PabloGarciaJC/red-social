@@ -60,7 +60,7 @@
                                                 @endphp
                                                 @break
                                         @endswitch
-                                        <form action="{{ $actionUrl }}" method="POST">
+                                        <form action="{{ $actionUrl }}" method="POST" class="form__user-perfil">
                                             @csrf
                                             @foreach ($usuario as $userReceptor)
                                                 <input type="hidden" class="user-receptor" name="userReceptor" value="{{ $userReceptor->id }}">
