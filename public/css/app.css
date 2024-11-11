@@ -3712,7 +3712,7 @@ screen and (max-width:767px)
 .show-contacts {display: flex; flex-direction: column;margin-bottom: 0px;margin-top: 10px;}
 .show-contact__user-name {font-size: 20px;}
 .show-contact__link {display: flex; align-items: center; gap: 15px; padding: 5px;}
-.show-contact__link > a img {border-radius: 50% !important;}
+.show-contact__link > a img {width: 50px; height: 50px; border-radius: 50%;}
 .show-contact__link:hover{background-color: #E4E6E8;}
 .show-contact__info {display: flex; flex-direction: column;}
 .show-contact__online {color:#06ac53}
@@ -3846,6 +3846,10 @@ screen and (max-width:767px)
 .comments__body p {margin-bottom: 0px;}
 .comment__btns-action {width: 22%;}
 
+@media (max-width:767px){
+.comments__card .rounded-circle {width: 35px; height: 35px;}
+}
+
 /*--------------------------------------------------------------
 # Formulario Comentarios
 --------------------------------------------------------------*/
@@ -3853,6 +3857,8 @@ screen and (max-width:767px)
 .form__comments .input-group {gap: 10px}
 .form__collapse {cursor: pointer; font-weight: 600; font-size: 18px; color: #000000; text-transform: capitalize;padding-bottom: 10px;}
 .form__collapse:hover, .btn__comments:hover {color: #006eff;}
+
+ 
 .form__send-icon {width: 30px; height: 30px;}
 .form__user-perfil, .form__user-perfil .btn.btn-success {width: 100%;}
 

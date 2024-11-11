@@ -87,10 +87,10 @@
                             <img src="{{ route('foto.perfil', ['filename' => $coments->user->fotoPerfil]) }}" class="rounded-circle" width="60" height="60" />
                             <div class="comments__description">
                                 <div class="comments__body">
-                                    <a href="#">{{ $coments->user->alias }}</a>
+                                    <a href="{{ route('detalles.perfil', ['perfil' => $mostrarPublication->user->alias, 'estado' => 'confirmado']) }}">{{ $coments->user->alias }}</a>
                                     <p>{{ $coments->contenido }}</p>
                                     @if ($coments->imagen != '')
-                                        <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                                        <img src="{{ route('comentarioImagen', ['filename' => $coments->imagen]) }}"  class="img-fluid" style="max-width: 100%; height: auto;">
                                     @endif
                                 </div>
                                 <div class="comments__btns" data-id-comments="{{ $coments->id }}">
