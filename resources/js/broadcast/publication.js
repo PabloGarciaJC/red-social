@@ -69,9 +69,7 @@ window.Echo.channel('broadcastPublication-channel')
                 let user = publication.user;
                 let contenido = (publication.contenido ?? '').trim();
                 let imagePaths = e.publication.imagePaths;
-
-                console.log(publication);
-
+                
                 // Obtener conteo de likes y dislikes
                 let likesCount = publication.like.filter(like => like.type === 'like').length;
                 let dislikesCount = publication.like.filter(like => like.type === 'dislike').length;
