@@ -1799,10 +1799,8 @@ screen and (max-width:767px)
 .form__comments .input-group {gap: 10px}
 .form__collapse {cursor: pointer; font-weight: 600; font-size: 18px; color: #000000; text-transform: capitalize;padding-bottom: 10px;}
 .form__collapse:hover, .btn__comments:hover {color: #006eff;}
-
- 
 .form__send-icon {width: 30px; height: 30px;}
-.form__user-perfil, .form__user-perfil .btn.btn-success {width: 100%;}
+.form__user-perfil, .form__user-perfil .btn.btn-success, .form__user-perfil .btn.btn-danger {width: 100%;}
 
 @media only screen and (min-width: 992px) and (max-width: 1200px),
 screen and (min-width: 768px) and (max-width: 991px),
