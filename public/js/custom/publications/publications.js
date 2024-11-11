@@ -453,78 +453,7 @@ class PublicationClass {
   startPublicationClass() {
     this.create('.modal__form-publication-create');
     this.delete('.eliminar-publication');
-
     this.btnChangeImagenModalPrevie($('#modal__for-file'), $('.modal__image-wrapper'), 0, 'preview-create-publication');
-
-
-
-    $(document).ready(function() {
-      // Al hacer clic en el icono de editar, activa el input de archivo
-      $('.user-perfil__edit').on('click', function (event) {
-          event.preventDefault();
-          $('#upload-profile-image').click(); // Dispara el clic en el input file oculto
-      });
-  
-      // Cuando el usuario selecciona una nueva imagen
-      $('#upload-profile-image').on('change', function (event) {
-          const file = event.target.files[0]; // Obtiene el archivo seleccionado
-  
-          // Verifica que el archivo sea una imagen
-          if (file && file.type.startsWith('image/')) {
-              const reader = new FileReader();
-  
-              // Cuando la imagen se carga en memoria, actualiza el src del elemento img
-              reader.onload = function (e) {
-                  $('#preview-perfil-user').attr('src', e.target.result); // Reemplaza la imagen de perfil
-              };
-  
-              reader.readAsDataURL(file); // Lee el archivo como una URL de datos
-          }
-      });
-  
-      // Al hacer clic en el icono de eliminar, elimina la imagen de perfil
-      $('.user-perfil__delete').on('click', function (event) {
-          event.preventDefault();
-          // Muestra una alerta de SweetAlert2 para confirmar la eliminación
-          Swal.fire({
-              icon: 'warning',
-              title: '¿Estás seguro de que deseas eliminar tu imagen de perfil?',
-              showCloseButton: true, // Muestra la "X" en la esquina superior derecha
-              showCancelButton: true, // Muestra el botón de cancelar
-              confirmButtonText: 'Sí, eliminar',
-              cancelButtonText: 'Cancelar',
-              focusCancel: true,
-              reverseButtons: true
-          }).then((result) => {
-              if (result.isConfirmed) {
-                  // Si el usuario confirma, establece la imagen predeterminada
-                  $('#preview-perfil-user').attr('src', 'https://via.placeholder.com/150/CCCCCC/808080?text=Perfil');
-  
-                  // Elimina el input de archivo y lo vuelve a agregar para que el navegador detecte el próximo cambio
-                  $('#upload-profile-image').remove(); // Elimina el input file
-                  $('.user-perfil__img-wrapper').append('<input type="file" id="upload-profile-image" accept="image/*" style="display: none;" name="fotoPerfil">');
-  
-                  // Vuelve a asignar el evento change para el nuevo input
-                  $('#upload-profile-image').on('change', function (event) {
-                      const file = event.target.files[0];
-                      if (file && file.type.startsWith('image/')) {
-                          const reader = new FileReader();
-                          reader.onload = function (e) {
-                              $('#preview-perfil-user').attr('src', e.target.result);
-                          };
-                          reader.readAsDataURL(file);
-                      }
-                  });
-              }
-          });
-      });
-  });
-  
-  
-
-
-
-
     this.desplegarModalEdit('.edit-publication');
     this.sendFormEdit('.modal__form-publication-edit');
     this.initSlickSlider('.slick__contn', '.slick__thumbnails');

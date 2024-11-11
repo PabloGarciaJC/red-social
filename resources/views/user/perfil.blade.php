@@ -90,16 +90,6 @@
                                             {{ session('message') }}
                                         </div>
                                     @endif
-
-                                    <style>
-
-                                        .user-perfil__img-wrapper{display: flex; align-items: center; justify-content: center; gap: 10px; flex-direction: column; width: 200px;}
-                                        .user-perfil__img {height: 100px; width: 100px;}
-                                        .user-perfil__btns-actions {display: flex; align-items: center; justify-content: center; width: 100%; gap: 10px;}
-                                        .user-perfil__btn {width: 100%;border: 1px solid #ced4da; display: flex; justify-content: center; padding: 5px;}
-                                        .user-perfil__icon {width: 25px; height: 25px;}
-
-                                    </style>
                                     <form action="{{ action('UserController@actualizar') }}" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <div class="row mb-3">
@@ -108,15 +98,10 @@
                                                 <div class="user-perfil__img-wrapper">
                                                     @if (Auth::user()->fotoPerfil)
                                                         <img src="{{ route('foto.perfil', ['filename' => Auth::user()->fotoPerfil]) }}" id="preview-perfil-user" alt="fotoPerfil" class="user-perfil__img"> 
-                                                        @else
-                                                        <img src="https://via.placeholder.com/150/CCCCCC/808080?text=Perfil" id="preview-perfil-user" alt="fotoPerfil" class="user-perfil__img"> 
                                                     @endif
                                                     <div class="user-perfil__btns-actions">
                                                         <a href="javascript:void(0)" class="user-perfil__btn user-perfil__edit" title="Upload new profile image">
-                                                            <i class="user-perfil__icon user-perfil__edit emoji-36"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0)" class="user-perfil__btn user-perfil__delete" title="Remove my profile image">
-                                                            <i class="user-perfil__icon emoji-35"></i>
+                                                            <i class="user-perfil__icon user-perfil__edit emoji-39"></i>
                                                         </a>
                                                     </div>
                                                     <input type="file" id="upload-profile-image" accept="image/*" style="display: none;" name="fotoPerfil">

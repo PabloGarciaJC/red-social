@@ -2367,6 +2367,14 @@ url(/fonts/vendor/bootstrap-icons/bootstrap-icons.woff?39795c0b4513de014cf8685fc
   background-size: cover;
 }
 
+.emoji-39 {
+  background-image: url('/emojis-svg/emoji-39.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
 
 /*--------------------------------------------------------------
 # General
@@ -3860,8 +3868,14 @@ input:focus-visible {border-color: #a2c2e6 !important;box-shadow: 0 0 3px 0 #66b
 .form__comentario-input, .chat__input {font-size: 15px !important;}
 }
 
-
-
+/*--------------------------------------------------------------
+# Avatar User Perfil
+--------------------------------------------------------------*/
+.user-perfil__img-wrapper{display: flex; align-items: center; justify-content: center; gap: 10px; flex-direction: column; width: 200px;}
+.user-perfil__img {height: 100px; width: 100px;}
+.user-perfil__btns-actions {display: flex; align-items: center; justify-content: center; width: 100%; gap: 10px;}
+.user-perfil__btn {width: 100%;border: 1px solid #ced4da; display: flex; justify-content: center; padding: 5px;}
+.user-perfil__icon {width: 25px; height: 25px;}
 /* Slider */
 .slick-slider
 {

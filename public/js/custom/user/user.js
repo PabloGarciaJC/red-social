@@ -89,10 +89,37 @@ class UserClass {
         });
     }
     
+    changeImagePreviewUserPerfil() {
+
+        // Al hacer clic en el icono de editar, activa el input de archivo
+        $('.user-perfil__edit').on('click', function (event) {
+            event.preventDefault();
+            $('#upload-profile-image').click(); // Dispara el clic en el input file oculto
+        });
+
+        // Cuando el usuario selecciona una nueva imagen
+        $('#upload-profile-image').on('change', function (event) {
+            const file = event.target.files[0]; // Obtiene el archivo seleccionado
+
+            // Verifica que el archivo sea una imagen
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                // Cuando la imagen se carga en memoria, actualiza el src del elemento img
+                reader.onload = function (e) {
+                    $('#preview-perfil-user').attr('src', e.target.result); // Reemplaza la imagen de perfil
+                };
+
+                reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+            }
+        });
+    }
+
     // Método para inicializar la clase
     startUserClass() {
         this.searchAutocompletado();
         this.changeImagePreview($('#image-file-perfil-user'), $('#previe-perfil-user'));
+        this.changeImagePreviewUserPerfil();
     }
 }
 
