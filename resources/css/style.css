@@ -347,6 +347,12 @@ h6 {
 .list-group-item {padding: 10px;display: flex;align-items: center;gap: 10px; padding-top: 10px;}
 .list-group-item img, .user-perfil__img, .chat-container__message-avatar {border-radius: 50%;width: 50px;height: 50px;}
 
+::-webkit-scrollbar{background:#dee4e7;}
+::-webkit-scrollbar-thumb{background:#66b9fb;}
+::-webkit-scrollbar{width:6px;height:4px;}
+html {overflow-y: scroll; scrollbar-color: #66b9fb #fff; scrollbar-width: thin;}
+
+
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
@@ -1691,7 +1697,6 @@ screen and (max-width:767px)
 .chat-container__message--received .chat-container__message-content .chat-text {order: 1; text-align: right;}
 .chat-container__message--received .chat-container__message-content {flex-direction: column-reverse;align-items: end;}
 .chat-user-bold {font-weight: 600;}
-
 
 /*--------------------------------------------------------------
 # Autor

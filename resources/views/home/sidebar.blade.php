@@ -7,11 +7,11 @@
                 <span>Inicio</span>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link " href="{{ route('game.show') }}">
                 <i class="bi bi-grid"></i>
                 <span>Juegos</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>

@@ -2433,6 +2433,13 @@ h6 {
 .list-group-item {padding: 10px;display: flex;align-items: center;gap: 10px; padding-top: 10px;}
 .list-group-item img, .user-perfil__img, .chat-container__message-avatar {border-radius: 50%;width: 50px;height: 50px;}
 
+
+::-webkit-scrollbar{background:#dee4e7;}
+::-webkit-scrollbar-thumb{background:#66b9fb;}
+::-webkit-scrollbar{width:6px;height:4px;}
+html {overflow-y: scroll; scrollbar-color: #66b9fb #fff; scrollbar-width: thin;}
+
+
 /*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
@@ -3740,25 +3747,15 @@ screen and (max-width:767px)
 .chat-container__modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;z-index: 996; }
 .chat-container__modal .chat-container__close { position: absolute; top: 10px; right: 10px; font-size: 20px; cursor: pointer; }
 .chat-container__message--received, .chat-container__message--sent {display: flex; align-items: center; gap: 10px;}
-
 .chat-container__message--sent a {order: 1;}
 .chat-container__message--sent .chat-container__message-content {order: 2;}
-
-
 .chat-container__message--received a {order: 2;}
 .chat-container__message--received .chat-container__message-content {order: 1;}
-
 .chat-container__message-content { display: flex; flex-direction: column;}
-
 .chat-container__message--received .chat-container__message-content .chat-user-bold {order: 2;}
 .chat-container__message--received .chat-container__message-content .chat-text {order: 1; text-align: right;}
 .chat-container__message--received .chat-container__message-content {flex-direction: column-reverse;align-items: end;}
-
-
-
-
 .chat-user-bold {font-weight: 600;}
-
 
 /*--------------------------------------------------------------
 # Autor
