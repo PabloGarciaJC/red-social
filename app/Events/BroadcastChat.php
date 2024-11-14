@@ -42,7 +42,8 @@ class BroadcastChat implements ShouldBroadcast
 
     public function broadcastAs()
     {
-          \Log::debug("{$this->chat}");
+        \Log::debug('Chat data:', ['chat' => $this->chat]);
+
         return new Channel('broadcastChat-event');
     }
 }

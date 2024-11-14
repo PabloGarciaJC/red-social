@@ -22,8 +22,8 @@ class ChatController extends Controller
      */
     public function getMessages($userId1, $userId2)
     {
-        // Obtener los mensajes enviados entre userId1 y userId2 (en ambas direcciones)
         $messages = DB::table('chats')
+            ->join('users as sender', 'chats.emisor_id', '=', 'sender.id')
             ->where(function ($query) use ($userId1, $userId2) {
                 $query->where('emisor_id', $userId1)
                     ->where('receptor_id', $userId2);
@@ -33,11 +33,12 @@ class ChatController extends Controller
                     ->where('receptor_id', $userId1);
             })
             ->orderBy('created_at', 'asc')
+            ->select('chats.*', 'sender.nombre as user', 'sender.fotoPerfil as fotoPerfil')
             ->get();
-
-        // Retornar los mensajes como respuesta JSON
+    
         return response()->json($messages, 200);
     }
+    
 
     // Función para enviar un mensaje
     public function sendMessage(Request $request)
@@ -51,13 +52,42 @@ class ChatController extends Controller
         $chat->created_at = now();
         $chat->updated_at = now();
         $chat->save();
+    
+        // Obtener el usuario emisor
+        $emisor = User::find($chat->emisor_id);
+        // Obtener el usuario receptor
+        $receptor = User::find($chat->receptor_id);
+    
+        // Crear un array con los datos que deseas emitir a Pusher
+        $broadcastData = [
+            'data' => $chat,
+            'emisor' => [
+                'nombre' => $emisor->nombre,
+                'fotoPerfil' => $emisor->fotoPerfil,
+            ]
+        ];
+    
+        // Emitir la notificación a través de Pusher (el canal se maneja en el evento)
+        broadcast(new BroadcastChat($broadcastData));
+    
+        // Log para ver los datos que se están transmitiendo
+        // \Log::debug('Datos del chat', ['chatData' => $broadcastData]);
 
-        // Emitir la notificación a través de Pusher
-        broadcast(new BroadcastChat($chat));
 
-        // Devolver una respuesta de éxito
-        return response()->json(['data' => $chat], 201);
+    
+        // Devolver una respuesta de éxito con la información del emisor
+        return response()->json([
+            'data' => $chat,
+            'emisor' => [
+                'nombre' => $emisor->nombre,
+                'fotoPerfil' => $emisor->fotoPerfil,
+            ]
+        ], 201);
     }
+    
+    
+    
+    
 
 
     public function markAllAsRead(Request $request, $emisorId)

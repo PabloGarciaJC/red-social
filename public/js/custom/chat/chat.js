@@ -78,7 +78,7 @@ class ChatClass {
                         showContactChat.show();
                     }
                 });
-
+                
                 // Mostrar Mensajes en el Chat
                 $.ajax({
                     url: `${baseUrl}chats/${userLogin}/${dataIdFollowers}`,
@@ -87,9 +87,17 @@ class ChatClass {
                         $('.chat-container__box').empty();
                         response.forEach((message) => {
                             let messageClass = message.emisor_id == userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
-                            let messageHtml = `<div class="chat-container__message ${messageClass}">
-                                                    <div class="chat-container__message-content">${message.message}</div>                        
-                                                </div> `;
+                            let profileImageUrl = `${baseUrl}fotoPerfil/${message.fotoPerfil}`;
+                            let messageHtml = ` 
+                            <div class="chat-container__message ${messageClass}">
+                                <a href="${baseUrl}usuario/${message.user}?estado=confirmado">
+                                    <img src="${profileImageUrl}" alt="Foto de ${message.user}" class="chat-container__message-avatar">
+                                </a>
+                                <div class="chat-container__message-content">
+                                    <span class="chat-user-bold">${message.user}</span> 
+                                    <span class="chat-text">${message.message}</span> 
+                                </div>
+                            </div> `;
                             $('.chat-container__box').append(messageHtml);
                         });
                         $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
@@ -203,7 +211,7 @@ class ChatClass {
             }
         });
     }
-
+   
     chatUserPerfil() {
         // Mostrar Mensajes en el Chat
         if (this.userReceptor.length === 0) return;
@@ -214,19 +222,25 @@ class ChatClass {
                 $('.chat-container__box').empty();
                 response.forEach((message) => {
                     let messageClass = message.emisor_id == this.userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
+                    let profileImageUrl = `${baseUrl}fotoPerfil/${message.fotoPerfil}`;
                     let messageHtml = `
                         <div class="chat-container__message ${messageClass}">
-                            <div class="chat-container__message-content">${message.message}</div>                        
+                            <a href="${baseUrl}usuario/${message.user}?estado=confirmado">
+                                <img src="${profileImageUrl}" alt="Foto de ${message.user}" class="chat-container__message-avatar">
+                            </a>
+                            <div class="chat-container__message-content">
+                                <span class="chat-user-bold">${message.user}</span> 
+                                <span class="chat-text">${message.message}</span> 
+                            </div>
                         </div>
                     `;
                     $('.chat-container__box').append(messageHtml);
                 });
                 $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
-                // Llamar al método para marcar todos los mensajes como leídos
                 this.markAllAsRead();
             }
         });
-
+        
         // Marcar todos los mensajes como leídos
         $('.chat-container').off("click").on("click", (e) => {
             e.preventDefault();
