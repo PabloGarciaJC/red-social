@@ -54,6 +54,8 @@ Route::get('/game', 'GameController@show')->name('game.show');
 Route::get('/game/guess', 'GameController@guess')->name('game.guess');
 Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
 
+// CONOCE LA PLATAFORMA
+Route::get('/intro', 'HomeController@intro')->name('intro');
 
 
 // NOTIFICACIONES

@@ -204,8 +204,8 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="text-center">
-                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        <div class="text-center form-btn__perfil">
+                                            <button type="submit" class="button">Guardar Cambios</button>
                                         </div>
                                     </form>
                                 </div>

@@ -29,4 +29,9 @@ class HomeController extends Controller
         $publications = Publication::orderBy('id', 'desc')->get();
         return view('home', ['publications' => $publications]);
     }
+
+    public function intro()
+    {
+        return view('home.intro');
+    }
 }

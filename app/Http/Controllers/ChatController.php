@@ -70,11 +70,6 @@ class ChatController extends Controller
         // Emitir la notificación a través de Pusher (el canal se maneja en el evento)
         broadcast(new BroadcastChat($broadcastData));
     
-        // Log para ver los datos que se están transmitiendo
-        // \Log::debug('Datos del chat', ['chatData' => $broadcastData]);
-
-
-    
         // Devolver una respuesta de éxito con la información del emisor
         return response()->json([
             'data' => $chat,
@@ -85,11 +80,6 @@ class ChatController extends Controller
         ], 201);
     }
     
-    
-    
-    
-
-
     public function markAllAsRead(Request $request, $emisorId)
     {
         // Obtener el ID del receptor (el usuario que está autenticado)
