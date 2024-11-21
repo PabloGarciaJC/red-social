@@ -33,36 +33,37 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center flex-wrap">
+                                        <h2 class="text-center fs-4 fw-bold text-dark">Seleciona un usuario</h2>
                                         <div class="row row-cols-1 row-cols-md-2 g-4 text-center">
                                             <!-- Usuario 1 -->
                                             <div class="col">
-                                                <div class="card h-100 user-card bg-card" data-email="user1@user.com" data-password="password">
+                                                <div class="card h-100 user-card bg-card" data-email="liam@user.com" data-password="password">
                                                     <div class="card-body d-flex justify-content-center align-items-center">
-                                                        <p class="mb-0"><strong>Usuario 1:</strong> user1@user.com</p>
+                                                        <p class="mb-0"><strong>Liam Keller</strong> liam@user.com</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Usuario 2 -->
                                             <div class="col">
-                                                <div class="card h-100 user-card bg-card" data-email="user2@user.com" data-password="password">
+                                                <div class="card h-100 user-card bg-card" data-email="sofia@user.com" data-password="password">
                                                     <div class="card-body d-flex justify-content-center align-items-center">
-                                                        <p class="mb-0"><strong>Usuario 2:</strong> user2@user.com</p>
+                                                        <p class="mb-0"><strong>Sofía Nakamura</strong> sofia@user.com</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Usuario 3 -->
                                             <div class="col">
-                                                <div class="card h-100 user-card bg-card" data-email="user3@user.com" data-password="password">
+                                                <div class="card h-100 user-card bg-card" data-email="marco@user.com" data-password="password">
                                                     <div class="card-body d-flex justify-content-center align-items-center">
-                                                        <p class="mb-0"><strong>Usuario 3:</strong> user3@user.com</p>
+                                                        <p class="mb-0"><strong>Marco Santis</strong> marco@user.com</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Usuario 4 -->
                                             <div class="col">
-                                                <div class="card h-100 user-card bg-card" data-email="user4@user.com" data-password="password">
+                                                <div class="card h-100 user-card bg-card" data-email="emilia@user.com" data-password="password">
                                                     <div class="card-body d-flex justify-content-center align-items-center">
-                                                        <p class="mb-0"><strong>Usuario 4:</strong> user4@user.com</p>
+                                                        <p class="mb-0"><strong>Emilia Fuentes</strong> emilia@user.com</p>
                                                     </div>
                                                 </div>
                                             </div>

@@ -1862,6 +1862,6 @@ input:focus-visible {border-color: #a2c2e6 !important;box-shadow: 0 0 3px 0 #66b
 .card__info {display: flex;flex-direction: column;gap: 20px;height: 100%;}
 .title__intro {font-size: 30px; font-weight: 600;color: #000;padding-top: 30px;}
 .credit-text {margin-bottom: 0.5rem;}
-.feature-card {border: 1px solid #a2c2e6;background-color: #d1efff;box-shadow: 0 0 3px 0 #66b9fb;transition: all 0.15s ease-in-out;}
+.feature-card {border: 1px solid #a2c2e6;background-color:#e9eef1;box-shadow: 0 0 3px 0 #66b9fb;transition: all 0.15s ease-in-out;}
 .card-header h3, .card-header i {color: #2c8cd7;}
 .card-body-info {flex-grow: 1; padding: 20px;}
