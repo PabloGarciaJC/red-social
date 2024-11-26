@@ -289,6 +289,70 @@
   background-size: cover;
 }
 
+.emoji-40 {
+  background-image: url('/emojis-svg/emoji-40.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-41 {
+  background-image: url('/emojis-svg/emoji-41.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-42 {
+  background-image: url('/emojis-svg/emoji-42.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-43 {
+  background-image: url('/emojis-svg/emoji-43.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-44 {
+  background-image: url('/emojis-svg/emoji-44.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-45 {
+  background-image: url('/emojis-svg/emoji-45.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-46 {
+  background-image: url('/emojis-svg/emoji-46.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-47 {
+  background-image: url('/emojis-svg/emoji-47.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
 
 /*--------------------------------------------------------------
 # General
@@ -1856,10 +1920,10 @@ screen and (max-width:767px) {
 .btn-dislike,
 .btn__comments {
   cursor: pointer;
-  font-weight: 600;
   font-size: 18px;
   color: #000;
 }
+
 
 .like {
   color: #006eff;
@@ -2521,10 +2585,6 @@ screen and (max-width:767px) {
   border: 1px solid #66b9fb;
 }
 
-.thumbnail img:hover {
-  transform: scale(1.1);
-}
-
 .slick-slide.slick-current {
   display: flex;
   align-items: center;
@@ -2603,6 +2663,9 @@ screen and (max-width:767px) {
   overflow: hidden;
   padding: 0px;
   margin-top: 20px;
+  border-color: #a2c2e6;
+  box-shadow: 0 0 3px 0 #66b9fb;
+  transition: background-color .15s ease-in-out;
 }
 
 .comments__btns {
@@ -2650,7 +2713,8 @@ screen and (max-width:767px) {
 }
 
 .comments__body {
-  width: 100%
+  width: 100%;
+  padding: 5px;
 }
 
 .comments__body p {
@@ -2691,6 +2755,10 @@ screen and (max-width:767px) {
 .form__collapse:hover,
 .btn__comments:hover {
   color: #006eff;
+}
+
+.btn__comments {
+  width: 160px;
 }
 
 .form__send-icon {

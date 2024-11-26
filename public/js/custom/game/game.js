@@ -2,8 +2,19 @@ class GameClass {
 
     startGameClass() {
 
-        const images = ['🍎', '🍌', '🍒', '🍓', '🍉', '🍇', '🍍', '🥭'];
-        let cards = [...images, ...images];
+        // Lista de emojis como clases SVG
+        const emojis = [
+            { emoji: "🍎", className: "emoji-40" },
+            { emoji: "🍌", className: "emoji-41" },
+            { emoji: "🍒", className: "emoji-42" },
+            { emoji: "🍍", className: "emoji-43" },
+            { emoji: "🍉", className: "emoji-44" },
+            { emoji: "🥭", className: "emoji-45" },
+            { emoji: "🍋", className: "emoji-46" },
+            { emoji: "🍑", className: "emoji-47" }
+        ];
+
+        let cards = [...emojis, ...emojis]; // Duplicar para pares
         let firstCard = null;
         let secondCard = null;
         let lockBoard = false;
@@ -12,12 +23,15 @@ class GameClass {
         function setupBoard() {
             cards = shuffle(cards);
             $('.memory-game__board').empty();
+
             cards.forEach((card, index) => {
                 $('.memory-game__board').append(`
-                        <div class="memory-game__card" data-id="${index}">
-                            <img src="path-to-your-image/${card}.png" alt="${card}">
-                        </div>
-                    `);
+                    <div class="memory-game__card" data-id="${index}">
+                        <span class="form__emoji" data-emoji="${card.emoji}">
+                            <i class="${card.className}" style="display: none;"></i>
+                        </span>
+                    </div>
+                `);
             });
         }
 
@@ -35,7 +49,7 @@ class GameClass {
             if (lockBoard || $(this).hasClass('memory-game__card--flipped') || $(this).hasClass('memory-game__card--matched')) return;
 
             $(this).addClass('memory-game__card--flipped');
-            $(this).find('img').show();
+            $(this).find('i').show();
 
             if (!firstCard) {
                 firstCard = $(this);
@@ -47,14 +61,17 @@ class GameClass {
 
         // Verificar si las dos cartas coinciden
         function checkMatch() {
-            if (firstCard.find('img').attr('src') === secondCard.find('img').attr('src')) {
+            const firstEmoji = firstCard.find('.form__emoji').data('emoji');
+            const secondEmoji = secondCard.find('.form__emoji').data('emoji');
+
+            if (firstEmoji === secondEmoji) {
                 firstCard.add(secondCard).addClass('memory-game__card--matched');
                 resetBoard();
             } else {
                 lockBoard = true;
                 setTimeout(() => {
-                    firstCard.removeClass('memory-game__card--flipped').find('img').hide();
-                    secondCard.removeClass('memory-game__card--flipped').find('img').hide();
+                    firstCard.removeClass('memory-game__card--flipped').find('i').hide();
+                    secondCard.removeClass('memory-game__card--flipped').find('i').hide();
                     resetBoard();
                 }, 1000);
             }
