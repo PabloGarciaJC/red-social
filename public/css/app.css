@@ -2506,7 +2506,7 @@ h6 {
 
 .form-control {
   padding: 10px;
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 
 .form-control:focus {
@@ -4611,10 +4611,14 @@ screen and (max-width:767px) {
   position: relative;
 }
 
-.slick__image img {
+/* .slick__image img {
   margin: 0 auto;
   height: 600px;
   max-height: 600px;
+} */
+
+.slick-slide img {
+  margin: 0 auto;
 }
 
 .slick__contn {
@@ -4655,11 +4659,11 @@ screen and (max-width:767px) {
 }
 
 .slick-prev {
-  left: 100px !important;
+  left: 0px !important;
 }
 
 .slick-next {
-  right: 130px !important;
+  right: 0px !important;
 }
 
 .slick-prev:before,
@@ -4670,25 +4674,13 @@ screen and (max-width:767px) {
 .slick-prev,
 .slick-next {
   z-index: 99 !important;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px),
 screen and (min-width: 768px) and (max-width: 991px),
 screen and (max-width:767px) {
-  .slick-next {
-    right: 12px !important;
-  }
-
-  .slick-prev {
-    left: -20px !important;
-  }
-
-  .slick-prev,
-  .slick-next {
-    width: 5px;
-    height: 5px;
-  }
-
   .slick__thumbnails {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -4696,6 +4688,12 @@ screen and (max-width:767px) {
 }
 
 @media (max-width:767px) {
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 30px !important;
+  }
+
   .slick__image img {
     height: 280px;
     max-height: 280px;
@@ -4721,7 +4719,6 @@ screen and (max-width:767px) {
   overflow: hidden;
   padding: 0px;
   margin-top: 20px;
-
   border-color: #a2c2e6;
   box-shadow: 0 0 3px 0 #66b9fb;
   transition: background-color .15s ease-in-out;
