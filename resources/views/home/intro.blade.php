@@ -260,73 +260,59 @@
                         <div class="col">
                             <div class="card info-card feature-card h-100">
                                 <div class="card-header">
-                                    <h3><i class="bi bi-person"></i> Usuario 1</h3>
+                                    <h3><i class="bi bi-person"></i> liam@user.com</h3>
                                 </div>
                                 <div class="card-body-info">
-                                    <p class="credit-text"><strong>Correo Alias:</strong> juan.perez@email.com</p>
-                                    <p class="credit-text"><strong>Contraseña:</strong> ******** (Encriptada)</p>
+                                    <p class="credit-text"><strong>Correo Alias:</strong> liam@user.com</p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> password</p>
                                     <p class="credit-text"><strong>Recuperación de Contraseña:</strong></p>
-                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">soporte@tusitioweb.co</a></strong></p>
-                                    <p class="credit-text"><strong>Contraseña:</strong>xxxxx</p>
+                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">testing@pablogarciajc.com</a></strong></p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> 4vy3BONUmJeqVR!</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card info-card feature-card h-100">
                                 <div class="card-header">
-                                    <h3><i class="bi bi-person"></i> Usuario 2</h3>
+                                    <h3><i class="bi bi-person"></i> Sofía Nakamura</h3>
                                 </div>
                                 <div class="card-body-info">
-                                    <p class="credit-text"><strong>Correo Alias:</strong> juan.perez@email.com</p>
-                                    <p class="credit-text"><strong>Contraseña:</strong> ******** (Encriptada)</p>
+                                    <p class="credit-text"><strong>Correo Alias:</strong> sofia@user.com</p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> password</p>
                                     <p class="credit-text"><strong>Recuperación de Contraseña:</strong></p>
-                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">soporte@tusitioweb.co</a></strong></p>
-                                    <p class="credit-text"><strong>Contraseña:</strong>xxxxx</p>
+                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">testing@pablogarciajc.com</a></strong></p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> 4vy3BONUmJeqVR!</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card info-card feature-card h-100">
                                 <div class="card-header">
-                                    <h3><i class="bi bi-person"></i> Usuario 3</h3>
+                                    <h3><i class="bi bi-person"></i> Marco Santis</h3>
                                 </div>
                                 <div class="card-body-info">
-                                    <p class="credit-text"><strong>Correo Alias:</strong> juan.perez@email.com</p>
-                                    <p class="credit-text"><strong>Contraseña:</strong> ******** (Encriptada)</p>
+                                    <p class="credit-text"><strong>Correo Alias:</strong> marco@user.com</p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> password</p>
                                     <p class="credit-text"><strong>Recuperación de Contraseña:</strong></p>
-                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">soporte@tusitioweb.co</a></strong></p>
-                                    <p class="credit-text"><strong>Contraseña:</strong>xxxxx</p>
+                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">testing@pablogarciajc.com</a></strong></p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> 4vy3BONUmJeqVR!</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card info-card feature-card h-100">
                                 <div class="card-header">
-                                    <h3><i class="bi bi-person"></i> Usuario 4</h3>
+                                    <h3><i class="bi bi-person"></i> Emilia Fuentes</h3>
                                 </div>
                                 <div class="card-body-info">
-                                    <p class="credit-text"><strong>Correo Alias:</strong> juan.perez@email.com</p>
-                                    <p class="credit-text"><strong>Contraseña:</strong> ******** (Encriptada)</p>
+                                    <p class="credit-text"><strong>Correo Alias:</strong> emilia@user.com</p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> password</p>
                                     <p class="credit-text"><strong>Recuperación de Contraseña:</strong></p>
-                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">soporte@tusitioweb.co</a></strong></p>
-                                    <p class="credit-text"><strong>Contraseña:</strong>xxxxx</p>
+                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">testing@pablogarciajc.com</a></strong></p>
+                                    <p class="credit-text"><strong>Contraseña:</strong> 4vy3BONUmJeqVR!</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card info-card feature-card h-100">
-                                <div class="card-header">
-                                    <h3><i class="bi bi-person"></i> Usuario 5</h3>
-                                </div>
-                                <div class="card-body-info">
-                                    <p class="credit-text"><strong>Correo Alias:</strong> juan.perez@email.com</p>
-                                    <p class="credit-text"><strong>Contraseña:</strong> ******** (Encriptada)</p>
-                                    <p class="credit-text"><strong>Recuperación de Contraseña:</strong></p>
-                                    <p class="credit-text">Para verificar la funcionalidad, utiliza el siguiente correo corporativo: <strong><a href="https://tusitioweb.com/recuperar-contraseña" target="_blank">soporte@tusitioweb.co</a></strong></p>
-                                    <p class="credit-text"><strong>Contraseña:</strong>xxxxx</p>
-                                </div>
-                            </div>
-                        </div> 
                     </div>
                 </div>
                 <div class="card__info">
