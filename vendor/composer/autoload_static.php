@@ -588,6 +588,7 @@ class ComposerStaticInit9f0736e356c0530644aba35be9a027c1
         'App\\Events\\BroadcastPublication' => __DIR__ . '/../..' . '/app/Events/BroadcastPublication.php',
         'App\\Events\\BroadcastUserSessionChanged' => __DIR__ . '/../..' . '/app/Events/BroadcastUserSessionChanged.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\UserHelper' => __DIR__ . '/../..' . '/app/Helpers/UserHelper.php',
         'App\\Http\\Controllers\\Api\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UserController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

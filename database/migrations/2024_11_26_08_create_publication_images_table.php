@@ -9,10 +9,12 @@ class CreatePublicationImagesTable extends Migration
     public function up()
     {
         Schema::create('publication_images', function (Blueprint $table) {
-            $table->id(); // Crea un campo 'id' de tipo BIGINT UNSIGNED AUTO_INCREMENT
-            $table->foreignId('publication_id')->constrained()->onDelete('cascade'); // Crea un campo para la relación con publications
-            $table->string('image_path'); // Crea un campo para almacenar la ruta de la imagen
-            $table->timestamps(); // Crea los campos created_at y updated_at
+            $table->id();
+            $table->unsignedBigInteger('publication_id');
+            $table->string('image_path');
+            $table->timestamps(0);
+
+            $table->foreign('publication_id')->references('id')->on('publications')->onDelete('cascade');
         });
     }
 
@@ -21,3 +23,4 @@ class CreatePublicationImagesTable extends Migration
         Schema::dropIfExists('publication_images');
     }
 }
+

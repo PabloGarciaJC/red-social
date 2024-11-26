@@ -6,31 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateNotificationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->uuid('id')->primary();
+            $table->char('id', 36);
             $table->string('type');
-            $table->morphs('notifiable');
+            $table->string('notifiable_type');
+            $table->unsignedBigInteger('notifiable_id');
             $table->text('data');
             $table->timestamp('read_at')->nullable();
-            $table->timestamps();
+            $table->timestamps(0);
+
+            $table->primary('id');
+            $table->index(['notifiable_type', 'notifiable_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('notifications');
     }
 }
+
