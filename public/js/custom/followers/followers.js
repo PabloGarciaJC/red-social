@@ -6,21 +6,35 @@ class FollowerClass {
 
             // Mostrar el modal Chat
             let dataIdFollowers = element.closest('.show-contact__link').data('id-followers');
+
             // Asignar Id al Modal
             $('.modal-chat').find('.user-receptor-chat').val(dataIdFollowers);
 
-            // Mmarcar todos los mensajes como leídos
+            // Marcar como leidos al hacer click en el Mensajes
             $.ajax({
                 url: `${baseUrl}chats/${dataIdFollowers}`,
                 method: 'GET',
                 success: (response) => {
-                    // Reiniciar Contactos Sidebar
                     let userFollowersNav = $('.show-contacts').find($(`[data-id-followers="${dataIdFollowers}"]`));
                     let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
-                    let showContactChat = userFollowersNav.find('.show-contact__chat');
-                    newMessagesNavDiv.remove();
-                    showContactChat.show();
+                    newMessagesNavDiv.find('.show-contact__count-text').text(0);
                 }
+            });
+
+            // Marcar como leidos Cuando existe click en el INPUT
+            $('.modal-chat').find('.chat__input').off("click").on("click", (e) => {
+                let parentContainer = $(e.currentTarget).closest('.chat-container__input')
+                let userReceptor = parentContainer.find('.user-receptor-chat');
+                
+                $.ajax({
+                    url: `${baseUrl}chats/${userReceptor.val()}`,
+                    method: 'GET',
+                    success: (response) => {
+                        let userFollowersNav = $('.show-contacts').find($(`[data-id-followers="${userReceptor.val()}"]`));
+                        let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
+                        newMessagesNavDiv.find('.show-contact__count-text').text(0);
+                    }
+                });
             });
 
             // Mostrar Mensajes en el Chat
@@ -95,25 +109,6 @@ class FollowerClass {
             }
         });
 
-        // Cuando existe click en el INPUT
-        $('.modal-chat').find('.chat__input').off("click").on("click", (e) => {
-            let parentContainer = $(e.currentTarget).closest('.chat-container__input')
-            let userReceptor = parentContainer.find('.user-receptor-chat');
-            // Mmarcar todos los mensajes como leídos
-            $.ajax({
-                url: `${baseUrl}chats/${userReceptor.val()}`,
-                method: 'GET',
-                success: (response) => {
-                    // Reiniciar Contactos Sidebar
-                    let userFollowersNav = $('.show-contacts').find($(`[data-id-followers="${userReceptor.val()}"]`));
-                    let newMessagesNavDiv = userFollowersNav.find('.show-contact__new-messages');
-                    let showContactChat = userFollowersNav.find('.show-contact__chat');
-                    newMessagesNavDiv.remove();
-                    showContactChat.show();
-                }
-            });
-        });
-
         // Adjuntar evento al botón "Ir al Chat - Mostrar Mensajes"
         $(".show-contact__chat").off("click").on("click", function (e) {
             e.preventDefault();
@@ -140,64 +135,56 @@ class FollowerClass {
 
                 // Iterar sobre usersEmisor (usuarios que el usuario sigue)
                 data.usersEmisor.forEach((user) => {
-                    // console.log(user);
-                    let status = (user.conectado == 1)
-                        ? '<span class="show-contact__online">Conectado</span>'
-                        : '<span class="show-contact__off-online">Desconectado</span>';
 
-                    // Verificar si tiene mensajes no leídos
-                    let unreadMessages = user.unread_messages > 0
-                        ? `<div class="show-contact__new-messages">                                
-                                <div class="show-contact__count-messages">
-                                    <span class="show-contact__count-text">${user.unread_messages}</span>    
-                                    <i class="bi bi-envelope-fill"></i>
-                                </div> nuevos
-                            </div>`
-                        : '<div class="show-contact__chat">Ir al Chat</div>'; // Si no hay mensajes no leídos, no mostrar nada
+                    let status = (user.conectado == 1) ? 'show-contact__online' : 'show-contact__off-online';
 
                     // Generar HTML para cada usuario seguido
                     htmlEmisor += `<div class="show-contact__link" data-id-followers="${user.id}"> 
-                                        <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}">
+                                        <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}" class="${status}">
                                             <img src="${baseUrl}fotoPerfil/${user.fotoPerfil}" alt="${user.nombre}" />
                                         </a>
                                         <div class="show-contact__info"> 
                                             <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}">
                                                 <span class="show-contact__user-name">${user.nombre}</span>
                                             </a>
-                                             <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}">
-                                                 ${status}
-                                            </a>
-                                            ${unreadMessages}
+                                
+                                            <div class="show-contact__new-messages">                                
+                                                <div class="show-contact__count-messages">
+                                                    <span class="show-contact__count-text">${user.unread_messages}</span>    
+                                                    <i class="bi bi-envelope-fill"></i>
+                                                </div> nuevos
+                                            </div>
+
+                                            <div class="show-contact__chat">Ir al Chat</div>
+
                                         </div>
                                     </div>`;
                 });
 
                 // Iterar sobre userReceptor (seguidores del usuario)
                 data.userReceptor.forEach((user) => {
-                    let status = (user.conectado == 1)
-                        ? '<span class="show-contact__online">Conectado</span>'
-                        : '<span class="show-contact__off-online">Desconectado</span>';
-
-                    // Verificar si tiene mensajes no leídos
-                    let unreadMessages = user.unread_messages > 0
-                        ? `<div class="show-contact__new-messages">                                
-                                <span class="show-contact__count-messages">${user.unread_messages}<i class="bi bi-envelope-fill"></i></span> nuevos
-                            </div>`
-                        : '<div class="show-contact__chat">Ir al Chat</div>'; // Si no hay mensajes no leídos, no mostrar nada
+                    
+                    let status = (user.conectado == 1) ? 'show-contact__online' : 'show-contact__off-online';
 
                     // Generar HTML para cada seguidor del usuario
                     htmlReceptor += `<div class="show-contact__link" data-id-followers="${user.id}"> 
-                                        <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}">
+                                        <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}" class="${status}">
                                             <img src="${baseUrl}fotoPerfil/${user.fotoPerfil}" alt="${user.nombre}" />
                                         </a>
                                         <div class="show-contact__info"> 
                                             <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}">
                                                 <span class="show-contact__user-name">${user.nombre}</span>
                                             </a>
-                                             <a href="${baseUrl}usuario/${user.nombre}?estado=${user.estado}">
-                                                 ${status}
-                                            </a>
-                                            ${unreadMessages}
+                                           
+                                            <div class="show-contact__new-messages">                                
+                                                <div class="show-contact__count-messages">
+                                                    <span class="show-contact__count-text">${user.unread_messages}</span>    
+                                                    <i class="bi bi-envelope-fill"></i>
+                                                </div> nuevos
+                                            </div>
+
+                                            <div class="show-contact__chat">Ir al Chat</div>
+
                                         </div>
                                     </div>`;
                 });

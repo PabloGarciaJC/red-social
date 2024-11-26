@@ -1,7 +1,7 @@
 window.Echo.channel('broadcastChat-channel')
     .listen('.broadcastChat-event', (e) => {
         // Debug: Verifica los datos recibidos
-        console.log('Recibido desde Pusher:', e);
+        // console.log('Recibido desde Pusher:', e);
 
         let chat = e.chat;  // El objeto chat completo
         let message = chat.data.message;  // El mensaje real

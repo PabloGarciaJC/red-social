@@ -8,15 +8,12 @@ window.Echo.channel('BroadcastUserSessionChanged-channel')
         // Función para actualizar el estado de un usuario
         function actualizarEstadoConexion(alias, conectado, selector) {
             let estadoClase = conectado === 1 ? 'show-contact__online' : 'show-contact__off-online';
-            let estadoTexto = conectado === 1 ? 'Conectado' : 'Desconectado';
-
             $(selector + ' .show-contact__user-name').each(function () {
                 if ($(this).text() === alias) {
                     $(this).closest('.show-contact__link')
                         .find('.show-contact__off-online, .show-contact__online')
                         .removeClass()
-                        .addClass(estadoClase)
-                        .text(estadoTexto);
+                        .addClass(estadoClase);
                 }
             });
         }
