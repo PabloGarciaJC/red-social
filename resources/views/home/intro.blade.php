@@ -97,6 +97,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="card info-card feature-card h-100">
+                                <div class="card-header">
+                                    <h3><i class="bi bi-controller"></i> Juegos Disponibles</h3>
+                                </div>
+                                <div class="card-body-info">
+                                    <p>Explora y disfruta de una variedad de juegos disponibles para entretenerte en cualquier momento.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="card__info">

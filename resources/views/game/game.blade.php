@@ -45,11 +45,10 @@
                                 </div>
                             </div>
                         </div>
-            
                         <div class="col">
                             <div class="card info-card feature-card h-90">
-                                <div class="card-header">
-                                    <div class="hangman-thumbnail">                                        
+                                <div class="card-header card-cntn-hangman">
+                                    <a href="{{ route('game.hanged') }}" class="hangman-thumbnail">                                        
                                         <h2 class="title-games">Adivina la palabra</h2>
                                         <div class="word-display">
                                             <span class="letter-item">_</span>
@@ -62,26 +61,22 @@
                                             <span class="letter-item">_</span>
                                             <span class="letter-item">_</span>
                                         </div>
-                                        <div class="letters">
-                                            <button class="letter">A</button>
-                                            <button class="letter">B</button>
-                                            <button class="letter">C</button>
-                                            <button class="letter">D</button>
-                                            <button class="letter">E</button>
-                                            <button class="letter">F</button>
-                                            <button class="letter">G</button>
-                                            <button class="letter">H</button>
-                                            <button class="letter">I</button>
-                                            <button class="letter">J</button>
-                                            <button class="letter">K</button>
-                                            <button class="letter">L</button>
+                                        <div class="letters-p">
+                                            <button class="letter-p">A</button>
+                                            <button class="letter-p">B</button>
+                                            <button class="letter-p">C</button>
+                                            <button class="letter-p">D</button>
+                                            <button class="letter-p">E</button>
+                                            <button class="letter-p">F</button>
+                                            <button class="letter-p">G</button>
+                                            <button class="letter-p">H</button>
+                                            <button class="letter-p">I</button>
+                                            <button class="letter-p">J</button>
+                                            <button class="letter-p">K</button>
+                                            <button class="letter-p">L</button>
                                         </div>                                        
-                                        <div class="progress-container">
-                                            <div class="progress-bar" style="width: 40%;"></div>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
-                        
                                 <div class="card-body">
                                     <h3 class="card-title">Juego de Ahorcado</h3>
                                     <p class="card-text"> Pon a prueba tus habilidades para adivinar palabras en este emocionante juego de Ahorcado. 
