@@ -46,4 +46,9 @@ class GameController extends Controller
     {
         return view('game.trivia');
     }
+
+    public function hanged()
+    {
+        return view('game.hanged');
+    }
 }

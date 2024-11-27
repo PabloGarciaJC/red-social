@@ -55,6 +55,7 @@ Route::get('/game/guess', 'GameController@guess')->name('game.guess');
 Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
 Route::get('/game/memory', 'GameController@memory')->name('game.memory');
 Route::get('/game/trivia', 'GameController@trivia')->name('game.trivia');
+Route::get('/game/hanged', 'GameController@hanged')->name('game.hanged');
 
 // CONOCE LA PLATAFORMA
 Route::get('/intro', 'HomeController@intro')->name('intro');

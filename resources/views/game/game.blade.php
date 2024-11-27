@@ -60,10 +60,11 @@
                                     <span class="card-memory"><i class="emoji-41"></i></span>  
                                 </div>
                                 <div class="card-body">
-                                    <h3 class="card-title">Juego de Memoria</h3>
-                                    <p class="card-text">Pon a prueba tu memoria con este divertido juego. Encuentra todas las parejas de cartas en el menor tiempo posible. Ideal para todas las edades y una excelente forma de ejercitar tu mente.</p>
-                                    <a href="{{ route('game.memory') }}" class="btn btn-primary mt-3">¡Jugar ahora!</a>
+                                    <h3 class="card-title">Juego de Ahorcado</h3>
+                                    <p class="card-text">Pon a prueba tus habilidades para adivinar palabras en este emocionante juego de Ahorcado. Tendrás que adivinar la palabra secreta antes de que se complete el dibujo del ahorcado.</p>
+                                    <a href="{{ route('game.hanged') }}" class="btn btn-primary mt-3">¡Jugar ahora!</a>
                                 </div>
+                                
                             </div>
                         </div>
 

@@ -200,14 +200,127 @@ class GameClass {
                 loadQuestion();
             });
         });
-
     }
 
+    hanged() {
+        const wordList = [
+            { word: 'desarrollador', category: 'Profesión en tecnología' },
+            { word: 'programacion', category: 'Actividad relacionada con la creación de software' },
+            { word: 'javascript', category: 'Lenguaje de programación' },
+            { word: 'frontend', category: 'Parte del desarrollo web que interactúa con el usuario' },
+            { word: 'html', category: 'Lenguaje de marcado para la creación de páginas web' },
+            { word: 'css', category: 'Lenguaje para el diseño y estilo de páginas web' },
+            { word: 'laravel', category: 'Framework de PHP para desarrollo web' }
+        ];
+    
+        let selectedWord = '';
+        let category = '';
+        let guessedLetters = [];
+        let incorrectGuesses = 0;
+        const maxIncorrectGuesses = 6;
+    
+        const wordDisplay = $('#word-display');
+        const lettersContainer = $('#letters');
+        const resultDisplay = $('#result');
+        const resetButton = $('#resetButton');
+        const progressBar = $('#progress-bar');
+        const hintButton = $('#hintButton');
+        const hintText = $('#hintText');
+    
+        // Elegir una palabra aleatoria
+        const chooseWord = () => {
+            const randomIndex = Math.floor(Math.random() * wordList.length);
+            selectedWord = wordList[randomIndex].word;
+            category = wordList[randomIndex].category;
+            guessedLetters = [];
+            incorrectGuesses = 0;
+            resultDisplay.text('');
+            resetButton.hide();
+            hintText.hide();
+            hintButton.show(); // Aseguramos que el botón de pista esté visible
+            updateWordDisplay();
+            generateLetterButtons();
+            updateProgressBar();
+        };
+    
+        // Mostrar la palabra con guiones bajos para las letras no adivinadas
+        const updateWordDisplay = () => {
+            wordDisplay.text('');
+            for (let i = 0; i < selectedWord.length; i++) {
+                const letter = guessedLetters.includes(selectedWord[i]) ? selectedWord[i] : '_';
+                wordDisplay.append(letter + ' ');
+            }
+    
+            if (!wordDisplay.text().includes('_')) {
+                resultDisplay.text('¡Felicidades, has ganado!');
+                resultDisplay.css('color', 'green');
+                resetButton.show();
+                hintButton.hide();
+            } else if (incorrectGuesses >= maxIncorrectGuesses) {
+                resultDisplay.text(`¡Has perdido! La palabra era: ${selectedWord}`);
+                resultDisplay.css('color', 'red');
+                resetButton.show();
+                hintButton.hide();
+            }
+        };
+    
+        // Generar botones para cada letra del alfabeto
+        const generateLetterButtons = () => {
+            const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+            lettersContainer.empty();
+            alphabet.forEach(letter => {
+                const button = $('<div>').text(letter).addClass('letter');
+                button.on('click', () => handleLetterClick(button, letter));
+                lettersContainer.append(button);
+            });
+        };
+    
+        // Manejar el clic en una letra
+        const handleLetterClick = (button, letter) => {
+            button.addClass('disabled').css('pointer-events', 'none');
+    
+            if (selectedWord.includes(letter)) {
+                guessedLetters.push(letter);
+                updateWordDisplay();
+            } else {
+                incorrectGuesses++;
+                updateWordDisplay();
+                updateProgressBar();
+            }
+        };
+    
+        // Mostrar una pista textual
+        const showHint = () => {
+            hintText.text(`Pista: ${category}`).show();
+            hintButton.hide(); // Desactivar el botón de pista después de usarlo
+        };
+    
+        // Actualizar la barra de progreso
+        const updateProgressBar = () => {
+            const progress = (incorrectGuesses / maxIncorrectGuesses) * 100;
+            progressBar.css('width', `${progress}%`);
+        };
+    
+        // Reiniciar el juego
+        const resetGame = () => {
+            chooseWord();
+        };
+    
+        // Eventos
+        resetButton.on('click', resetGame);
+        hintButton.on('click', showHint);
+    
+        // Iniciar el juego al cargar
+        chooseWord();
+    }
+    
     startGameClass() {
         // Juego de Memoria
         this.memory();
         // Juego de trivia
         this.trivia();
+        // Juego Ahorcado (hanged)
+        this.hanged();
     }
 }
 
