@@ -48,28 +48,50 @@
             
                         <div class="col">
                             <div class="card info-card feature-card h-90">
-                                <div class="card-header card-cntn-memory">
-                                    <span class="card-memory"><i class="emoji-40"></i></span>
-                                    <span class="card-memory"><i class="emoji-41"></i></span>
-                                    <span class="card-memory"><i class="emoji-42"></i></span>
-                                    <span class="card-memory"><i class="emoji-43"></i></span>
-                                    <span class="card-memory"><i class="emoji-44"></i></span>
-                                    <span class="card-memory"><i class="emoji-45"></i></span>
-                                    <span class="card-memory"><i class="emoji-46"></i></span>
-                                    <span class="card-memory"><i class="emoji-47"></i></span>
-                                    <span class="card-memory"><i class="emoji-41"></i></span>  
+                                <div class="card-header">
+                                    <div class="hangman-thumbnail">                                        
+                                        <h2 class="title-games">Adivina la palabra</h2>
+                                        <div class="word-display">
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                            <span class="letter-item">_</span>
+                                        </div>
+                                        <div class="letters">
+                                            <button class="letter">A</button>
+                                            <button class="letter">B</button>
+                                            <button class="letter">C</button>
+                                            <button class="letter">D</button>
+                                            <button class="letter">E</button>
+                                            <button class="letter">F</button>
+                                            <button class="letter">G</button>
+                                            <button class="letter">H</button>
+                                            <button class="letter">I</button>
+                                            <button class="letter">J</button>
+                                            <button class="letter">K</button>
+                                            <button class="letter">L</button>
+                                        </div>                                        
+                                        <div class="progress-container">
+                                            <div class="progress-bar" style="width: 40%;"></div>
+                                        </div>
+                                    </div>
                                 </div>
+                        
                                 <div class="card-body">
                                     <h3 class="card-title">Juego de Ahorcado</h3>
-                                    <p class="card-text">Pon a prueba tus habilidades para adivinar palabras en este emocionante juego de Ahorcado. Tendrás que adivinar la palabra secreta antes de que se complete el dibujo del ahorcado.</p>
+                                    <p class="card-text"> Pon a prueba tus habilidades para adivinar palabras en este emocionante juego de Ahorcado. 
+                                        El objetivo es adivinar la palabra secreta antes de que se complete la barra de progreso. 
+                                        </p>
                                     <a href="{{ route('game.hanged') }}" class="btn btn-primary mt-3">¡Jugar ahora!</a>
                                 </div>
-                                
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
