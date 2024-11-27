@@ -84,7 +84,6 @@
                                     
                                         .user-card:hover {
                                             transform: scale(1.05);
-                                            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
                                         }
 
                                         .text-primary {
