@@ -36,4 +36,14 @@ class GameController extends Controller
 
         return response()->json(['message' => $message]);
     }
+
+    public function memory()
+    {
+        return view('game.memory');
+    }
+
+    public function trivia()
+    {
+        return view('game.trivia');
+    }
 }

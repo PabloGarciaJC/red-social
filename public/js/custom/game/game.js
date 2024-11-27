@@ -1,7 +1,6 @@
 class GameClass {
 
-    startGameClass() {
-
+    memory() {
         // Lista de emojis como clases SVG
         const emojis = [
             { emoji: "🍎", className: "emoji-40" },
@@ -26,12 +25,12 @@ class GameClass {
 
             cards.forEach((card, index) => {
                 $('.memory-game__board').append(`
-                    <div class="memory-game__card" data-id="${index}">
-                        <span class="form__emoji" data-emoji="${card.emoji}">
-                            <i class="${card.className}" style="display: none;"></i>
-                        </span>
-                    </div>
-                `);
+                        <div class="memory-game__card" data-id="${index}">
+                            <span class="form__emoji" data-emoji="${card.emoji}">
+                                <i class="${card.className}" style="display: none;"></i>
+                            </span>
+                        </div>
+                    `);
             });
         }
 
@@ -83,7 +82,132 @@ class GameClass {
         }
 
         setupBoard();
+    }
 
+
+    trivia() {
+        const quizData = [
+            {
+                question: "¿Cuál es el río más largo de Europa?",
+                options: ["Danubio", "Volga", "Rin", "Loira"],
+                correct: 1 // Volga
+            },
+            {
+                question: "¿Qué país es conocido como la 'Tierra de los tulipanes'?",
+                options: ["Dinamarca", "Países Bajos", "Bélgica", "Suiza"],
+                correct: 1 // Países Bajos
+            },
+            {
+                question: "¿En qué ciudad se encuentra la Torre Eiffel?",
+                options: ["Londres", "París", "Roma", "Madrid"],
+                correct: 1 // París
+            },
+            {
+                question: "¿Qué país tiene más islas en Europa?",
+                options: ["Grecia", "Suecia", "Noruega", "Croacia"],
+                correct: 1 // Suecia
+            },
+            {
+                question: "¿Cuál es el país más pequeño de Europa?",
+                options: ["Mónaco", "Liechtenstein", "San Marino", "Ciudad del Vaticano"],
+                correct: 3 // Ciudad del Vaticano
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function updateTitle() {
+            $("#current-question").text(currentQuestion + 1);
+            $("#total-questions").text(quizData.length);
+        }
+
+        function loadQuestion() {
+            const question = quizData[currentQuestion];
+            $(".quiz-question").text(question.question);
+            $(".quiz-options").empty();
+            question.options.forEach((option, index) => {
+                $(".quiz-options").append(`<li data-index="${index}">${option}</li>`);
+            });
+            updateTitle();
+        }
+
+        function showResult() {
+            $("#quiz").addClass("hidden");
+            $("#quiz-result").removeClass("hidden");
+            $(".quiz-result").text(`¡Terminaste! Tu puntuación es: ${score}/${quizData.length}`);
+        }
+
+        $(document).ready(function () {
+            updateTitle();
+            loadQuestion();
+
+            $(".quiz-options").on("click", "li", function () {
+                const selectedOption = $(this).data("index");
+                const correctOption = quizData[currentQuestion].correct;
+
+                // Si la respuesta es correcta
+                if (selectedOption === correctOption) {
+                    Swal.fire({
+                        title: '¡Correcto!',
+                        text: '¡Respuesta correcta!',
+                        icon: 'success',
+                        // imageUrl: 'ruta/a/tu/imagen-correcta.png',
+                        imageWidth: 100,
+                        imageHeight: 100,
+                        confirmButtonText: 'Siguiente',
+                        willClose: () => { // Se ejecuta cuando se cierra la alerta
+                            score++;
+                            setTimeout(() => {
+                                currentQuestion++;
+                                if (currentQuestion < quizData.length) {
+                                    loadQuestion();
+                                } else {
+                                    showResult();
+                                }
+                            }, 0);
+                        }
+                    });
+                } else {
+                    // Si la respuesta es incorrecta
+                    Swal.fire({
+                        title: 'Incorrecto',
+                        text: `La respuesta correcta era: ${quizData[currentQuestion].options[correctOption]}`,
+                        icon: 'error',
+                        // imageUrl: 'ruta/a/tu/imagen-incorrecta.png',
+                        imageWidth: 100,
+                        imageHeight: 100,
+                        confirmButtonText: 'Siguiente',
+                        willClose: () => { // Se ejecuta cuando se cierra la alerta
+                            setTimeout(() => {
+                                currentQuestion++;
+                                if (currentQuestion < quizData.length) {
+                                    loadQuestion();
+                                } else {
+                                    showResult();
+                                }
+                            }, 0);
+                        }
+                    });
+                }
+            });
+
+            $("#restart-btn").click(function () {
+                currentQuestion = 0;
+                score = 0;
+                $("#quiz").removeClass("hidden");
+                $("#quiz-result").addClass("hidden");
+                loadQuestion();
+            });
+        });
+
+    }
+
+    startGameClass() {
+        // Juego de Memoria
+        this.memory();
+        // Juego de trivia
+        this.trivia();
     }
 }
 

@@ -53,6 +53,8 @@ Route::get('/chats/{messageId}', 'ChatController@markAllAsRead')->name('chat.mar
 Route::get('/game', 'GameController@show')->name('game.show');
 Route::get('/game/guess', 'GameController@guess')->name('game.guess');
 Route::get('/publicationImagen/{filename}', 'PublicationController@getImage')->name('publicationImagen');
+Route::get('/game/memory', 'GameController@memory')->name('game.memory');
+Route::get('/game/trivia', 'GameController@trivia')->name('game.trivia');
 
 // CONOCE LA PLATAFORMA
 Route::get('/intro', 'HomeController@intro')->name('intro');
