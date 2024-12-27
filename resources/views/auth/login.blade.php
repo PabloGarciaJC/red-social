@@ -38,32 +38,44 @@
                                             <!-- Usuario 1 -->
                                             <div class="col">
                                                 <div class="card h-100 user-card bg-card" data-email="liam@user.com" data-password="password">
-                                                    <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                                         <p class="mb-0"><strong>Liam Keller</strong> liam@user.com</p>
+                                                        <p class="text-center mb-0 mt-2">
+                                                            <a href="#" class="select-action">Selecciona AQUÍ</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Usuario 2 -->
                                             <div class="col">
                                                 <div class="card h-100 user-card bg-card" data-email="sofia@user.com" data-password="password">
-                                                    <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                                         <p class="mb-0"><strong>Sofía Nakamura</strong> sofia@user.com</p>
+                                                        <p class="text-center mb-0 mt-2">
+                                                            <a href="#" class="select-action">Selecciona AQUÍ</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Usuario 3 -->
                                             <div class="col">
                                                 <div class="card h-100 user-card bg-card" data-email="marco@user.com" data-password="password">
-                                                    <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                                         <p class="mb-0"><strong>Marco Santis</strong> marco@user.com</p>
+                                                        <p class="text-center mb-0 mt-2">
+                                                            <a href="#" class="select-action">Selecciona AQUÍ</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Usuario 4 -->
                                             <div class="col">
                                                 <div class="card h-100 user-card bg-card" data-email="emilia@user.com" data-password="password">
-                                                    <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                                         <p class="mb-0"><strong>Emilia Fuentes</strong> emilia@user.com</p>
+                                                        <p class="text-center mb-0 mt-2">
+                                                            <a href="#" class="select-action">Selecciona AQUÍ</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -108,6 +120,30 @@
                                         box-shadow: 0 0 3px 0 #66b9fb;
                                         transition: background-color .15s ease-in-out;
                                         }
+
+                                        .select-action {
+                                        display: inline-block;
+                                        padding: 5px 10px;
+                                        border-radius: 5px;
+                                        font-weight: bold;
+                                        color: #fff !important;
+                                        background-color: #007bff;
+                                        text-decoration: none;
+                                        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                                        }
+
+                                        .select-action:hover {
+                                            opacity: 1;
+                                        }
+
+                                        #loading-indicator {
+                                        position: fixed;
+                                        top: 50%;
+                                        left: 50%;
+                                        font-size: 3rem;
+                                        z-index: 1050;
+                                        }
+
                                     </style>
                                 </div>
                             </div>
@@ -157,7 +193,7 @@
                                         <div class="col-12 text-center">
                                             <button type="submit" class="btn btn-primary w-100">
                                                 {{ __('Login') }}
-                                            </button>
+                                            </button>                                           
                                             <a class="btn btn-link" href="{{ route('password.request') }}">
                                                 {{ __('¿Olvidaste tu contraseña?') }}
                                             </a>
@@ -176,25 +212,18 @@
         </div>
     </main>
 </div>
-
+<div id="loading-indicator" class="spinner-border text-primary" role="status" style="display: none" >
+    <span class="sr-only"><i class="fa fa-history" aria-hidden="true"></i></span>
+</div>
 <!-- Script para completar el formulario al hacer clic en la tarjeta de usuario -->
 <script>
-    // Añade comportamiento de selección a las tarjetas
-    document.querySelectorAll('.user-card').forEach(card => {
-        card.addEventListener('click', () => {
-            // Elimina cualquier selección previa
-            document.querySelectorAll('.user-card').forEach(c => c.classList.remove('selected'));
-            // Añade clase 'selected' a la tarjeta clickeada
-            card.classList.add('selected');
-        });
-    });
-
     document.addEventListener('DOMContentLoaded', function() {
         // Obtén todas las tarjetas de usuario
         const userCards = document.querySelectorAll('.user-card');
         const form = document.querySelector('form');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
+        const loadingIndicator = document.getElementById('loading-indicator');
 
         // Recorre todas las tarjetas y añade un evento 'click'
         userCards.forEach(card => {
@@ -212,6 +241,12 @@
                 // Rellena el formulario con los datos de la tarjeta seleccionada
                 emailInput.value = email;
                 passwordInput.value = password;
+
+                // Muestra el indicador de carga
+                loadingIndicator.style.display = 'inline-block';
+
+                // Simula el envío del formulario
+                form.submit();
             });
         });
 
