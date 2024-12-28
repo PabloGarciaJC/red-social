@@ -14,7 +14,10 @@
                                     <div class="card bg-warning-soft p-4 bg-card">
                                         <h1 class="text-center fs-4 fw-bold text-dark">Información Importante</h1>
                                         <p class="mt-3">
-                                            Los usuarios proporcionados son ficticios y están destinados para realizar pruebas. Usa el siguiente correo para simular la recuperación de contraseñas y verificar el sistema.
+                                            &#10004; Los usuarios proporcionados son ficticios y están destinados para realizar pruebas.
+                                        </p>
+                                        <p>                                            
+                                            &#10004; Usa el siguiente correo para simular la recuperación de contraseñas y verificar el sistema.
                                         </p>
                                         <div class="row text-center">
                                             <div class="col-12 col-md-6">
