@@ -90,7 +90,7 @@
 
                                         .user-card {
                                             cursor: pointer;
-                                            transition: transform 0.3s ease, box-shadow 0.3s ease;
+                                            transition: transform 0.3s ease;
                                             border: 1px solid #007bff;
                                         }
                                     
@@ -185,14 +185,14 @@
                                                 <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                                     {{ old('remember') ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="remember">
-                                                    {{ __('Remember Me') }}
+                                                    {{ __('Recordar contraseña') }}
                                                 </label>
                                             </div>
                                         </div>
                         
                                         <div class="col-12 text-center">
                                             <button type="submit" class="btn btn-primary w-100">
-                                                {{ __('Login') }}
+                                                {{ __('Iniciar sesión') }}
                                             </button>                                           
                                             <a class="btn btn-link" href="{{ route('password.request') }}">
                                                 {{ __('¿Olvidaste tu contraseña?') }}
