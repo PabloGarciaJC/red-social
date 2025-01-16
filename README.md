@@ -1,95 +1,131 @@
+# Aplicación Web de Red Social  
 
-# Aplicación Web - Red Social
+La **Aplicación Web de Red Social** es una plataforma diseñada para fomentar la comunicación y la interacción social entre usuarios, combinando funcionalidades modernas con un diseño intuitivo. Su desarrollo sigue buenas prácticas, asegurando seguridad, escalabilidad y una experiencia fluida para todos los usuarios.
 
-**Aplicación Web - Red Social** El objetivo de este proyecto propio, desarrollado con Laravel y diseñado como una red social, es priorizar la accesibilidad y la facilidad de uso para los usuarios. La plataforma se enfoca en brindar una experiencia amigable e intuitiva, permitiendo a los usuarios interactuar de manera sencilla y efectiva. Si estás interesado en trabajar juntos o tienes alguna pregunta, no dudes en contactarme. O si prefieres, envíame un mensaje a mi [WhatsApp](https://api.whatsapp.com/send?phone=672354875) para una respuesta más rápida. Demo: [https://red-social.pablogarciajc.com/](https://red-social.pablogarciajc.com/)
-
-</br>
+### Demo del Proyecto  
+[https://red-social.pablogarciajc.com/login/](https://red-social.pablogarciajc.com/login/)
 
 | ![RedSocial_1](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-red-social-img1.webp) | ![RedSocial_2](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-red-social-img2.webp) |
 |-----------|-----------|
 
-## Funcionaliades
+---
 
-La aplicación cuenta con **diez módulos:**
+## Funcionalidades Principales  
 
-**Módulo de Autenticación de Usuarios:**
+La plataforma incluye diversas funcionalidades para una experiencia enriquecida, organizadas en **módulos clave**:  
 
-* Permite a los usuarios iniciar sesión en la red social mediante el proceso de autenticación.
+- **Autenticación de Usuarios**:  
+  - Registro seguro y sencillo.  
+  - Recuperación de contraseña a través del correo corporativo.  
+  - Notificaciones importantes enviadas a tu correo.  
 
-**Módulo de Registro de Usuarios:**
+- **Publicaciones**:  
+  - Crear, editar y eliminar publicaciones.  
+  - Comentar y añadir emojis en formato SVG para personalizar contenido.  
 
-* Permite a los usuarios registrarse en la red social y crear una cuenta.
-* También incluye la opción de recuperación de contraseña a través de un servidor externo.
+- **Comentarios**:  
+  - Comenta, edita o elimina tus aportes en las publicaciones.  
+  - Agrega emojis SVG para un toque expresivo.  
 
-**Módulo de Búsqueda:**
+- **Edición de Perfil**:  
+  - Modifica tu nombre, foto y otros datos personales.  
 
-* Permite a los usuarios buscar otros usuarios en la red social mediante un filtrado por alias, nombre y apellido. Además, incluye una miniatura del avatar del usuario y su alias para una mejor identificación.
+- **Buscador de Usuarios**:  
+  - Encuentra amigos o conecta con nuevas personas fácilmente.  
 
-**Módulo de Perfiles:**
+- **Amigos**:  
+  - Agrega, elimina y gestiona conexiones.  
+  - Visualiza su actividad en la plataforma.  
 
-* Permite a los usuarios personalizar sus perfiles con información y una imagen de avatar.
+- **Chat en Tiempo Real**:  
+  - Mantente conectado y comunica instantáneamente con tus amigos.  
 
-**Módulo de Conectividad:**
+- **Notificaciones en Tiempo Real**:  
+  - Recibe alertas sobre solicitudes de amistad, comentarios y otras interacciones relevantes.  
 
-* Permite a los usuarios buscar y conectarse con otros usuarios en la red social, agregándolos como amigos.
+- **Diseño Adaptado a Móviles**:  
+  - Experiencia optimizada para dispositivos móviles.  
 
-**Módulo de Mensajería:**
+- **Juegos Integrados**:  
+  - Disfruta de una variedad de juegos para tu entretenimiento.  
 
-* Permite a los usuarios enviar mensajes y chatear en tiempo real con otros usuarios en la red social.
+---
 
-**Módulo de Publicaciones:**
+## Roles de Usuario Iniciales  
 
-* Permite a los usuarios publicar comentarios con o sin imagen en la red social. También incluye un sistema de like/dislike y la opción de borrar publicaciones para los usuarios que las han creado.
+El sistema tiene configurados inicialmente **dos roles**:  
 
-**Módulo de Comentarios:**
+1. **Administrador**:  
+   Acceso completo a la gestión de la plataforma, incluidos usuarios, publicaciones y configuraciones globales.  
 
-* Permite a los usuarios crear comentarios con o sin imagen en las publicaciones de la red social.
+2. **Usuario Regular**:  
+   Acceso a las funcionalidades básicas como publicaciones, comentarios, búsqueda de usuarios, chat, etc.  
 
-**Módulo de Contactos:**
+---
 
-* Muestra los amigos que han aceptado la solicitud de amistad y proporciona información en tiempo real sobre su conexión/desconexión.
+## Tecnologías Utilizadas  
 
-**Módulo de Notificaciones:**
+| **Tecnología**           | **Descripción**                                                                                                              |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| **Laravel**              | Framework PHP utilizado para el desarrollo del back-end.                                                                    |
+| **Laravel Mix**          | Herramienta para compilar y gestionar assets front-end.                                                                     |
+| **Composer**             | Gestor de dependencias en PHP.                                                                                              |
+| **Docker (con WSL)**     | Plataforma para contenedores que asegura entornos consistentes en el desarrollo.                                             |
+| **Docker Compose**       | Herramienta para ejecutar aplicaciones multi-contenedor.                                                                    |
+| **Bootstrap**            | Framework CSS para el diseño responsivo de la interfaz de usuario.                                                          |
+| **GitHub**               | Plataforma para control de versiones y colaboración en el código fuente.                                                    |
+| **PHPUnit**              | Pruebas unitarias y de integración para asegurar el correcto funcionamiento de la aplicación.                                |
+| **Postman**              | Pruebas y documentación de endpoints API.                                                                                   |
+| **Make**                 | Automatiza tareas repetitivas como levantamiento de Docker o ejecución de pruebas.                                           |
+| **WSL (Ubuntu)**         | Subsystem para Linux en Windows, proporcionando un entorno de desarrollo basado en Linux.                                    |
 
-* Avisa a los usuarios sobre solicitudes de amistad enviadas y canceladas en la red social
+---
 
-## Tecnologías
+## Créditos  
 
-**Front-end:**
+| **Recurso**                     | **Descripción**                                  | **Enlace**                                                                                   |
+|---------------------------------|--------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **Plantilla utilizada**         | Diseño basado en NiceAdmin de BootstrapMade.     | [NiceAdmin](https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/)            |
+| **Licencia de la plantilla**    | Licencia de uso según las condiciones del autor. | [Licencia](https://bootstrapmade.com/license/)                                              |
+| **Emojis SVG**                  | Iconografía para personalizar interacciones.     | [SVG Repo](https://www.svgrepo.com/)                                                        |
 
-* HTML | CSS | JavaScript | Axios | Jquery | Flexbox | Grid
+---
 
-**Back-end:**
+## Usuarios Ficticios para Pruebas  
 
-* PHP | POO | MVC (Modelo Vista Controlador) | ORM - Eloquent
+| **Nombre**              | **Correo**                | **Contraseña** | **Rol**         |
+|-------------------------|---------------------------|----------------|-----------------|
+| Liam Martínez           | liam@user.com            | password       | Usuario         |
+| Sofía Nakamura          | sofia@user.com           | password       | Usuario         |
+| Marco Santis            | marco@user.com           | password       | Usuario         |
+| Emilia Fuentes          | emilia@user.com          | password       | Usuario         |
 
-**API:**
+Para la recuperación de contraseña, utiliza el correo de prueba: **testing@pablogarciajc.com**  
+Contraseña: **4vy3BONUmJeqVR!**
 
-* La documentación se puede encontrar en la URL: "{PUBLIC_URL}/api/followers/"
+---
 
-**API Endpoints:**
+## Instalación  
 
-| HTTP   | Endpoints        | Acción        |
-| ----------- | -----------------|----------------- |
-| GET         | /api/followers/  | obtiene la lista de todas los seguidores |
-| GET         | /api/followers/{id}  | obtiene la lista de todas los seguidores por id |
+### Requisitos Previos  
 
-**Recursos:**
+- **Docker** y **Docker Compose** instalados.  
+- **Make**: Herramienta para simplificar y automatizar tareas.  
 
-* Pusher es una plataforma de comunicación en tiempo real que permite a los desarrolladores agregar características en tiempo real a sus aplicaciones, como notificaciones, chat, etc. [ver documentación](https://pusher.com/)
-* Mailtrap es un servicio para probar y depurar correos electrónicos en aplicaciones. [ver documentación](https://mailtrap.io/)
+### Pasos de Instalación  
 
-## Instalación
+1. Clona el repositorio desde GitHub.  
+2. Usa los comandos del archivo **Makefile** para interactuar con la aplicación:  
+   - `make init-app`: Configura y levanta los contenedores.  
+   - `make up`: Inicia la aplicación.  
+   - `make down`: Detiene los contenedores.  
+   - `make shell`: Accede al entorno de ejecución del contenedor.  
 
-**Requisitos:**
+3. Accede a los siguientes URL:
+   - **Aplicación Web**: [http://localhost:8081/](http://localhost:8081/)
+   - **PhpMyAdmin**: [http://localhost:8082/](http://localhost:8082/)
 
-* Clonar Proyecto en GitHub.
-* Docker y Docker Compose.
-* Makefile (Opcional).
-
-**Acceso a la Aplicación.**
-* Aplicación Web: http://localhost:8081/
-* PhpMyAdmin: http://localhost:8082/
+---
 
 ## Contáctame para más información o preguntas
 
@@ -99,5 +135,4 @@ La aplicación cuenta con **diez módulos:**
 | ![Facebook](https://pablogarciajc.com/wp-content/uploads/2024/04/facebook.png) | **[@pablogarciajc](https://www.facebook.com/PabloGarciaJC)** |
 | ![LinkedIn](https://pablogarciajc.com/wp-content/uploads/2024/04/linkedin.png) | **[@pablogarciajc](https://www.linkedin.com/in/pablogarciajc/)** |
 
-"El buen trabajo es la solución de hoy.
-Para construir el futuro del mañana"
+> _"El buen trabajo es la solución de hoy, para construir el futuro del mañana."_
