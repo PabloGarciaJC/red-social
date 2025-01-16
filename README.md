@@ -5,7 +5,7 @@ La **Aplicación Web de Red Social** es una plataforma diseñada para fomentar l
 ### Demo del Proyecto  
 [https://red-social.pablogarciajc.com/login/](https://red-social.pablogarciajc.com/login/)
 
-| ![RedSocial_1](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-red-social-img1.webp) | ![RedSocial_2](https://pablogarciajc.com/wp-content/uploads/2024/03/pablogarciajc-aplicacion-web-red-social-img2.webp) |
+| ![RedSocial_1](https://pablogarciajc.com/wp-content/uploads/2025/01/red_social_1_webp.webp) | ![RedSocial_2](https://pablogarciajc.com/wp-content/uploads/2025/01/red_social_2_webp.webp) |
 |-----------|-----------|
 
 ---
