@@ -19,11 +19,11 @@ La plataforma incluye diversas funcionalidades para una experiencia enriquecida,
   - Recuperación de contraseña a través del correo corporativo.  
   - Notificaciones importantes enviadas a tu correo.  
 
-- **Publicaciones**:  
+- **Publicaciones Tiempo Real**:  
   - Crear, editar y eliminar publicaciones.  
   - Comentar y añadir emojis en formato SVG para personalizar contenido.  
 
-- **Comentarios**:  
+- **Comentarios Tiempo Real**:  
   - Comenta, edita o elimina tus aportes en las publicaciones.  
   - Agrega emojis SVG para un toque expresivo.  
 
@@ -32,10 +32,6 @@ La plataforma incluye diversas funcionalidades para una experiencia enriquecida,
 
 - **Buscador de Usuarios**:  
   - Encuentra amigos o conecta con nuevas personas fácilmente.  
-
-- **Amigos**:  
-  - Agrega, elimina y gestiona conexiones.  
-  - Visualiza su actividad en la plataforma.  
 
 - **Chat en Tiempo Real**:  
   - Mantente conectado y comunica instantáneamente con tus amigos.  
@@ -47,19 +43,10 @@ La plataforma incluye diversas funcionalidades para una experiencia enriquecida,
   - Experiencia optimizada para dispositivos móviles.  
 
 - **Juegos Integrados**:  
-  - Disfruta de una variedad de juegos para tu entretenimiento.  
+  - Disfruta de una variedad de juegos para tu entretenimiento.
 
----
-
-## Roles de Usuario Iniciales  
-
-El sistema tiene configurados inicialmente **dos roles**:  
-
-1. **Administrador**:  
-   Acceso completo a la gestión de la plataforma, incluidos usuarios, publicaciones y configuraciones globales.  
-
-2. **Usuario Regular**:  
-   Acceso a las funcionalidades básicas como publicaciones, comentarios, búsqueda de usuarios, chat, etc.  
+- **Conexión en Tiempo Real**:  
+  - Visualiza en tiempo real cuándo tus amigos o usuarios están en línea. 
 
 ---
 
