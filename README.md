@@ -14,6 +14,9 @@ La **Aplicación Web de Red Social** es una plataforma diseñada para fomentar l
 
 La plataforma incluye diversas funcionalidades para una experiencia enriquecida, organizadas en **módulos clave**:  
 
+- **Diseño Adaptado a Móviles**:  
+  - Experiencia optimizada para dispositivos móviles.
+
 - **Autenticación de Usuarios**:  
   - Registro seguro y sencillo.  
   - Recuperación de contraseña a través del correo corporativo.  
