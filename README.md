@@ -42,9 +42,6 @@ La plataforma incluye diversas funcionalidades para una experiencia enriquecida,
 - **Notificaciones en Tiempo Real**:  
   - Recibe alertas sobre solicitudes de amistad, comentarios y otras interacciones relevantes.  
 
-- **Diseño Adaptado a Móviles**:  
-  - Experiencia optimizada para dispositivos móviles.  
-
 - **Juegos Integrados**:  
   - Disfruta de una variedad de juegos para tu entretenimiento.
 
