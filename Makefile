@@ -2,7 +2,7 @@
 ## Comando base para docker-compose
 ## ---------------------------------------------------------
 
-DOCKER_COMPOSE = docker-compose -f ./.docker/docker-compose.yml
+DOCKER_COMPOSE = docker compose -f ./.docker/docker-compose.yml
 
 ## ---------------------------------------------------------
 ## Inicialización de la Aplicación
@@ -17,22 +17,8 @@ copy-env:
 
 .PHONY: set-permissions
 set-permissions:
-	@echo "Estableciendo propietario y permisos..."
-	@sudo chown -R pablogarciajc:pablogarciajc storage || true
-	@chmod -R 777 storage || true
-	@sudo chown -R pablogarciajc:pablogarciajc bootstrap/cache || true
-	@chmod -R 777 bootstrap/cache || true
-	@sudo chown -R pablogarciajc:pablogarciajc vendor || true
-	@chmod -R 777 vendor || true
-	@sudo chown -R pablogarciajc:pablogarciajc .env || true
-	@chmod 664 .env || true
-	@sudo chown -R pablogarciajc:pablogarciajc storage/logs || true
-	@chmod -R 777 storage/logs || true
-	@sudo chown -R pablogarciajc:pablogarciajc public || true
-	@chmod -R 777 public || true
-	@sudo chown -R pablogarciajc:pablogarciajc node_modules || true
-	@chmod -R 777 node_modules || true
-	@echo "Propietarios y permisos establecidos correctamente."
+	@chmod -R 777 ./config/.log
+	@chmod g+s ./config/.log
 
 .PHONY: create-symlink
 create-symlink:
@@ -50,7 +36,7 @@ print-urls:
 .PHONY: up
 up:
 	$(DOCKER_COMPOSE) up -d
-	@$(MAKE) --no-print-directory print-urls
+	 @$(MAKE) --no-print-directory print-urls
 
 .PHONY: down
 down:
@@ -78,4 +64,4 @@ stop:
 
 .PHONY: shell
 shell:
-	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_red_social  /bin/sh -c "cd /var/www/html/; exec bash -l"
+	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_ecommerce  /bin/sh -c "cd /var/www/html/; exec bash -l"
