@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('notifications', function (Blueprint $table) {
-            $table->char('id', 36);
+            $table->uuid('id')->primary();
             $table->string('type', 191);
             $table->string('notifiable_type', 191);
             $table->unsignedBigInteger('notifiable_id');
             $table->text('data');
-            $table->timestamp('read_at')->nullable();  // Sin 'default'
-            $table->timestamps(0);  // Laravel maneja los timestamps
+            $table->timestamp('read_at')->nullable();
+            $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

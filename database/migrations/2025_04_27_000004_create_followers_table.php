@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::disableForeignKeyConstraints();
-
         Schema::create('followers', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('seguido');
-            $table->string('estado', 255)->nullable(); // Eliminado 'default('DEFAULT NULL')'
-            $table->timestamp('created_at')->nullable(); // Eliminado 'default('DEFAULT NULL')'
-            $table->timestamp('updated_at')->nullable(); // Eliminado 'default('DEFAULT NULL')'
+            $table->unsignedInteger('seguido');
+            $table->string('estado', 255)->nullable();
+            $table->timestamps();
+            // Añadir las claves foráneas
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('seguido')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::enableForeignKeyConstraints();

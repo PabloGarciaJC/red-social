@@ -11,14 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('chats', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->unsignedInteger('emisor_id');
             $table->unsignedInteger('receptor_id');
             $table->text('message');
-            $table->timestamps(0); // Crea 'created_at' y 'updated_at' como nullable
+            $table->timestamps();
             $table->tinyInteger('leido')->nullable();
+            // Definir las claves foráneas
+            $table->foreign('emisor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('receptor_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

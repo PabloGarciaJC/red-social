@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('comments', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('user_id');
+        Schema::create('publication_images', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->unsignedInteger('publication_id');
-            $table->foreign('publication_id')->references('id')->on('publications');
-            $table->text('contenido')->nullable(); // Eliminado 'default('DEFAULT NULL')'
-            $table->timestamps(0); // Esto crea 'created_at' y 'updated_at' como nullable automáticamente
+            $table->string('image_path', 255);
+            $table->timestamps();
+            // Añadir las claves foráneas
+            $table->foreign('publication_id')->references('id')->on('publication')->onDelete('cascade');
         });
 
         Schema::enableForeignKeyConstraints();
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('publication_images');
     }
 };

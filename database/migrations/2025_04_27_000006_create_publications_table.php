@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('publications', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');  // Aquí agregamos la opción 'cascade'
-            $table->string('imagen', 255)->nullable()->default('DEFAULT NULL');
-            $table->text('contenido')->nullable()->default('DEFAULT NULL');
-            $table->timestamps(0);
+            $table->string('imagen', 255)->nullable();
+            $table->text('contenido')->nullable();
+            $table->timestamps();
+             // Añadir las claves foráneas
+             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::enableForeignKeyConstraints();
@@ -30,9 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::disableForeignKeyConstraints(); // Desactivar restricciones
         Schema::dropIfExists('publications');
-        Schema::enableForeignKeyConstraints(); // Volver a habilitar restricciones
     }
-    
 };

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email', 191);
             $table->string('token', 191);
-            $table->timestamp('created_at')->nullable();  // Se eliminó el 'default('DEFAULT NULL')'
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

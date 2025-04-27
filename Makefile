@@ -75,4 +75,21 @@ shell:
 
 
 
+# php artisan migrate --seed
+
+# php artisan migrate
+
+# php artisan migrate:rollback
+
+
+
+# php artisan migrate:reset
+# php artisan migrate
+
+
+
+
+
+
+
 

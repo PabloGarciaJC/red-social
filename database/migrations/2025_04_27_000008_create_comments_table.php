@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('publication_id');
-            $table->enum('type', ['like', 'dislike'])->nullable();
+            $table->text('contenido')->nullable();
             $table->timestamps();
             // Añadir las claves foráneas
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('publication_id')->references('id')->on('publication')->onDelete('cascade');
         });
 
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('comments');
     }
 };
