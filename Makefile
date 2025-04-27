@@ -9,16 +9,16 @@ DOCKER_COMPOSE = docker compose -f ./.docker/docker-compose.yml
 ## ---------------------------------------------------------
 
 .PHONY: init-app
-init-app: | copy-env set-permissions create-symlink up print-urls
+init-app: | copy-env create-symlink permissions up print-urls
 
 .PHONY: copy-env
 copy-env:
 	@ [ ! -f .env ] && cp .env.example .env || true
 
-.PHONY: set-permissions
-set-permissions:
-	@chmod -R 777 ./config/.log
-	@chmod g+s ./config/.log
+.PHONY: permissions
+permissions:
+	$(DOCKER_COMPOSE) exec php_apache_red_social chmod 777 -R storage
+	$(DOCKER_COMPOSE) exec php_apache_red_social chmod 777 -R bootstrap
 
 .PHONY: create-symlink
 create-symlink:
@@ -36,7 +36,6 @@ print-urls:
 .PHONY: up
 up:
 	$(DOCKER_COMPOSE) up -d
-	 @$(MAKE) --no-print-directory print-urls
 
 .PHONY: down
 down:
@@ -62,6 +61,18 @@ build:
 stop:
 	$(DOCKER_COMPOSE) stop
 
+.PHONY: clean-docker
+clean-docker:
+	sudo docker stop $$(sudo docker ps -q) || true
+	sudo docker rm $$(sudo docker ps -a -q) || true
+	sudo docker rmi -f $$(sudo docker images -q) || true
+	sudo docker volume rm $$(sudo docker volume ls -q) || true
+
 .PHONY: shell
 shell:
-	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_ecommerce  /bin/sh -c "cd /var/www/html/; exec bash -l"
+	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_red_social  /bin/sh -c "cd /var/www/html/; exec bash -l"
+
+
+
+
+
