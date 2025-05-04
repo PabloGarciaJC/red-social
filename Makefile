@@ -9,7 +9,7 @@ DOCKER_COMPOSE = docker compose -f ./.docker/docker-compose.yml
 ## ---------------------------------------------------------
 
 .PHONY: init-app
-init-app: | copy-env create-symlink up permissions print-urls
+init-app: | copy-env create-symlink up permissions migracion print-urls
 
 .PHONY: copy-env
 copy-env:
@@ -23,6 +23,14 @@ permissions:
 .PHONY: create-symlink
 create-symlink:
 	@ [ -L .docker/.env ] || ln -s ../.env .docker/.env
+
+.PHONY: migracion
+migracion:
+	@echo "⏳ Esperando a que MySQL esté disponible..."
+	@sleep 5  # Espera 5 segundos (ajustalo si es necesario)
+	$(DOCKER_COMPOSE) exec php_apache_red_social php artisan migrate --seed
+	@echo "Migraciones aplicadas!"
+
 
 .PHONY: print-urls
 print-urls:
@@ -72,7 +80,6 @@ clean-docker:
 shell:
 	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_red_social  /bin/sh -c "cd /var/www/html/; exec bash -l"
 
-
-
-
-
+.PHONY: rollback
+rollback:
+	$(DOCKER_COMPOSE) exec php_apache_red_social php artisan migrate:rollback
