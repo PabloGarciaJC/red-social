@@ -83,3 +83,10 @@ shell:
 .PHONY: rollback
 rollback:
 	$(DOCKER_COMPOSE) exec php_apache_red_social php artisan migrate:rollback
+
+
+.PHONY: test
+test:
+	$(DOCKER_COMPOSE) exec php_apache_red_social php artisan test
+
+
