@@ -60,7 +60,6 @@ Route::get('/game/hanged', 'GameController@hanged')->name('game.hanged');
 // CONOCE LA PLATAFORMA
 Route::get('/intro', 'HomeController@intro')->name('intro');
 
-
 // NOTIFICACIONES
 Route::get('markAsRead', function () {
   auth()->user()->unreadNotifications->markAsRead();
