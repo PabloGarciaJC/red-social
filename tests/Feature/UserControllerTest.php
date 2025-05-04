@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class RegisterUserTest extends TestCase
 {
-    use RefreshDatabase;
 
     public function test_usuario_puede_registrarse()
     {
