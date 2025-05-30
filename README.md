@@ -1,6 +1,6 @@
-# Aplicación Web de Red Social  
+# Red Social 
 
-La **Aplicación Web de Red Social** es una plataforma diseñada para fomentar la comunicación y la interacción social entre usuarios, combinando funcionalidades modernas con un diseño intuitivo. Su desarrollo sigue buenas prácticas, asegurando seguridad, escalabilidad y una experiencia fluida para todos los usuarios.
+**Red Social** es una plataforma diseñada para fomentar la comunicación y la interacción social en tiempo real entre usuarios, combinando funcionalidades modernas con un diseño intuitivo. Desarrollada bajo buenas prácticas, garantiza seguridad, escalabilidad y una experiencia fluida y dinámica para todos los usuarios.
 
 ### Demo del Proyecto  
 [https://red-social.pablogarciajc.com/login/](https://red-social.pablogarciajc.com/login/)
