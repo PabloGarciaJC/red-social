@@ -49,7 +49,14 @@ require('./broadcast/publication');
 require('./broadcast/comments');
 require('./broadcast/likes');
 
-
-
-
-
+// Aquí agregamos las importaciones de tus scripts personalizados
+require('./custom/main');
+require('./custom/config/config');
+require('./custom/user/user');
+require('./custom/likes/like');
+require('./custom/followers/followers');
+require('./custom/chat/chat');
+require('./custom/comments/comments');
+require('./custom/publications/publications');
+require('./custom/game/game');
+require('./custom/app');

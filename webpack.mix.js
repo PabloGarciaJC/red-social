@@ -15,4 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
     // .sass('resources/sass/app.scss', 'public/css')
     .css('resources/css/app.css', 'public/css')
     .copy('public/images/emojis-svg', 'public/emojis-svg')
-    .sourceMaps();
+    .sourceMaps()
+    .version();  // <-- Añadido para cache busting
