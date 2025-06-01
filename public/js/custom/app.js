@@ -145,6 +145,7 @@ class AppClass {
         this.desplegarSidebar();
         this.initScrollNav();
         this.initRegisterFormValidation();
+        alert('hola');
     }
 }
 
