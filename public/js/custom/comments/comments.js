@@ -1,5 +1,30 @@
 class CommentClass {
 
+
+    protectionLayer() {
+        const protectionLayerValue = $('#protection-layer').text().trim();
+        if (protectionLayerValue === '1') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Acceso Restringido',
+                html: `
+                <p style="margin-bottom: 10px;">
+                Para utilizar los módulos de esta red social, te invito a contactarme mediante cualquiera de mis redes sociales.
+                </p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-1"></i></a>
+                    <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-1"></i></a>
+                    <a href="https://twitter.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09" target="_blank" title="Twitter"><i class="emoji-1"></i></a>
+                    <a href="https://www.instagram.com/pablogarciajc/?utm_source=qr&igsh=djR6NDhpMzFmMHd4" target="_blank" title="Instagram"><i class="emoji-1"></i></a>
+                    <a href="https://pablogarciajc.com/contactarme/" target="_blank" title="Web"><i class="emoji-1"></i></a>
+                </div>`,
+                confirmButtonText: 'Cerrar',
+            });
+            return false;
+        }
+        return true;
+    }
+
     showComments(elementBtnComments) {
         $(document).on("click", elementBtnComments, (e) => {
             e.preventDefault();
@@ -24,6 +49,9 @@ class CommentClass {
     }
 
     save(elementForm) {
+
+        const self = this;
+
         // Evento para el submit del formulario (solo para texto)
         $(elementForm).off("submit").on("submit", function (e) {
             e.preventDefault();
@@ -32,6 +60,10 @@ class CommentClass {
             // Desactivar el botón de envío para evitar múltiples envíos
             const submitButton = form.find("button[type='submit']");
             submitButton.prop("disabled", true); // Desactiva el botón
+
+            if (!self.protectionLayer()) {
+                return;
+            }
 
             // Verificar si el input de archivo tiene algo anpublications-id de enviar el formulario
             const fileInput = form.find(".image-commets")[0];
@@ -69,17 +101,22 @@ class CommentClass {
         });
     }
 
+
     delete(elementBtnDelete) {
+        const self = this;
+
         $(elementBtnDelete).off("click").on("click", function (e) {
             e.preventDefault();
 
             let publication = $(this).closest('.col-12.mb-3').find('.form__comments');
             let idPublication = publication.data('post-id');
-
             let comments = $(this).closest('.comments__btns');
             let idComments = comments.data('id-comments');
-
             let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            if (!self.protectionLayer()) {
+                return;
+            }
 
             $.ajax({
                 url: $(this).attr('href'),
@@ -138,6 +175,8 @@ class CommentClass {
             $('body').append(modalEditComment);
         }
 
+
+
         // Desplego el Modal
         $(elementEdit).off("click").on("click", function (e) {
             e.preventDefault();
@@ -164,12 +203,18 @@ class CommentClass {
             });
         });
 
+        const self = this;
+
         // Enviar el formulario
         let isEditing = false; // Bandera para evitar envíos múltiples
         $(".modal__form-comments-edit").off("submit").on("submit", function (e) {
             e.preventDefault();
 
             if (isEditing) return;
+
+            if (!self.protectionLayer()) {
+                return;
+            }
 
             isEditing = true;
             let form = $(this);

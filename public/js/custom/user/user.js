@@ -3,6 +3,31 @@
 // ---------------------------------------------------------
 class UserClass {
 
+
+    protectionLayer() {
+        const protectionLayerValue = $('#protection-layer').text().trim();
+        if (protectionLayerValue === '1') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Acceso Restringido',
+                html: `
+                <p style="margin-bottom: 10px;">
+                Para utilizar los módulos de esta red social, te invito a contactarme mediante cualquiera de mis redes sociales.
+                </p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-1"></i></a>
+                    <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-1"></i></a>
+                    <a href="https://twitter.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09" target="_blank" title="Twitter"><i class="emoji-1"></i></a>
+                    <a href="https://www.instagram.com/pablogarciajc/?utm_source=qr&igsh=djR6NDhpMzFmMHd4" target="_blank" title="Instagram"><i class="emoji-1"></i></a>
+                    <a href="https://pablogarciajc.com/contactarme/" target="_blank" title="Web"><i class="emoji-1"></i></a>
+                </div>`,
+                confirmButtonText: 'Cerrar',
+            });
+            return false;
+        }
+        return true;
+    }
+
     // Métodos de manipulación de datos
     searchAutocompletado() {
         $('#formBuscador').on('submit', function (event) {
@@ -88,7 +113,7 @@ class UserClass {
             }
         });
     }
-    
+
     changeImagePreviewUserPerfil() {
 
         // Al hacer clic en el icono de editar, activa el input de archivo
@@ -115,8 +140,47 @@ class UserClass {
         });
     }
 
+    bindFormSubmit() {
+        $('#perfil-form').on('submit', (event) => {
+            if (!this.protectionLayer()) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    bindAllForms() {
+        const self = this;
+        $('section.profile form').on('submit', function (e) {
+            if (!self.protectionLayer()) {
+                e.preventDefault();
+            }
+        });
+    }
+
+    bindAllButtons() {
+        const self = this;
+        // Incluye todos los botones tipo submit y normales
+        $('section.profile button[type="submit"], section.profile button').on('click', function (e) {
+            if (!self.protectionLayer()) {
+                e.preventDefault();
+            }
+        });
+    }
+
+    disableButtonsIfProtected() {
+        if ($('#protection-layer').text().trim() === '1') {
+            const buttons = $('section.profile button[type="submit"], section.profile button');
+            buttons.prop('disabled', true);
+            buttons.css('cursor', 'not-allowed');
+        }
+    }
+
     // Método para inicializar la clase
     startUserClass() {
+        this.bindFormSubmit();
+        this.bindAllForms();
+        this.bindAllButtons();
+        this.disableButtonsIfProtected();
         this.searchAutocompletado();
         this.changeImagePreview($('#image-file-perfil-user'), $('#previe-perfil-user'));
         this.changeImagePreviewUserPerfil();

@@ -5,6 +5,30 @@ class ChatClass {
         this.userLogin = userLogin;
     }
 
+    protectionLayer() {
+        const protectionLayerValue = $('#protection-layer').text().trim();
+        if (protectionLayerValue === '1') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Acceso Restringido',
+                html: `
+                <p style="margin-bottom: 10px;">
+                Para utilizar los módulos de esta red social, te invito a contactarme mediante cualquiera de mis redes sociales.
+                </p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-1"></i></a>
+                    <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-1"></i></a>
+                    <a href="https://twitter.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09" target="_blank" title="Twitter"><i class="emoji-1"></i></a>
+                    <a href="https://www.instagram.com/pablogarciajc/?utm_source=qr&igsh=djR6NDhpMzFmMHd4" target="_blank" title="Instagram"><i class="emoji-1"></i></a>
+                    <a href="https://pablogarciajc.com/contactarme/" target="_blank" title="Web"><i class="emoji-1"></i></a>
+                </div>`,
+                confirmButtonText: 'Cerrar',
+            });
+            return false;
+        }
+        return true;
+    }
+
     modalChat() {
         let modalChat = `
         <div class="modal modal-chat">
@@ -56,7 +80,7 @@ class ChatClass {
         $('.header .nav-item-users').off("click").on('click', function (e) {
             let messageNew = $(this).find('.show-contact__new-messages');
             let goToChat = $(this).find('.show-contact__chat');
-
+            alert('hola');
             function loadMessagesChatModal(element) {
 
                 // Mostrar el modal Chat
@@ -78,7 +102,7 @@ class ChatClass {
                         showContactChat.show();
                     }
                 });
-                
+
                 // Mostrar Mensajes en el Chat
                 $.ajax({
                     url: `${baseUrl}chats/${userLogin}/${dataIdFollowers}`,
@@ -211,7 +235,7 @@ class ChatClass {
             }
         });
     }
-   
+
     chatUserPerfil() {
         // Mostrar Mensajes en el Chat
         if (this.userReceptor.length === 0) return;
@@ -240,7 +264,7 @@ class ChatClass {
                 this.markAllAsRead();
             }
         });
-        
+
         // Marcar todos los mensajes como leídos
         $('.chat-container').off("click").on("click", (e) => {
             e.preventDefault();
@@ -248,6 +272,10 @@ class ChatClass {
         });
 
         const sendMessage = () => {
+            const self = this;
+            if (!self.protectionLayer()) {
+                return; 
+            }
             let messageText = $('.chat__input').val().trim();
             if (this.userReceptor.length === 0) return;
             if (messageText) {

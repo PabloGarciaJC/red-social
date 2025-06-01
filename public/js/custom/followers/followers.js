@@ -1,5 +1,29 @@
 class FollowerClass {
 
+    protectionLayer() {
+        const protectionLayerValue = $('#protection-layer').text().trim();
+        if (protectionLayerValue === '1') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Acceso Restringido',
+                html: `
+                <p style="margin-bottom: 10px;">
+                Para utilizar los módulos de esta red social, te invito a contactarme mediante cualquiera de mis redes sociales.
+                </p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-1"></i></a>
+                    <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-1"></i></a>
+                    <a href="https://twitter.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09" target="_blank" title="Twitter"><i class="emoji-1"></i></a>
+                    <a href="https://www.instagram.com/pablogarciajc/?utm_source=qr&igsh=djR6NDhpMzFmMHd4" target="_blank" title="Instagram"><i class="emoji-1"></i></a>
+                    <a href="https://pablogarciajc.com/contactarme/" target="_blank" title="Web"><i class="emoji-1"></i></a>
+                </div>`,
+                confirmButtonText: 'Cerrar',
+            });
+            return false;
+        }
+        return true;
+    }
+
     sendDataFollowers() {
 
         function loadMessagesChat(element) {
@@ -25,7 +49,7 @@ class FollowerClass {
             $('.modal-chat').find('.chat__input').off("click").on("click", (e) => {
                 let parentContainer = $(e.currentTarget).closest('.chat-container__input')
                 let userReceptor = parentContainer.find('.user-receptor-chat');
-                
+
                 $.ajax({
                     url: `${baseUrl}chats/${userReceptor.val()}`,
                     method: 'GET',
@@ -46,7 +70,7 @@ class FollowerClass {
                     response.forEach((message) => {
                         let messageClass = message.emisor_id == userLogin ? 'chat-container__message--sent' : 'chat-container__message--received';
                         let profileImageUrl = `${baseUrl}fotoPerfil/${message.fotoPerfil}`;
-                            let messageHtml = ` 
+                        let messageHtml = ` 
                             <div class="chat-container__message ${messageClass}">
                                 <a href="${baseUrl}usuario/${message.user}?estado=confirmado">
                                     <img src="${profileImageUrl}" alt="Foto de ${message.user}" class="chat-container__message-avatar">
@@ -56,19 +80,28 @@ class FollowerClass {
                                     <span class="chat-text">${message.message}</span> 
                                 </div>
                             </div> `;
-                            $('.chat-container__box').append(messageHtml);
+                        $('.chat-container__box').append(messageHtml);
                     });
                     $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
                 }
             });
         }
 
+        const self = this;
+
         // Enviar Ajax Texto Chat 
         $('.modal-chat').find('.sendMessage').off("click").on("click", (e) => {
+
+
             let parentContainer = $(e.currentTarget).closest('.chat-container__input')
             let userReceptor = parentContainer.find('.user-receptor-chat');
             let messageText = parentContainer.find('.chat__input').val().trim();
             if (userReceptor === 0) return;
+
+            if (!self.protectionLayer()) {
+                return;
+            }
+
             if (messageText) {
                 $.ajax({
                     url: `${baseUrl}chats/send`,
@@ -87,11 +120,17 @@ class FollowerClass {
 
         // Enviar Ajax Texto Chat con Enter
         $('.modal-chat').find('.chat__input').off("keypress").on('keypress', (e) => {
+
             if (e.key === 'Enter') {
                 let parentContainer = $(e.currentTarget).closest('.chat-container__input')
                 let userReceptor = parentContainer.find('.user-receptor-chat');
                 let messageText = parentContainer.find('.chat__input').val().trim()
                 if (userReceptor === 0) return;
+
+                if (!self.protectionLayer()) {
+                    return;
+                }
+
                 if (messageText) {
                     $.ajax({
                         url: `${baseUrl}chats/send`,
@@ -163,7 +202,7 @@ class FollowerClass {
 
                 // Iterar sobre userReceptor (seguidores del usuario)
                 data.userReceptor.forEach((user) => {
-                    
+
                     let status = (user.conectado == 1) ? 'show-contact__online' : 'show-contact__off-online';
 
                     // Generar HTML para cada seguidor del usuario

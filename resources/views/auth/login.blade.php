@@ -202,7 +202,7 @@
                                             </a>
                                         </div>
                                         <div class="col-12 text-center">
-                                            <p class="small mb-0">¿No tienes cuenta? <a href="{{ route('register') }}">Crea una cuenta</a></p>
+                                            <p class="small mb-0 link-register">¿No tienes cuenta? <a href="{{ route('register') }}">Crea una cuenta</a></p>
                                             <a href="https://pablogarciajc.com/" class="pt-2 credits__autor">Desarrollado por <strong>PabloGarciaJC</strong></a>     
                                         </div>
                                     </form>

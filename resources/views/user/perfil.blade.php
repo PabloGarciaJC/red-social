@@ -90,7 +90,7 @@
                                             {{ session('message') }}
                                         </div>
                                     @endif
-                                    <form action="{{ action('UserController@actualizar') }}" method="POST" enctype="multipart/form-data">
+                                    <form id="perfil-form"  action="{{ action('UserController@actualizar') }}" method="POST" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <div class="row mb-3">
                                             <label for="fotoPerfil" class="col-md-4 col-lg-3 col-form-label">Foto del Perfil</label>

@@ -1,8 +1,43 @@
 class PublicationClass {
 
+
+    protectionLayer() {
+        const protectionLayerValue = $('#protection-layer').text().trim();
+        if (protectionLayerValue === '1') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Acceso Restringido',
+                html: `
+                <p style="margin-bottom: 10px;">
+                Para utilizar los módulos de esta red social, te invito a contactarme mediante cualquiera de mis redes sociales.
+                </p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-1"></i></a>
+                    <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-1"></i></a>
+                    <a href="https://twitter.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09" target="_blank" title="Twitter"><i class="emoji-1"></i></a>
+                    <a href="https://www.instagram.com/pablogarciajc/?utm_source=qr&igsh=djR6NDhpMzFmMHd4" target="_blank" title="Instagram"><i class="emoji-1"></i></a>
+                    <a href="https://pablogarciajc.com/contactarme/" target="_blank" title="Web"><i class="emoji-1"></i></a>
+                </div>`,
+                confirmButtonText: 'Cerrar',
+            });
+            return false;
+        }
+        return true;
+    }
+
   delete(elementDelete) {
+
+    const self = this;
+
     $(elementDelete).off("click").on("click", function (e) {
+
       e.preventDefault();
+
+      if (!self.protectionLayer()) {
+        return;
+      }
+
+
       $.ajax({
         url: `${$(this).attr('href')}`,
         method: 'GET',
@@ -29,35 +64,41 @@ class PublicationClass {
   }
 
   create(elementCreate) {
+    const self = this;
+
     $(elementCreate).off('submit').on('submit', function (e) {
       e.preventDefault();
-      let form = $(this);
-      let submitButton = form.find('button[type="submit"]'); // Seleccionar el botón de envío
-      submitButton.prop('disabled', true); // Deshabilitar el botón
 
-      let formData = new FormData(form[0]);
+      const form = $(this);
+      const submitButton = form.find('button[type="submit"]');
+      submitButton.prop('disabled', true);
 
-      // Recorrer todas las imágenes previsualizadas dentro del contenedor
+      if (!self.protectionLayer()) {
+        submitButton.prop('disabled', false);
+        return;
+      }
+
+      const formData = new FormData(this);
+
       $('.modal__image-wrapper img').each(function (index, img) {
-        let src = $(img).attr('src');
-        let fileName = 'imagen_' + index + '.jpg';
+        const src = $(img).attr('src');
+        const fileName = `imagen_${index}.jpg`;
 
         if (src && fileName) {
-          let byteString = atob(src.split(',')[1]);
-          let mimeString = src.split(',')[0].split(':')[1].split(';')[0];
-          let arrayBuffer = new ArrayBuffer(byteString.length);
-          let intArray = new Uint8Array(arrayBuffer);
+          const byteString = atob(src.split(',')[1]);
+          const mimeString = src.split(',')[0].split(':')[1].split(';')[0];
+          const arrayBuffer = new ArrayBuffer(byteString.length);
+          const intArray = new Uint8Array(arrayBuffer);
 
           for (let i = 0; i < byteString.length; i++) {
             intArray[i] = byteString.charCodeAt(i);
           }
 
-          let blob = new Blob([intArray], { type: mimeString });
+          const blob = new Blob([intArray], { type: mimeString });
           formData.append('imagenPublicacion[]', blob, fileName);
         }
       });
 
-      // Enviar el formulario con AJAX
       $.ajax({
         url: form.attr('action'),
         method: "POST",
@@ -67,16 +108,13 @@ class PublicationClass {
         data: formData,
         processData: false,
         contentType: false,
-        success: function (response) {
-          // Resetear el formulario después de éxito
-          $('.modal__form-publication-create')[0].reset();
-          $('.modal-create-publication').removeClass('modal--active');
+        success() {
+          form[0].reset();
+          $('.modal-create-publication').removeClass('modal--active').fadeOut();
           $('.modal__image-wrapper').empty();
 
-          // Seleccionar la nueva tarjeta que acaba de ser creada (última tarjeta agregada)
-          let newCardElement = $('.row__publications').find('.col-12').first().next();
+          const newCardElement = $('.row__publications').find('.col-12').first().next();
 
-          // Desplazar automáticamente a la tarjeta recién creada
           $('html, body').animate({
             scrollTop: newCardElement.offset().top - 800
           }, 'slow');
@@ -87,15 +125,13 @@ class PublicationClass {
             showConfirmButton: false,
             timer: 1000
           });
-          $('.modal-create-publication').removeClass('modal--active').fadeOut();
         },
-        complete: function () {
-          submitButton.prop('disabled', false); // Volver a habilitar el botón
+        complete() {
+          submitButton.prop('disabled', false);
         }
       });
     });
 
-    // Muestro y Cierro el Modal
     function setupModalTriggers(openSelector, closeSelector, modalSelector) {
       $(openSelector).on('click', function () {
         $(modalSelector).addClass('modal--active').fadeIn();
@@ -116,6 +152,7 @@ class PublicationClass {
 
     setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '.modal-create-publication');
   }
+
 
   // Función general para manejar la vista previa de imágenes
   btnChangeImagenModalPrevie($imageFileInput, $imageWrapper, imageCount, idPrefix = 'preview') {
@@ -381,15 +418,23 @@ class PublicationClass {
   }
 
   sendFormEdit(elementEdit) {
+
+    const self = this;
+
     $(elementEdit).off('submit').on('submit', function (e) {
       e.preventDefault();
 
       let form = $(this);
-      let submitButton = form.find('button[type="submit"]'); // Seleccionar el botón de envío
+      let submitButton = form.find('button[type="submit"]');
       submitButton.prop('disabled', true); // Deshabilitar el botón
 
       let formData = new FormData(form[0]);
       formData.append("post_id", $(this).find('.id-post__edit').val());
+
+      if (!self.protectionLayer(form)) {
+        submitButton.prop('disabled', false);
+        return;
+      }
 
       // Crear un array de promesas para las imágenes
       let promises = [];
