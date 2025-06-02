@@ -49,6 +49,19 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
+// --------------------------------------------------------------------------
+// Define PROTECTION_LAYER
+// --------------------------------------------------------------------------
+// Esta constante activa una capa de protección para evitar el acceso directo
+// a archivos sensibles. Se recomienda verificar su existencia al inicio de
+// cada script que requiera estar protegido.
+//
+// Uso típico:
+// if (!defined('PROTECTION_LAYER')) {
+//     exit('Acceso no autorizado');
+// }
+// --------------------------------------------------------------------------
+
 define("PROTECTION_LAYER", TRUE);
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
