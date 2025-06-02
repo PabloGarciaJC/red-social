@@ -141,8 +141,16 @@ class PublicationController extends Controller
 
     public function getImage($filename)
     {
-        $file = Storage::disk('publication')->get($filename);
-        return new Response($file, 200);
+        $path = storage_path('app/publication/' . $filename);
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        return response($file, 200)->header('Content-Type', $type);
     }
 
     public function delete($idPublicacion)
