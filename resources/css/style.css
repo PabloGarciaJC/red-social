@@ -353,6 +353,45 @@
   background-size: cover;
 }
 
+.emoji-48 {
+  background-image: url('/emojis-svg/emoji-48.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-49 {
+  background-image: url('/emojis-svg/emoji-49.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-50 {
+  background-image: url('/emojis-svg/emoji-50.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-51 {
+  background-image: url('/emojis-svg/emoji-51.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
+
+.emoji-52 {
+  background-image: url('/emojis-svg/emoji-52.svg');
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background-size: cover;
+}
 
 /*--------------------------------------------------------------
 # General
@@ -3574,4 +3613,29 @@ input:focus-visible {
 .card-body-info {
   flex-grow: 1;
   padding: 20px;
+}
+
+
+/*--------------------------------------------------------------
+# CAPA DE PROTECCION
+--------------------------------------------------------------*/
+
+.contact-message {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.social-links a {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-links a:hover {
+  transform: scale(1.1);
 }

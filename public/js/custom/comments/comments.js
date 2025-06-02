@@ -1,6 +1,5 @@
 class CommentClass {
 
-
     protectionLayer() {
         const protectionLayerValue = $('#protection-layer').text().trim();
         if (protectionLayerValue === '1') {
@@ -8,16 +7,16 @@ class CommentClass {
                 icon: 'warning',
                 title: 'Acceso Restringido',
                 html: `
-                <p style="margin-bottom: 10px;">
+                <p class="contact-message">
                 Para utilizar los módulos de esta red social, te invito a contactarme mediante cualquiera de mis redes sociales.
                 </p>
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-1"></i></a>
-                    <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-1"></i></a>
-                    <a href="https://twitter.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09" target="_blank" title="Twitter"><i class="emoji-1"></i></a>
-                    <a href="https://www.instagram.com/pablogarciajc/?utm_source=qr&igsh=djR6NDhpMzFmMHd4" target="_blank" title="Instagram"><i class="emoji-1"></i></a>
-                    <a href="https://pablogarciajc.com/contactarme/" target="_blank" title="Web"><i class="emoji-1"></i></a>
-                </div>`,
+                <div class="social-links">
+                <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                </div>
+                `,
                 confirmButtonText: 'Cerrar',
             });
             return false;
