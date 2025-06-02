@@ -1,6 +1,5 @@
 class PublicationClass {
 
-
     protectionLayer() {
         const protectionLayerValue = $('#protection-layer').text().trim();
         if (protectionLayerValue === '1') {
@@ -36,7 +35,6 @@ class PublicationClass {
       if (!self.protectionLayer()) {
         return;
       }
-
 
       $.ajax({
         url: `${$(this).attr('href')}`,
