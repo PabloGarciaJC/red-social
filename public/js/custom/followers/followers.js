@@ -7,9 +7,7 @@ class FollowerClass {
                 icon: 'warning',
                 title: 'Acceso Restringido',
                 html: `
-                <p class="contact-message">
-                Para utilizar los módulos de esta red social, te invito a contactarme mediante cualquiera de mis redes sociales.
-                </p>
+                <p class="contact-message">Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.</p>
                 <div class="social-links">
                 <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
                 <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
