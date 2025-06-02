@@ -90,3 +90,12 @@ test:
 	$(DOCKER_COMPOSE) exec php_apache_red_social php artisan test
 
 
+
+# 	sudo rm -rf storage/framework/cache/data/*
+# sudo rm -rf bootstrap/cache/*
+
+# git add -f .
+# git commit -m "Forzando subir todos los cambios"
+# git push origin master
+
+
