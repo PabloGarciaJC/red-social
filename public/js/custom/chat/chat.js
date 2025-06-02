@@ -80,7 +80,6 @@ class ChatClass {
         $('.header .nav-item-users').off("click").on('click', function (e) {
             let messageNew = $(this).find('.show-contact__new-messages');
             let goToChat = $(this).find('.show-contact__chat');
-            alert('hola');
             function loadMessagesChatModal(element) {
 
                 // Mostrar el modal Chat
