@@ -89,13 +89,31 @@ rollback:
 test:
 	$(DOCKER_COMPOSE) exec php_apache_red_social php artisan test
 
+## ---------------------------------------------------------
+## Limpieza y Shell
+## ---------------------------------------------------------
+.PHONY: clean-cache
+clean-cache:
+	sudo rm -rf storage/framework/cache/data/*
+	sudo rm -rf bootstrap/cache/*
 
+.PHONY: shell
+shell:
+	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_red_social /bin/sh -c "cd /var/www/html/ && exec bash -l"
 
-# 	sudo rm -rf storage/framework/cache/data/*
-# sudo rm -rf bootstrap/cache/*
+.PHONY: clean-docker
+clean-docker:
+	sudo docker stop $$(sudo docker ps -q) || true
+	sudo docker rm $$(sudo docker ps -a -q) || true
+	sudo docker rmi -f $$(sudo docker images -q) || true
+	sudo docker volume rm $$(sudo docker volume ls -q) || true
 
-# git add -f .
-# git commit -m "Forzando subir todos los cambios"
-# git push origin master
-
+## ---------------------------------------------------------
+## Git (Forzar commit)
+## ---------------------------------------------------------
+.PHONY: force-commit
+force-commit:
+	git add -f .
+	git commit -m "Forzando subir todos los cambios"
+	git push origin master
 
