@@ -5,28 +5,6 @@ class ChatClass {
         this.userLogin = userLogin;
     }
 
-    protectionLayer() {
-        const protectionLayerValue = $('#protection-layer').text().trim();
-        if (protectionLayerValue === '1') {
-            Swal.fire({
-                icon: "info",
-                title: 'Acceso Restringido',
-                html: `
-                <p class="contact-message">Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.</p>
-                <div class="social-links">
-                <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
-                <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
-                <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
-                <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
-                </div>
-                `,
-                confirmButtonText: 'Cerrar',
-            });
-            return false;
-        }
-        return true;
-    }
-
     modalChat() {
         let modalChat = `
         <div class="modal modal-chat">
@@ -142,7 +120,26 @@ class ChatClass {
                             receptor_id: userReceptor.val(),
                             message: messageText
                         },
-                        success: () => {
+                        success: (response) => {
+                            if (typeof response === 'string') {
+                                response = JSON.parse(response);
+                            }
+                            if (response.permissions === 'success') {
+                                Swal.fire({
+                                    icon: "info",
+                                    title: response.protectionTitle,
+                                    html: `
+                            <p class="contact-message">${response.protectionMessage}</p>
+                            <div class="social-links">
+                            <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                            <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                            <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                            <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                            </div>`,
+                                    confirmButtonText: response.protectionBtnText,
+                                });
+                                return;
+                            }
                             $('.chat__input').val('');
                         }
                     });
@@ -165,7 +162,26 @@ class ChatClass {
                                 receptor_id: userReceptor.val(),
                                 message: messageText
                             },
-                            success: () => {
+                            success: (response) => {
+                                if (typeof response === 'string') {
+                                    response = JSON.parse(response);
+                                }
+                                if (response.permissions === 'success') {
+                                    Swal.fire({
+                                        icon: "info",
+                                        title: response.protectionTitle,
+                                        html: `
+                                        <p class="contact-message">${response.protectionMessage}</p>
+                                        <div class="social-links">
+                                        <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                                        <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                                        <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                                        <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                                        </div>`,
+                                        confirmButtonText: response.protectionBtnText,
+                                    });
+                                    return;
+                                }
                                 $('.chat__input').val('');
                             }
                         });
@@ -270,9 +286,6 @@ class ChatClass {
 
         const sendMessage = () => {
             const self = this;
-            if (!self.protectionLayer()) {
-                return; 
-            }
             let messageText = $('.chat__input').val().trim();
             if (this.userReceptor.length === 0) return;
             if (messageText) {
@@ -284,7 +297,28 @@ class ChatClass {
                         receptor_id: this.userReceptor.val(),
                         message: messageText
                     },
-                    success: () => {
+                    success: (response) => {
+
+                        if (typeof response === 'string') {
+                            response = JSON.parse(response);
+                        }
+                        if (response.permissions === 'success') {
+                            Swal.fire({
+                                icon: "info",
+                                title: response.protectionTitle,
+                                html: `
+                            <p class="contact-message">${response.protectionMessage}</p>
+                            <div class="social-links">
+                            <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                            <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                            <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                            <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                            </div>`,
+                                confirmButtonText: response.protectionBtnText,
+                            });
+                            return;
+                        }
+
                         $('.chat__input').val('');
                         $('.chat-container__box').scrollTop($('.chat-container__box')[0].scrollHeight);
                     }

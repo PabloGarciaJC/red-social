@@ -1,43 +1,36 @@
 class PublicationClass {
 
-    protectionLayer() {
-        const protectionLayerValue = $('#protection-layer').text().trim();
-        if (protectionLayerValue === '1') {
-            Swal.fire({
-                icon: "info",
-                title: 'Acceso Restringido',
-                html: `
-                <p class="contact-message">Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.</p>
-                <div class="social-links">
-                <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
-                <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
-                <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
-                <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
-                </div>
-                `,
-                confirmButtonText: 'Cerrar',
-            });
-            return false;
-        }
-        return true;
-    }
-
   delete(elementDelete) {
 
     const self = this;
 
     $(elementDelete).off("click").on("click", function (e) {
-
       e.preventDefault();
-
-      if (!self.protectionLayer()) {
-        return;
-      }
-
       $.ajax({
         url: `${$(this).attr('href')}`,
         method: 'GET',
         success: (response) => {
+
+          if (typeof response === 'string') {
+            response = JSON.parse(response);
+          }
+          if (response.permissions === 'success') {
+            Swal.fire({
+              icon: "info",
+              title: response.protectionTitle,
+              html: `
+                <p class="contact-message">${response.protectionMessage}</p>
+                <div class="social-links">
+                  <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                  <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                  <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                  <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                </div>`,
+              confirmButtonText: response.protectionBtnText,
+            });
+            return;
+          }
+
           if (response.message == 'delete') {
             Swal.fire({
               icon: 'success',
@@ -65,14 +58,16 @@ class PublicationClass {
     $(elementCreate).off('submit').on('submit', function (e) {
       e.preventDefault();
 
+
+
       const form = $(this);
       const submitButton = form.find('button[type="submit"]');
       submitButton.prop('disabled', true);
 
-      if (!self.protectionLayer()) {
-        submitButton.prop('disabled', false);
-        return;
-      }
+      // if (!self.protectionLayer()) {
+      //   submitButton.prop('disabled', false);
+      //   return;
+      // }
 
       const formData = new FormData(this);
 
@@ -104,7 +99,27 @@ class PublicationClass {
         data: formData,
         processData: false,
         contentType: false,
-        success() {
+        success(response) {
+          if (typeof response === 'string') {
+            response = JSON.parse(response);
+          }
+          if (response.permissions === 'success') {
+            Swal.fire({
+              icon: "info",
+              title: response.protectionTitle,
+              html: `
+                <p class="contact-message">${response.protectionMessage}</p>
+                <div class="social-links">
+                  <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                  <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                  <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                  <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                </div>`,
+              confirmButtonText: response.protectionBtnText,
+            });
+            return;
+          }
+
           form[0].reset();
           $('.modal-create-publication').removeClass('modal--active').fadeOut();
           $('.modal__image-wrapper').empty();
@@ -121,6 +136,9 @@ class PublicationClass {
             showConfirmButton: false,
             timer: 1000
           });
+        },
+        error(xhr) {
+          console.error('Error en la petición:', xhr.responseText);
         },
         complete() {
           submitButton.prop('disabled', false);
@@ -148,7 +166,6 @@ class PublicationClass {
 
     setupModalTriggers('#openModal', '#closeModal, #closeModalFooter', '.modal-create-publication');
   }
-
 
   // Función general para manejar la vista previa de imágenes
   btnChangeImagenModalPrevie($imageFileInput, $imageWrapper, imageCount, idPrefix = 'preview') {
@@ -427,11 +444,6 @@ class PublicationClass {
       let formData = new FormData(form[0]);
       formData.append("post_id", $(this).find('.id-post__edit').val());
 
-      if (!self.protectionLayer(form)) {
-        submitButton.prop('disabled', false);
-        return;
-      }
-
       // Crear un array de promesas para las imágenes
       let promises = [];
 
@@ -469,6 +481,27 @@ class PublicationClass {
           processData: false,
           contentType: false,
           success: function (response) {
+
+            if (typeof response === 'string') {
+              response = JSON.parse(response);
+            }
+            if (response.permissions === 'success') {
+              Swal.fire({
+                icon: "info",
+                title: response.protectionTitle,
+                html: `
+                <p class="contact-message">${response.protectionMessage}</p>
+                <div class="social-links">
+                  <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                  <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                  <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                  <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                </div>`,
+                confirmButtonText: response.protectionBtnText,
+              });
+              return;
+            }
+
             $('.modal-edit').removeClass('modal--active');
             $('.modal__image-wrapper').empty();
             Swal.fire({

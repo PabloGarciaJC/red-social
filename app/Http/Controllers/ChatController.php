@@ -35,14 +35,23 @@ class ChatController extends Controller
             ->orderBy('created_at', 'asc')
             ->select('chats.*', 'sender.nombre as user', 'sender.fotoPerfil as fotoPerfil')
             ->get();
-    
+
         return response()->json($messages, 200);
     }
-    
 
     // Función para enviar un mensaje
     public function sendMessage(Request $request)
     {
+        $user = Auth::user();
+        if ($user->role_id === 3) {
+            return json_encode([
+                'permissions' => 'success',
+                'protectionTitle' => 'Acceso Restringido',
+                'protectionMessage' => 'Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.',
+                'protectionBtnText' => 'Cerrar'
+            ]);
+        }
+
         // Crear un nuevo mensaje
         $chat = new Chat();
         $chat->emisor_id = $request->input('emisor_id');
@@ -52,12 +61,12 @@ class ChatController extends Controller
         $chat->created_at = now();
         $chat->updated_at = now();
         $chat->save();
-    
+
         // Obtener el usuario emisor
         $emisor = User::find($chat->emisor_id);
         // Obtener el usuario receptor
         $receptor = User::find($chat->receptor_id);
-    
+
         // Crear un array con los datos que deseas emitir a Pusher
         $broadcastData = [
             'data' => $chat,
@@ -66,10 +75,10 @@ class ChatController extends Controller
                 'fotoPerfil' => $emisor->fotoPerfil,
             ]
         ];
-    
+
         // Emitir la notificación a través de Pusher (el canal se maneja en el evento)
         broadcast(new BroadcastChat($broadcastData));
-    
+
         // Devolver una respuesta de éxito con la información del emisor
         return response()->json([
             'data' => $chat,
@@ -79,7 +88,7 @@ class ChatController extends Controller
             ]
         ], 201);
     }
-    
+
     public function markAllAsRead(Request $request, $emisorId)
     {
         // Obtener el ID del receptor (el usuario que está autenticado)

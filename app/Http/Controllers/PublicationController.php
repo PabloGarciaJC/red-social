@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Events\BroadcastPublication;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\DB;
 
 class PublicationController extends Controller
@@ -33,8 +34,18 @@ class PublicationController extends Controller
 
     public function save(Request $request)
     {
+        $user = Auth::user();
+        if ($user->role_id === 3) {
+            return json_encode([
+                'permissions' => 'success',
+                'protectionTitle' => 'Acceso Restringido',
+                'protectionMessage' => 'Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.',
+                'protectionBtnText' => 'Cerrar'
+            ]);
+        }
+
         $comentarioPublicacion = $request->input('comentarioPublicacion');
-        $imagenesPublicacion = $request->file('imagenPublicacion'); // Asegúrate de que esto sea un array
+        $imagenesPublicacion = $request->file('imagenPublicacion');
 
         // Instancio Objeto Publication
         $publication = new Publication();
@@ -78,6 +89,16 @@ class PublicationController extends Controller
 
     public function edit(Request $request)
     {
+        $user = Auth::user();
+        if ($user->role_id === 3) {
+            return json_encode([
+                'permissions' => 'success',
+                'protectionTitle' => 'Acceso Restringido',
+                'protectionMessage' => 'Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.',
+                'protectionBtnText' => 'Cerrar'
+            ]);
+        }
+
         $postId = $request->input('post-id');
         $comentarioPublicacion = $request->input('editcomentariopublicacion');
         $imagenesPublicacion = $request->file('imagenPublicacion'); // Nuevas imágenes
@@ -155,6 +176,17 @@ class PublicationController extends Controller
 
     public function delete($idPublicacion)
     {
+
+        $user = Auth::user();
+        if ($user->role_id === 3) {
+            return json_encode([
+                'permissions' => 'success',
+                'protectionTitle' => 'Acceso Restringido',
+                'protectionMessage' => 'Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.',
+                'protectionBtnText' => 'Cerrar'
+            ]);
+        }
+
         // Buscar la publicación por el ID y el usuario autenticado
         $publication = Publication::where('user_id', Auth::user()->id)
             ->where('id', $idPublicacion)

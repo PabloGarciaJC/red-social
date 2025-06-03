@@ -24,6 +24,17 @@ class CommentController extends Controller
 
   public function save(Request $request)
   {
+
+    $user = Auth::user();
+    if ($user->role_id === 3) {
+      return json_encode([
+        'permissions' => 'success',
+        'protectionTitle' => 'Acceso Restringido',
+        'protectionMessage' => 'Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.',
+        'protectionBtnText' => 'Cerrar'
+      ]);
+    }
+
     // Obtener el comentario y el ID de la publicación si existen
     $comentarioPublicacion = $request->input('comentario', null);
     $idPublicacionForm = $request->input('post_id');
@@ -97,6 +108,17 @@ class CommentController extends Controller
 
   public function edit(Request $request)
   {
+
+    $user = Auth::user();
+    if ($user->role_id === 3) {
+      return json_encode([
+        'permissions' => 'success',
+        'protectionTitle' => 'Acceso Restringido',
+        'protectionMessage' => 'Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.',
+        'protectionBtnText' => 'Cerrar'
+      ]);
+    }
+
     // Obtener los valores del formulario
     $commentId = $request->input('comment_id');
     $content = $request->input('editcomentariopublicacion', null);
@@ -160,6 +182,17 @@ class CommentController extends Controller
 
   public function delete(Request $request)
   {
+
+    $user = Auth::user();
+    if ($user->role_id === 3) {
+      return json_encode([
+        'permissions' => 'success',
+        'protectionTitle' => 'Acceso Restringido',
+        'protectionMessage' => 'Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.',
+        'protectionBtnText' => 'Cerrar'
+      ]);
+    }
+
     // Buscar el comentario por usuario, publicación y ID de comentario
     $comments = Comment::where('user_id', Auth::user()->id)
       ->where('publication_id', $request->idPublication)

@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chat::class, 'receptor_id');
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

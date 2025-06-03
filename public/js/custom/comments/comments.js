@@ -1,38 +1,16 @@
 class CommentClass {
 
-    protectionLayer() {
-        const protectionLayerValue = $('#protection-layer').text().trim();
-        if (protectionLayerValue === '1') {
-            Swal.fire({
-                icon: "info",
-                title: 'Acceso Restringido',
-                html: `
-                <p class="contact-message">Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.</p>
-                <div class="social-links">
-                <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
-                <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
-                <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
-                <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
-                </div>
-                `,
-                confirmButtonText: 'Cerrar',
-            });
-            return false;
-        }
-        return true;
-    }
-
     showComments(elementBtnComments) {
         $(document).on("click", elementBtnComments, (e) => {
             e.preventDefault();
-            const $currentTarget = $(e.currentTarget);
-            const $wrapperComments = $currentTarget
+            const currentTarget = $(e.currentTarget);
+            const wrapperComments = currentTarget
                 .closest(".justify-content-end")
                 .find(".wrapper-comments");
             // Evita múltiples animaciones
-            if ($wrapperComments.is(":animated")) return;
+            if (wrapperComments.is(":animated")) return;
             // `slideToggle` para la animación de deslizamiento
-            $wrapperComments.slideToggle();
+            wrapperComments.slideToggle();
         });
     }
 
@@ -46,22 +24,14 @@ class CommentClass {
     }
 
     save(elementForm) {
-
         const self = this;
-
         // Evento para el submit del formulario (solo para texto)
         $(elementForm).off("submit").on("submit", function (e) {
             e.preventDefault();
             let form = $(this);
-
             // Desactivar el botón de envío para evitar múltiples envíos
             const submitButton = form.find("button[type='submit']");
             submitButton.prop("disabled", true); // Desactiva el botón
-
-            if (!self.protectionLayer()) {
-                return;
-            }
-
             // Verificar si el input de archivo tiene algo anpublications-id de enviar el formulario
             const fileInput = form.find(".image-commets")[0];
             if (fileInput && fileInput.files.length > 0) {
@@ -69,11 +39,9 @@ class CommentClass {
                 submitButton.prop("disabled", false);
                 return;
             }
-
             // Procesar solo los campos de texto
             let formData = new FormData(form[0]);
             formData.append("post_id", form.data("post-id"));
-
             // Enviar los datos por AJAX
             $.ajax({
                 url: form.attr("action"),
@@ -83,6 +51,25 @@ class CommentClass {
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    if (typeof response === 'string') {
+                        response = JSON.parse(response);
+                    }
+                    if (response.permissions === 'success') {
+                        Swal.fire({
+                            icon: "info",
+                            title: response.protectionTitle,
+                            html: `
+                            <p class="contact-message">${response.protectionMessage}</p>
+                            <div class="social-links">
+                            <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                            <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                            <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                            <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                            </div>`,
+                            confirmButtonText: response.protectionBtnText,
+                        });
+                        return;
+                    }
                     if (response.message == "success") {
                         form[0].reset(); // Reiniciar el formulario
                     }
@@ -98,23 +85,15 @@ class CommentClass {
         });
     }
 
-
     delete(elementBtnDelete) {
         const self = this;
-
         $(elementBtnDelete).off("click").on("click", function (e) {
             e.preventDefault();
-
             let publication = $(this).closest('.col-12.mb-3').find('.form__comments');
             let idPublication = publication.data('post-id');
             let comments = $(this).closest('.comments__btns');
             let idComments = comments.data('id-comments');
             let csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-            if (!self.protectionLayer()) {
-                return;
-            }
-
             $.ajax({
                 url: $(this).attr('href'),
                 data: {
@@ -123,6 +102,25 @@ class CommentClass {
                     idComments: idComments,
                 },
                 success: (response) => {
+                    if (typeof response === 'string') {
+                        response = JSON.parse(response);
+                    }
+                    if (response.permissions === 'success') {
+                        Swal.fire({
+                            icon: "info",
+                            title: response.protectionTitle,
+                            html: `
+                            <p class="contact-message">${response.protectionMessage}</p>
+                            <div class="social-links">
+                            <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                            <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                            <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                            <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                            </div>`,
+                            confirmButtonText: response.protectionBtnText,
+                        });
+                        return;
+                    }
                     Swal.fire({
                         icon: 'success',
                         title: 'Comentario Eliminado',
@@ -166,28 +164,22 @@ class CommentClass {
                 </div>
             </div>
         </div>`;
-
         // Inyectar el modal en el DOM si no existe ya
         if (!$('.modal-edit-comentario').length) {
             $('body').append(modalEditComment);
         }
 
-
-
         // Desplego el Modal
         $(elementEdit).off("click").on("click", function (e) {
             e.preventDefault();
-
             let comments = $(this).closest('.comments__btns');
             let idComments = comments.data('id-comments');
             let commentsText = $(this).closest('.comments__btns').parent('.comments__description').find('p').text();
             let href = $(this).attr('href');
-
             // Asignar valores al formulario y al campo `.publications-id`
             $('.modal-edit-comentario').find('form').attr('action', href);
             $('.modal-edit-comentario').find('.id-post__edit-comentario').val(idComments);
             $('.modal-edit-comentario').find('textarea').val(commentsText);
-
             // CIerre del Modal
             $('.modal-edit-comentario').addClass('modal--active').fadeIn();
             $('.modal__close, .button--modal-close').on('click', function () {
@@ -201,33 +193,21 @@ class CommentClass {
         });
 
         const self = this;
-
         // Enviar el formulario
-        let isEditing = false; // Bandera para evitar envíos múltiples
+        let isEditing = false;
         $(".modal__form-comments-edit").off("submit").on("submit", function (e) {
             e.preventDefault();
-
             if (isEditing) return;
-
-            if (!self.protectionLayer()) {
-                return;
-            }
-
             isEditing = true;
             let form = $(this);
             let formData = new FormData(this);
             let commentId = form.find('.id-post__edit-comentario').val();
-
             if (!commentId) {
-
                 let postId = form.find('.publications-id').val();
                 formData.append("post_id", postId);
-
-
                 // Obtener el contenido del textarea correctamente
                 let comentarioTexto = form.find('.form__comentario-input').val();
                 formData.append("comentario", comentarioTexto);
-
                 // Enviar los datos por AJAX
                 $.ajax({
                     url: form.attr("action"),
@@ -237,6 +217,25 @@ class CommentClass {
                     processData: false,
                     contentType: false,
                     success: function (response) {
+                        if (typeof response === 'string') {
+                            response = JSON.parse(response);
+                        }
+                        if (response.permissions === 'success') {
+                            Swal.fire({
+                                icon: "info",
+                                title: response.protectionTitle,
+                                html: `
+                                <p class="contact-message">${response.protectionMessage}</p>
+                                <div class="social-links">
+                                <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                                <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                                <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                                <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                                </div>`,
+                                confirmButtonText: response.protectionBtnText,
+                            });
+                            return;
+                        }
                         form[0].reset();
                         $('.modal-edit-comentario').removeClass('modal--active');
                         Swal.fire({
@@ -286,34 +285,24 @@ class CommentClass {
     }
 
     createCommentsModal(elementEdit) {
-
         // Desplegar el Modal al hacer clic en `elementEdit`
         $(elementEdit).off("click").on("click", function (e) {
             e.preventDefault();
-
             let href = $(this).attr('href');
             let publicationId = $(this).data('publication-id');
-
             // Vaciar el contenido del textarea y del campo oculto
             $('.modal__form-comments-edit').find('.form__comentario-input').val('');
             $('.modal__form-comments-edit').find('.id-post__edit-comentario').val('');
-
             // Actualizar el atributo 'action' del formulario con el valor de `href`
             $('.modal__form-comments-edit').attr('action', href);
-
             // Asignar el valor de `publicationId` al campo `.publications-id`
             $('.modal__form-comments-edit').find('.publications-id').val(publicationId);
-
-            // console.log("Valor actual de .publications-id:", $('.modal__form-comments-edit').find('.publications-id').val());
-
             // Mostrar el modal
             $('.modal-edit-comentario').addClass('modal--active').fadeIn();
-
             // Cerrar el modal al hacer clic en el botón de cierre o fuera del modal
             $('.modal__close, .button--modal-close').on('click', function () {
                 $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
             });
-
             $('.modal-edit-comentario').on('click', function (event) {
                 if (event.target === this) {
                     $('.modal-edit-comentario').removeClass('modal--active').fadeOut();
@@ -322,16 +311,13 @@ class CommentClass {
         });
     }
 
-
     startCommentClass() {
         this.showComments(".btn__comments");
         this.collapseComments(".form__collapse");
         this.save(".form__comments");
         this.delete('.comments__btn-delete');
         this.edit('.comments__btn-edit');
-
         this.createCommentsModal('.comentar-publication');
-
     }
 }
 

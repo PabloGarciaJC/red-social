@@ -34,28 +34,6 @@ class AppClass {
                 </div>`;
     }
 
-    protectionLayer() {
-        const protectionLayerValue = $('#protection-layer').text().trim();
-        if (protectionLayerValue === '1') {
-            Swal.fire({
-                icon: "info",
-                title: 'Acceso Restringido',
-                html: `
-                <p class="contact-message">Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.</p>
-                <div class="social-links">
-                <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
-                <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
-                <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
-                <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
-                </div>
-                `,
-                confirmButtonText: 'Cerrar',
-            });
-            return false;
-        }
-        return true;
-    }
-
     initEmojiPicker(formClass, emojiContainerClass, toggleButtonClass, commentInputClass) {
         $(formClass).each((index, formElement) => {
             const form = $(formElement);
@@ -80,7 +58,6 @@ class AppClass {
         });
     }
 
-
     desplegarSidebar() {
         /*  Sidebar toggle */
         if ($('.toggle-sidebar-btn').length) {
@@ -90,7 +67,6 @@ class AppClass {
                 $('body').toggleClass('toggle-sidebar');
             });
         }
-
         // Verifica si el botón de la barra de búsqueda existe
         if ($('.search-bar-toggle').length) {
             // Añade un evento click al botón
@@ -102,10 +78,8 @@ class AppClass {
     }
 
     initScrollNav() {
-
         let initScrollTop = 0;
         let header = $(".card-publication");
-
         $(window).on("scroll", function () {
             let scroll = $(this).scrollTop();
             if (scroll === 0) {
@@ -122,16 +96,6 @@ class AppClass {
         });
     }
 
-    initRegisterFormValidation() {
-        $(".link-register").on("click", (e) => {
-            e.preventDefault();
-            if (this.protectionLayer()) {
-                const href = $(e.currentTarget).attr("href");
-                window.location.href = href;
-            }
-        });
-    }
-
     // Funcionalidades Generales
     startAppClass() {
         this.initEmojiPicker('.modal__form-publication-create', '.emojis-wrapper', '.modal__button--emoji-toggle', '.modal__publication-textarea');
@@ -142,7 +106,6 @@ class AppClass {
         this.initEmojiPicker('.modal-chat', '.emojis-wrapper-grid-large', '.chat__emojis-toggle', '.chat__input');
         this.desplegarSidebar();
         this.initScrollNav();
-        this.initRegisterFormValidation();
     }
 }
 
