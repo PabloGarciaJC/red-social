@@ -97,17 +97,6 @@ clean-cache:
 	sudo rm -rf storage/framework/cache/data/*
 	sudo rm -rf bootstrap/cache/*
 
-.PHONY: shell
-shell:
-	$(DOCKER_COMPOSE) exec --user pablogarciajc php_apache_red_social /bin/sh -c "cd /var/www/html/ && exec bash -l"
-
-.PHONY: clean-docker
-clean-docker:
-	sudo docker stop $$(sudo docker ps -q) || true
-	sudo docker rm $$(sudo docker ps -a -q) || true
-	sudo docker rmi -f $$(sudo docker images -q) || true
-	sudo docker volume rm $$(sudo docker volume ls -q) || true
-
 ## ---------------------------------------------------------
 ## Git (Forzar commit)
 ## ---------------------------------------------------------

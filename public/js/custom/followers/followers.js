@@ -4,7 +4,7 @@ class FollowerClass {
         const protectionLayerValue = $('#protection-layer').text().trim();
         if (protectionLayerValue === '1') {
             Swal.fire({
-                icon: 'warning',
+                icon: "info",
                 title: 'Acceso Restringido',
                 html: `
                 <p class="contact-message">Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.</p>
