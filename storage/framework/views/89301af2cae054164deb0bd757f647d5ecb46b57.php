@@ -45,7 +45,6 @@
     <script src="<?php echo e(asset('js/custom/publications/publications.js')); ?>"></script>
     <script src="<?php echo e(asset('js/custom/game/game.js')); ?>"></script>
     <script src="<?php echo e(asset('js/custom/app.js')); ?>"></script>
-    <div id="protection-layer"><?php echo PROTECTION_LAYER; ?></div>
     <?php echo $__env->yieldPushContent('scripts'); ?>
     </body>
 </html><?php /**PATH /var/www/html/resources/views/layouts/footer-script.blade.php ENDPATH**/ ?>

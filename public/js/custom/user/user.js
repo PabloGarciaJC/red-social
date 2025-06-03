@@ -3,28 +3,6 @@
 // ---------------------------------------------------------
 class UserClass {
 
-    protectionLayer() {
-        const protectionLayerValue = $('#protection-layer').text().trim();
-        if (protectionLayerValue === '1') {
-            Swal.fire({
-                icon: "info",
-                title: 'Acceso Restringido',
-                html: `
-                <p class="contact-message">Para autorizar el acceso a los módulos de esta red social, no dudes en contactarme a través de cualquiera de mis redes sociales.</p>
-                <div class="social-links">
-                <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
-                <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
-                <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
-                <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
-                </div>
-                `,
-                confirmButtonText: 'Cerrar',
-            });
-            return false;
-        }
-        return true;
-    }
-
     // Métodos de manipulación de datos
     searchAutocompletado() {
         $('#formBuscador').on('submit', function (event) {
@@ -137,47 +115,8 @@ class UserClass {
         });
     }
 
-    bindFormSubmit() {
-        $('#perfil-form').on('submit', (event) => {
-            if (!this.protectionLayer()) {
-                event.preventDefault();
-            }
-        });
-    }
-
-    bindAllForms() {
-        const self = this;
-        $('section.profile form').on('submit', function (e) {
-            if (!self.protectionLayer()) {
-                e.preventDefault();
-            }
-        });
-    }
-
-    bindAllButtons() {
-        const self = this;
-        // Incluye todos los botones tipo submit y normales
-        $('section.profile button[type="submit"], section.profile button').on('click', function (e) {
-            if (!self.protectionLayer()) {
-                e.preventDefault();
-            }
-        });
-    }
-
-    disableButtonsIfProtected() {
-        if ($('#protection-layer').text().trim() === '1') {
-            const buttons = $('section.profile button[type="submit"], section.profile button');
-            buttons.prop('disabled', true);
-            buttons.css('cursor', 'not-allowed');
-        }
-    }
-
     // Método para inicializar la clase
     startUserClass() {
-        this.bindFormSubmit();
-        this.bindAllForms();
-        this.bindAllButtons();
-        this.disableButtonsIfProtected();
         this.searchAutocompletado();
         this.changeImagePreview($('#image-file-perfil-user'), $('#previe-perfil-user'));
         this.changeImagePreviewUserPerfil();
