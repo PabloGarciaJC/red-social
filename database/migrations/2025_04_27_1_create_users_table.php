@@ -28,7 +28,8 @@ return new class extends Migration
             $table->string('fotoPerfil', 255)->nullable(); 
             $table->string('password', 255);
             $table->text('sobreMi')->nullable(); 
-            $table->tinyInteger('conectado')->nullable(); 
+            $table->tinyInteger('conectado')->nullable();
+            $table->unsignedInteger('role_id')->default(3); 
             $table->string('remember_token', 100)->nullable(); 
             $table->timestamps();
         });
