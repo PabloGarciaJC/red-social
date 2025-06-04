@@ -120,6 +120,61 @@ class UserClass {
         this.searchAutocompletado();
         this.changeImagePreview($('#image-file-perfil-user'), $('#previe-perfil-user'));
         this.changeImagePreviewUserPerfil();
+
+        // $('form.form__user-avatar').on('submit', function (e) {
+        //     e.preventDefault();
+        //     let form = $(this);
+        //     let submitButton = form.find('[type="submit"]');
+        //     let formData = new FormData(this);
+
+        //     // Opcional: desactivar el botón para evitar múltiples envíos
+        //     submitButton.prop("disabled", true);
+
+        //     $.ajax({
+        //         url: form.attr("action"),
+        //         method: "POST",
+        //         headers: {
+        //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        //         },
+        //         data: formData,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function (response, textStatus, xhr) {
+        //             const contentType = xhr.getResponseHeader("Content-Type");
+
+        //             // Solo intentar parsear si es JSON
+        //             if (contentType && contentType.includes("application/json")) {
+        //                 // Si la respuesta es texto plano en lugar de JSON
+        //                 if (typeof response === 'string') {
+        //                     response = JSON.parse(response);
+        //                 }
+
+        //                 // Si hay protección, mostramos el mensaje
+        //                 if (response.permissions === 'success') {
+        //                     Swal.fire({
+        //                         icon: "info",
+        //                         title: response.protectionTitle,
+        //                         html: `
+        //                     <p class="contact-message">${response.protectionMessage}</p>
+        //                     <div class="social-links">
+        //                         <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+        //                         <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+        //                         <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+        //                         <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+        //                     </div>`,
+        //                         confirmButtonText: response.protectionBtnText,
+        //                     });
+        //                 }
+        //             } else {
+        //             location.reload();
+
+        //             }
+        //         }
+
+        //     });
+        // });
+
+
     }
 }
 

@@ -125,10 +125,10 @@ class ChatClass {
                                 response = JSON.parse(response);
                             }
                             if (response.permissions === 'success') {
-                                Swal.fire({
-                                    icon: "info",
-                                    title: response.protectionTitle,
-                                    html: `
+                            Swal.fire({
+                                icon: "info",
+                                title: response.protectionTitle,
+                                html: `
                             <p class="contact-message">${response.protectionMessage}</p>
                             <div class="social-links">
                             <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>

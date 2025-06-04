@@ -86,7 +86,7 @@ class ChatController extends Controller
                 'nombre' => $emisor->nombre,
                 'fotoPerfil' => $emisor->fotoPerfil,
             ]
-        ], 201);
+        ], 200);
     }
 
     public function markAllAsRead(Request $request, $emisorId)

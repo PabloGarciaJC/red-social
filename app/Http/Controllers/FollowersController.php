@@ -86,6 +86,9 @@ class FollowersController extends Controller
 
         if ($follower) {
 
+            // Guarda los cambios en la base de datos
+            $follower->save();
+
             // Si no existe, crea un nuevo registro
             $follower->estado = $estado;
 
@@ -101,9 +104,6 @@ class FollowersController extends Controller
                 DB::table('notifications')->where('id', $notification->id)->delete();
             }
         }
-
-        // Guarda los cambios en la base de datos
-        $follower->save();
 
         // Redirigir al controlador
         return redirect()->route('detalles.perfil', [
@@ -161,6 +161,10 @@ class FollowersController extends Controller
 
     public function denegar(Request $request)
     {
+
+
+
+
         // Busca al usuario receptor
         $userReceptor = User::find($request->input('userReceptor'));
 
@@ -210,5 +214,20 @@ class FollowersController extends Controller
             'perfil' => $userReceptor->alias,
             'estado' => $estado
         ])->with('error', $mensaje);
+
+
+        $user = Auth::user();
+        if ($user->role_id === 3) {
+            return redirect()->route('detalles.perfil', [
+                'perfil' => $userReceptor->alias,
+                'estado' => $estado
+            ])->with('error', 'Ha cancelado la solicitud de amistad');
+        } else {
+
+            return redirect()->route('detalles.perfil', [
+                'perfil' => $userReceptor->alias,
+                'estado' => $estado
+            ])->with('error', $mensaje);
+        }
     }
 }
