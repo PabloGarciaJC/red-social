@@ -57,7 +57,7 @@
                                                 ?>
                                                 <?php break; ?>
                                         <?php endswitch; ?>
-                                        <form action="<?php echo e($actionUrl); ?>" method="POST" class="form__user-perfil">
+                                        <form action="<?php echo e($actionUrl); ?>" method="POST" class="form__user-perfil form__user-avatar">
                                             <?php echo csrf_field(); ?>
                                             <?php $__currentLoopData = $usuario; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $userReceptor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <input type="hidden" class="user-receptor" name="userReceptor" value="<?php echo e($userReceptor->id); ?>">
@@ -75,7 +75,7 @@
                                             <?php endif; ?>
                                         </form>
                                         <?php if($actionUrlDenegada): ?>
-                                            <form action="<?php echo e($actionUrlDenegada); ?>" method="POST">
+                                            <form action="<?php echo e($actionUrlDenegada); ?>" method="POST" class="form__user-avatar">
                                                 <?php echo csrf_field(); ?>
                                                 <?php $__currentLoopData = $usuario; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $userReceptor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <input type="hidden" class="user-receptor" name="userReceptor" value="<?php echo e($userReceptor->id); ?>">
