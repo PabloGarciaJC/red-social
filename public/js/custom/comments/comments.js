@@ -264,6 +264,26 @@ class CommentClass {
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    if (typeof response === 'string') {
+                        response = JSON.parse(response);
+                    }
+                    if (response.permissions === 'success') {
+                        Swal.fire({
+                            icon: "info",
+                            title: response.protectionTitle,
+                            html: `
+                            <p class="contact-message">${response.protectionMessage}</p>
+                            <div class="social-links">
+                            <a href="https://www.facebook.com/PabloGarciaJC" target="_blank" title="Facebook"><i class="emoji-48"></i></a>
+                            <a href="https://www.instagram.com/pablogarciajc" target="_blank" title="Instagram"><i class="emoji-49"></i></a>
+                            <a href="https://www.linkedin.com/in/pablogarciajc" target="_blank" title="LinkedIn"><i class="emoji-50"></i></a>
+                            <a href="https://www.youtube.com/channel/UC5I4oY7BeNwT4gBu1ZKsEhw" target="_blank" title="YouTube"><i class="emoji-52"></i></a>
+                            </div>`,
+                            confirmButtonText: response.protectionBtnText,
+                        });
+                        return;
+                    }
+
                     form[0].reset();
                     $('.modal-edit-comentario').removeClass('modal--active');
                     Swal.fire({
