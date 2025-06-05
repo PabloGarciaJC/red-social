@@ -3,7 +3,7 @@
 **Red Social** es una plataforma diseñada para fomentar la comunicación y la interacción social en tiempo real entre usuarios, combinando funcionalidades modernas con un diseño intuitivo. Desarrollada bajo buenas prácticas, garantiza seguridad, escalabilidad y una experiencia fluida y dinámica para todos los usuarios.
 
 ### Demo del Proyecto  
-[https://red-social-sync.pablogarciajc.com/](https://red-social-sync.pablogarciajc.com/)
+[https://red-social-app.pablogarciajc.com/](https://red-social-app.pablogarciajc.com/)
 
 | ![RedSocial_1](https://pablogarciajc.com/wp-content/uploads/2025/01/red_social_1_webp.webp) | ![RedSocial_2](https://pablogarciajc.com/wp-content/uploads/2025/01/red_social_2_webp.webp) |
 |-----------|-----------|
