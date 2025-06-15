@@ -97,6 +97,12 @@ clean-cache:
 	sudo rm -rf storage/framework/cache/data/*
 	sudo rm -rf bootstrap/cache/*
 
+.PHONY: clean-docker
+clean-docker:
+	sudo docker rmi -f $$(sudo docker images -q) || true
+	sudo docker volume rm $$(sudo docker volume ls -q) || true
+	sudo docker network prune -f || true
+
 ## ---------------------------------------------------------
 ## Git (Forzar commit)
 ## ---------------------------------------------------------
