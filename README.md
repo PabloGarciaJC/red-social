@@ -7,7 +7,7 @@ El proyecto combina funcionalidades modernas con un diseño intuitivo, aplicando
 Esta aplicación permite a los usuarios conectarse, chatear y compartir contenido instantáneamente, simulando una red social moderna y responsive.
 
 ### Demo del Proyecto  
-[https://red-social-sync.pablogarciajc.com/](https://red-social-sync.pablogarciajc.com/)
+[https://red-social-app.pablogarciajc.com/](https://red-social-app.pablogarciajc.com/)
 
 | ![RedSocial_1](https://pablogarciajc.com/wp-content/uploads/2025/01/red_social_1_webp.webp) | ![RedSocial_2](https://pablogarciajc.com/wp-content/uploads/2025/01/red_social_2_webp.webp) |
 |-----------|-----------|
