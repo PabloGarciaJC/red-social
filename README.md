@@ -1,6 +1,10 @@
 # Red Social 
 
-**Red Social** es una plataforma diseñada para fomentar la comunicación y la interacción social en tiempo real entre usuarios, combinando funcionalidades modernas con un diseño intuitivo. Desarrollada bajo buenas prácticas, garantiza seguridad, escalabilidad y una experiencia fluida y dinámica para todos los usuarios.
+**Red Social** es una plataforma diseñada para fomentar la comunicación e interacción social en tiempo real entre usuarios, utilizando **WebSocket** para una experiencia dinámica y fluida.
+
+El proyecto combina funcionalidades modernas con un diseño intuitivo, aplicando buenas prácticas para garantizar seguridad, escalabilidad y rendimiento óptimo.
+
+Esta aplicación permite a los usuarios conectarse, chatear y compartir contenido instantáneamente, simulando una red social moderna y responsive.
 
 ### Demo del Proyecto  
 [https://red-social-sync.pablogarciajc.com/](https://red-social-sync.pablogarciajc.com/)
