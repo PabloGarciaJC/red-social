@@ -29,7 +29,8 @@ return new class extends Migration
             $table->string('password', 255);
             $table->text('sobreMi')->nullable(); 
             $table->tinyInteger('conectado')->nullable();
-            $table->unsignedInteger('role_id')->default(3); 
+            $table->unsignedInteger('role_id')->default(3);
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('remember_token', 100)->nullable(); 
             $table->timestamps();
         });

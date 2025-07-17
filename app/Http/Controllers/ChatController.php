@@ -43,7 +43,7 @@ class ChatController extends Controller
     public function sendMessage(Request $request)
     {
         $user = Auth::user();
-        if ($user->role_id === 3) {
+        if ($user->status === 'active') {
             return json_encode([
                 'permissions' => 'success',
                 'protectionTitle' => 'Acceso Restringido',

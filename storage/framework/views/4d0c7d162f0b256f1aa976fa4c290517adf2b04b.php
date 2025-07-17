@@ -19,5 +19,13 @@
                 <span>Conoce la Plataforma</span>
             </a>
         </li>
+        <?php if(auth()->check() && auth()->user()->isSuper()): ?>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo e(route('roles.index')); ?>">
+                    <i class="bi bi-person-badge"></i>
+                    <span>Roles</span>
+                </a>
+            </li>
+        <?php endif; ?>
     </ul>
 </aside><?php /**PATH /var/www/html/resources/views/home/sidebar.blade.php ENDPATH**/ ?>

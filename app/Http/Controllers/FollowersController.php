@@ -217,7 +217,7 @@ class FollowersController extends Controller
 
 
         $user = Auth::user();
-        if ($user->role_id === 3) {
+        if ($user->status === 'active') {
             return redirect()->route('detalles.perfil', [
                 'perfil' => $userReceptor->alias,
                 'estado' => $estado

@@ -19,5 +19,13 @@
                 <span>Conoce la Plataforma</span>
             </a>
         </li>
+        @if(auth()->check() && auth()->user()->isSuper())
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('roles.index') }}">
+                    <i class="bi bi-person-badge"></i>
+                    <span>Roles</span>
+                </a>
+            </li>
+        @endif
     </ul>
 </aside>

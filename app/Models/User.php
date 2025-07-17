@@ -76,8 +76,19 @@ class User extends Authenticatable
         return $this->hasMany(Chat::class, 'receptor_id');
     }
 
+    /**
+     * Relación con el rol del usuario.
+     */
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    /**
+     * Verifica si el usuario es superusuario.
+     */
+    public function isSuper()
+    {
+        return $this->role && $this->role->nombre === 'Super';
     }
 }

@@ -26,7 +26,7 @@ class CommentController extends Controller
   {
 
     $user = Auth::user();
-    if ($user->role_id === 3) {
+    if ($user->status === 'active') {
       return json_encode([
         'permissions' => 'success',
         'protectionTitle' => 'Acceso Restringido',
@@ -110,7 +110,7 @@ class CommentController extends Controller
   {
 
     $user = Auth::user();
-    if ($user->role_id === 3) {
+    if ($user->status === 'active') {
       return json_encode([
         'permissions' => 'success',
         'protectionTitle' => 'Acceso Restringido',
@@ -184,7 +184,7 @@ class CommentController extends Controller
   {
 
     $user = Auth::user();
-    if ($user->role_id === 3) {
+    if ($user->status === 'active') {
       return json_encode([
         'permissions' => 'success',
         'protectionTitle' => 'Acceso Restringido',

@@ -35,7 +35,7 @@ class PublicationController extends Controller
     public function save(Request $request)
     {
         $user = Auth::user();
-        if ($user->role_id === 3) {
+        if ($user->status === 'active') {
             return json_encode([
                 'permissions' => 'success',
                 'protectionTitle' => 'Acceso Restringido',
@@ -90,7 +90,7 @@ class PublicationController extends Controller
     public function edit(Request $request)
     {
         $user = Auth::user();
-        if ($user->role_id === 3) {
+        if ($user->status === 'active') {
             return json_encode([
                 'permissions' => 'success',
                 'protectionTitle' => 'Acceso Restringido',
@@ -178,7 +178,7 @@ class PublicationController extends Controller
     {
 
         $user = Auth::user();
-        if ($user->role_id === 3) {
+        if ($user->status === 'active') {
             return json_encode([
                 'permissions' => 'success',
                 'protectionTitle' => 'Acceso Restringido',

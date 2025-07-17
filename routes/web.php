@@ -60,6 +60,10 @@ Route::get('/game/hanged', 'GameController@hanged')->name('game.hanged');
 // CONOCE LA PLATAFORMA
 Route::get('/intro', 'HomeController@intro')->name('intro');
 
+// ROLES
+Route::get('/roles', 'RoleController@showRolesPage')->name('roles.index');
+Route::patch('/roles/{id}', 'RoleController@updateStatus')->name('roles.updateStatus');
+
 // NOTIFICACIONES
 Route::get('markAsRead', function () {
   auth()->user()->unreadNotifications->markAsRead();
