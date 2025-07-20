@@ -121,12 +121,12 @@ Contraseña: **4vy3BONUmJeqVR!**
 
 | Red Social   | Descripción                                              | Enlace                   |
 |--------------|----------------------------------------------------------|--------------------------|
-| **Facebook** | Conéctate y mantente al tanto de mis actualizaciones.    | [Presiona aquí](https://facebook.com/tu-usuario) |
-| **YouTube**  | Fundamentos de la programación, tutoriales y noticias.   | [Presiona aquí](https://youtube.com/tu-canal)     |
-| **Página Web** | Más información sobre mis proyectos y servicios.        | [Presiona aquí](https://tusitio.com)              |
-| **LinkedIn** | Sigue mi carrera profesional y establece conexiones.     | [Presiona aquí](https://linkedin.com/in/tu-usuario) |
-| **Instagram**| Fotos, proyectos y contenido relacionado.                 | [Presiona aquí](https://instagram.com/tu-usuario) |
-| **Twitter**  | Proyectos, pensamientos y actualizaciones.                | [Presiona aquí](https://twitter.com/tu-usuario)   |
+| **Facebook** | Conéctate y mantente al tanto de mis actualizaciones.    | [Presiona aquí](https://www.facebook.com/PabloGarciaJC) |
+| **YouTube**  | Fundamentos de la programación, tutoriales y noticias.   | [Presiona aquí](https://www.youtube.com/@pablogarciajc)     |
+| **Página Web** | Más información sobre mis proyectos y servicios.        | [Presiona aquí](https://pablogarciajc.com/)              |
+| **LinkedIn** | Sigue mi carrera profesional y establece conexiones.     | [Presiona aquí](https://www.linkedin.com/in/pablogarciajc) |
+| **Instagram**| Fotos, proyectos y contenido relacionado.                 | [Presiona aquí](https://www.instagram.com/pablogarciajc) |
+| **Twitter**  | Proyectos, pensamientos y actualizaciones.                | [Presiona aquí](https://x.com/PabloGarciaJC?t=lct1gxvE8DkqAr8dgxrHIw&s=09)   |
 
 ---
 > _"El buen manejo de tus finanzas hoy construye la seguridad del mañana."_
