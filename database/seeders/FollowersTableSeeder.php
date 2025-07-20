@@ -61,14 +61,6 @@ class FollowersTableSeeder extends Seeder
                 'updated_at' => Carbon::create('2024', '10', '24', '17', '26', '49'),
             ],
             [
-                'id' => 191,
-                'user_id' => 115,
-                'seguido' => 114,
-                'estado' => 'confirmado',
-                'created_at' => Carbon::create('2024', '10', '24', '17', '25', '42'),
-                'updated_at' => Carbon::create('2024', '10', '24', '17', '27', '05'),
-            ],
-            [
                 'id' => 192,
                 'user_id' => 111,
                 'seguido' => 113,

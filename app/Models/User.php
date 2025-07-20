@@ -84,6 +84,21 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $allowed = ['active', 'inactive'];
+        if (!in_array($status, $allowed, true)) {
+            throw new \InvalidArgumentException("Estado inválido");
+        }
+        $this->status = $status;
+        return $this;
+    }
+
     /**
      * Verifica si el usuario es superusuario.
      */
